@@ -687,7 +687,7 @@ font-size: 1.4em;
   .disco-button-img {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
     top: 55.05%; /* Centra verticalmente */
-    left: 375px; /* Centra horizontalmente */
+    left: 305px; /* Centra horizontalmente */
     border-radius: 50%; 
     transform: translate(-50%, -50%);
         border: 1px solid rgb(70, 26, 26, 0);
@@ -727,7 +727,7 @@ font-size: 1.4em;
 @media (min-width: 768px) {
     .disco-button-img {
         top: 57.1%;
-        left: 54%; /* Cambia el valor de left según tus necesidades */
+        left: 56%; /* Cambia el valor de left según tus necesidades */
         max-width: 2%;
     }
 }
