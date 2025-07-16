@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=5, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=5, user-scalable=yes">
 <title>The Amazing Jukebox</title>
 <link rel="icon" type="image/png" href="ajfavicon.svg">
 <link rel="stylesheet" type="text/css" href="./ajlivechat.css">
@@ -560,6 +560,14 @@ li.system2 {
 button, a, img {
     outline: none;
 }
+
+#wrapper {
+    position: relative;
+    transform-origin: top center;
+    transition: transform 0.3s ease;
+}
+
+
     
 </style>
 <script>
@@ -1351,7 +1359,8 @@ button, a, img {
 </script>
 </head>
 <body>
-
+<div id="wrapper">
+    
 <div id="info-container">
     
     <div class="background-container">
@@ -1526,6 +1535,7 @@ button, a, img {
     <img class="rotated-gif5"
     src="Sin título1.22.png" alt="Descripción del GIF" style="width: 90%; height: auto;">
 </div>
+    </div>
     
     
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
