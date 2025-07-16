@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.50, maximum-scale=5, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=0.50, maximum-scale=5, user-scalable=no, viewport-fit=cover">
 <title>The Amazing Jukebox</title>
 <link rel="icon" type="image/png" href="ajfavicon.svg">
 <link rel="stylesheet" type="text/css" href="./ajlivechat.css">
@@ -564,10 +564,15 @@ button, a, img {
     outline: none;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
 #wrapper {
+    height: 100dvh;  /* Esto usa la altura real del viewport en móviles */
+    overflow: hidden;
     position: relative;
-    transform-origin: top center;
-    transition: transform 0.3s ease;
 }
 
 
