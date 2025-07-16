@@ -748,7 +748,7 @@ font-size: 1.4em;
     width: 100%;
     height: auto;
     display: none; /* Oculto por defecto */
-    z-index: 999; /* Asegúrate de que esté por encima de otros elementos */
+    z-index: 999999; /* Asegúrate de que esté por encima de otros elementos */
 }
 
 @media (min-width: 768px) {
