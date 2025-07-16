@@ -529,20 +529,29 @@ star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 
 document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 
+let initialHeight = window.innerHeight;
 
-function setDynamicVH() {
-    let vh = window.innerHeight * 0.01;
+function adjustLayout() {
+    let currentHeight = window.innerHeight;
+    let isKeyboardOpen = currentHeight < initialHeight * 0.8; // Si es menos del 80% es probable que sea teclado
+
+    if (isKeyboardOpen) {
+        document.querySelector('.background-container').style.height = currentHeight + 'px';
+    } else {
+        document.querySelector('.background-container').style.height = initialHeight + 'px';
+    }
+
+    // Actualiza el vh dinámico para otros elementos que lo usen
+    let vh = currentHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-window.addEventListener('load', () => {
-    setDynamicVH();
-    fixBackground();
+// Detectar al cargar
+window.addEventListener('load', adjustLayout);
+// Detectar al redimensionar (por teclado o rotación)
+window.addEventListener('resize', () => {
+    setTimeout(adjustLayout, 200);
 });
 
-window.addEventListener('resize', () => {
-    setDynamicVH();
-    setTimeout(fixBackground, 100);
-});
 
 
