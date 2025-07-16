@@ -539,3 +539,13 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("load", fixBackground);
 
+document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
+        console.log("En fullscreen");
+        // Cambiar estilos o añadir clase
+        document.body.classList.add('fullscreen-mode');
+    } else {
+        console.log("Salió de fullscreen");
+        document.body.classList.remove('fullscreen-mode');
+    }
+});
