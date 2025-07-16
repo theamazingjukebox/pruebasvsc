@@ -266,13 +266,14 @@ body {
     background-size: cover;  /* Hace que la imagen cubra todo el contenedor */
     position: relative;
     object-fit: contain;
-    top: 20%;
+    top: 0;
     left: 0;
     z-index: 1; /* Asegúrate de que esté detrás del botón */
 }
 
 @media (max-width: 768px) {
     .background-container {
+        top: 10%;
         min-height: 120vh !important;   /* Mantiene el tamaño sin importar el teclado */
         
     }
