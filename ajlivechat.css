@@ -1,0 +1,1142 @@
+#chat-username {
+        position: absolute;
+        top: 205%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: black;
+        border: 2px solid palegreen;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 300px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        color: white;
+        display: none; /* Inicialmente oculto */
+        z-index: 2;
+    }
+
+    #username-input {
+        margin-bottom: 10px;
+    }
+    #chat #messages .chat-username {
+    /* Estilos específicos para el nombre de usuario */
+    font-family: Arial, sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+    border-radius: 0%;
+    border: 0cap;
+    box-shadow: none;
+    /* Agrega cualquier otro estilo específico para el nombre de usuario aquí */
+}
+    #chat #messages .username {
+    /* Estilos específicos para el nombre de usuario */
+    font-family: Arial, sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+    font-weight: bold;
+    color: #ffcc00; /* Cambia el color según tus preferencias */
+}
+    #chat #messages strong {
+    background-color: #34db9b; /* Cambia el color de fondo aquí */
+    color: white; /* Cambia el color del texto aquí */
+    padding: 0px; /* Ajusta el espacio interno si es necesario */
+    border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
+    border-top-right-radius: 0px;
+    border: 2px solid rgba(83, 1, 69, 0.637);
+    border-radius: 5px; 
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+    font-size: larger;
+}
+#chat {
+            position: absolute; /* Posiciona el botón sobre la imagen */
+    top: 78%; /* Ajusta este valor para colocar el botón verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+    border: 4px solid rgba(79, 176, 255, 0.637) ;
+    border-radius: 15px;
+    background-image: url('Futuristic\ Space.gif');
+    background-position: center;
+        will-change: transform;
+
+            overflow: hidden;
+            width: 300px;
+            height: 320px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            transition: height 1.3s ease;
+            z-index: 5;
+        }
+
+        
+        
+
+        
+#chat.chat-contracted {
+    height: 50px; /* Cambia la altura según tus preferencias */
+    bottom: 0; /* Ajusta la posición inferior para que se vea correctamente */
+}
+
+/* Agrega esta clase para ocultar el chat */
+.chat-hidden {
+    display: none !important;
+}
+
+        #messages {
+            flex-grow: 1;
+            max-height: 200px;
+            padding: 10px;
+            top: 100px;
+            margin-top: 0;
+            overflow-y: auto;
+            overflow-wrap: normal;
+            color: white;
+            font-size: 16px;
+            
+    
+        }
+
+        #chat-input {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: black;
+        }
+
+        #emoji-button {
+            margin-left: auto;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+        }
+
+        #message-btn {
+            margin-left: 10px;
+            background-color: rgba(64, 224, 208, 0);
+            border: 3px solid rgba(115, 25, 138, 0.5);
+    box-shadow: 0px 0px 10px rgba(50, 255, 135, 0.5), 0px 0px 20px rgba(35, 247, 106, 0.5);
+    color: rgba(255, 255, 255, 0.685);
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8), /* Brillo suave */
+        0 0 10px rgb(162, 0, 255),   /* Brillo rosa */
+        0 0 20px rgba(162, 0, 255),   /* Brillo rosa más intenso */
+        0 0 30px rgba(162, 0, 255);   /* Brillo rosa aún más intenso */
+            font-family: Orbitron;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        
+        /* Clase para quitar el sombreado después de tocar en dispositivos móviles */
+        #message-btn:active {
+            box-shadow: none;
+            transform: scale(0.78); /* Simula un botón presionado */
+        }
+
+        
+        /* Agrega este estilo para el contenedor de emojis */
+        #emoji-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute; /* Utiliza posición absoluta */
+    top: calc(75% + 10px); /* Coloca el contenedor debajo del cuadro de chat */
+    left: 50%; /* Centra el contenedor horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centrar en pantalla */
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    display: none; /* Oculta el contenedor inicialmente */
+    z-index: 9;
+    width: 225px;
+}
+
+
+/* Agrega estilo para los emojis individuales */
+.emoji {
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 10px;
+}
+/* Agrega estilos para la ventana emergente */
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 205%;
+    width: 350%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 10px;
+  }
+  
+  .modal-content {
+    top: 205%;
+        left: 50%;
+    flex-direction: column;
+    background-color: #fefefe00;
+    margin: 0% auto;
+    padding: 10px;
+    border: 0px solid #888;
+    width: 300%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #username-modal {
+    position: absolute;
+        top: 77.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: transparent;
+        border: 0px solid palegreen;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 165px;
+        height: 49px;
+        box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        color: white;
+        display: none; /* Inicialmente oculto */
+        z-index: 5;
+}
+
+#username-modal label {
+    margin-bottom: 5px;
+    background-color: aqua;
+}
+
+#username-input {
+    background-color: transparent;
+    color: palegreen;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    font-family: Orbitron;
+    font-size: 12px;
+    margin-bottom: 10px;
+    width: 85px;
+    height: 18px;
+    
+}
+
+#username-input::placeholder {
+    color: rgb(132, 179, 172); /* Cambia esto al color que prefieras */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    opacity: 1; /* Asegura que el placeholder sea visible */
+    
+    
+  }
+
+#set-username-button {
+    background-color: palegreen;
+    color: black;
+    border: none;
+    padding: 1px 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 15px;
+   
+}
+
+.system {
+    font-family: Arial, sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+    font-weight: bold;
+    color: #ff0080;
+    background-color: #34db9b8f;
+    border: 2px solid rgba(152, 251, 152, 0);
+    border-radius: 5px; 
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+
+  .system2 {
+    background-color: #34db9b9d; /* Cambia el color de fondo aquí */
+    color: white; /* Cambia el color del texto aquí */
+    padding: 0px; /* Ajusta el espacio interno si es necesario */
+    border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
+    border-top-right-radius: 0px;
+    border: 2px solid rgba(152, 251, 152, 0.5);
+    
+    border-radius: 5px; 
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 16px;
+
+  }
+
+  #message-form {
+    display: flex;
+    align-items: center;
+}
+
+#message-input {
+    flex: 1;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+backdrop-filter: blur(10px);
+color: rgb(114, 230, 172);
+text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+font-family: Orbitron;
+}
+
+#message-input::placeholder {
+    color: rgb(132, 179, 172); /* Cambia esto al color que prefieras */
+    text-shadow: none;
+    font-family: Orbitron;
+    opacity: 1; /* Asegura que el placeholder sea visible */
+    
+    
+  }
+
+  input, textarea {
+    font-size: 16px;
+  }
+
+
+#emoji-button {
+    margin-left: auto;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 15px;
+    
+}
+
+#emoji-button.active {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+    transition: box-shadow 0.4s ease, transform 0.2s ease;
+}
+
+
+#message-btn {
+    margin-left: 10px; /* Ajusta el espacio entre los botones según sea necesario */
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+#messages .message {
+    list-style: none;
+    margin: 5px 0;
+    
+}
+
+#messages .username {
+    font-weight: bold;
+    margin-right: 0px; /* Agrega un pequeño espacio entre el nombre de usuario y el mensaje */
+}
+
+#messages .system {
+    list-style: none;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+#messages li.sent span,
+#messages li.receive span {
+    /* Estilos específicos para el nombre de usuario */
+    font-family: Orbitron; /* Puedes cambiar la fuente según tus preferencias */
+    font-weight: bold;
+    color: rgb(124, 18, 89);
+    font-size: 15px;
+    margin-right: -1px;
+    /* Agrega cualquier otro estilo específico para el nombre de usuario aquí */
+}
+
+.share-current-song {
+    font-family: Arial, sans-serif; /* Puedes cambiar la fuente según tus preferencias */
+    font-weight: bold;
+    color: #ff0080;
+    background-color: #34db9b8f;
+    border: 2px solid rgba(152, 251, 152, 0);
+    border-radius: 5px; 
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* Banner superior */
+#top-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4%;
+    background-color: #63e0b646;
+    background: linear-gradient(
+        to top, /* Dirección del degradado, puedes cambiarlo a 'to bottom', 'to top', etc. */
+        #63e0b609, /* Color inicial */
+        #3fbec0 /* Color final, puedes elegir uno que haga buen contraste */
+    );
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /* Mover el banner hacia arriba, por ejemplo 20px */
+    transform: translateY(-30px);
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    #top-banner {
+        height: 3%;
+        
+    }
+}
+
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+
+
+.banner-content h1 {
+    color: #17d2dfad;
+   
+font-size: 1.4em;
+    font-family: 'Orbitron'
+}
+
+
+
+@media (min-width: 768px) {
+    .banner-content h1 {
+        margin-left: 90%;
+        
+    }
+}
+
+.menu-toggle {
+    font-size: 30px; /* Tamaño del icono */
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    z-index: 1001;
+    position: relative;
+    margin-top: -45px;
+    margin-right: 25px;
+    transition: color 0.3s ease;
+    font-family: 'Orbitron'
+}
+
+
+.menu-toggle span {
+    display: block;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Animación suave */
+    position: absolute;
+    font-family: 'Orbitron'
+}
+
+.menu-toggle span.x-symbol {
+    opacity: 0; /* X inicialmente oculta */
+    font-size: 20px;
+    transform: rotate(-90deg); /* Rotación inicial */
+}
+
+.menu-toggle.active span.x-symbol {
+    opacity: 1;
+    margin-top: 11px;
+    margin-left: 50%;
+    
+    transform: rotate(0); /* Rotación para mostrar X */
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+    .menu-toggle.active span.x-symbol {
+        /* Ajustes específicos para iOS */
+        margin-left: -35%;
+    }
+}
+
+
+.menu-toggle span.burger-symbol {
+    opacity: 1; /* Mostrar hamburguesa al inicio */
+    margin-top: 2px;
+    font-size: 29px;
+    margin-left: 0%;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+    .menu-toggle span.burger-symbol {
+        /* Ajustes específicos para iOS */
+        margin-left: -40%;
+    }
+}
+
+.menu-toggle.active span.burger-symbol {
+    opacity: 0; /* Ocultar hamburguesa */
+    transform: rotate(90deg); /* Rotación para ocultar hamburguesa */
+}
+
+.menu-toggle:hover {
+    color: #ccc; /* Color al pasar el mouse */
+}
+
+
+/* Ocultar el menú al inicio */
+#menu {
+    position: absolute;
+    max-height: 0; /* Cambia a 0 para ocultar el menú */
+    overflow: hidden; /* Esconde contenido desbordado */
+    top: 60px;
+    right: 0px;
+    background-color: #a0458c88;
+    background: linear-gradient(
+        to right, /* Dirección del degradado, puedes cambiarlo a 'to bottom', 'to top', etc. */
+        #a0458c0e, /* Color inicial */
+        #a0458c88 /* Color final, puedes elegir uno que haga buen contraste */
+    );
+    width: 150px;
+    padding: 0px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: max-height 0.8s ease, opacity 0.8s ease; /* Transición suave */
+}
+
+#menu.show {
+    
+    max-height: 500px; /* Altura máxima suficiente para el contenido */
+    font-size: larger;
+    font-family: 'Orbitron';
+    margin-top: 4%;
+    opacity: 1;
+    
+}
+
+@media (min-width: 768px) {
+    #menu.show {
+        margin-top: 0.9%;
+        
+    }
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    transform: 0.9s ease-out;
+    font-family: 'Orbitron'
+}
+
+#menu ul li {
+    padding: 10px 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.6s ease-in-out, transform 0.9s ease-in-out; /* Incrementar el tiempo de transición */
+}
+
+#menu.show ul li:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+#menu.show ul li:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+#menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#menu ul li:hover {
+    background-color: #45a049;
+    background: linear-gradient(
+        to right, /* Dirección del degradado, puedes cambiarlo a 'to bottom', 'to top', etc. */
+        #45a04907, /* Color inicial */
+        #45a049 /* Color final, puedes elegir uno que haga buen contraste */
+    );
+}
+
+/* Para pantallas móviles */
+@media (max-width: 768px) {
+    .banner-content {
+        margin-left: -70%;
+        justify-content: space-between;
+        align-items: center;
+    
+    }
+    .banner-content h1 {
+        margin-left: 75%;
+    }
+
+    
+
+    #menu {
+        top: 50px; /* Ajusta según el tamaño del banner */
+    }
+}
+
+
+
+
+.dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #162f3577;
+    width: 100%;
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.dropdown-menu.show {
+    display: block; /* Mostrar menú cuando sea activo */
+}
+
+.menu-item {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.info-box {
+    display: none; /* Cuadros ocultos por defecto */
+    position: absolute;
+    margin-top: 46%;
+    left: 37%;
+    transform: translate(-50%, -50%);
+    background-color: #a0458227;
+    background: radial-gradient(
+        circle, 
+        #d83ca4, 
+        #a0458260, 
+        #a0458200
+    );
+    font-family: 'Orbitron';
+    color: #000000; /* Color verde neón */
+    text-shadow:
+        0 0 5px #39ff14, /* Capa de brillo más cercana */
+        0 0 10px #39ff14, 
+        0 0 20px #39ff14, 
+        0 0 30px #00ff00, /* Capa de brillo más intensa */
+        0 0 40px #00ff00;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    max-width: 219px;
+    min-height: 450px;
+    max-height: 200px;
+    transition: all 0.3s ease; /* Suave */
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+    .info-box {
+        /* Ajustes específicos para iOS */
+    left: 6%;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .info-box {
+        margin-top: 15%;
+        margin-left: 47%;
+        
+    }
+}
+
+.info-box.show {
+    display: block; /* Mostrar cuadro cuando esté activo */
+}
+
+
+
+
+
+
+
+  .disco-button-img {
+    position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
+    top: 55.05%; /* Centra verticalmente */
+    left: 305px; /* Centra horizontalmente */
+    border-radius: 50%; 
+    transform: translate(-50%, -50%);
+        border: 1px solid rgba(70, 26, 26, 0);
+        font-size: 21px;
+        padding: 0px 0px;
+        margin-left: 0px;
+        z-index: 5;
+        transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .disco-button-img {
+        top: 55.3%;
+        left: 21%; /* Cambia el valor de left según tus necesidades */
+       
+        
+        
+    }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+    .disco-button-img {
+        /* Ajustes específicos para iOS */
+        top: 57.1%;
+        left: 64.5%;
+    }
+}
+
+@media (min-width: 768px) {
+    .disco-button-img {
+        top: 57.1%;
+        left: 54%; /* Cambia el valor de left según tus necesidades */
+        max-width: 1.8%;
+    }
+}
+
+.disco-button-img:active {
+    transform: translate(-50%, -50%) scale(0.95); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
+}
+
+
+/* Disco Mode GIF */
+#disco-gif {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000000;
+    background-size: 300%;
+    width: 100%;
+    height: auto;
+    display: none; /* Oculto por defecto */
+    z-index: 999; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+@media (min-width: 768px) {
+    #disco-gif {
+        /* Cambia el valor de left según tus necesidades */
+        max-width: 20%;
+        margin-top: -20px;
+    }
+}
+
+
+#disco-mode-label {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0); /* Fondo semi-transparente */
+    color: rgba(255, 255, 255, 0.342);
+    font-size: large;
+    font-family: 'Orbitron';
+    padding: 10px;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8), /* Brillo suave */
+        0 0 10px rgba(255, 0, 255, 1),   /* Brillo rosa */
+        0 0 20px rgba(255, 0, 255, 1),   /* Brillo rosa más intenso */
+        0 0 30px rgba(255, 0, 255, 1);   /* Brillo rosa aún más intenso */
+    border-radius: 5px;
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+}
+
+
+#disco-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    background-color: #00000059; /* Fondo oscuro general */
+    animation: movingGlow 90s infinite alternate cubic-bezier(0.42, 0, 0.58, 1); /* Animación más suave */
+     /* Animación más suave */
+
+
+@keyframes movingGlow {
+    0% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 0%, rgba(0, 0, 0, 0) 20%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    2.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 1%, rgba(0, 0, 0, 0) 21%, transparent 80%), #00000059;
+background-size: 120%;
+        background-position: center;
+    }
+    5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 1.5%, rgba(0, 0, 0, 0) 22%,  transparent 80%), #00000059;
+
+        background-size: 120%;
+        background-position: center;
+    }
+    7% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 1.75%,  rgba(0, 0, 0, 0) 23%, transparent 80%), #00000059;
+
+
+
+
+
+        background-size: 120%;
+        background-position: center;
+    }
+    7.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 2%, rgba(0, 0, 0, 0) 24%,  transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    10% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 2.25%, rgba(0, 0, 0, 0) 25%,  transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    12.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 2.5%, rgba(0, 0, 0, 0) 26%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    15% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 2.75%, rgba(0, 0, 0, 0) 27%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    17.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 3%, rgba(0, 0, 0, 0) 28%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    20% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 3.25%, rgba(0, 0, 0, 0) 29%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    22.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 3.5%, rgba(0, 0, 0, 0) 30%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    25% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 3.75%, rgba(0, 0, 0, 0) 31%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    27.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 4%, rgba(0, 0, 0, 0) 32%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    30% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 4.25%, rgba(0, 0, 0, 0) 33%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    32.5% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 4.5%, rgba(0, 0, 0, 0) 34%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    35% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 4.75%, rgba(0, 0, 0, 0) 35%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    37% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 5%, rgba(0, 0, 0, 0) 36%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    40% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 5.25%, rgba(0, 0, 0, 0) 37%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    42% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 5.5%, rgba(0, 0, 0, 0) 38%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    44% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 5.75%, rgba(0, 0, 0, 0) 39%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    46% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 6%, rgba(0, 0, 0, 0) 40%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    49% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 6.25%, rgba(0, 0, 0, 0) 41%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    51% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 6.5%, rgba(0, 0, 0, 0) 42%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    53% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 6.75%, rgba(0, 0, 0, 0) 43%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+    55% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 7.5%, rgba(0, 0, 0, 0) 44%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+
+    100% { 
+        background: radial-gradient(circle, rgba(86, 241, 223, 0.65) 7.5%, rgba(0, 0, 0, 0) 44%, transparent 80%), #00000059;
+        background-size: 120%;
+        background-position: center;
+    }
+}
+}
+
+
+
+
+
+
+
+
+
+.vertical-star {
+    position: absolute;
+    
+    opacity: 0; /* Comienza invisible */
+    animation: fadeInOut ease-in-out infinite, moveInSvert 5s ease-in-out infinite; /* Agrega la animación de fade y movimiento en S */
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.5); /* Pequeñas al inicio */
+    }
+    20% {
+        opacity: 1; /* Completamente visibles */
+        transform: scale(1); /* Tamaño completo */
+    }
+    50% {
+        opacity: 1; /* Mantén la visibilidad un tiempo */
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0; /* Comienza a desaparecer */
+        transform: scale(0.5); /* Pequeñas al desaparecer */
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5); /* Completamente invisibles al final */
+    }
+}
+
+@keyframes moveInSvert {
+    0% {
+        transform: translate(0, 0); /* Punto de inicio */
+    }
+    25% {
+        transform: translate(0px, -100px); /* Movimiento leve a la derecha y hacia arriba */
+    }
+    50% {
+        transform: translate(-0px, 100px); /* Movimiento leve a la izquierda y hacia abajo */
+    }
+    75% {
+        transform: translate(0px, -100px); /* Movimiento leve a la derecha y hacia arriba */
+    }
+    100% {
+        transform: translate(0, 0); /* Regresar al punto inicial */
+    }
+}
+
+
+.horizontal-star {
+    position: absolute;
+    opacity: 0; /* Comienza invisible */
+    animation: fadeInOut ease-in-out infinite, moveInShor 5s ease-in-out infinite; /* Agrega la animación de fade y movimiento en S */
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.5); /* Pequeñas al inicio */
+    }
+    20% {
+        opacity: 1; /* Completamente visibles */
+        transform: scale(1); /* Tamaño completo */
+    }
+    50% {
+        opacity: 1; /* Mantén la visibilidad un tiempo */
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0; /* Comienza a desaparecer */
+        transform: scale(0.5); /* Pequeñas al desaparecer */
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5); /* Completamente invisibles al final */
+    }
+}
+
+@keyframes moveInShor {
+    0% {
+        transform: translate(0, 0); /* Punto de inicio */
+    }
+    25% {
+        transform: translate(100px, 0px); /* Movimiento a la derecha */
+    }
+    50% {
+        transform: translate(-100px, 0px); /* Movimiento a la izquierda */
+    }
+    75% {
+        transform: translate(100px, 0px); /* Movimiento a la derecha */
+    }
+    100% {
+        transform: translate(0, 0); /* Regresar al punto inicial */
+    }
+}
+
+
+
+.star {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Empiezan invisibles */
+    animation: fadeInOut ease-in-out infinite, oscillate 4s ease-in-out infinite; /* Añade la animación de oscilación */
+}
+
+
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.5); /* Pequeñas al principio */
+    }
+    20% {
+        opacity: 1; /* Completamente visibles */
+        transform: scale(1); /* Tamaño completo */
+    }
+    50% {
+        opacity: 1; /* Mantén la visibilidad un tiempo */
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0; /* Empieza a desaparecer gradualmente */
+        transform: scale(0.5); /* Se hacen pequeñas al desaparecer */
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5); /* Completamente invisibles al final */
+    }
+}
+
+@keyframes oscillate {
+    0% {
+        transform: translate(0, 0); /* Posición original */
+    }
+    25% {
+        transform: translate(-55px, -55px); /* Movimiento a la izquierda y arriba */
+    }
+    50% {
+        transform: translate(0, 55px); /* Movimiento a la posición original y abajo */
+    }
+    75% {
+        transform: translate(55px, -55px); /* Movimiento a la derecha y arriba */
+    }
+    100% {
+        transform: translate(0, 0); /* Regresar a la posición original */
+    }
+}
+
+
+
+.about-us-content {
+    margin-top: 20%;
+}
+
+
+
+.halloween-glow {
+    text-shadow: 
+        0 0 5px #FF4500,  /* Sombra naranja */
+        0 0 10px #FF4500, /* Sombra más intensa */
+        0 0 15px #FF4500, 
+        0 0 20px #FF6347, /* Toques de rojo */
+        0 0 25px #FF6347,
+        0 0 30px #280247, /* Más brillo */
+        0 0 35px #1d0247;
+    color: #FFF; /* Blanco para resaltar el brillo */
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 5px #FF4500, 
+            0 0 10px #FF4500, 
+            0 0 15px #FF4500, 
+            0 0 20px #FF6347, 
+            0 0 20px #FF6347, 
+            0 0 25px #ff2600, 
+            0 0 25px #ff1e00;
+    }
+    to {
+        text-shadow:
+            0 0 10px #FF6347, 
+            0 0 15px #FFA500, 
+            0 0 20px #2a0046, 
+            0 0 25px #22003d, 
+            0 0 30px #1b0441, 
+            0 0 35px #ff0800, 
+            0 0 40px #FF6347;
+    }
+}
+
+
