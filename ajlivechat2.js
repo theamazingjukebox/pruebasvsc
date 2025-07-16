@@ -533,14 +533,13 @@ document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 let originalHeight = window.innerHeight;
 
 window.addEventListener('resize', () => {
+    const chat = document.getElementById('chat');
+
     if(window.innerHeight < originalHeight) {
         // Teclado abierto
-        document.getElementById('chat').style.position = 'absolute';
-        document.getElementById('chat').style.bottom = '300px'; // Ajusta según altura del teclado
+        chat.style.transform = 'translateY(-150px)'; // Ajusta esta cantidad según el espacio
     } else {
         // Teclado cerrado
-        document.getElementById('chat').style.position = 'fixed';
-        document.getElementById('chat').style.bottom = '0';
+        chat.style.transform = 'translateY(0)';
     }
 });
-
