@@ -562,15 +562,12 @@ button, a, img {
     outline: none;
 }
 
-html, body {
-    height: 100%;
-   
-
 #wrapper {
-    height: 100dvh;  /* Esto usa la altura real del viewport en móviles */
-    overflow: hidden;
+
+
     position: relative;
-}
+    transform-origin: top center;
+    transition: transform 0.3s ease;
 
 
     
