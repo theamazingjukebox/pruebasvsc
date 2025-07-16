@@ -530,23 +530,17 @@ star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 
 
-let initialHeight = window.innerHeight;
-
-function handleKeyboard() {
-    let currentHeight = window.innerHeight;
-    let isKeyboardOpen = currentHeight < initialHeight * 0.8;
-
-    const chatContainer = document.getElementById('chat');
-
-    if (isKeyboardOpen) {
-        chatContainer.style.transform = 'translateY(-100px)'; // Ajusta la cantidad según necesites
-    } else {
-        chatContainer.style.transform = 'translateY(0)';
-    }
-}
+let originalHeight = window.innerHeight;
 
 window.addEventListener('resize', () => {
-    setTimeout(handleKeyboard, 200);
+    if(window.innerHeight < originalHeight) {
+        // Teclado abierto
+        document.getElementById('chat').style.position = 'absolute';
+        document.getElementById('chat').style.bottom = '300px'; // Ajusta según altura del teclado
+    } else {
+        // Teclado cerrado
+        document.getElementById('chat').style.position = 'fixed';
+        document.getElementById('chat').style.bottom = '0';
+    }
 });
-
 
