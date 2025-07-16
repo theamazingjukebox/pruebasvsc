@@ -534,12 +534,9 @@ let originalHeight = window.innerHeight;
 
 window.addEventListener('resize', () => {
     const chat = document.getElementById('chat');
-
     if(window.innerHeight < originalHeight) {
-        // Teclado abierto
-        chat.style.transform = 'translateY(-150px)'; // Ajusta esta cantidad según el espacio
+        chat.style.bottom = '300px'; // o el espacio que necesites
     } else {
-        // Teclado cerrado
-        chat.style.transform = 'translateY(0)';
+        chat.style.bottom = '0';
     }
 });
