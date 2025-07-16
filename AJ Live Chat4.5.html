@@ -1,0 +1,929 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Amazing Jukebox</title>
+<link rel="stylesheet" type="text/css" href="./ajlivechat.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+<style>
+    /* Estilos del botón personalizado */
+    #toggle-chat-btn {
+        background-color: #3498db00;
+    color: white;
+    border: none;
+    padding: 17px 17px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 20px;
+    height: 20px;
+    
+    /* Estilos específicos para que esté a la derecha */
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+        
+
+        #toggle-icon {
+    position: relative;
+    width: 20px; /* Ajusta el ancho de la imagen */
+    height: 21px; /* Ajusta la altura de la imagen */
+    left: 1px;
+    margin: -10px;
+    top: -13px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Suaviza la transición */
+}
+
+#toggle-icon.active {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+
+
+
+    .custom-button {
+        background-color:#00000000;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+    }
+
+    .custom-button.active {
+    background-color: #00000000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.4s ease, background-color 0.4s ease;
+}
+
+.custom-button {
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+.close-button {
+    background-color: transparent; /* Color de fondo */
+    color: rgb(0, 148, 185); /* Color del texto */
+    
+    border: 2px solid rgba(255, 81, 0, 0.5);
+    box-shadow: 0px 0px 10px rgba(255, 81, 0, 0.5), 0px 0px 20px rgba(255, 81, 0, 0.5);
+    padding: 10px 20px; /* Espaciado interno */
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Orbitron;
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.close-button:hover {
+    background-color: #2980b9; /* Color de fondo al pasar el cursor */
+    transform: scale(1.05); /* Pequeño crecimiento al pasar el cursor */
+}
+
+#close-btn:active {
+            box-shadow: none;
+            transform: scale(0.78); /* Simula un botón presionado */
+        }
+
+
+@media (max-width: 768px) {
+    body {
+        background-image: url('Space-Wallpaper-for-Phone-024-1.png'); /* Cambia el nombre de la imagen */
+        background-size: cover;
+        position: relative;
+        
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        background-image: url('Space-Wallpaper-for-Phone-024-1.png'); /* Cambia el nombre de la imagen */
+        background-size: cover;
+        position: relative;
+        
+    }
+}
+
+    
+
+    
+    #info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: palevioletred;
+        margin-top: 20px;
+        height: 6%;
+        
+    }
+    #info-container > div {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    #like-button {
+        position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
+    top: 60.5%; /* Centra verticalmente */
+    left: 34%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+        color: #fff;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #ff00ff,
+        0 0 30px #ff00ff,
+        0 0 40px #3498db,
+        0 0 50px #3498db,
+        0 0 60px #3498db;
+        margin-left: 0px;
+        border: 0px solid palegreen;
+        font-size: 21px;
+        padding: 0px 0px;
+        z-index: 5;
+        transition: all 0.2s ease;
+}
+        
+    
+
+    @media (min-width: 768px) {
+    #like-button {
+        left: 45%; /* Cambia el valor de left según tus necesidades */
+    }
+}
+
+@media (max-width: 768px) {
+    #like-button {
+        top: 55.5%;
+        left: 43.5%; /* Cambia el valor de left según tus necesidades */
+    }
+}
+
+
+/* Estilos base para la imagen */
+.like-button-img {
+    vertical-align: middle;
+    height: 55px; /* Altura predeterminada */
+    width: auto;
+    margin-top: -3px;
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    .like-button-img {
+        height: 45px; /* Ajusta la altura para pantallas más pequeñas */
+    }
+}
+
+    #like-button:active {
+        transform: translate(-50%, -50%) scale(0.93); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
+}
+    #next-song-button {
+        position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
+    top: 60.5%; /* Centra verticalmente */
+    left: 57%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+        border: 0px solid palegreen;
+        font-size: 21px;
+        padding: 0px 0px;
+        margin-left: 25px;
+        z-index: 5;
+        transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    #next-song-button {
+        left: 53.2%; /* Cambia el valor de left según tus necesidades */
+    }
+}
+
+@media (max-width: 768px) {
+    #next-song-button {
+        top: 55.7%;
+        left: 52.2%; /* Cambia el valor de left según tus necesidades */
+    }
+}
+
+/* Estilos base para la imagen */
+.next-button-img {
+    vertical-align: middle;
+    height: 104px; /* Altura predeterminada */
+    width: auto;
+    margin-top: -3px;
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    .next-button-img {
+        height: 39px; /* Ajusta la altura para pantallas más pequeñas */
+    }
+}
+
+#next-song-button:active {
+    transform: translate(-50%, -50%) scale(0.95); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
+}
+
+* {
+    box-sizing: border-box; /* Para un mejor manejo de los márgenes y padding */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.background-container {
+    position: relative; /* Necesario para que los hijos se posicionen en relación a este contenedor */
+    width: 100%;
+    min-height: 225vh; /* Asegúrate de que ocupe toda la altura de la ventana */
+    background-size: cover; /* Zoom a la imagen */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    overflow: hidden; /* Permite desplazamiento si se requiere */
+    
+}
+
+.background-img {
+    width: 100%;
+    height: 100%; /* Mantiene la proporción de la imagen */
+    background-size: cover;  /* Hace que la imagen cubra todo el contenedor */
+    position: relative;
+    object-fit: contain;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Asegúrate de que esté detrás del botón */
+}
+
+@media (max-width: 768px) {
+    .background-container {
+        min-height: 225vh !important;  /* Mantiene el tamaño sin importar el teclado */
+        
+    }
+
+
+
+    
+    .background-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+    }
+
+   
+}
+
+#video-container {
+    position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
+    top: 47.9%; /* Centra verticalmente */
+    left: 49.5%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centrar */
+    width: 257px; /* Ancho deseado */
+    height: 223px; /* Altura deseada */
+    z-index: 2; /* Asegura que el video esté encima de la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    @media (min-width: 768px) {
+    #video-container {
+        width: 300px; /* Ancho mayor en dispositivos grandes */
+        height: 220px; /* Altura mayor en dispositivos grandes */
+    }
+}
+    
+#video-container video {
+        max-width: 100%;
+        max-height: 100%;
+        border: 2px solid rgba(216, 106, 2, 0.5);
+        border-radius: 15px; 
+        box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5), 0px 0px 30px rgba(255, 255, 255, 0.5);
+        z-index: 9;
+}
+
+    
+
+    #ad-container {
+        position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
+    top: 88%; /* Centra verticalmente */
+    left: 48%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centrar */
+    z-index: 2; /* Asegura que el video esté encima de la imagen */
+    text-align: center;
+    
+}
+
+/* Ancho de la imagen para pantallas grandes */
+.ad-image {
+    width: 27%; /* Ajusta el ancho de la imagen en pantallas grandes */
+    height: auto; /* Mantiene la proporción */
+    margin-left: 3%;
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    .ad-image {
+        width: 78%; /* Aumenta el ancho de la imagen en móviles */
+        
+    }
+}
+
+@media (min-width: 768px) {
+    .ad-image {
+        margin-left: 9%;
+        
+    }
+}
+
+
+
+#liked-songs-button {
+    position: absolute; /* Posiciona el botón sobre la imagen */
+    top: 55.1%; /* Ajusta este valor para colocar el botón verticalmente */
+    left: 79%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Centrado preciso */
+    padding: 10px 20px;
+    
+    
+    cursor: pointer;
+    font-weight: bold;
+    font-size: larger;
+         text-shadow: 3px 3px 3px rgba(219, 112, 147, 0.5);
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent; /* Evita el borde azul en dispositivos móviles */
+    z-index: 3;
+
+
+/* Sustituyendo el texto por una imagen */
+background-image: url('botonliked.svg');
+    background-size: 70%; /* Ajusta la imagen al tamaño del botón */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen dentro del botón */
+    
+    text-indent: -9999px; /* Oculta el texto */
+        
+}
+
+/* Media query para pantallas grandes */
+@media (min-width: 768px) {
+    #liked-songs-button {
+        background-size: 85%;
+        left: 59.3%;
+        
+    }
+}
+
+/* Efecto al presionar el botón */
+#liked-songs-button:active {
+    transform: translate(-50%, -50%) scale(0.95); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
+    outline: none;
+    -webkit-tap-highlight-color: transparent; /* Evita el borde azul en dispositivos móviles */
+
+}
+
+
+
+
+
+    #liked-songs-popup {
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        max-height: 80%;
+        padding: 15px;
+        background-color: #00545ade; /* Cambia el color de fondo aquí */
+        border: 2px solid palegreen;
+        border-radius: 10px; 
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5), 0px 0px 15px rgba(255, 255, 255, 0.5);
+        
+        overflow-y: auto;
+        
+        z-index: 9999;
+    }
+    #liked-songs-content {
+        color: rgb(116, 12, 61); /* Cambia el color de letra aquí */
+    text-shadow:
+        0 0 5px #469979,
+        0 0 10px #3f8870;
+        font-family: 'Orbitron'
+        
+    }
+    a {
+        color: rgb(10, 77, 12);
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    #listen-button {
+        position: relative;
+        display: block; /* Hacer que sea un elemento de bloque */
+    width: 100%; /* Ocupar el ancho completo */
+    background-color: #e74d3cd0; /* Cambia el color según tus preferencias */
+    color: white;
+    border: none;
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    margin-right: 0px; /* Ajusta el margen según sea necesario */
+    font-size: 15px;
+
+    /* Sustituyendo el texto por una imagen */
+    background-image: url('NOW-PLAYING-18-8-2024.png');
+    background-size: 50%; /* Ajusta la imagen al tamaño del botón */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen dentro del botón */
+    width: 300px; /* Ajusta el ancho del botón según la imagen */
+    height: 40px; /* Ajusta la altura del botón según la imagen */
+    text-indent: -9999px; /* Oculta el texto */
+    transition: transform -2.0s ease;
+}
+
+#listen-button:active {
+    transform: scale(0.93); /* Contrae el botón un 3% */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
+}
+
+
+
+
+
+body {
+    overflow-x: hidden; /* Evitar la barra de desplazamiento horizontal */
+}
+    
+    #mobile-gif2 {
+        text-align: center; left: 55%; /* Centra horizontalmente el anuncio */
+        margin-top: -328%; /* Ajusta la cantidad de espacio entre el botón y el anuncio */
+        position: absolute;
+        overflow: hidden;
+    }
+
+    .rotated-gif2 {
+    transform: rotate(-30deg);
+}
+    
+    #mobile-gif3 {
+        display: none;
+        text-align: center; right: 70%; /* Centra horizontalmente el anuncio */
+        margin-top: -328%; /* Ajusta la cantidad de espacio entre el botón y el anuncio */
+        position: absolute;
+        border-width: 40px;
+    }
+
+    .rotated-gif3 {
+    transform: rotate(30deg);
+}
+    
+#mobile-gif4 {
+        text-align: center; right: -45%; /* Centra horizontalmente el anuncio */
+        margin-top: -80%; /* Ajusta la cantidad de espacio entre el botón y el anuncio */
+        position: absolute;
+    }
+
+    .rotated-gif4 {
+    transform: rotate(-5deg);
+}
+
+.gif-container {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: -590px;
+    position: absolute;
+    border: 0px solid palegreen;
+    border-radius: 10px;
+    max-width: 15%; /* Se asegura de que el contenedor no exceda el ancho de la pantalla */
+}
+
+.rotated-gif5 {
+    border-radius: 10px;
+    height: auto;
+    display: block;
+}
+
+
+
+
+    #donate-button-container {
+        position: absolute; /* Posiciona el botón sobre la imagen */
+    top: 93.5%; /* Ajusta este valor para colocar el botón verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    padding: 10px; /* Agrega espacio interno */
+    /* Puedes ajustar el tamaño del contenedor y otros estilos aquí */
+}
+
+#messages {
+    font-family: Orbitron; /* Puedes cambiar la fuente según tus preferencias */
+    font-size: 14px;
+    
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff;
+        
+    background-color: #c4297e8f;
+    border: 2px solid rgba(152, 251, 152, 0);
+    border-radius: 5px; 
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    min-width: 175px;
+}
+
+li.system2 {
+    display: inline-block;
+    margin-left: -9px;
+    margin-top: -9px;
+    text-align: center;
+    width: 66px;
+    align-content: center;
+    align-self: center;
+    padding: 1px 141px;
+    height: 25px;
+
+}
+
+.button-icon {
+    width: 15px; /* Ajusta el tamaño según tus necesidades */
+    height: 13px;
+    vertical-align: middle; /* Centra la imagen verticalmente dentro del botón */
+    pointer-events: none; /* Para que el clic pase a través de la imagen y no la bloquee */
+    transform: scale(2.1);
+}
+
+</style>
+<script>
+    const videos = [
+        { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
+        { src: "AFI - The Leaving Song Pt. II (Official Music Video).mp4", liked: false },
+        { src: "Corazon De Venado.mp4", liked: false },
+        // Agrega más URLs de videos según sea necesario
+        { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false }
+    ];
+
+    const songInfo = {
+        "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
+        "AFI - The Leaving Song Pt. II (Official Music Video).mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
+        "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
+        // Agrega más información de canciones según sea necesario
+        "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" }
+    };
+
+    let currentVideoIndex = -1;
+    const videoPlayer = document.createElement("video");
+    videoPlayer.controls = true;
+    videoPlayer.autoplay = true;
+    videoPlayer.muted = true;
+    videoPlayer.playsInline = true; // Agrega esta línea
+    videoPlayer.addEventListener("ended", playNextVideo);
+
+    const likedSongs = [];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    if ('mediaSession' in navigator) {
+    // Configura el manejador para el evento 'nexttrack'
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+        playNextVideo();
+    });
+
+}
+
+    function playNextVideo() {
+        currentVideoIndex++;
+        if (currentVideoIndex >= videos.length) {
+            currentVideoIndex = 0;
+            shuffleArray(videos);
+        }
+
+        while (videos[currentVideoIndex].liked) {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videos.length) {
+                currentVideoIndex = 0;
+                shuffleArray(videos);
+            }
+        }
+
+        videoPlayer.src = videos[currentVideoIndex].src;
+        videoPlayer.load();
+        videoPlayer.play();
+
+        const likeButton = document.getElementById("like-button");
+        likeButton.disabled = false; // Habilitar botón para cada nuevo video
+    }
+
+    function likeSong() {
+        if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+            if (!videos[currentVideoIndex].liked) {
+                videos[currentVideoIndex].liked = true;
+                const currentSong = songInfo[videos[currentVideoIndex].src];
+                if (currentSong) {
+                    likedSongs.push(currentSong);
+                }
+            }
+        }
+    }
+
+    function showLikedSongs() {
+        const likedSongsPopup = document.getElementById("liked-songs-popup");
+        const likedSongsContent = document.getElementById("liked-songs-content");
+        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+        for (const song of likedSongs) {
+            likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
+        }
+        likedSongsPopup.style.display = "block";
+    }
+
+    function closeLikedSongs() {
+        const likedSongsPopup = document.getElementById("liked-songs-popup");
+        likedSongsPopup.style.display = "none";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const videoContainer = document.getElementById("video-container");
+        videoContainer.appendChild(videoPlayer);
+        shuffleArray(videos);
+        playNextVideo();
+    
+        const chatContainer = document.getElementById("chat");
+    const toggleChatBtn = document.getElementById("toggle-chat-btn");
+    const toggleIcon = document.getElementById("toggle-icon");
+
+    let isChatExpanded = chatContainer.style.height === "320px";
+
+    // Función para actualizar el botón y el estado del chat
+    function updateChatState() {
+        isChatExpanded = !isChatExpanded;
+        const newHeight = isChatExpanded ? "200px" : "300px";
+        const newSymbol = isChatExpanded ? "down17.png" : "down17-2.png";
+        chatContainer.style.height = newHeight;
+    toggleIcon.src = newSymbol;
+        
+}
+
+    // Agregar el evento de clic al botón
+    toggleChatBtn.addEventListener("click", updateChatState);
+
+    // Asegurarse de que el botón y el chat reflejen el estado correcto al cargar la página
+    updateChatState();
+    
+            });
+        
+    ;
+
+    
+    function adjustVideoSize(videoElement) {
+    const container = document.getElementById('video-container');
+
+    // Obtener el tamaño del video después de que cargue
+    videoElement.addEventListener('loadedmetadata', () => {
+        const videoWidth = videoElement.videoWidth;
+        const videoHeight = videoElement.videoHeight;
+
+        // Ocultar el video antes de cambiar el tamaño
+        videoElement.style.opacity = 0;
+
+        // Usar un timeout para permitir que la opacidad cambie antes de ajustar el tamaño
+        setTimeout(() => {
+            // Ajustar el tamaño del contenedor basado en el nuevo video
+            container.style.width = `${videoWidth}px`;
+            container.style.height = `${videoHeight}px`;
+
+            // Asegurar que el video se vuelva visible después de cambiar el tamaño
+            videoElement.style.opacity = 1;
+        }, 1500); // Esperar el tiempo de la transición de opacidad antes de cambiar el tamaño
+    });
+}
+
+// Evento que se dispara cuando el video está listo
+document.getElementById('video-element').addEventListener('loadedmetadata', function() {
+    adjustVideoSize(this);
+});
+
+// Evento para ocultar el video antes de que cargue el nuevo
+document.getElementById('video-element').addEventListener('emptied', function() {
+    this.style.opacity = 0; // Oculta el video cuando está vacío
+});
+
+
+
+
+</script>
+</head>
+<body>
+
+
+<div id="info-container">
+    
+   
+    <div class="background-container">
+        <img src="fondojulio.png" class="background-img" alt="Background Image" />
+
+        <header id="top-banner">
+        
+        <div class="banner-content">
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            <button class="menu-toggle" id="menu-toggle">
+                <span class="burger-symbol">&#9776;</span>
+                <span class="x-symbol">X</span>
+            </button>
+            
+            <nav id="menu">
+                <ul>
+                    <li><a href="#" class="menu-item" id="about-us-link">About Us</a></li>
+                    <li><a href="#" class="menu-item" id="contact-us-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+   <!-- Cuadro de información de cada sección -->
+<div id="about-us-content" class="info-box">
+    <h2>About Us</h2>
+    <p>The Amazing Jukebox is your gateway to discover special music gems 💎 in an interactive and immersive format! Whether you're on mobile or desktop, our digital jukebox's music encyclopedia is designed for all music lovers to explore, enjoy, and uncover unique tracks.<br>Join us and dive into the world of music <b>online</b> across any web browser! <br>📲🖥️🌎🔊🔊🎶🎶🎶</p>
+</div>
+
+<div id="contact-us-content" class="info-box">
+    <h2>Contact</h2>
+    <p>Feel free to share your experience, thoughts or even song submissions with us, we want to hear from you! <br>✉ <span style="color: blue; font-weight: bold; font-size: 7px;">theamazingjukebox.contact@gmail.com</span></p>
+</div>
+
+<script src="script.js"></script>
+
+
+
+
+        <div id="video-container"></div>
+        <div id="ad-container">
+            <a href="https://www.instagram.com/flodz_/">
+            <img src="quarter-removebg-preview.png" alt="Go Follow" class="ad-image">
+            </a>
+        </div>
+            <!-- Contenido del video aquí -->
+            <div id="like-button" onclick="likeSong()" disabled>
+                <img src="file2.png" alt="Like" class="like-button-img">
+            </div>
+
+            <div id="next-song-button" onclick="playNextVideo()">
+                <img src="file.png" alt="Next" class="next-button-img">
+            </div>
+           
+
+            <div id="disco-mode-button" onclick="toggleDiscoMode()">
+                <img src="botonazul.png" style="width: 6%;" alt="Disco Mode" class="disco-button-img">
+            </div>
+            
+            <!-- Etiqueta de Disco Mode -->
+            <div id="disco-mode-label" style="display: none; position: fixed; top: -10px; left: 50%; transform: translateX(-50%); background-color: rgba(0, 0, 0, 0); padding: 10px; border-radius: 5px;">
+                Disco Mode
+            </div>
+
+            <!-- Fondo oscuro dinámico -->
+<div id="disco-background" style="display: none;"></div>
+
+            
+            <img id="disco-gif" src="disco.gif" alt="Disco Mode GIF" style="position: fixed; top: -35px; left: 50%; transform: translateX(-50%); width: 50%; display: none;">
+            
+
+
+
+        <!-- Botón con su funcionalidad onclick -->
+        <div id="liked-songs-button" onclick="showLikedSongs()">Show Liked Songs</div>
+
+        <div id="liked-songs-popup">
+            <div id="liked-songs-content"></div>
+            <div style="text-align: center; margin-top: 10px;">
+                <button class="close-button" onclick="closeLikedSongs()">Close</button>
+            </div>
+        </div>
+
+        <div id="donate-button-container">
+            <div id="donate-button"></div>
+            <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+            <script>
+            PayPal.Donation.Button({
+            env:'production',
+            hosted_button_id:'Q52DFRN8D4BS8',
+            image: {
+            src:'https://www.paypalobjects.com/en_US/MX/i/btn/btn_donateCC_LG.gif',
+            alt:'Donate with PayPal button',
+            title:'PayPal - The safer, easier way to pay online!',
+            }
+            }).render('#donate-button');
+            </script>
+            </div>
+
+            <div id="emoji-container" style="display: none;">
+                <!-- Aquí puedes agregar más emojis según sea necesario -->
+                    <div class="emoji" onclick="selectEmoji('😊')">😊</div>
+                    <div class="emoji" onclick="selectEmoji('❤️')">❤️</div>
+                    <div class="emoji" onclick="selectEmoji('👍')">👍</div>
+                    <div class="emoji" onclick="selectEmoji('😂')">😂</div>
+                    <div class="emoji" onclick="selectEmoji('🙌')">🙌</div>
+                <div class="emoji" onclick="selectEmoji('🎉')">🎉</div>
+                <div class="emoji" onclick="selectEmoji('🔥')">🔥</div>
+                <div class="emoji" onclick="selectEmoji('👏')">👏</div>
+                <div class="emoji" onclick="selectEmoji('🎶')">🎶</div>
+                <div class="emoji" onclick="selectEmoji('🤔')">🤔</div>
+                <div class="emoji" onclick="selectEmoji('😍')">😍</div>
+                <div class="emoji" onclick="selectEmoji('🌟')">🌟</div>
+                <div class="emoji" onclick="selectEmoji('😎')">😎</div>
+                <div class="emoji" onclick="selectEmoji('💖')">💖</div>
+                <div class="emoji" onclick="selectEmoji('🚀')">🚀</div>
+                <div class="emoji" onclick="selectEmoji('🌈')">🌈</div>
+                <div class="emoji" onclick="selectEmoji('💯')">💯</div>
+                <div class="emoji" onclick="selectEmoji('🤗')">🤗</div>
+                <div class="emoji" onclick="selectEmoji('👌')">👌</div>
+                <div class="emoji" onclick="selectEmoji('😜')">😜</div>
+                <div class="emoji" onclick="selectEmoji('🙏')">🙏</div>
+                <div class="emoji" onclick="selectEmoji('💪')">💪</div>
+                <div class="emoji" onclick="selectEmoji('😇')">😇</div>
+                <div class="emoji" onclick="selectEmoji('🌺')">🌺</div>
+                <!-- Agrega más emojis según tus preferencias -->
+                </div>
+                <div id="chat">
+                    <button id="toggle-chat-btn"><img src="down17.png" alt="Expandir/Colapsar" id="toggle-icon">
+                    </button>
+                    <!-- messages will display here -->
+                    <ul id="messages">
+                        <!-- Agrega el mensaje de bienvenida aquí -->
+                        <li class="system2">
+                            
+                            <img src="Live-Chat-17-8-2024-5.png" alt="Live Chat" style="width: 80px; height: 30px; margin-left: -39px; margin-top: -6px;">
+                            
+                            <span class="halloween-glow" style= "vertical-align: middle; margin-left: 0px;">        
+                            </span>
+                        </li>
+                    </ul>
+                    
+                
+                    <!-- form to send message -->
+                    <form id="message-form">
+                        <textarea id="message-input" placeholder="Type your message..."></textarea>
+                        <emoji-picker id="emoji-picker" style="display: none;"></emoji-picker>
+                        <div id="emoji-button" onclick="toggleEmojiPicker()">😊</div>
+                      <button id="message-btn" type="submit">Send</button>
+                    </form>
+                    <button class="custom-button" id="listen-button" onclick="shareCurrentSong()">🎶 NOW PLAYING</button>
+                  </div>
+                  <div id="username-modal" class="modal">
+                    <div class="modal-content">
+                      <input type="text" id="username-input" placeholder="Username" />
+                      <button id="set-username-button" onclick="setUsername()">▶️</button>
+                    </div>
+                  </div>
+    </div>
+    
+    
+
+
+    <div id="mobile-gif2">
+    <img class="rotated-gif2" 
+    src="1659513992_924596_gif-url.gif" alt="Descripción del GIF" style="width: 97%; height: auto;">
+</div>
+    <div id="mobile-gif3">
+    <img class="rotated-gif3"
+    src="1659513992_924596_gif-url.gif" alt="Descripción del GIF" style="width: 143%; height: auto;">
+</div>
+<div id="mobile-gif4">
+    <img class="rotated-gif4"
+    src="WhatsApp Image 2024-08-23 at 6.57.54 PM.jpeg" alt="Descripción del GIF" style="width: 25%; height: auto;">
+</div>
+<div id="mobile-gif5" class="gif-container">
+    <img class="rotated-gif5" src="gif8.gif" alt="Descripción del GIF" style="width: 100%; height: 100%;">
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+<script src="ajlivechat2.js"></script>
+</body>
+</html>
