@@ -529,14 +529,3 @@ star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 
 document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 
-
-let originalHeight = window.innerHeight;
-
-window.addEventListener('resize', () => {
-    const chat = document.getElementById('chat');
-    if(window.innerHeight < originalHeight) {
-        chat.style.bottom = '300px'; // o el espacio que necesites
-    } else {
-        chat.style.bottom = '0';
-    }
-});
