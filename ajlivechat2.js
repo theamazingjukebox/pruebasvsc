@@ -530,18 +530,19 @@ star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 
 
-
-let originalHeight = window.innerHeight; // Guardamos la altura original
-
-function fixBackground() {
-    document.querySelector(".background-container").style.height = originalHeight * 2.25 + "px"; // 225vh Fijo
+function setDynamicVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-window.addEventListener("resize", () => {
-    setTimeout(() => {
-        fixBackground();
-    }, 100); // Pequeño delay para esperar el ajuste del teclado
+window.addEventListener('load', () => {
+    setDynamicVH();
+    fixBackground();
 });
 
-window.addEventListener("load", fixBackground);
+window.addEventListener('resize', () => {
+    setDynamicVH();
+    setTimeout(fixBackground, 100);
+});
+
 
