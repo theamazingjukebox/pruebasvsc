@@ -687,7 +687,7 @@ font-size: 1.4em;
   .disco-button-img {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
     top: 55.05%; /* Centra verticalmente */
-    left: 305px; /* Centra horizontalmente */
+    left: 325px; /* Centra horizontalmente */
     border-radius: 50%; 
     transform: translate(-50%, -50%);
         border: 1px solid rgb(70, 26, 26, 0);
@@ -701,7 +701,7 @@ font-size: 1.4em;
 @media (max-width: 768px) {
     .disco-button-img {
         top: 57.1%;
-        left: 77%; /* Cambia el valor de left según tus necesidades */
+        left: 69%; /* Cambia el valor de left según tus necesidades */
         
     }
 }
@@ -710,7 +710,7 @@ font-size: 1.4em;
     .disco-button-img {
         /* Ajustes específicos para Android o navegadores que soporten esta característica */
         top: 57.1%;
-        left: 69%;
+        left: 66%;
     }
 }
 
@@ -718,7 +718,7 @@ font-size: 1.4em;
     .disco-button-img {
         /* Ajustes específicos para iOS */
         top: 57.1%;
-        left: 68%;
+        left: 65%;
     }
 }
 
