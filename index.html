@@ -250,7 +250,7 @@ body {
 .background-container {
     position: relative; /* Necesario para que los hijos se posicionen en relación a este contenedor */
     width: 100%;
-    height: 100%; /* Asegúrate de que ocupe toda la altura de la ventana */
+    min-height: 225vh; /* Asegúrate de que ocupe toda la altura de la ventana */
     background-size: cover; /* Zoom a la imagen */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat;
@@ -271,18 +271,18 @@ body {
 
 @media (max-width: 768px) {
     .background-container {
-        min-height: auto;  /* Mantiene el tamaño sin importar el teclado */
+        min-height: 225vh !important;   /* Mantiene el tamaño sin importar el teclado */
         
     }
 
 
     .background-img {
         width: 100%;
-        height: auto%;
+        height: 100%;
         object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
     }
          /* Ajusta la imagen para cubrir el contenedor */
-    }
+    
 }
 
 #video-container {
