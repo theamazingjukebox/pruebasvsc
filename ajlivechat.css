@@ -732,6 +732,12 @@ font-size: 1.4em;
     }
 }
 
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .disco-button-img {
+        left: 53.5%;
+    }
+}
+
 .disco-button-img:active {
     transform: translate(-50%, -50%) scale(0.95); 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ajusta la sombra para mantener el realismo */
