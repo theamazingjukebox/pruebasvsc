@@ -50,7 +50,7 @@
     font-size: larger;
 }
 #chat {
-            position: absolute; /* Posiciona el botón sobre la imagen */
+            position: fixed; /* Posiciona el botón sobre la imagen */
     top: 78%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
