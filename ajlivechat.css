@@ -701,7 +701,7 @@ font-size: 1.4em;
 @media (max-width: 768px) {
     .disco-button-img {
         top: 57.1%;
-        left: 69%; /* Cambia el valor de left según tus necesidades */
+        left: 72%; /* Cambia el valor de left según tus necesidades */
         
     }
 }
@@ -710,7 +710,7 @@ font-size: 1.4em;
     .disco-button-img {
         /* Ajustes específicos para Android o navegadores que soporten esta característica */
         top: 57.1%;
-        left: 66%;
+        left: 69%;
     }
 }
 
@@ -718,7 +718,7 @@ font-size: 1.4em;
     .disco-button-img {
         /* Ajustes específicos para iOS */
         top: 57.1%;
-        left: 65%;
+        left: 68%;
     }
 }
 
