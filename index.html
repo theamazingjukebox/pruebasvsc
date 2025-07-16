@@ -272,6 +272,17 @@ body {
     z-index: 1; /* Asegúrate de que esté detrás del botón */
 }
 
+@media (min-width: 768px) {
+    .background-container {
+        min-height: 225vh;
+    width: 100%;
+    }
+
+    .background-img {
+        object-fit: contain; /* o contain si prefieres que no se recorte */
+    }
+}
+
 @media (max-width: 768px) {
     .background-container {
         min-height: 120vh !important;   /* Mantiene el tamaño sin importar el teclado */
