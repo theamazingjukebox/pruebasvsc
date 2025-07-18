@@ -539,7 +539,12 @@ background-image: url('boton1.png');
     transform: rotate(85deg);
 }
     
-   
+   .contenedor {
+        position: relative;
+        width: 800px; /* o el ancho que quieras */
+        height: 800px; /* ajusta el alto */
+        background-color: #f0f0f0; /* solo para ver el contenedor */
+    }
     
     #donate-button-container {
     position: absolute; /* Posiciona el botón sobre la imagen */
@@ -552,8 +557,8 @@ background-image: url('boton1.png');
 }
 
 .logos {
-    
-    bottom: -29.5%; /* Ajusta este valor para colocar el botón verticalmente */
+    position: absolute;
+    bottom: -22.5%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 43%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
     z-index: 5;
@@ -1639,6 +1644,7 @@ window.addEventListener('load', () => {
 </div>
     </div>
 
+    <div class="contenedor">
     <div id="donate-button-container">
     <a href="https://www.paypal.com/donate/?hosted_button_id=Q52DFRN8D4BS8" target="_blank">
         <img src="paypal-donate-button.png" alt="Donar con PayPal" title="Dona con PayPal" width="200">
@@ -1646,7 +1652,7 @@ window.addEventListener('load', () => {
 </div>
 
     <img src="Univlogo.png" alt="Logo" class="logos" width="500" title="Tu Imagen">
-
+</div>
     
     
   <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
