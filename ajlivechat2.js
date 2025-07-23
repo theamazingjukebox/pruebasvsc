@@ -1,4 +1,12 @@
 var firebaseConfig = {
+    apiKey: "AIzaSyD69EJwLEA2zQpGeUXK2XHRg69Ca-fTpzc",
+    authDomain: "the-amazing-jukebox.firebaseapp.com",
+    databaseURL: "https://the-amazing-jukebox-default-rtdb.firebaseio.com",
+    projectId: "the-amazing-jukebox",
+    storageBucket: "the-amazing-jukebox.appspot.com",
+    messagingSenderId: "778454163688",
+    appId: "1:778454163688:web:f7198448fb38dee2cb695d",
+    measurementId: "G-G2E58RL3ZG"
     
     
   };
