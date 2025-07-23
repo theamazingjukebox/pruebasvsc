@@ -51,12 +51,12 @@
 }
 #chat {
             position: absolute; /* Posiciona el botón sobre la imagen */
-    top: 93%; /* Ajusta este valor para colocar el botón verticalmente */
-    left: 50%; /* Centra horizontalmente */
+    top: 92%; /* Ajusta este valor para colocar el botón verticalmente */
+    left: 49%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
-    border: 3px solid rgb(37, 99, 114) ;
+    border: 3px solid rgba(37, 99, 114, 0.596);
     border-radius: 15px;
-    background-image: url('xK.gif');
+    background-image: url('380e.gif');
     background-position: center;
     background-size: cover;
         will-change: transform;
@@ -70,6 +70,12 @@
             transition: height 1.3s ease;
             z-index: 5;
         }
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #chat {
+        top: 90.5%;
+    }
+}
 
         
 #chat.chat-contracted {
@@ -145,7 +151,7 @@
     flex-wrap: wrap;
     justify-content: center;
     position: absolute; /* Utiliza posición absoluta */
-    top: calc(74% + 10px); /* Coloca el contenedor debajo del cuadro de chat */
+    top: 90%; /* Coloca el contenedor debajo del cuadro de chat */
     left: 50%; /* Centra el contenedor horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centrar en pantalla */
     padding: 5px;
@@ -206,7 +212,7 @@
   
   #username-modal {
     position: absolute;
-        top: 76.5%;
+        top: 93.5%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: transparent;
@@ -222,6 +228,12 @@
         color: white;
         display: none; /* Inicialmente oculto */
         z-index: 5;
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #username-modal {
+        top: 92%;
+    }
 }
 
 #username-modal label {
@@ -276,12 +288,12 @@
  
 
   .system2 {
-    background-color: #81145400; /* Cambia el color de fondo aquí */
+    background-color: #34db9b00; /* Cambia el color de fondo aquí */
     color: white; /* Cambia el color del texto aquí */
     padding: 0px; /* Ajusta el espacio interno si es necesario */
     border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
     border-top-right-radius: 0px;
-    border: 0px solid rgba(152, 251, 152, 0.0);
+    border: 0px solid rgba(152, 251, 152, 0);
     border-radius: 5px; 
     box-shadow: 0px 0px 5px rgba(255, 255, 255, 0), 0px 0px 20px rgba(255, 255, 255, 0);
     font-family: monospace;
@@ -752,7 +764,7 @@ font-size: 1.4em;
     left: 0;
     background-color: #00000000;
     background-size: 300%;
-    width: 100%;
+    width: 150%;
     height: auto;
     display: none; /* Oculto por defecto */
     z-index: 999; /* Asegúrate de que esté por encima de otros elementos */
@@ -761,8 +773,14 @@ font-size: 1.4em;
 @media (min-width: 768px) {
     #disco-gif {
         /* Cambia el valor de left según tus necesidades */
+        max-width: 35%;
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #disco-gif {
         max-width: 20%;
-        margin-top: -25px;
     }
 }
 
@@ -1175,4 +1193,3 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
-
