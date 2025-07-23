@@ -57,8 +57,7 @@
     border: 3px solid rgb(37, 99, 114) ;
     border-radius: 15px;
     background-image: url('1yjZ.gif');
-    background-position: center;
-    background-size: cover;
+    background-position-y: 80% ;
         will-change: transform;
 
             overflow: hidden;
