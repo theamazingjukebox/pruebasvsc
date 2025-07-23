@@ -163,8 +163,8 @@
         left: 47%;
     }
 }
-
     
+
 @media (max-width: 768px) {
     #like-button {
         top: 61%;
@@ -194,7 +194,6 @@
         height: 85px;
     }
 }
-    
     
     #like-button:active {
     -webkit-transform: translate(-50%, -50%) scale(0.93); /* Safari */
@@ -228,13 +227,13 @@
     }
 }
 
+    
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #next-song-button {
         left: 51.5%;
         
     }
 }
-         
 
     /* Estilos base para la imagen */
 .next-button-img {
@@ -313,7 +312,7 @@ body {
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
     .background-container {
         width: 100%;
-        height: 220vh;
+        height: 225vh;
     }
 }
 
@@ -513,7 +512,6 @@ background-image: url('boton1.png');
     
 }
 
-
 #listen-button:active {
     outline: none; 
     transform: scale(0.93); /* Contrae el botón un 3% */
@@ -599,8 +597,6 @@ background-image: url('boton1.png');
         bottom: -33.5%;
     }
 }
-
-
 
 .logos {
     position: absolute;
@@ -739,19 +735,19 @@ overflow: hidden;
     bottom: -84%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
-    z-index: -9999;
+    z-index: -1;
     padding: 10px; 
     margin: 0%;
     width: 100%
 overflow: hidden;
-    border-radius: 15px;
         
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .logos8 {
         width: 65%;
-        bottom: -83%;
+        bottom: -81%;
+        z-index: -1;
     }
 }
 
@@ -1142,7 +1138,10 @@ button, a, img {
         { src: "Yves Saint Laurent - Black Opium.mp4", liked: false },
         { src: "Yves Saint Laurent - Black Opium.mp4", liked: false },
         { src: "Andrea Cassino_ Divine (Original Mix).mp4", liked: false },
-        { src: "Night Tempo (｡◕‿‿◕｡) - Mint (1).mp4", liked: false }
+        { src: "Night Tempo (｡◕‿‿◕｡) - Mint (1).mp4", liked: false },
+        { src: "Uniforms - March of No Coincidence (Andre Lodemann Remix).mp4", liked: false },
+        { src: "3D BLAST - Talk To Me feat. FrankJavCee.mp4", liked: false },
+        { src: "Simply Red - Sunrise (Extended).mp4", liked: false }
     ];
 
     const songInfo = {
@@ -1480,7 +1479,10 @@ button, a, img {
         "Yves Saint Laurent - Black Opium.mp4": { id: 331, name: "Black Opium", artist: "Yves Saint Laurent", links: "https://www.ysl.com/" },
         "Yves Saint Laurent - Black Opium.mp4": { id: 332, name: "Black Opium", artist: "Yves Saint Laurent", links: "https://www.ysl.com/" },
         "Andrea Cassino_ Divine (Original Mix).mp4": { id: 333, name: "Divine (Original Mix)", artist: "Andrea Cassino", links: "https://youtu.be/bu0F1yiHOr4?si=kiXdFlpgxRdo1t3E" },
-        "Night Tempo (｡◕‿‿◕｡) - Mint (1).mp4": { id: 334, name: "Mint", artist: "Night Tempo (｡◕‿‿◕｡)", links: "https://youtu.be/rdUQIJvPZUc?si=wXE4_QeS7QQb5_N1" }
+        "Night Tempo (｡◕‿‿◕｡) - Mint (1).mp4": { id: 334, name: "Mint", artist: "Night Tempo (｡◕‿‿◕｡)", links: "https://youtu.be/rdUQIJvPZUc?si=wXE4_QeS7QQb5_N1" },
+        "Uniforms - March of No Coincidence (Andre Lodemann Remix).mp4": { id: 335, name: "March of No Coincidence (Andre Lodemann Remix)", artist: "Uniforms", links: "https://youtu.be/x9KouVsBj5g?si=vETFZ1K_gxk-124y" },
+        "3D BLAST - Talk To Me feat. FrankJavCee.mp4": { id: 336, name: "Talk To Me feat. FrankJavCee", artist: "3D BLAST", links: "https://youtu.be/MTOJy85SFfM?si=yY0XR4ACd-K2Z0Fc" },
+        "Simply Red - Sunrise (Extended).mp4": { id: 337, name: "Sunrise (Extended)", artist: "Simply Red", links: "https://youtu.be/3Pnqx4yjIyg?si=MXvGpsJdmtB42M_j" }
     };
 
     let currentVideoIndex = -1;
@@ -1670,7 +1672,7 @@ window.addEventListener('load', () => {
 <div id="info-container">
     
     <div class="background-container">
-        <img src="fondojulio.png" class="background-img" alt="Background Image" />
+        <img src="fondojulio2.png" class="background-img" alt="Background Image" />
 
         <header id="top-banner">
         
@@ -1730,7 +1732,7 @@ window.addEventListener('load', () => {
             <!-- Fondo oscuro dinámico -->
 <div id="disco-background" style="display: none;"></div>
             
-            <img id="disco-gif" src="disco.gif" alt="Disco Mode GIF" style="position: fixed; top: -25px; left: 50%; transform: translateX(-50%); width: 50%; display: none;">
+            <img id="disco-gif" src="disco.gif" alt="Disco Mode GIF" style="position: fixed; top: -25px; left: 50%; transform: translateX(-50%); width: 80%; display: none;">
             
 
            
@@ -1782,7 +1784,7 @@ window.addEventListener('load', () => {
                         <!-- Agrega el mensaje de bienvenida aquí -->
                         <li class="system2">
                             
-                            <img src="live5.png" alt="Live Chat" style="width: 80px; height: 30px; margin-left: -39px; margin-top: -8px;">
+                            <img src="live5.png" alt="Live Chat" style="width: 90px; height: 30px; margin-left: -29px; margin-top: -6px;">
                             
                             <span class="halloween-glow" style= "vertical-align: middle; margin-left: 0px;">          
                             </span>
