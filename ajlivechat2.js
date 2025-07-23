@@ -7,8 +7,6 @@ var firebaseConfig = {
     messagingSenderId: "778454163688",
     appId: "1:778454163688:web:f7198448fb38dee2cb695d",
     measurementId: "G-G2E58RL3ZG"
-    
-    
   };
   
   firebase.initializeApp(firebaseConfig);
@@ -523,7 +521,7 @@ function generateTwinklingStars() {
 
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
-    star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+    star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
     const minVH = 50;
 const maxVH = 150;
 star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
@@ -536,7 +534,11 @@ document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 let originalHeight = window.innerHeight; // Guardamos la altura original
 
 function fixBackground() {
-    document.querySelector(".background-container").style.height = originalHeight * 2.25 + "px"; // 225vh Fijo
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector(".background-container").style.height = originalHeight * 2.25 + "px"; // 225vh en móviles
+    } else {
+        document.querySelector(".background-container").style.height = ""; // Restablece en escritorio
+    }
 }
 
 window.addEventListener("resize", () => {
@@ -546,14 +548,3 @@ window.addEventListener("resize", () => {
 });
 
 window.addEventListener("load", fixBackground);
-
-document.addEventListener("fullscreenchange", () => {
-    if (document.fullscreenElement) {
-        console.log("En fullscreen");
-        // Cambiar estilos o añadir clase
-        document.body.classList.add('fullscreen-mode');
-    } else {
-        console.log("Salió de fullscreen");
-        document.body.classList.remove('fullscreen-mode');
-    }
-});
