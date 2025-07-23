@@ -51,7 +51,7 @@
 }
 #chat {
             position: absolute; /* Posiciona el botón sobre la imagen */
-    top: 122%; /* Ajusta este valor para colocar el botón verticalmente */
+    top: 92%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 49%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
     border: 3px solid rgba(37, 99, 114, 0.596);
