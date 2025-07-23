@@ -54,7 +54,7 @@
     top: 93%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
-    border: 4px solid rgb(37, 99, 114) ;
+    border: 3px solid rgb(37, 99, 114) ;
     border-radius: 15px;
     background-image: url('fyrS.gif');
     background-position: center;
@@ -281,9 +281,9 @@
     padding: 0px; /* Ajusta el espacio interno si es necesario */
     border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
     border-top-right-radius: 0px;
-    border: 2px solid rgba(152, 251, 152, 0.5);
+    border: 0px solid rgba(152, 251, 152, 0.0);
     border-radius: 5px; 
-    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 0px 0px 20px rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0), 0px 0px 20px rgba(255, 255, 255, 0);
     font-family: monospace;
     font-weight: bold;
     font-size: 16px;
