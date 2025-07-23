@@ -56,8 +56,9 @@
     transform: translate(-50%, -50%);
     border: 3px solid rgb(37, 99, 114) ;
     border-radius: 15px;
-    background-image: url('1yjZ.gif');
-    background-position-y: 80% ;
+    background-image: url('xK.gif');
+    background-position: center;
+    background-size: cover;
         will-change: transform;
 
             overflow: hidden;
