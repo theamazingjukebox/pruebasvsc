@@ -325,7 +325,6 @@ body {
   height: 100%;
   object-fit: contain;
   z-index: 0;
-  clip-path: inset(0 round 25px);
 
 }
 
@@ -1679,12 +1678,24 @@ window.addEventListener('load', () => {
 
     })
 
-document.addEventListener("DOMContentLoaded", function() {
-  const video = document.getElementById("miVideo");
-  video.style.borderRadius = "25px";
-  video.style.overflow = "hidden"; // aunque video no recorta internamente
-  video.style.clipPath = "inset(0 round 25px)"; // recorte forzado
+document.addEventListener("DOMContentLoaded", () => {
+  const TARGET_FILE = "fondovid2.mp4"; 
+  const RADIUS = 25; // radio en px
+
+  const videos = Array.from(document.querySelectorAll("video"));
+  const targetVideo = videos.find(video =>
+    video.currentSrc.includes(TARGET_FILE) ||
+    Array.from(video.querySelectorAll("source")).some(s => (s.src || "").includes(TARGET_FILE))
+  );
+
+  if (!targetVideo) return;
+
+  // Aplicar clip-path para esquinas redondeadas
+  targetVideo.style.clipPath = `inset(0 round ${RADIUS}px)`;
+  targetVideo.style.WebkitClipPath = `inset(0 round ${RADIUS}px)`; // Safari
 });
+
+
 
 </script>
 </head>
@@ -1696,7 +1707,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="background-container">
         <img src="fondotransp.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
 
-       <video id="miVideo" autoplay muted loop playsinline class="background-video">
+       <video autoplay muted loop playsinline class="background-video">
   <source src="fondovid2.mp4" type="video/mp4">
 </video>
 
@@ -1881,6 +1892,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
