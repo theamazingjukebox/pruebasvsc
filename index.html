@@ -323,30 +323,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-mask: radial-gradient(circle, #000 98%, transparent 100%);
-  mask: radial-gradient(circle, #000 98%, transparent 100%);
   object-fit: contain;
   z-index: 0;
-     /* Recorte rectangular con esquinas redondeadas */
-  -webkit-mask-image: 
-    radial-gradient(circle at top left, black 25px, transparent 26px),
-    radial-gradient(circle at top right, black 25px, transparent 26px),
-    radial-gradient(circle at bottom left, black 25px, transparent 26px),
-    radial-gradient(circle at bottom right, black 25px, transparent 26px),
-    linear-gradient(black, black);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: top left, top right, bottom left, bottom right, center;
-  -webkit-mask-size: 50% 50%, 50% 50%, 50% 50%, 50% 50%, 100% 100%;
-
-  mask-image: 
-    radial-gradient(circle at top left, black 25px, transparent 26px),
-    radial-gradient(circle at top right, black 25px, transparent 26px),
-    radial-gradient(circle at bottom left, black 25px, transparent 26px),
-    radial-gradient(circle at bottom right, black 25px, transparent 26px),
-    linear-gradient(black, black);
-  mask-repeat: no-repeat;
-  mask-position: top left, top right, bottom left, bottom right, center;
-  mask-size: 50% 50%, 50% 50%, 50% 50%, 50% 50%, 100% 100%;
+  clip-path: inset(0 round 25px);
 
 }
 
@@ -1700,7 +1679,12 @@ window.addEventListener('load', () => {
 
     })
 
-
+document.addEventListener("DOMContentLoaded", function() {
+  const video = document.getElementById("miVideo");
+  video.style.borderRadius = "25px";
+  video.style.overflow = "hidden"; // aunque video no recorta internamente
+  video.style.clipPath = "inset(0 round 25px)"; // recorte forzado
+});
 
 </script>
 </head>
@@ -1712,9 +1696,7 @@ window.addEventListener('load', () => {
     <div class="background-container">
         <img src="fondotransp.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
 
-       <video autoplay muted loop playsinline 
-       class="background-video" 
-       style="border-radius:25px !important; overflow:hidden;">
+       <video id="miVideo" autoplay muted loop playsinline>
   <source src="fondovid2.mp4" type="video/mp4">
 </video>
 
@@ -1899,6 +1881,7 @@ window.addEventListener('load', () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
