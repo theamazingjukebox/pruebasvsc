@@ -319,7 +319,6 @@ body {
 
 .background-video {
   position: absolute;
-  border-radius: 25px;
   top: 0;
   left: 0;
   width: 100%;
@@ -1690,9 +1689,11 @@ window.addEventListener('load', () => {
     <div class="background-container">
         <img src="fondotransp.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
 
-        <video autoplay muted loop playsinline class="background-video" >
-    <source src="fondovid2.mp4" type="video/mp4" style="border-radius: 25px;">
-  </video>
+       <video autoplay muted loop playsinline 
+       class="background-video" 
+       style="border-radius:25px !important; overflow:hidden;">
+  <source src="fondovid3.mp4" type="video/mp4">
+</video>
 
         <header id="top-banner">
         
@@ -1875,6 +1876,7 @@ window.addEventListener('load', () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
