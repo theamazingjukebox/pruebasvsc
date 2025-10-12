@@ -653,7 +653,7 @@ font-size: 1.4em;
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
     margin-top: 63%;
-    left: 37%;
+    left: 34%;
     transform: translate(-50%, -50%);
     background-color: #a0458227;
     background: radial-gradient(
@@ -700,7 +700,7 @@ font-size: 1.4em;
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
     margin-top: 63%;
-    left: 37%;
+    left: 34%;
     transform: translate(-50%, -50%);
     background-color: #a0458227;
     background: radial-gradient(
@@ -1239,4 +1239,5 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
