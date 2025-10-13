@@ -653,7 +653,7 @@ font-size: 1.4em;
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
     margin-top: 63%;
-    left: 33%;
+    left: 32.5%;
     transform: translate(-50%, -50%);
     background-color: #a0458227;
     background: radial-gradient(
@@ -676,7 +676,7 @@ font-size: 1.4em;
     z-index: 999;
     max-width: 219px;
     min-height: 450px;
-    max-height: 200px;    
+    max-height: 250px;    
     transition: all 0.3s ease; /* Suave */
 }
 
@@ -700,7 +700,7 @@ font-size: 1.4em;
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
     margin-top: 63%;
-    left: 33%;
+    left: 32.5%;
     transform: translate(-50%, -50%);
     background-color: #a0458227;
     background: radial-gradient(
@@ -1238,6 +1238,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
