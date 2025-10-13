@@ -732,6 +732,8 @@ font-size: 1.4em;
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box2 {
         left: 37%;
+    height: 830px;    
+            
     }
 }
 
@@ -1244,6 +1246,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
