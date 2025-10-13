@@ -675,7 +675,7 @@ font-size: 1.4em;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 999;
     max-width: 219px;
-    min-height: 490px;
+    min-height: 450px;
     
     transition: all 0.3s ease; /* Suave */
 }
@@ -1238,6 +1238,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
