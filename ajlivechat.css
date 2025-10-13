@@ -679,8 +679,6 @@ font-size: 1.4em;
     z-index: 999;
     max-width: 219px;
     min-height: 100px;
-    max-height: 300px;
-    
     transition: all 0.3s ease; /* Suave */
 }
 
@@ -1242,6 +1240,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
