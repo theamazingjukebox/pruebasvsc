@@ -874,10 +874,6 @@ font-size: 1.4em;
     overflow: hidden;
     background-color: #00000059; /* Fondo oscuro general */
    
-    ; /* Animación más suave */
-    
-        background-size: 120%;
-        background-position: center;
 }
 
 
@@ -1274,6 +1270,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
