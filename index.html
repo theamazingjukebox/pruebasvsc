@@ -324,10 +324,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* cambio importante */
+  object-fit: contain;
   z-index: 0;
-  transform: translateZ(0);
-  pointer-events: none; /* evita bloquear interacción en iPhone */
+
 }
 
 
@@ -1914,6 +1913,7 @@ window.addEventListener('load', () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
