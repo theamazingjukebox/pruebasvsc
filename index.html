@@ -318,6 +318,12 @@ body {
     }
 }
 
+@media (min-width: 1024px) {
+    .background-img {
+        pointer-events: none;
+    }
+}
+
 
 .background-video {
   position: absolute;
@@ -334,7 +340,7 @@ body {
 
 #video-container {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
-    top: 48%; /* Centra verticalmente */
+    top: 46.9%; /* Centra verticalmente */
     left: 49.9%; /* Centra horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centrar */
     width: 267px; /* Ancho deseado */
@@ -350,6 +356,7 @@ body {
     #video-container {
         width: 300px; /* Ancho mayor en dispositivos grandes */
         height: 220px; /* Altura mayor en dispositivos grandes */
+        pointer-events: auto;
     }
 }
     
@@ -368,6 +375,7 @@ body {
         border-radius: 15px; 
         box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
         z-index: 9;
+        pointer-events: auto;
 }
     
 
@@ -1248,6 +1256,7 @@ window.addEventListener('load', () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
