@@ -1032,17 +1032,6 @@ window.addEventListener('load', () => {
     })
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const bg = document.querySelector('.background-img');
-  if (bg) {
-    bg.style.pointerEvents = 'none';
-    bg.style.zIndex = '1'; // Asegura que no tape al video
-    console.log("✅ pointer-events:none aplicado correctamente a .background-img");
-  } else {
-    console.warn("⚠️ No se encontró .background-img");
-  }
-});
-
 
 </script>
 </head>
@@ -1262,8 +1251,10 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 <script src="ajlivechat2.js"></script>
+    
 </body>
 </html>
+
 
 
 
