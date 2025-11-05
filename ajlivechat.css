@@ -758,8 +758,8 @@ font-size: 1.4em;
 
   .disco-button-img {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
-    top: 55.05%; /* Centra verticalmente */
-    left: 305px; /* Centra horizontalmente */
+    top: 53.05%; /* Centra verticalmente */
+    left: 303px; /* Centra horizontalmente */
     border-radius: 50%; 
     transform: translate(-50%, -50%);
         border: 1px solid rgb(70, 26, 26, 0);
@@ -1270,6 +1270,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
