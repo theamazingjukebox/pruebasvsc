@@ -587,9 +587,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.querySelector('#video-container');
   if (videoContainer) {
     videoContainer.style.pointerEvents = 'auto';
-    videoContainer.style.zIndex = '2'; // opcional, por si la imagen tiene z-index similar
+    videoContainer.style.zIndex = '0'; // opcional, por si la imagen tiene z-index similar
     console.log("✅ pointer-events:auto aplicado a #video-container");
   } else {
     console.warn("⚠️ No se encontró #video-container");
   }
 });
+
