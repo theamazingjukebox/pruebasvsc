@@ -1035,8 +1035,8 @@ window.addEventListener('load', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const bg = document.querySelector('.background-img');
   if (bg) {
-    bg.style.pointerEvents = 'auto';
-    bg.style.zIndex = '0'; // Asegura que no tape al video
+    bg.style.pointerEvents = 'none';
+    bg.style.zIndex = '1'; // Asegura que no tape al video
     console.log("✅ pointer-events:none aplicado correctamente a .background-img");
   } else {
     console.warn("⚠️ No se encontró .background-img");
@@ -1264,6 +1264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
