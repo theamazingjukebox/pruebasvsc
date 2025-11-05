@@ -569,3 +569,27 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("touchstart", tryPlay, { once: true });
   document.addEventListener("scroll", tryPlay, { once: true });
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 🔹 Fuerza que la imagen de fondo NO bloquee clics
+  const bg = document.querySelector('.background-img');
+  if (bg) {
+    bg.style.pointerEvents = 'none';
+    bg.style.zIndex = '1';
+    console.log("✅ pointer-events:none aplicado a .background-img");
+  } else {
+    console.warn("⚠️ No se encontró .background-img");
+  }
+
+  // 🔹 Asegura que el contenedor de video sí reciba clics
+  const videoContainer = document.querySelector('#video-container');
+  if (videoContainer) {
+    videoContainer.style.pointerEvents = 'auto';
+    videoContainer.style.zIndex = '2'; // opcional, por si la imagen tiene z-index similar
+    console.log("✅ pointer-events:auto aplicado a #video-container");
+  } else {
+    console.warn("⚠️ No se encontró #video-container");
+  }
+});
