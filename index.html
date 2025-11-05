@@ -306,7 +306,7 @@ body {
     .background-img {
         width: 100%;
         height: 120%;
-        pointer-events: none !important;
+        
          /* Ajusta la imagen para cubrir el contenedor */
     }
          /* Ajusta la imagen para cubrir el contenedor */
@@ -321,11 +321,7 @@ body {
     }
 }
 
-@media (min-width: 1024px) {
-    .background-img {
-        pointer-events: none !important;
-    }
-}
+
 
 
 .background-video {
@@ -352,14 +348,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: auto !important;
+    
 }
 
     @media (min-width: 768px) {
     #video-container {
         width: 300px; /* Ancho mayor en dispositivos grandes */
         height: 220px; /* Altura mayor en dispositivos grandes */
-        pointer-events: auto !important;
+        
     }
 }
     
@@ -378,7 +374,7 @@ body {
         border-radius: 15px; 
         box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
         z-index: 9;
-        pointer-events: auto !important;
+        
 }
     
 
@@ -1036,7 +1032,16 @@ window.addEventListener('load', () => {
     })
 
 
-
+document.addEventListener("DOMContentLoaded", () => {
+  const bg = document.querySelector('.background-img');
+  if (bg) {
+    bg.style.pointerEvents = 'none';
+    bg.style.zIndex = '1'; // Asegura que no tape al video
+    console.log("✅ pointer-events:none aplicado correctamente a .background-img");
+  } else {
+    console.warn("⚠️ No se encontró .background-img");
+  }
+});
 
 
 </script>
@@ -1259,6 +1264,7 @@ window.addEventListener('load', () => {
 <script src="ajlivechat2.js"></script>
 </body>
 </html>
+
 
 
 
