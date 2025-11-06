@@ -380,43 +380,6 @@ body {
 }
 
 
-.video-controls {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 9999; /* Muy por encima del fondo */
-}
-
-.video-controls button,
-.video-controls input[type="range"] {
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.video-controls input[type="range"] {
-  width: 80px;
-}
-
-#video-container:hover .video-controls {
-  opacity: 1;
-}
-
-@media (hover: none) {
-  /* En móviles no hay hover, así que se mostrarán con tap */
-  .video-controls.show {
-    opacity: 1;
-  }
-}
 
     
     #ad-container {
@@ -1295,6 +1258,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
