@@ -344,7 +344,7 @@ body {
     transform: translate(-50%, -50%); /* Ajusta para centrar */
     width: 267px; /* Ancho deseado */
     height: 191px; /* Altura deseada */
-    z-index: 3; /* Asegura que el video esté encima de la imagen */
+    z-index: 0; /* Asegura que el video esté encima de la imagen */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,7 +376,38 @@ body {
         z-index: 9;
         
 }
-    
+
+
+
+/* Controles personalizados */
+.custom-controls {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.custom-controls button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.custom-controls button:hover {
+  background: rgba(255, 165, 0, 0.8);
+}
+
 
     #ad-container {
         
@@ -1254,6 +1285,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
