@@ -620,30 +620,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+// 🔧 Diagnóstico y auto-fix de estilos de interacción del video
 window.addEventListener("load", () => {
   const bg = document.querySelector('.background-img');
-  const videoContainer = document.getElementById('video-container');
-  const video = videoContainer?.querySelector('video');
+  const vc = document.getElementById('video-container');
+  const video = vc?.querySelector('video');
 
-  // Forzar reglas aunque haya estilos en conflicto
+  function applyFixes() {
+    if (bg) {
+      bg.style.setProperty('pointer-events', 'none', 'important');
+      bg.style.setProperty('z-index', '1', 'important');
+    }
+
+    if (vc) {
+      vc.style.setProperty('pointer-events', 'auto', 'important');
+      vc.style.setProperty('z-index', '3', 'important');
+    }
+
+    if (video) {
+      video.style.setProperty('pointer-events', 'auto', 'important');
+      video.style.setProperty('z-index', '4', 'important');
+      video.controls = false; // Asegura que los nativos no vuelvan a aparecer
+    }
+  }
+
+  // Ejecuta el fix inicial
+  applyFixes();
+
+  // 🔁 Diagnóstico visual
+  console.log("==== DIAGNÓSTICO INICIAL ====");
   if (bg) {
-    bg.style.setProperty('pointer-events', 'none', 'important');
-    bg.style.setProperty('z-index', '1', 'important');
+    console.log("Background pointer-events:", getComputedStyle(bg).pointerEvents);
+    console.log("Background z-index:", getComputedStyle(bg).zIndex);
   }
-
-  if (videoContainer) {
-    videoContainer.style.setProperty('pointer-events', 'auto', 'important');
-    videoContainer.style.setProperty('z-index', '0', 'important');
+  if (vc) {
+    console.log("Video container pointer-events:", getComputedStyle(vc).pointerEvents);
+    console.log("Video container z-index:", getComputedStyle(vc).zIndex);
   }
-
   if (video) {
-    video.style.setProperty('pointer-events', 'auto', 'important');
-    video.style.setProperty('z-index', '9', 'important');
-    video.controls = false; // 🔹 oculta controles nativos
+    console.log("Video pointer-events:", getComputedStyle(video).pointerEvents);
+    console.log("Video z-index:", getComputedStyle(video).zIndex);
   }
 
-  console.log("✅ Forzado pointer-events y ocultados controles nativos.");
+  // 🔄 Auto-fix loop: revisa y corrige cada 3 segundos
+  setInterval(() => {
+    const bgEvents = getComputedStyle(bg).pointerEvents;
+    const vcEvents = getComputedStyle(vc).pointerEvents;
+    const vidEvents = getComputedStyle(video).pointerEvents;
+
+    if (bgEvents !== 'none' || vcEvents !== 'auto' || vidEvents !== 'auto') {
+      console.warn("⚠️ Se detectó cambio de estilos, corrigiendo...");
+      applyFixes();
+    }
+  }, 3000); // cada 3 segundos
 });
+
 
 
 
@@ -659,4 +690,5 @@ function showControls() {
 
 videoContainer.addEventListener("mousemove", showControls);
 videoContainer.addEventListener("click", showControls);
+
 
