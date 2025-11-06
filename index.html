@@ -397,7 +397,7 @@ body {
 
 #video-controls-overlay {
   position: fixed;
-  bottom: 1300px; /* ajusta aquí para escritorio */
+  bottom: 1500px; /* ajusta aquí para escritorio */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -425,8 +425,8 @@ body {
   cursor: pointer;
 }
 
-/* Responsivo para móviles */
-@media (max-width: 768px) and (hover: hover) and (pointer: fine) {
+/* Responsivo para pcs */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
   #video-controls-overlay {
     bottom: 520px;
     padding: 8px 12px;
@@ -1320,6 +1320,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
