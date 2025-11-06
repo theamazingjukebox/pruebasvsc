@@ -638,7 +638,7 @@ window.addEventListener("load", () => {
 
   if (video) {
     video.style.setProperty('pointer-events', 'auto', 'important');
-    video.style.setProperty('z-index', '0', 'important');
+    video.style.setProperty('z-index', '9', 'important');
     video.controls = false; // 🔹 oculta controles nativos
   }
 
@@ -659,3 +659,4 @@ function showControls() {
 
 videoContainer.addEventListener("mousemove", showControls);
 videoContainer.addEventListener("click", showControls);
+
