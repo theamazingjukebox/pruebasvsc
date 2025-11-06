@@ -380,38 +380,45 @@ body {
 }
 
 
-
-/* Controles personalizados */
-.custom-controls {
+.video-controls {
   position: absolute;
-  bottom: 25px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
   gap: 10px;
-  z-index: 9999;
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: auto;
+  z-index: 9999; /* Muy por encima del fondo */
 }
 
-.custom-controls button {
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
+.video-controls button,
+.video-controls input[type="range"] {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
   color: white;
-  font-size: 18px;
   padding: 6px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-.custom-controls button:hover {
-  background: rgba(255, 165, 0, 0.8);
+.video-controls input[type="range"] {
+  width: 80px;
 }
 
+#video-container:hover .video-controls {
+  opacity: 1;
+}
 
+@media (hover: none) {
+  /* En móviles no hay hover, así que se mostrarán con tap */
+  .video-controls.show {
+    opacity: 1;
+  }
+}
 
+    
     #ad-container {
         
         position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
@@ -1288,6 +1295,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
