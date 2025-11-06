@@ -583,24 +583,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const controlsOverlay = document.createElement("div");
     controlsOverlay.id = "video-controls-overlay";
-    Object.assign(controlsOverlay.style, {
-      position: "fixed",
-      bottom: "520px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      zIndex: "9999",
-      display: "flex",
-      gap: "12px",
-      backgroundColor: "rgba(0,0,0,0.6)",
-      padding: "10px 15px",
-      borderRadius: "12px",
-      boxShadow: "0 0 10px rgba(255,255,255,0.4)",
-      alignItems: "center",
-      justifyContent: "center",
-      flexWrap: "wrap",
-      transition: "opacity 0.3s ease",
-      opacity: "0", // oculto por defecto
-    });
+    
 
     const playPauseBtn = document.createElement("button");
     playPauseBtn.textContent = "⏯️";
@@ -620,43 +603,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     [playPauseBtn, muteBtn].forEach((btn) => {
-      Object.assign(btn.style, {
-        fontSize: "22px",
-        padding: "8px 12px",
-        borderRadius: "8px",
-        border: "none",
-        backgroundColor: "#222",
-        color: "#fff",
-        cursor: "pointer",
-      });
+    
     });
 
-    const styleTag = document.createElement("style");
-styleTag.textContent = `
-  @media (max-width: 768px) {
-    #video-controls-overlay {
-      bottom: 1300px; /* más alto en móviles */
-      padding: 8px 12px;
-      gap: 8px;
-    }
-    #video-controls-overlay button {
-      font-size: 100px;
-      padding: 6px 10px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    #video-controls-overlay {
-      bottom: 20px; /* posición especial para escritorio */
-    }
-    #video-controls-overlay button {
-      font-size: 26px;
-      padding: 10px 14px;
-    }
-  }
-`;
-document.head.appendChild(styleTag);
-      
 
     controlsOverlay.appendChild(playPauseBtn);
     controlsOverlay.appendChild(muteBtn);
@@ -677,6 +626,7 @@ document.head.appendChild(styleTag);
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
