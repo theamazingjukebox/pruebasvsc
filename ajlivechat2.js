@@ -635,12 +635,12 @@ document.addEventListener("DOMContentLoaded", function () {
 styleTag.textContent = `
   @media (max-width: 768px) {
     #video-controls-overlay {
-      bottom: 800px; /* más alto en móviles */
+      bottom: 1300px; /* más alto en móviles */
       padding: 8px 12px;
       gap: 8px;
     }
     #video-controls-overlay button {
-      font-size: 50px;
+      font-size: 100px;
       padding: 6px 10px;
     }
   }
@@ -677,6 +677,7 @@ document.head.appendChild(styleTag);
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
