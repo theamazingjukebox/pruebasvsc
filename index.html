@@ -352,7 +352,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: auto;
+    
     
 }
 
@@ -379,6 +379,7 @@ body {
         border-radius: 15px; 
         box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
         z-index: 0;
+        pointer-events: auto;
         
 }
 
@@ -1050,6 +1051,8 @@ window.addEventListener('load', () => {
     <div class="background-container">
         <div class="background-img"></div>
 
+         
+
        <video
   id="bg-video"
   autoplay
@@ -1061,6 +1064,8 @@ window.addEventListener('load', () => {
 >
   <source src="videonov.mp4" type="video/mp4">
 </video>
+
+        <div id="video-container"></div>
 
         <header id="top-banner">
         
@@ -1111,7 +1116,7 @@ window.addEventListener('load', () => {
 
 
         
-        <div id="video-container"></div>
+       
        
             <!-- Contenido del video aquí -->
             <div id="like-button" onclick="likeSong()" disabled>
@@ -1261,6 +1266,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
