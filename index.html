@@ -383,7 +383,16 @@ body {
 }
 
 
-
+#video-activation-zone {
+  position: absolute;
+  top: 46%; /* ajusta según la posición del video */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 220px;
+  z-index: 2; /* por encima del video pero debajo de los controles */
+  background-color: #ffffff5e;
+}
     
     #ad-container {
         
@@ -1115,6 +1124,7 @@ window.addEventListener('load', () => {
 
         
             <div id="video-container"></div>
+            <div id="video-activation-zone"></div>
        
             <!-- Contenido del video aquí -->
             <div id="like-button" onclick="likeSong()" disabled>
@@ -1264,6 +1274,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
