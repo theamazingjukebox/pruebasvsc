@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
     controlsOverlay.id = "video-controls-overlay";
     Object.assign(controlsOverlay.style, {
       position: "fixed",
-      bottom: "20px",
+      bottom: "520px",
       left: "50%",
       transform: "translateX(-50%)",
       zIndex: "9999",
@@ -650,5 +650,6 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
