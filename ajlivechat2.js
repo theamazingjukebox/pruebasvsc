@@ -581,7 +581,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const videoPlayer = videoContainer.querySelector("video");
     if (!videoPlayer) return;
 
-    // Crear contenedor de controles flotantes
     const controlsOverlay = document.createElement("div");
     controlsOverlay.id = "video-controls-overlay";
     Object.assign(controlsOverlay.style, {
@@ -600,9 +599,9 @@ document.addEventListener("DOMContentLoaded", function () {
       justifyContent: "center",
       flexWrap: "wrap",
       transition: "opacity 0.3s ease",
+      opacity: "0", // oculto por defecto
     });
 
-    // Botón Play/Pause
     const playPauseBtn = document.createElement("button");
     playPauseBtn.textContent = "⏯️";
     playPauseBtn.onclick = () => {
@@ -613,7 +612,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     };
 
-    // Botón Mute/Unmute
     const muteBtn = document.createElement("button");
     muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
     muteBtn.onclick = () => {
@@ -621,7 +619,6 @@ document.addEventListener("DOMContentLoaded", function () {
       muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
     };
 
-    // Estilos de botones
     [playPauseBtn, muteBtn].forEach((btn) => {
       Object.assign(btn.style, {
         fontSize: "22px",
@@ -634,27 +631,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Insertar en el DOM
     controlsOverlay.appendChild(playPauseBtn);
     controlsOverlay.appendChild(muteBtn);
     document.body.appendChild(controlsOverlay);
 
-    // 🔁 Función para ocultar controles tras delay
     let hideTimeout;
     function showControls() {
       controlsOverlay.style.opacity = "1";
       clearTimeout(hideTimeout);
       hideTimeout = setTimeout(() => {
         controlsOverlay.style.opacity = "0";
-      }, 5000); // oculta tras 5 segundos
+      }, 5000);
     }
 
-    // Mostrar al cargar
-    showControls();
-
-    // Mostrar al tocar o hacer clic en cualquier parte
-    document.addEventListener("click", showControls);
-    document.addEventListener("touchstart", showControls);
+    // Solo mostrar controles si se toca el área de activación
+    const activationZone = document.getElementById("video-activation-zone");
+    activationZone.addEventListener("click", showControls);
+    activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
-
