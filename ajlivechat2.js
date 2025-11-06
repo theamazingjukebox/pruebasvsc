@@ -675,7 +675,16 @@ window.addEventListener("load", () => {
   }, 3000); // cada 3 segundos
 });
 
-
+if (vc) {
+  const observer = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.attributeName === "style") {
+        console.warn("⚠️ Cambios detectados en estilos de #video-container:", vc.getAttribute("style"));
+      }
+    }
+  });
+  observer.observe(vc, { attributes: true, attributeFilter: ["style"] });
+}
 
 
 let hideTimeout;
@@ -693,4 +702,9 @@ videoContainer.addEventListener("click", showControls);
 
 
 
+["click", "mousemove", "touchstart"].forEach(evt => {
+  document.addEventListener(evt, () => {
+    applyFixes();
+  }, { passive: true });
+});
 
