@@ -571,3 +571,50 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+document.addEventListener("DOMContentLoaded", function () {
+  const videoContainer = document.getElementById("video-container");
+  videoContainer.appendChild(videoPlayer);
+
+  // 🔹 Crear los controles personalizados
+  const controls = document.createElement("div");
+  controls.classList.add("custom-controls");
+
+  const playPauseBtn = document.createElement("button");
+  playPauseBtn.textContent = "⏯️";
+  const muteBtn = document.createElement("button");
+  muteBtn.textContent = "🔇";
+
+  controls.appendChild(playPauseBtn);
+  controls.appendChild(muteBtn);
+  videoContainer.appendChild(controls);
+
+  // 🔹 Mostrar los controles solo al pasar el mouse o tocar
+  videoContainer.addEventListener("mouseenter", () => controls.style.opacity = "1");
+  videoContainer.addEventListener("mouseleave", () => controls.style.opacity = "0");
+  videoContainer.addEventListener("click", () => {
+    // En móvil, alterna visibilidad
+    controls.style.opacity = controls.style.opacity === "1" ? "0" : "1";
+  });
+
+  // 🔹 Lógica de botones
+  playPauseBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (videoPlayer.paused) {
+      videoPlayer.play();
+    } else {
+      videoPlayer.pause();
+    }
+  });
+
+  muteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    videoPlayer.muted = !videoPlayer.muted;
+    muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
+  });
+
+  // 🔹 Iniciar la secuencia de reproducción
+  shuffleArray(videos);
+  playNextVideo();
+});
+
