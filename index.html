@@ -288,17 +288,16 @@ body {
 
 .background-img {
   background-image: url('fondonov8.1.png');
-  background-size: cover;
+  background-size: contain; /* o 'contain' si prefieres que no se recorte */
   background-position: center;
-  position: relative;
-  object-fit: contain;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  
+  border-radius: 25px;
 }
     
 
@@ -1261,6 +1260,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
