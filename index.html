@@ -285,18 +285,20 @@ body {
     
 }
 
+
 .background-img {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    position: relative;
-    object-fit: contain;
-    border-radius: 15px;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-    
+  background-image: url('fondonov8.1.png');
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  
+}
     
 }
 
@@ -1046,7 +1048,7 @@ window.addEventListener('load', () => {
 <div id="info-container">
     
     <div class="background-container">
-        <img src="fondonov8.1.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
+        <div class="background-img"></div>
 
        <video
   id="bg-video"
@@ -1259,6 +1261,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
