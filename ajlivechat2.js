@@ -572,150 +572,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const videoContainer = document.getElementById("video-container");
-  videoContainer.appendChild(videoPlayer);
 
-  // 🔹 Crear los controles personalizados
+
+document.addEventListener("DOMContentLoaded", () => {
+  const vc = document.querySelector("#video-container");
+  if (!vc) return;
+
+  // --- Aseguramos posición base ---
+  vc.style.position = "absolute";
+  vc.style.zIndex = "10";
+  vc.style.pointerEvents = "auto";
+
+  // --- Creamos los controles de forma global ---
   const controls = document.createElement("div");
-  controls.classList.add("custom-controls");
+  controls.className = "custom-controls";
+  controls.innerHTML = `
+    <button class="playPauseBtn">⏯️</button>
+    <button class="muteBtn">🔊</button>
+  `;
 
-  const playPauseBtn = document.createElement("button");
-  playPauseBtn.textContent = "⏯️";
-  const muteBtn = document.createElement("button");
-  muteBtn.textContent = "🔇";
+  // Estilos en línea (para que no dependan de CSS externo)
+  Object.assign(controls.style, {
+    position: "absolute",
+    bottom: "10px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    display: "flex",
+    gap: "10px",
+    zIndex: "9999",
+    opacity: "0",
+    transition: "opacity 0.3s ease",
+    pointerEvents: "auto"
+  });
 
-  controls.appendChild(playPauseBtn);
-  controls.appendChild(muteBtn);
-  videoContainer.appendChild(controls);
+  // Insertar los controles al final del video-container
+  vc.appendChild(controls);
 
-  // 🔹 Mostrar los controles solo al pasar el mouse o tocar
-  videoContainer.addEventListener("mouseenter", () => controls.style.opacity = "1");
-  videoContainer.addEventListener("mouseleave", () => controls.style.opacity = "0");
-  videoContainer.addEventListener("click", () => {
-    // En móvil, alterna visibilidad
+  // Mostrar/ocultar al pasar o tocar
+  vc.addEventListener("mouseenter", () => controls.style.opacity = "1");
+  vc.addEventListener("mouseleave", () => controls.style.opacity = "0");
+  vc.addEventListener("click", () => {
     controls.style.opacity = controls.style.opacity === "1" ? "0" : "1";
   });
 
-  // 🔹 Lógica de botones
-  playPauseBtn.addEventListener("click", (e) => {
+  // --- Acciones de los botones ---
+  controls.querySelector(".playPauseBtn").addEventListener("click", (e) => {
     e.stopPropagation();
-    if (videoPlayer.paused) {
-      videoPlayer.play();
-    } else {
-      videoPlayer.pause();
-    }
+    vc.querySelectorAll("video").forEach(v => {
+      if (v.paused) v.play();
+      else v.pause();
+    });
   });
 
-  muteBtn.addEventListener("click", (e) => {
+  controls.querySelector(".muteBtn").addEventListener("click", (e) => {
     e.stopPropagation();
-    videoPlayer.muted = !videoPlayer.muted;
-    muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
+    vc.querySelectorAll("video").forEach(v => {
+      v.muted = !v.muted;
+    });
+    e.target.textContent = vc.querySelector("video")?.muted ? "🔇" : "🔊";
   });
 
-  // 🔹 Iniciar la secuencia de reproducción
-  shuffleArray(videos);
-  playNextVideo();
-});
-
-
-
-// 🔧 Diagnóstico y auto-fix de estilos de interacción del video
-window.addEventListener("load", () => {
-  const bg = document.querySelector('.background-img');
-  const vc = document.getElementById('video-container');
-  const video = vc?.querySelector('video');
-
-  function applyFixes() {
-    if (bg) {
-      bg.style.setProperty('pointer-events', 'none', 'important');
-      bg.style.setProperty('z-index', '1', 'important');
-    }
-
-    if (vc) {
-      vc.style.setProperty('pointer-events', 'auto', 'important');
-      vc.style.setProperty('z-index', '0', 'important');
-    }
-
-    if (video) {
-      video.style.setProperty('pointer-events', 'auto', 'important');
-      video.style.setProperty('z-index', '0', 'important');
-      video.controls = false; // Asegura que los nativos no vuelvan a aparecer
-    }
-  }
-
-  // Ejecuta el fix inicial
-  applyFixes();
-
-  // 🔁 Diagnóstico visual
-  console.log("==== DIAGNÓSTICO INICIAL ====");
-  if (bg) {
-    console.log("Background pointer-events:", getComputedStyle(bg).pointerEvents);
-    console.log("Background z-index:", getComputedStyle(bg).zIndex);
-  }
-  if (vc) {
-    console.log("Video container pointer-events:", getComputedStyle(vc).pointerEvents);
-    console.log("Video container z-index:", getComputedStyle(vc).zIndex);
-  }
-  if (video) {
-    console.log("Video pointer-events:", getComputedStyle(video).pointerEvents);
-    console.log("Video z-index:", getComputedStyle(video).zIndex);
-  }
-
-  // 🔄 Auto-fix loop: revisa y corrige cada 3 segundos
+  // --- Refuerzo visual por si algo lo tapa ---
   setInterval(() => {
-    const bgEvents = getComputedStyle(bg).pointerEvents;
-    const vcEvents = getComputedStyle(vc).pointerEvents;
-    const vidEvents = getComputedStyle(video).pointerEvents;
+    controls.style.zIndex = "9999";
+    controls.style.pointerEvents = "auto";
+    vc.style.pointerEvents = "auto";
+  }, 2000);
 
-    if (bgEvents !== 'none' || vcEvents !== 'auto' || vidEvents !== 'auto') {
-      console.warn("⚠️ Se detectó cambio de estilos, corrigiendo...");
-      applyFixes();
-    }
-  }, 3000); // cada 3 segundos
+  console.log("✅ Controles personalizados añadidos correctamente");
 });
-
-if (vc) {
-  const observer = new MutationObserver((mutations) => {
-    for (const m of mutations) {
-      if (m.attributeName === "style") {
-        console.warn("⚠️ Cambios detectados en estilos de #video-container:", vc.getAttribute("style"));
-      }
-    }
-  });
-  observer.observe(vc, { attributes: true, attributeFilter: ["style"] });
-}
-
-
-let hideTimeout;
-
-function showControls() {
-  controls.style.opacity = "1";
-  clearTimeout(hideTimeout);
-  hideTimeout = setTimeout(() => {
-    controls.style.opacity = "0";
-  }, 2500); // se ocultan 2.5s después
-}
-
-videoContainer.addEventListener("mousemove", showControls);
-videoContainer.addEventListener("click", showControls);
-
-
-
-["click", "mousemove", "touchstart"].forEach(evt => {
-  document.addEventListener(evt, () => {
-    applyFixes();
-  }, { passive: true });
-});
-
-const styleLock = document.createElement("style");
-styleLock.textContent = `
-.background-img { pointer-events: none !important; z-index: 1 !important; }
-#video-container, #video-container video {
-  pointer-events: auto !important;
-  z-index: 3 !important;
-}
-`;
-document.head.appendChild(styleLock);
-
-
