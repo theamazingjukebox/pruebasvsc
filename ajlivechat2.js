@@ -575,70 +575,95 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const vc = document.querySelector("#video-container");
-  if (!vc) return;
+  const videoContainer = document.getElementById("video-container");
 
-  // --- Aseguramos posición base ---
-  vc.style.position = "absolute";
-  vc.style.zIndex = "0";
-  vc.style.pointerEvents = "auto";
+  // Crea el reproductor principal
+  const videoPlayer = document.createElement("video");
+  videoPlayer.autoplay = true;
+  videoPlayer.muted = true;
+  videoPlayer.playsInline = true;
+  videoPlayer.controls = false; // desactiva los nativos
+  videoContainer.appendChild(videoPlayer);
 
-  // --- Creamos los controles de forma global ---
+  // Crea los controles flotantes
   const controls = document.createElement("div");
-  controls.className = "custom-controls";
+  controls.className = "video-controls";
   controls.innerHTML = `
-    <button class="playPauseBtn">⏯️</button>
-    <button class="muteBtn">🔊</button>
+    <button id="playPauseBtn">⏯️</button>
+    <button id="muteBtn">🔇</button>
+    <input id="volumeRange" type="range" min="0" max="1" step="0.05" value="1">
   `;
+  document.body.appendChild(controls); // los saca del z-index del contenedor
 
-  // Estilos en línea (para que no dependan de CSS externo)
-  Object.assign(controls.style, {
-    position: "absolute",
-    bottom: "10px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    display: "flex",
-    gap: "10px",
-    zIndex: "9999",
-    opacity: "0",
-    transition: "opacity 0.3s ease",
-    pointerEvents: "auto"
+  // Posiciona los controles sobre el video container
+  function positionControls() {
+    const rect = videoContainer.getBoundingClientRect();
+    controls.style.top = `${rect.bottom - 50}px`;
+    controls.style.left = `${rect.left + rect.width / 2}px`;
+  }
+
+  window.addEventListener("resize", positionControls);
+  window.addEventListener("scroll", positionControls);
+
+  // Botones funcionales
+  const playPauseBtn = controls.querySelector("#playPauseBtn");
+  const muteBtn = controls.querySelector("#muteBtn");
+  const volumeRange = controls.querySelector("#volumeRange");
+
+  playPauseBtn.addEventListener("click", () => {
+    if (videoPlayer.paused) {
+      videoPlayer.play();
+    } else {
+      videoPlayer.pause();
+    }
   });
 
-  // Insertar los controles al final del video-container
-  vc.appendChild(controls);
-
-  // Mostrar/ocultar al pasar o tocar
-  vc.addEventListener("mouseenter", () => controls.style.opacity = "1");
-  vc.addEventListener("mouseleave", () => controls.style.opacity = "0");
-  vc.addEventListener("click", () => {
-    controls.style.opacity = controls.style.opacity === "1" ? "0" : "1";
+  muteBtn.addEventListener("click", () => {
+    videoPlayer.muted = !videoPlayer.muted;
+    muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
   });
 
-  // --- Acciones de los botones ---
-  controls.querySelector(".playPauseBtn").addEventListener("click", (e) => {
-    e.stopPropagation();
-    vc.querySelectorAll("video").forEach(v => {
-      if (v.paused) v.play();
-      else v.pause();
-    });
+  volumeRange.addEventListener("input", (e) => {
+    videoPlayer.volume = e.target.value;
   });
 
-  controls.querySelector(".muteBtn").addEventListener("click", (e) => {
-    e.stopPropagation();
-    vc.querySelectorAll("video").forEach(v => {
-      v.muted = !v.muted;
-    });
-    e.target.textContent = vc.querySelector("video")?.muted ? "🔇" : "🔊";
+  // Mostrar controles en hover o tap
+  let isTouch = false;
+
+  videoContainer.addEventListener("mouseenter", () => {
+    if (!isTouch) controls.style.opacity = "1";
   });
 
-  // --- Refuerzo visual por si algo lo tapa ---
-  setInterval(() => {
-    controls.style.zIndex = "9999";
-    controls.style.pointerEvents = "auto";
-    vc.style.pointerEvents = "auto";
-  }, 2000);
+  videoContainer.addEventListener("mouseleave", () => {
+    if (!isTouch) controls.style.opacity = "0";
+  });
 
-  console.log("✅ Controles personalizados añadidos correctamente");
+  videoContainer.addEventListener("click", () => {
+    isTouch = true;
+    controls.classList.toggle("show");
+    positionControls();
+  });
+
+  // Simula tu sistema existente de carga de videos
+  const videos = [
+    { src: "videos/video1.mp4" },
+    { src: "videos/video2.mp4" },
+    // ...
+  ];
+
+  let currentVideoIndex = 0;
+  function playNextVideo() {
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+    videoPlayer.src = videos[currentVideoIndex].src;
+    videoPlayer.load();
+    videoPlayer.play();
+  }
+
+  videoPlayer.addEventListener("ended", playNextVideo);
+
+  // Inicia el primero
+  videoPlayer.src = videos[currentVideoIndex].src;
+  videoPlayer.load();
+  videoPlayer.play();
+  positionControls();
 });
-
