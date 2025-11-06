@@ -577,7 +577,6 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function () {
   const videoContainer = document.getElementById("video-container");
 
-  // Espera a que el video esté insertado
   setTimeout(() => {
     const videoPlayer = videoContainer.querySelector("video");
     if (!videoPlayer) return;
@@ -587,16 +586,20 @@ document.addEventListener("DOMContentLoaded", function () {
     controlsOverlay.id = "video-controls-overlay";
     Object.assign(controlsOverlay.style, {
       position: "fixed",
-      bottom: "30px",
+      bottom: "20px",
       left: "50%",
       transform: "translateX(-50%)",
       zIndex: "9999",
       display: "flex",
-      gap: "10px",
+      gap: "12px",
       backgroundColor: "rgba(0,0,0,0.6)",
       padding: "10px 15px",
-      borderRadius: "10px",
+      borderRadius: "12px",
       boxShadow: "0 0 10px rgba(255,255,255,0.4)",
+      alignItems: "center",
+      justifyContent: "center",
+      flexWrap: "wrap",
+      transition: "opacity 0.3s ease",
     });
 
     // Botón Play/Pause
@@ -612,17 +615,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Botón Mute/Unmute
     const muteBtn = document.createElement("button");
-    muteBtn.textContent = "🔇";
+    muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
     muteBtn.onclick = () => {
       videoPlayer.muted = !videoPlayer.muted;
       muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
     };
 
-    // Agregar botones al overlay
+    // Estilos de botones
+    [playPauseBtn, muteBtn].forEach((btn) => {
+      Object.assign(btn.style, {
+        fontSize: "22px",
+        padding: "8px 12px",
+        borderRadius: "8px",
+        border: "none",
+        backgroundColor: "#222",
+        color: "#fff",
+        cursor: "pointer",
+      });
+    });
+
+    // Insertar en el DOM
     controlsOverlay.appendChild(playPauseBtn);
     controlsOverlay.appendChild(muteBtn);
-
-    // Insertar en el body
     document.body.appendChild(controlsOverlay);
-  }, 300); // Ajusta el delay si el video tarda más en cargarse
+
+    // 🔁 Función para ocultar controles tras delay
+    let hideTimeout;
+    function showControls() {
+      controlsOverlay.style.opacity = "1";
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        controlsOverlay.style.opacity = "0";
+      }, 5000); // oculta tras 5 segundos
+    }
+
+    // Mostrar al cargar
+    showControls();
+
+    // Mostrar al tocar o hacer clic en cualquier parte
+    document.addEventListener("click", showControls);
+    document.addEventListener("touchstart", showControls);
+  }, 300);
 });
+
