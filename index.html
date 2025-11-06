@@ -391,13 +391,13 @@ body {
   width: 300px;
   height: 220px;
   z-index: 2; /* por encima del video pero debajo de los controles */
-  background-color: #ffffff5e;
+  background-color: transparent;
 }
 
 
 #video-controls-overlay {
   position: fixed;
-  bottom: 520px; /* ajusta aquí para escritorio */
+  bottom: 1300px; /* ajusta aquí para escritorio */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -426,15 +426,15 @@ body {
 }
 
 /* Responsivo para móviles */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (hover: hover) and (pointer: fine) {
   #video-controls-overlay {
-    bottom: 80px;
+    bottom: 520px;
     padding: 8px 12px;
     gap: 8px;
   }
 
   #video-controls-overlay button {
-    font-size: 20px;
+    font-size: 40px;
     padding: 6px 10px;
   }
 }
@@ -1320,6 +1320,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
