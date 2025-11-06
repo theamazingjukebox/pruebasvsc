@@ -631,6 +631,33 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+    const styleTag = document.createElement("style");
+styleTag.textContent = `
+  @media (max-width: 768px) {
+    #video-controls-overlay {
+      bottom: 800px; /* más alto en móviles */
+      padding: 8px 12px;
+      gap: 8px;
+    }
+    #video-controls-overlay button {
+      font-size: 50px;
+      padding: 6px 10px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    #video-controls-overlay {
+      bottom: 20px; /* posición especial para escritorio */
+    }
+    #video-controls-overlay button {
+      font-size: 26px;
+      padding: 10px 14px;
+    }
+  }
+`;
+document.head.appendChild(styleTag);
+      
+
     controlsOverlay.appendChild(playPauseBtn);
     controlsOverlay.appendChild(muteBtn);
     document.body.appendChild(controlsOverlay);
@@ -650,6 +677,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
