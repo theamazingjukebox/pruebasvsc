@@ -580,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Aseguramos posición base ---
   vc.style.position = "absolute";
-  vc.style.zIndex = "10";
+  vc.style.zIndex = "0";
   vc.style.pointerEvents = "auto";
 
   // --- Creamos los controles de forma global ---
@@ -641,3 +641,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log("✅ Controles personalizados añadidos correctamente");
 });
+
