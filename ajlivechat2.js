@@ -573,3 +573,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+document.addEventListener("DOMContentLoaded", function () {
+  const videoContainer = document.getElementById("video-container");
+
+  // Espera a que el video esté insertado
+  setTimeout(() => {
+    const videoPlayer = videoContainer.querySelector("video");
+    if (!videoPlayer) return;
+
+    // Crear contenedor de controles flotantes
+    const controlsOverlay = document.createElement("div");
+    controlsOverlay.id = "video-controls-overlay";
+    Object.assign(controlsOverlay.style, {
+      position: "fixed",
+      bottom: "30px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: "9999",
+      display: "flex",
+      gap: "10px",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      padding: "10px 15px",
+      borderRadius: "10px",
+      boxShadow: "0 0 10px rgba(255,255,255,0.4)",
+    });
+
+    // Botón Play/Pause
+    const playPauseBtn = document.createElement("button");
+    playPauseBtn.textContent = "⏯️";
+    playPauseBtn.onclick = () => {
+      if (videoPlayer.paused) {
+        videoPlayer.play();
+      } else {
+        videoPlayer.pause();
+      }
+    };
+
+    // Botón Mute/Unmute
+    const muteBtn = document.createElement("button");
+    muteBtn.textContent = "🔇";
+    muteBtn.onclick = () => {
+      videoPlayer.muted = !videoPlayer.muted;
+      muteBtn.textContent = videoPlayer.muted ? "🔇" : "🔊";
+    };
+
+    // Agregar botones al overlay
+    controlsOverlay.appendChild(playPauseBtn);
+    controlsOverlay.appendChild(muteBtn);
+
+    // Insertar en el body
+    document.body.appendChild(controlsOverlay);
+  }, 300); // Ajusta el delay si el video tarda más en cargarse
+});
