@@ -639,7 +639,7 @@ window.addEventListener("load", () => {
 
     if (video) {
       video.style.setProperty('pointer-events', 'auto', 'important');
-      video.style.setProperty('z-index', '4', 'important');
+      video.style.setProperty('z-index', '0', 'important');
       video.controls = false; // Asegura que los nativos no vuelvan a aparecer
     }
   }
@@ -717,4 +717,5 @@ styleLock.textContent = `
 }
 `;
 document.head.appendChild(styleLock);
+
 
