@@ -618,3 +618,44 @@ document.addEventListener("DOMContentLoaded", function () {
   playNextVideo();
 });
 
+
+
+window.addEventListener("load", () => {
+  const bg = document.querySelector('.background-img');
+  const videoContainer = document.getElementById('video-container');
+  const video = videoContainer?.querySelector('video');
+
+  // Forzar reglas aunque haya estilos en conflicto
+  if (bg) {
+    bg.style.setProperty('pointer-events', 'none', 'important');
+    bg.style.setProperty('z-index', '1', 'important');
+  }
+
+  if (videoContainer) {
+    videoContainer.style.setProperty('pointer-events', 'auto', 'important');
+    videoContainer.style.setProperty('z-index', '0', 'important');
+  }
+
+  if (video) {
+    video.style.setProperty('pointer-events', 'auto', 'important');
+    video.style.setProperty('z-index', '0', 'important');
+    video.controls = false; // 🔹 oculta controles nativos
+  }
+
+  console.log("✅ Forzado pointer-events y ocultados controles nativos.");
+});
+
+
+
+let hideTimeout;
+
+function showControls() {
+  controls.style.opacity = "1";
+  clearTimeout(hideTimeout);
+  hideTimeout = setTimeout(() => {
+    controls.style.opacity = "0";
+  }, 2500); // se ocultan 2.5s después
+}
+
+videoContainer.addEventListener("mousemove", showControls);
+videoContainer.addEventListener("click", showControls);
