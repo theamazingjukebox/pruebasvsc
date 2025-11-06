@@ -708,3 +708,13 @@ videoContainer.addEventListener("click", showControls);
   }, { passive: true });
 });
 
+const styleLock = document.createElement("style");
+styleLock.textContent = `
+.background-img { pointer-events: none !important; z-index: 1 !important; }
+#video-container, #video-container video {
+  pointer-events: auto !important;
+  z-index: 3 !important;
+}
+`;
+document.head.appendChild(styleLock);
+
