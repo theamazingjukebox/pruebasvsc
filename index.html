@@ -294,7 +294,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
-    pointer-events: none;
+    
     
     
 }
@@ -408,6 +408,15 @@ body {
 
 .custom-controls button:hover {
   background: rgba(255, 165, 0, 0.8);
+}
+
+
+#video-container video::-webkit-media-controls {
+  display: none !important;
+}
+
+#video-container video::-moz-media-controls {
+  display: none !important;
 }
 
 
@@ -1287,6 +1296,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
