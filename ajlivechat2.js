@@ -522,8 +522,8 @@ function generateTwinklingStars() {
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
     star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
-    const minVH = 50;
-const maxVH = 150;
+    const minVH = 20;
+const maxVH = 80;
 star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 }
 
@@ -626,6 +626,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
