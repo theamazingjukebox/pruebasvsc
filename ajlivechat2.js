@@ -418,8 +418,18 @@ function generateVerticalStars() {
 
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
-    star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-    star.style.top = Math.random() * 100 + 'vh'; // Posición vertical aleatoria
+    star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
+
+    let minVH = 10;
+    let maxVH = 70;
+
+    // Solo desktop (mouse real)
+    if (window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches) {
+        minVH = 50;
+        maxVH = 150;
+    }
+
+    star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 }
 
 // Ejecutar la función una vez cargado el DOM
@@ -466,8 +476,18 @@ function generateHorizontalStars() {
 
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
-   star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-    star.style.top = Math.random() * 100 + 'vh'; // Posición vertical aleatoria
+    star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
+
+    let minVH = 10;
+    let maxVH = 70;
+
+    // Solo desktop (mouse real)
+    if (window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches) {
+        minVH = 50;
+        maxVH = 150;
+    }
+
+    star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 }
 
 // Ejecutar la función una vez cargado el DOM
@@ -635,6 +655,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
