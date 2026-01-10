@@ -522,10 +522,19 @@ function generateTwinklingStars() {
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
     star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
-    const minVH = 20;
-const maxVH = 80;
-star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
+
+    let minVH = 10;
+    let maxVH = 70;
+
+    // Solo desktop (mouse real)
+    if (window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches) {
+        minVH = 50;
+        maxVH = 150;
+    }
+
+    star.style.top = (Math.random() * (maxVH - minVH) + minVH) + 'vh';
 }
+
 
 document.addEventListener('DOMContentLoaded', generateTwinklingStars);
 
@@ -626,6 +635,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
