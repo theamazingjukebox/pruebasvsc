@@ -391,7 +391,7 @@ function generateVerticalStars() {
         setRandomPosition(star); 
         
         // Tamaño aleatorio para más variación
-        const size = Math.random() * 11 + 5; // Tamaño entre 5px y 30px
+        const size = Math.random() * 17 + 5; // Tamaño entre 5px y 30px
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
 
@@ -418,9 +418,16 @@ function generateVerticalStars() {
 
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
-    star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-    star.style.top = Math.random() * 100 + 'vh'; // Posición vertical aleatoria
-}
+    star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
+
+    let minVH = 10;
+    let maxVH = 70;
+
+    // Solo desktop (mouse real)
+    if (window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches) {
+        minVH = 50;
+        maxVH = 150;
+    }
 
 // Ejecutar la función una vez cargado el DOM
 document.addEventListener('DOMContentLoaded', generateVerticalStars);
@@ -439,7 +446,7 @@ function generateHorizontalStars() {
         setRandomPosition(star); 
         
         // Tamaño aleatorio para más variación
-        const size = Math.random() * 11 + 5; // Tamaño entre 15px y 25px
+        const size = Math.random() * 17 + 5; // Tamaño entre 15px y 25px
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
 
@@ -466,9 +473,16 @@ function generateHorizontalStars() {
 
 // Función para establecer una posición aleatoria
 function setRandomPosition(star) {
-    star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
-    star.style.top = Math.random() * 100 + 'vh'; // Posición vertical aleatoria
-}
+    star.style.left = Math.random() * 30 + 'vw'; // Posición horizontal aleatoria
+
+    let minVH = 10;
+    let maxVH = 70;
+
+    // Solo desktop (mouse real)
+    if (window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches) {
+        minVH = 50;
+        maxVH = 150;
+    }
 
 // Ejecutar la función una vez cargado el DOM
 document.addEventListener('DOMContentLoaded', generateHorizontalStars);
@@ -635,6 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activationZone.addEventListener("touchstart", showControls);
   }, 300);
 });
+
 
 
 
