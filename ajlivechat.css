@@ -699,7 +699,7 @@ font-size: 1.4em;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box {
-        margin-top: 10%;    
+        margin-top: 11%;    
         left: 37%;   
             
     }
@@ -737,14 +737,6 @@ font-size: 1.4em;
 }
 
 
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .info-box2 {
-        margin-top: 10%;    
-        left: 37%;   
-            
-    }
-}
-
 @media (min-width: 768px) {
     .info-box2 {
         margin-top: 15%;
@@ -753,8 +745,18 @@ font-size: 1.4em;
     }
 }
 
+
 .info-box2.show {
     display: block; /* Mostrar cuadro cuando esté activo */
+}
+
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .info-box2 {
+        top: 10%;    
+        left: 37%;   
+            
+    }
 }
 
 
@@ -1299,6 +1301,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
