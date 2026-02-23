@@ -655,7 +655,7 @@ font-size: 1.4em;
 .info-box {
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
-    margin-top: 53%;
+    margin-top: 63%;
     left: 32.3%;
     transform: translate(-50%, -50%);
     background-color: #a0458227;
@@ -687,7 +687,7 @@ font-size: 1.4em;
 
 @media (min-width: 768px) {
     .info-box {
-        margin-top: 15%;
+        margin-top: 5%;
         margin-left: 47%;
         
     }
@@ -1297,6 +1297,7 @@ font-size: 1.4em;
             0 0 40px #FF6347;
     }
 }
+
 
 
 
