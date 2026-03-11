@@ -472,11 +472,10 @@ body {
 }
 
 .loading-box {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 25px 40px;
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 30px 45px;
+  border-radius: 14px;
   color: #00eaff;
-  font-size: 22px;
   font-family: monospace;
   text-align: center;
   box-shadow:
@@ -495,6 +494,44 @@ body {
 
 #loading-screen {
   transition: opacity 0.4s ease;
+}
+
+.loading-title{
+  font-size:18px;
+  margin-bottom:10px;
+  letter-spacing:2px;
+}
+
+.loading-message{
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+.loading-hint{
+  margin-top:10px;
+  font-size:14px;
+  opacity:0.8;
+}
+
+.loading-dots span{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  margin:0 3px;
+  border-radius:50%;
+  background:#00eaff;
+  animation:dotPulse 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2){animation-delay:0.2s;}
+.loading-dots span:nth-child(3){animation-delay:0.4s;}
+.loading-dots span:nth-child(4){animation-delay:0.6s;}
+.loading-dots span:nth-child(5){animation-delay:0.8s;}
+
+@keyframes dotPulse{
+  0%{opacity:0.2; transform:scale(0.8);}
+  50%{opacity:1; transform:scale(1.2);}
+  100%{opacity:0.2; transform:scale(0.8);}
 }
     
     
@@ -1261,10 +1298,26 @@ setTimeout(() => {
                 <img src="file.webp" alt="Next" class="next-button-img">
             </div>
 
-            <div id="loading-screen">
+            
+        <div id="loading-screen">
   <div class="loading-box">
-    Preparing the jukebox...<br>
-    Tap the video to turn the sound on 🔊
+    <div class="loading-title">THE AMAZING JUKEBOX</div>
+
+    <div class="loading-message">
+      Preparing the jukebox...
+    </div>
+
+    <div class="loading-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="loading-hint">
+      Tap the video to turn the sound on 🔊
+    </div>
   </div>
 </div>
 
@@ -1407,6 +1460,7 @@ setTimeout(() => {
     
 </body>
 </html>
+
 
 
 
