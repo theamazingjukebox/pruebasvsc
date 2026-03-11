@@ -462,6 +462,19 @@ body {
   }
 }
 
+    #loading-screen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: white;
+  font-size: 24px;
+  font-family: monospace;
+}
+
     
     #ad-container {
         
@@ -1118,7 +1131,12 @@ window.addEventListener('load', () => {
 
     })
 
+    
+window.addEventListener("load", () => {
+  document.getElementById("loading-screen").style.display = "none";
+});
 
+    
 
 </script>
 </head>
@@ -1214,6 +1232,12 @@ window.addEventListener('load', () => {
             <div id="next-song-button" onclick="playNextVideo()">
                 <img src="file.webp" alt="Next" class="next-button-img">
             </div>
+
+            <div id="loading-screen">
+  <div class="loading-text">
+    Loading the jukebox...
+  </div>
+</div>
 
         
             <div id="disco-mode-button" onclick="toggleDiscoMode()">
@@ -1354,6 +1378,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
