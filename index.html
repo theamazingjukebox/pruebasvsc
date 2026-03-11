@@ -946,6 +946,7 @@ button, a, img {
     videoPlayer.autoplay = true;
     videoPlayer.muted = true;
     videoPlayer.playsInline = true; // Agrega esta línea
+    videoPlayer.preload = "metadata";
     videoPlayer.addEventListener("ended", playNextVideo);
 
     const likedSongs = [];
@@ -1142,7 +1143,8 @@ window.addEventListener('load', () => {
   muted
   loop
   playsinline
-  preload="auto"
+  preload="metadata"
+  poster="background-preview.webp"
   class="background-video"
 >
   <source src="Copia de 0212 (17Belvnuevo).mp4" type="video/mp4">
@@ -1352,6 +1354,7 @@ window.addEventListener('load', () => {
     
 </body>
 </html>
+
 
 
 
