@@ -464,17 +464,39 @@ body {
     #loading-screen {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.767);
-  background size: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  color: white;
-  font-size: 24px;
-  font-family: monospace;
+  pointer-events: none; /* permite ver/interactuar con el fondo */
 }
 
+.loading-box {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 25px 40px;
+  border-radius: 12px;
+  color: #00eaff;
+  font-size: 22px;
+  font-family: monospace;
+  text-align: center;
+  box-shadow:
+    0 0 10px #00eaff,
+    0 0 30px rgba(0,234,255,0.4);
+}
+
+.loading-box {
+  animation: glowPulse 1.5s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { box-shadow: 0 0 10px #00eaff; }
+  to { box-shadow: 0 0 30px #00eaff; }
+}
+
+#loading-screen {
+  transition: opacity 0.4s ease;
+}
+    
     
     #ad-container {
         
@@ -1136,6 +1158,12 @@ window.addEventListener("load", () => {
   document.getElementById("loading-screen").style.display = "none";
 });
 
+const loader = document.getElementById("loading-screen");
+loader.style.opacity = "0";
+
+setTimeout(() => {
+  loader.style.display = "none";
+}, 400);
     
 
 </script>
@@ -1234,12 +1262,9 @@ window.addEventListener("load", () => {
             </div>
 
             <div id="loading-screen">
-  <div class="loading-text">
-    Loading the jukebox...
-      <br>
-Turn the sound on by tapping on the video display 🔊
-      <br>
-The music will start shortly
+  <div class="loading-box">
+    Preparing the jukebox...<br>
+    Turn the sound on 🔊
   </div>
 </div>
 
@@ -1382,5 +1407,6 @@ The music will start shortly
     
 </body>
 </html>
+
 
 
