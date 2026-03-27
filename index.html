@@ -1125,6 +1125,15 @@ if (currentSrc.startsWith("yt:")) {
         }
     }
 
+
+    document.addEventListener("click", () => {
+    const iframe = document.querySelector("iframe");
+    if (iframe && iframe.src.includes("mute=1")) {
+        iframe.src = iframe.src.replace("mute=1", "mute=0");
+    }
+}, { once: true });
+
+    
     function showLikedSongs() {
         const likedSongsPopup = document.getElementById("liked-songs-popup");
         const likedSongsContent = document.getElementById("liked-songs-content");
