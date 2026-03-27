@@ -652,6 +652,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 300);
 });
 
+document.addEventListener("click", () => {
+    userInteracted = true;
+
+    const activationZone = document.getElementById("video-activation-zone");
+    if (activationZone) {
+        activationZone.style.pointerEvents = "none";
+    }
+
+}, { once: true });
+
 
 
 
