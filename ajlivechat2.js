@@ -657,12 +657,10 @@ document.addEventListener("click", () => {
 
     const activationZone = document.getElementById("video-activation-zone");
     if (activationZone) {
-        activationZone.style.pointerEvents = "none";
+        activationZone.classList.add("disabled");
     }
 
 }, { once: true });
-
-
 
 
 
