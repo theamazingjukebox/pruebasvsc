@@ -129,9 +129,7 @@ function shareCurrentSong() {
             // Si se encontró la canción, cámbiala y reprodúcela
             if (index !== -1) {
                 currentVideoIndex = index;
-                videoPlayer.src = videos[currentVideoIndex].src;
-                videoPlayer.load();
-                videoPlayer.play();
+                playNextVideo();
                 const likeButton = document.getElementById("like-button");
                 likeButton.disabled = false; // Habilitar botón para cada nueva canción
             }
