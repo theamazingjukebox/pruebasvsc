@@ -1010,7 +1010,7 @@ button, a, img {
         { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
         // Agrega más URLs de videos según sea necesario
         
-        { src: "https://www.youtube.com/embed/a9K14_By3zM", liked: false }
+        { src: "https://www.youtube.com/embed/a9K14_By3zM?controls=0"", liked: false }
 ];
 
     const songInfo = {
@@ -1019,6 +1019,9 @@ button, a, img {
         // Agrega más información de canciones según sea necesario
         "Corazon De Venado.mp4": { id: 337, name: "Sunrise (Extended)", artist: "Simply Red", links: "https://youtu.be/3Pnqx4yjIyg?si=MXvGpsJdmtB42M_j" }
     };
+
+    const iframePlayer = document.createElement("iframe");
+
 
     let currentVideoIndex = -1;
     const videoPlayer = document.createElement("video");
@@ -1060,9 +1063,42 @@ button, a, img {
             }
         }
 
-        videoPlayer.src = videos[currentVideoIndex].src;
+        const videoContainer = document.getElementById("video-container");
+    const currentSrc = videos[currentVideoIndex].src;
+
+    // 👇 DETECCIÓN
+    if (currentSrc.includes("youtube.com/embed")) {
+
+        // quitar video si está
+        if (videoContainer.contains(videoPlayer)) {
+            videoContainer.removeChild(videoPlayer);
+        }
+
+        // configurar iframe
+        iframePlayer.src = currentSrc;
+
+        // agregar iframe si no está
+        if (!videoContainer.contains(iframePlayer)) {
+            videoContainer.appendChild(iframePlayer);
+        }
+
+    } else {
+
+        // quitar iframe si está
+        if (videoContainer.contains(iframePlayer)) {
+            videoContainer.removeChild(iframePlayer);
+        }
+
+        // configurar video normal
+        videoPlayer.src = currentSrc;
         videoPlayer.load();
         videoPlayer.play();
+
+        if (!videoContainer.contains(videoPlayer)) {
+            videoContainer.appendChild(videoPlayer);
+        }
+    }
+        
 
         const likeButton = document.getElementById("like-button");
         likeButton.disabled = false; // Habilitar botón para cada nuevo video
