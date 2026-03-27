@@ -1011,7 +1011,7 @@ button, a, img {
         { src: "Corazon De Venado.mp4", liked: false },
         // Agrega más URLs de videos según sea necesario
         { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-        { src: "yt:a9K14_By3zM", liked: false }
+        { src: "yt:a9K14_By3zM", key: "yt1", liked: false }
     ];
 
     const songInfo = {
@@ -1019,7 +1019,8 @@ button, a, img {
         "AFI - The Leaving Song Pt. II (Official Music Video).mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
         "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
         // Agrega más información de canciones según sea necesario
-        "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" }
+        "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
+        "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
     };
 
 
@@ -1077,6 +1078,10 @@ if (currentSrc.startsWith("yt:")) {
 
     const videoId = currentSrc.replace("yt:", "");
 
+     // 🔥 detener video anterior
+    videoPlayer.pause();
+    videoPlayer.src = "";
+
     // quitar video si existe
     if (videoContainer.contains(videoPlayer)) {
         videoContainer.removeChild(videoPlayer);
@@ -1112,7 +1117,7 @@ if (currentSrc.startsWith("yt:")) {
         if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
             if (!videos[currentVideoIndex].liked) {
                 videos[currentVideoIndex].liked = true;
-                const currentSong = songInfo[videos[currentVideoIndex].src];
+                const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
                 if (currentSong) {
                     likedSongs.push(currentSong);
                 }
