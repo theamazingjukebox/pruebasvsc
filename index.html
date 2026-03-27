@@ -1087,7 +1087,10 @@ if (currentSrc.startsWith("yt:")) {
         videoContainer.removeChild(videoPlayer);
     }
 
-    iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1`;
+    
+const shouldMute = userInteracted ? 0 : 1;
+
+iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
 
     if (!videoContainer.contains(iframePlayer)) {
         videoContainer.appendChild(iframePlayer);
@@ -1125,12 +1128,10 @@ if (currentSrc.startsWith("yt:")) {
         }
     }
 
-
+    let userInteracted = false;
+    
     document.addEventListener("click", () => {
-    const iframe = document.querySelector("iframe");
-    if (iframe && iframe.src.includes("mute=1")) {
-        iframe.src = iframe.src.replace("mute=1", "mute=0");
-    }
+    userInteracted = true;
 }, { once: true });
 
     
