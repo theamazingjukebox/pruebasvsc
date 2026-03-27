@@ -1005,137 +1005,139 @@ button, a, img {
     
 </style>
 <script>
-    const videos = [
-        { src: "D.A.N.K. - My Planet [The Treehouse] [W DOWNLOAD LINK].mp4", liked: false },
-        { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
-        // Agrega más URLs de videos según sea necesario
-        
-        { src: "https://www.youtube.com/embed/a9K14_By3zM?modestbranding=1&rel=0", liked: false }
+    // 🎯 SOLO YOUTUBE 
+
+// 📀 LISTA DE VIDEOS
+const videos = [
+  { id: "a9K14_By3zM", liked: false },
+  { id: "WEQ0l_m3Xm0", liked: false },
+  { id: "3Pnqx4yjIyg", liked: false }
 ];
 
-    const songInfo = {
-        "D.A.N.K. - My Planet [The Treehouse] [W DOWNLOAD LINK].mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
-        "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
-        // Agrega más información de canciones según sea necesario
-        "Corazon De Venado.mp4": { id: 337, name: "Sunrise (Extended)", artist: "Simply Red", links: "https://youtu.be/3Pnqx4yjIyg?si=MXvGpsJdmtB42M_j" }
-    };
+// 🎵 INFO (usamos ID ahora, no src)
+const songInfo = {
+  "a9K14_By3zM": { name: "Song 1", artist: "Artist 1", links: "https://youtu.be/a9K14_By3zM" },
+  "WEQ0l_m3Xm0": { name: "Song 2", artist: "Artist 2", links: "https://youtu.be/WEQ0l_m3Xm0" },
+  "3Pnqx4yjIyg": { name: "Song 3", artist: "Artist 3", links: "https://youtu.be/3Pnqx4yjIyg" }
+};
 
-    const iframePlayer = document.createElement("iframe");
+let currentVideoIndex = -1;
+let ytPlayer;
+let isYouTubeReady = false;
+const likedSongs = [];
 
-
-    let currentVideoIndex = -1;
-    const videoPlayer = document.createElement("video");
-    videoPlayer.controls = true;
-    videoPlayer.autoplay = true;
-    videoPlayer.muted = true;
-    videoPlayer.playsInline = true; // Agrega esta línea
-    videoPlayer.preload = "metadata";
-    videoPlayer.addEventListener("ended", playNextVideo);
-
-    const likedSongs = [];
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-     if ('mediaSession' in navigator) {
-    // Configura el manejador para el evento 'nexttrack'
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-        playNextVideo();
-    });
-
+// 🔀 SHUFFLE (igual que ya tienes)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
-    function playNextVideo() {
-        currentVideoIndex++;
-        if (currentVideoIndex >= videos.length) {
-            currentVideoIndex = 0;
-            shuffleArray(videos);
-        }
 
-        while (videos[currentVideoIndex].liked) {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videos.length) {
-                currentVideoIndex = 0;
-                shuffleArray(videos);
-            }
-        }
-
-        const videoContainer = document.getElementById("video-container");
-    const currentSrc = videos[currentVideoIndex].src;
-
-    // 👇 DETECCIÓN
-    if (currentSrc.includes("youtube.com/embed")) {
-
-        // quitar video si está
-        if (videoContainer.contains(videoPlayer)) {
-            videoContainer.removeChild(videoPlayer);
-        }
-
-        // configurar iframe
-        iframePlayer.src = currentSrc;
-
-        // agregar iframe si no está
-        if (!videoContainer.contains(iframePlayer)) {
-            videoContainer.appendChild(iframePlayer);
-        }
-
-    } else {
-
-        // quitar iframe si está
-        if (videoContainer.contains(iframePlayer)) {
-            videoContainer.removeChild(iframePlayer);
-        }
-
-        // configurar video normal
-        videoPlayer.src = currentSrc;
-        videoPlayer.load();
-        videoPlayer.play();
-
-        if (!videoContainer.contains(videoPlayer)) {
-            videoContainer.appendChild(videoPlayer);
-        }
+// 🎬 CUANDO YOUTUBE ESTÁ LISTO
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('video-container', {
+    height: '100%',
+    width: '100%',
+    videoId: '',
+    playerVars: {
+      autoplay: 1,
+      controls: 1,
+      modestbranding: 1,
+      rel: 0,
+      playsinline: 1
+    },
+    events: {
+      onReady: () => {
+        isYouTubeReady = true;
+        playNextVideo(); // 🔥 arranca automáticamente
+      },
+      onStateChange: onPlayerStateChange
     }
-        
+  });
+}
 
-        const likeButton = document.getElementById("like-button");
-        likeButton.disabled = false; // Habilitar botón para cada nuevo video
+// 🔥 CUANDO TERMINA EL VIDEO → NEXT AUTOMÁTICO
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    playNextVideo();
+  }
+}
+
+// ▶️ SIGUIENTE VIDEO (tu lógica intacta adaptada)
+function playNextVideo() {
+  currentVideoIndex++;
+
+  if (currentVideoIndex >= videos.length) {
+    currentVideoIndex = 0;
+    shuffleArray(videos);
+  }
+
+  while (videos[currentVideoIndex].liked) {
+    currentVideoIndex++;
+    if (currentVideoIndex >= videos.length) {
+      currentVideoIndex = 0;
+      shuffleArray(videos);
     }
+  }
 
-    function likeSong() {
-        if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
-            if (!videos[currentVideoIndex].liked) {
-                videos[currentVideoIndex].liked = true;
-                const currentSong = songInfo[videos[currentVideoIndex].src];
-                if (currentSong) {
-                    likedSongs.push(currentSong);
-                }
-            }
-        }
+  const currentVideo = videos[currentVideoIndex];
+
+  if (isYouTubeReady && ytPlayer) {
+    ytPlayer.loadVideoById(currentVideo.id);
+  }
+
+  // activar botón like
+  const likeButton = document.getElementById("like-button");
+  if (likeButton) likeButton.disabled = false;
+}
+
+// ❤️ LIKE (igual lógica, solo cambia key)
+function likeSong() {
+  if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+    const currentVideo = videos[currentVideoIndex];
+
+    if (!currentVideo.liked) {
+      currentVideo.liked = true;
+
+      const currentSong = songInfo[currentVideo.id];
+      if (currentSong) {
+        likedSongs.push(currentSong);
+      }
     }
+  }
+}
 
-    function showLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        const likedSongsContent = document.getElementById("liked-songs-content");
-        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
-        for (const song of likedSongs) {
-            likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
-        }
-        likedSongsPopup.style.display = "block";
-    }
+// 📜 MOSTRAR LIKES (igual)
+function showLikedSongs() {
+  const likedSongsPopup = document.getElementById("liked-songs-popup");
+  const likedSongsContent = document.getElementById("liked-songs-content");
 
-    function closeLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        likedSongsPopup.style.display = "none";
-    }
+  likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const videoContainer = document.getElementById("video-container");
-        videoContainer.appendChild(videoPlayer);
-        shuffleArray(videos);
-        playNextVideo();
+  for (const song of likedSongs) {
+    likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
+  }
+
+  likedSongsPopup.style.display = "block";
+}
+
+// ❌ CERRAR
+function closeLikedSongs() {
+  document.getElementById("liked-songs-popup").style.display = "none";
+}
+
+// 🎧 MEDIA SESSION (igual)
+if ('mediaSession' in navigator) {
+  navigator.mediaSession.setActionHandler('nexttrack', () => {
+    playNextVideo();
+  });
+}
+
+// 🚀 INIT
+document.addEventListener("DOMContentLoaded", function () {
+  shuffleArray(videos);
+});
     
 const chatContainer = document.getElementById("chat");
 const toggleChatBtn = document.getElementById("toggle-chat-btn");
@@ -1327,6 +1329,7 @@ setTimeout(() => {
 
 <script src="script.js"></script>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 
 
         
