@@ -1069,6 +1069,7 @@ function loadYouTubeVideo(videoId) {
             onReady: (event) => {
                 if (soundEnabled) {
     event.target.unMute();
+    event.target.setVolume(100); // 🔥 importante
 } else {
     event.target.mute();
 }
@@ -1173,6 +1174,11 @@ function playNextVideo() {
 
         videoContainer.innerHTML = "";
 
+// 🔥 RESET REAL DEL VIDEO
+videoPlayer.pause();
+videoPlayer.removeAttribute("src");
+videoPlayer.load();
+
 videoPlayer.src = currentSrc;
 videoPlayer.style.display = "block";
 
@@ -1180,30 +1186,31 @@ videoContainer.appendChild(videoPlayer);
 
 videoPlayer.load();
 
-// 🔥 CONTROL DE AUDIO CORRECTO
-if (soundEnabled) {
+// 🔥 RESET + PLAY CORRECTO
+videoPlayer.pause();
+videoPlayer.removeAttribute("src");
+videoPlayer.load();
 
-    videoPlayer.muted = false;
+videoPlayer.src = currentSrc;
+videoPlayer.load();
 
-    const playPromise = videoPlayer.play();
+// 🔥 SIEMPRE iniciar muted primero
+videoPlayer.muted = true;
 
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
+const playPromise = videoPlayer.play();
+
+if (playPromise !== undefined) {
+    playPromise.then(() => {
+
+        // 🔥 aplicar estado real después
+        if (soundEnabled) {
             videoPlayer.muted = false;
             videoPlayer.volume = 1;
-        }).catch(() => {
-            // fallback
-            videoPlayer.muted = true;
-            videoPlayer.play().then(() => {
-                videoPlayer.muted = false;
-            });
-        });
-    }
+        }
 
-} else {
-
-    videoPlayer.muted = true;
-    videoPlayer.play().catch(() => {});
+    }).catch(() => {
+        console.log("Autoplay bloqueado");
+    });
 }
 
 // 🔥 ESTE VA FUERA DEL PLAY
