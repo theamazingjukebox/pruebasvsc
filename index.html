@@ -1068,11 +1068,14 @@ function loadYouTubeVideo(videoId) {
         events: {
             onReady: (event) => {
                 if (soundEnabled) {
-    event.target.unMute();
-    event.target.setVolume(100); // 🔥 importante
+    setTimeout(() => {
+        event.target.unMute();
+        event.target.setVolume(100);
+    }, 100);
 } else {
     event.target.mute();
 }
+                
                 event.target.playVideo();
             },
             onStateChange: (event) => {
@@ -1197,9 +1200,13 @@ if (playPromise !== undefined) {
     playPromise.then(() => {
 
         if (soundEnabled) {
-            videoPlayer.muted = false;
-            videoPlayer.volume = 1;
-        }
+            // 🔥 FORZAR DESMUTE CON RETRY (clave)
+    setTimeout(() => {
+        videoPlayer.muted = false;
+        videoPlayer.volume = 1;
+    }, 100);
+
+}
 
     }).catch(() => {
         console.log("Autoplay bloqueado");
