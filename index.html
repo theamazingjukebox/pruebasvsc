@@ -1001,35 +1001,53 @@ button, a, img {
 </style>
 <script>
   const videos = [
-        { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
-        { src: "AFI - The Leaving Song Pt. II (Official Music Video).mp4", liked: false },
-        { src: "Corazon De Venado.mp4", liked: false },
-        // Agrega más URLs de videos según sea necesario
-        { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-        { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false } // 3.5 min
-    ];
+    { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
+    { src: "AFI - The Leaving Song Pt. II (Official Music Video).mp4", liked: false },
+    { src: "Corazon De Venado.mp4", liked: false },
+    { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
+    { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false }
+];
 
-    const songInfo = {
-        "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
-        "AFI - The Leaving Song Pt. II (Official Music Video).mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
-        "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
-        // Agrega más información de canciones según sea necesario
-        "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
-        "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
-    };
+const songInfo = {
+    "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
+    "AFI - The Leaving Song Pt. II (Official Music Video).mp4": { id: 2, name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
+    "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
+    "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
+    "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
+};
 
+// ======================
+// METADATA CACHE
+// ======================
+const metadataCache = {};
+
+function getMetadata(id) {
+    return metadataCache[id];
+}
+
+function setMetadata(id, data) {
+    metadataCache[id] = data;
+}
+
+// ======================
+// YOUTUBE
+// ======================
 let ytPlayer = null;
 let isYouTubeReady = false;
 
-    function onYouTubeIframeAPIReady() {
+function onYouTubeIframeAPIReady() {
     isYouTubeReady = true;
 }
 
 function loadYouTubeVideo(videoId) {
 
+    const videoContainer = document.getElementById("video-container");
+
     if (ytPlayer) {
-        ytPlayer.destroy(); // limpiar anterior
+        ytPlayer.destroy();
     }
+
+    videoContainer.innerHTML = ""; // 🔥 importante
 
     ytPlayer = new YT.Player("video-container", {
         videoId: videoId,
@@ -1053,138 +1071,166 @@ function loadYouTubeVideo(videoId) {
                 if (event.data === YT.PlayerState.ENDED) {
                     playNextVideo();
                 }
+            },
+            onError: () => {
+                console.log("Error en YT, skip...");
+                playNextVideo();
             }
         }
     });
 }
-    
 
+// ======================
+// VIDEO PLAYER
+// ======================
+let currentVideoIndex = -1;
 
-    
-    let currentVideoIndex = -1;
-    const videoPlayer = document.createElement("video");
-    videoPlayer.controls = true;
-    videoPlayer.autoplay = true;
-    videoPlayer.muted = true;
-    videoPlayer.playsInline = true; // Agrega esta línea
-    videoPlayer.addEventListener("ended", playNextVideo);
+const videoPlayer = document.createElement("video");
+videoPlayer.controls = true;
+videoPlayer.autoplay = true;
+videoPlayer.muted = true;
+videoPlayer.playsInline = true;
 
-    const likedSongs = [];
+videoPlayer.onended = playNextVideo;
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    if ('mediaSession' in navigator) {
-    // Configura el manejador para el evento 'nexttrack'
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-        playNextVideo();
-    });
-
-}
-
-    videoPlayer.onended = () => {
+videoPlayer.onerror = () => {
+    console.log("Error en MP4, skip...");
     playNextVideo();
 };
 
-    function playNextVideo() {
+// ======================
+// UTILS
+// ======================
+const likedSongs = [];
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+        playNextVideo();
+    });
+}
+
+// ======================
+// CORE PLAYER
+// ======================
+function playNextVideo() {
+
+    currentVideoIndex++;
+
+    if (currentVideoIndex >= videos.length) {
+        currentVideoIndex = 0;
+        shuffleArray(videos);
+    }
+
+    while (videos[currentVideoIndex].liked) {
         currentVideoIndex++;
         if (currentVideoIndex >= videos.length) {
             currentVideoIndex = 0;
             shuffleArray(videos);
         }
+    }
 
-        while (videos[currentVideoIndex].liked) {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videos.length) {
-                currentVideoIndex = 0;
-                shuffleArray(videos);
-            }
+    const currentSrc = videos[currentVideoIndex].src;
+    const videoContainer = document.getElementById("video-container");
+
+    if (currentSrc.startsWith("yt:")) {
+
+        const videoId = currentSrc.replace("yt:", "");
+
+        videoPlayer.pause();
+        videoPlayer.src = "";
+
+        if (videoContainer.contains(videoPlayer)) {
+            videoContainer.removeChild(videoPlayer);
         }
 
-        const currentSrc = videos[currentVideoIndex].src;
-const videoContainer = document.getElementById("video-container");
+        if (isYouTubeReady) {
+            loadYouTubeVideo(videoId);
+        } else {
+            console.log("YT API aún no lista");
+        }
 
-if (currentSrc.startsWith("yt:")) {
-
-    const videoId = currentSrc.replace("yt:", "");
-
-    videoPlayer.pause();
-    videoPlayer.src = "";
-
-    if (videoContainer.contains(videoPlayer)) {
-        videoContainer.removeChild(videoPlayer);
-    }
-
-    if (isYouTubeReady) {
-        loadYouTubeVideo(videoId);
     } else {
-        console.log("YT API aún no lista");
-    }
 
+        if (ytPlayer) {
+            ytPlayer.stopVideo();
+            ytPlayer.destroy();
+            ytPlayer = null;
+        }
 
-} else {
+        videoContainer.innerHTML = "";
 
-   if (ytPlayer) {
-        ytPlayer.destroy();
-        ytPlayer = null;
-    }
+        videoPlayer.src = currentSrc;
+        videoPlayer.style.display = "block";
+        videoPlayer.style.width = "100%";
+        videoPlayer.style.height = "100%";
 
-    videoPlayer.src = currentSrc;
-    videoPlayer.load();
-    videoPlayer.play();
-
-    
-
-
-    if (!videoContainer.contains(videoPlayer)) {
         videoContainer.appendChild(videoPlayer);
+
+        videoPlayer.load();
+
+        videoPlayer.play().catch(() => {
+            console.log("Autoplay bloqueado");
+        });
+    }
+
+    const likeButton = document.getElementById("like-button");
+    if (likeButton) likeButton.disabled = false;
+}
+
+// ======================
+// LIKE SYSTEM
+// ======================
+function likeSong() {
+    if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+        if (!videos[currentVideoIndex].liked) {
+            videos[currentVideoIndex].liked = true;
+
+            const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
+
+            if (currentSong) {
+                likedSongs.push(currentSong);
+            }
+        }
     }
 }
 
-        const likeButton = document.getElementById("like-button");
-        likeButton.disabled = false; // Habilitar botón para cada nuevo video
-    }
+// ======================
+// USER INTERACTION
+// ======================
+let userInteracted = false;
 
-    function likeSong() {
-        if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
-            if (!videos[currentVideoIndex].liked) {
-                videos[currentVideoIndex].liked = true;
-                const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
-                if (currentSong) {
-                    likedSongs.push(currentSong);
-                }
-            }
-        }
-    }
-
-    let userInteracted = false;
-   
-    
-    document.addEventListener("click", () => {
+document.addEventListener("click", () => {
     userInteracted = true;
-        // 🔥 IMPORTANTE: desbloquear también el video MP4
     videoPlayer.muted = false;
 }, { once: true });
 
-    
-    function showLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        const likedSongsContent = document.getElementById("liked-songs-content");
-        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
-        for (const song of likedSongs) {
-            likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
-        }
-        likedSongsPopup.style.display = "block";
+// ======================
+// UI
+// ======================
+function showLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    const likedSongsContent = document.getElementById("liked-songs-content");
+
+    likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+
+    for (const song of likedSongs) {
+        likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
     }
 
-    function closeLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        likedSongsPopup.style.display = "none";
-    }
+    likedSongsPopup.style.display = "block";
+}
+
+function closeLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    likedSongsPopup.style.display = "none";
+}
 
     document.addEventListener("DOMContentLoaded", function () {
         const videoContainer = document.getElementById("video-container");
