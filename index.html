@@ -1006,7 +1006,7 @@ button, a, img {
         { src: "Corazon De Venado.mp4", liked: false },
         // Agrega más URLs de videos según sea necesario
         { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-        { src: "yt:a9K14_By3zM", key: "yt1", duration: 210000, liked: false } // 3.5 min
+        { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false } // 3.5 min
     ];
 
     const songInfo = {
@@ -1095,6 +1095,8 @@ const shouldMute = userInteracted ? 0 : 1;
 
 iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
 
+    const duration = videos[currentVideoIndex].duration ?? 300000;
+
     if (!videoContainer.contains(iframePlayer)) {
         videoContainer.appendChild(iframePlayer);
     }
@@ -1110,7 +1112,7 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
     videoPlayer.load();
     videoPlayer.play();
 
-    const duration = videos[currentVideoIndex].duration || 300000;
+    
 
 ytTimeout = setTimeout(() => {
     playNextVideo();
