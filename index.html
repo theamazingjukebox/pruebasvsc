@@ -1080,7 +1080,11 @@ function loadYouTubeVideo(videoId) {
             },
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
-                    playNextVideo();
+                    // 🔥 DAR TIEMPO A YT A LIBERAR
+        setTimeout(() => {
+            playNextVideo();
+        }, 300);
+
                 }
             },
             onError: () => {
@@ -1194,24 +1198,25 @@ videoPlayer.load();
 // 🔥 AUTOPLAY ESTABLE
 videoPlayer.muted = true;
 
-const playPromise = videoPlayer.play();
+// 🔥 delay ANTES del play (clave)
+setTimeout(() => {
 
-if (playPromise !== undefined) {
-    playPromise.then(() => {
+    const playPromise = videoPlayer.play();
 
-        if (soundEnabled) {
-            // 🔥 FORZAR DESMUTE CON RETRY (clave)
-    setTimeout(() => {
-        videoPlayer.muted = false;
-        videoPlayer.volume = 1;
-    }, 100);
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
 
-}
+            if (soundEnabled) {
+                videoPlayer.muted = false;
+                videoPlayer.volume = 1;
+            }
 
-    }).catch(() => {
-        console.log("Autoplay bloqueado");
-    });
-}
+        }).catch(() => {
+            console.log("Autoplay bloqueado");
+        });
+    }
+
+}, 50);
 
 // 🔥 UI
 const likeButton = document.getElementById("like-button");
