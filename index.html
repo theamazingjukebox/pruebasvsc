@@ -1094,6 +1094,8 @@ if (currentSrc.startsWith("yt:")) {
 const shouldMute = userInteracted ? 0 : 1;
 const duration = videos[currentVideoIndex].duration ?? 300000;
 
+    
+
 iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
 
     
@@ -1102,7 +1104,15 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
         videoContainer.appendChild(iframePlayer);
     }
 
+    ytTimeout = setTimeout(() => {
+        playNextVideo();
+    }, duration);
+
+}
+
 } else {
+
+    clearTimeout(ytTimeout);
 
     // quitar iframe si existe
     if (videoContainer.contains(iframePlayer)) {
@@ -1115,9 +1125,6 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
 
     
 
-ytTimeout = setTimeout(() => {
-    playNextVideo();
-}, duration);
 
     if (!videoContainer.contains(videoPlayer)) {
         videoContainer.appendChild(videoPlayer);
