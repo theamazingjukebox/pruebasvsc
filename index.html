@@ -1008,281 +1008,174 @@ button, a, img {
 <script>
 
     const videos = [
-        { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
-        { src: "AFI - The Leaving Song Pt. II (Official Music Video).mp4", liked: false },
-        { src: "Corazon De Venado.mp4", liked: false },
-        // Agrega más URLs de videos según sea necesario
-        { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-        { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false } // 3.5 min
-    ];
+   
+    { src: "Corazon De Venado.mp4", liked: false },
+    { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
+    { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false } // 3.5 min
+];
 
-    const songInfo = {
-        "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
-        "AFI - The Leaving Song Pt. II (Official Music Video).mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
-        "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
-        // Agrega más información de canciones según sea necesario
-        "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
-        "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
-    };
-
-
+const songInfo = {
     
-    const iframePlayer = document.createElement("iframe");
-iframePlayer.width = "100%";
-iframePlayer.height = "100%";
+    "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
+    "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
+    "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
+};
+
+const iframePlayer = document.createElement("iframe");
+
 iframePlayer.style.border = "none";
 iframePlayer.allow = "autoplay; encrypted-media";
 
-    
-    let currentVideoIndex = -1;
-    const videoPlayer = document.createElement("video");
-    videoPlayer.controls = true;
-    videoPlayer.autoplay = true;
-    videoPlayer.muted = true;
-    videoPlayer.playsInline = true; // Agrega esta línea
-    videoPlayer.addEventListener("ended", playNextVideo);
+let currentVideoIndex = -1;
+const videoPlayer = document.createElement("video");
+videoPlayer.controls = true;
+videoPlayer.autoplay = true;
+videoPlayer.muted = true;
+videoPlayer.playsInline = true;
+videoPlayer.addEventListener("ended", playNextVideo);
 
-    const likedSongs = [];
+const likedSongs = [];
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
+}
 
-    if ('mediaSession' in navigator) {
-    // Configura el manejador para el evento 'nexttrack'
+if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('nexttrack', () => {
         playNextVideo();
     });
-
 }
 
-    videoPlayer.onended = () => {
+videoPlayer.onended = () => {
     playNextVideo();
 };
 
-    function playNextVideo() {
+let ytPlayer = null;
+let userInteracted = false;
+let ytTimeout = null;
+
+function playNextVideo() {
+    currentVideoIndex++;
+    if (currentVideoIndex >= videos.length) {
+        currentVideoIndex = 0;
+        shuffleArray(videos);
+    }
+
+    while (videos[currentVideoIndex].liked) {
         currentVideoIndex++;
         if (currentVideoIndex >= videos.length) {
             currentVideoIndex = 0;
             shuffleArray(videos);
         }
+    }
 
-        while (videos[currentVideoIndex].liked) {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videos.length) {
-                currentVideoIndex = 0;
-                shuffleArray(videos);
-            }
+    const currentSrc = videos[currentVideoIndex].src;
+    const videoContainer = document.getElementById("video-container");
+
+    if (currentSrc.startsWith("yt:")) {
+        const videoId = currentSrc.replace("yt:", "");
+
+        // 🔥 detener video anterior
+        videoPlayer.pause();
+        videoPlayer.src = "";
+        videoPlayer.muted = !userInteracted;
+
+        clearTimeout(ytTimeout);
+
+        // quitar video si existe
+        if (videoContainer.contains(videoPlayer)) {
+            videoContainer.removeChild(videoPlayer);
         }
 
-        const currentSrc = videos[currentVideoIndex].src;
-const videoContainer = document.getElementById("video-container");
+        // quitar iframe anterior
+        if (videoContainer.contains(iframePlayer)) {
+            videoContainer.removeChild(iframePlayer);
+        }
 
-if (currentSrc.startsWith("yt:")) {
+        // Crear nuevo player de YouTube con API oficial
+        ytPlayer = new YT.Player("video-container", {
+            videoId: videoId,
+            playerVars: {
+                autoplay: 1,
+                mute: userInteracted ? 0 : 1,
+                controls: 1,
+                modestbranding: 1,
+                rel: 0,
+                playsinline: 1
+            },
+            events: {
+                'onStateChange': function (event) {
+                    if (event.data === YT.PlayerState.ENDED) {
+                        playNextVideo(); // ✅ ahora sí se dispara al terminar
+                    }
+                }
+            }
+        });
 
-    const videoId = currentSrc.replace("yt:", "");
+    } else {
+        clearTimeout(ytTimeout);
 
-     // 🔥 detener video anterior
-    videoPlayer.pause();
-    videoPlayer.src = "";
-    videoPlayer.muted = !userInteracted;
+        // quitar iframe si existe
+        if (videoContainer.contains(iframePlayer)) {
+            videoContainer.removeChild(iframePlayer);
+        }
 
-    clearTimeout(ytTimeout);
+        videoPlayer.src = currentSrc;
+        videoPlayer.load();
+        videoPlayer.play();
 
-    // quitar video si existe
-    if (videoContainer.contains(videoPlayer)) {
-        videoContainer.removeChild(videoPlayer);
+        if (!videoContainer.contains(videoPlayer)) {
+            videoContainer.appendChild(videoPlayer);
+        }
     }
 
-    
-const shouldMute = userInteracted ? 0 : 1;
-const duration = videos[currentVideoIndex].duration ?? 300000;
+    const likeButton = document.getElementById("like-button");
+    likeButton.disabled = false;
+}
 
-    
-
-iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
-
-    
-
-    if (!videoContainer.contains(iframePlayer)) {
-        videoContainer.appendChild(iframePlayer);
-    }
-
-    ytTimeout = setTimeout(() => {
-        playNextVideo();
-    }, duration);
-
-
-
-} else {
-
-    clearTimeout(ytTimeout);
-
-    // quitar iframe si existe
-    if (videoContainer.contains(iframePlayer)) {
-        videoContainer.removeChild(iframePlayer);
-    }
-
-    videoPlayer.src = currentSrc;
-    videoPlayer.load();
-    videoPlayer.play();
-
-    
-
-
-    if (!videoContainer.contains(videoPlayer)) {
-        videoContainer.appendChild(videoPlayer);
+function likeSong() {
+    if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+        if (!videos[currentVideoIndex].liked) {
+            videos[currentVideoIndex].liked = true;
+            const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
+            if (currentSong) {
+                likedSongs.push(currentSong);
+            }
+        }
     }
 }
 
-        const likeButton = document.getElementById("like-button");
-        likeButton.disabled = false; // Habilitar botón para cada nuevo video
-    }
-
-    function likeSong() {
-        if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
-            if (!videos[currentVideoIndex].liked) {
-                videos[currentVideoIndex].liked = true;
-                const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
-                if (currentSong) {
-                    likedSongs.push(currentSong);
-                }
-            }
-        }
-    }
-
-    let userInteracted = false;
-    let ytTimeout = null;
-    
-    document.addEventListener("click", () => {
+document.addEventListener("click", () => {
     userInteracted = true;
-        // 🔥 IMPORTANTE: desbloquear también el video MP4
     videoPlayer.muted = false;
 }, { once: true });
 
-    
-    function showLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        const likedSongsContent = document.getElementById("liked-songs-content");
-        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
-        for (const song of likedSongs) {
-            likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
-        }
-        likedSongsPopup.style.display = "block";
+function showLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    const likedSongsContent = document.getElementById("liked-songs-content");
+    likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+    for (const song of likedSongs) {
+        likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
     }
-
-    function closeLikedSongs() {
-        const likedSongsPopup = document.getElementById("liked-songs-popup");
-        likedSongsPopup.style.display = "none";
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const videoContainer = document.getElementById("video-container");
-        videoContainer.appendChild(videoPlayer);
-        shuffleArray(videos);
-        playNextVideo();
-    
-const chatContainer = document.getElementById("chat");
-const toggleChatBtn = document.getElementById("toggle-chat-btn");
-const toggleIcon = document.getElementById("toggle-icon");
-
-let isChatExpanded = false; // estado inicial colapsado
-
-function updateChatState() {
-    isChatExpanded = !isChatExpanded;
-    setChatState(isChatExpanded);
+    likedSongsPopup.style.display = "block";
 }
 
-function setChatState(expanded) {
-    chatContainer.style.height = expanded ? "300px" : "40px";
-    toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
+function closeLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    likedSongsPopup.style.display = "none";
 }
-
-// Evento del botón
-toggleChatBtn.addEventListener("click", updateChatState);
-
-// Estado inicial al cargar (expandido en este caso)
-setChatState(false);
-messages.scrollTop = 0;
-
-
-
-
-window.addEventListener('DOMContentLoaded', () => {
-    // 1. Forzar abrir el chat
-    setChatState(true);
-
-    // 2. Hacer scroll arriba
-    chatContainer.scrollTop = 0;
-
-    // 3. Volver a contraer tras un breve retraso para asegurar el render
-    setTimeout(() => {
-        setChatState(false);
-    }, 50); // con 50ms suele bastar, puedes ajustar
-});
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const videoContainer = document.getElementById("video-container");
     videoContainer.appendChild(videoPlayer);
     shuffleArray(videos);
     playNextVideo();
-
-    const chatContainer = document.getElementById("chat");
-    const toggleChatBtn = document.getElementById("toggle-chat-btn");
-    const toggleIcon = document.getElementById("toggle-icon");
-
-    let isChatExpanded = false;
-
-    function updateChatState() {
-        isChatExpanded = !isChatExpanded;
-        setChatState(isChatExpanded);
-    }
-
-    function setChatState(expanded) {
-        isChatExpanded = expanded;
-        chatContainer.style.height = expanded ? "300px" : "40px";
-        toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
-    }
-
-    toggleChatBtn.addEventListener("click", updateChatState);
-
-    window.addEventListener('load', () => {
-        setChatState(true); // Expandimos primero
-
-        // Esperamos al siguiente ciclo de renderizado
-        requestAnimationFrame(() => {
-            chatContainer.scrollTop = 0; // Llevar arriba
-
-            // Después de otro frame, contraemos
-            requestAnimationFrame(() => {
-                setChatState(false);
-            });
-        });
-    });
 });
 
-window.addEventListener('load', () => {
-    // Expandir primero
-    setChatState(true);
-
-    // Esperar 500ms para que el navegador pinte la expansión
-    setTimeout(() => {
-        chatContainer.scrollTop = 0;
-
-        // Ahora contraer con animación visible
-        setChatState(false);
-    }, 500); // este delay da tiempo a que el navegador "vea" la expansión antes de contraer
-});
-
-
-
-    })
-
-    
+// Loader
 window.addEventListener("load", () => {
   document.getElementById("loading-screen").style.display = "none";
 });
@@ -1293,6 +1186,7 @@ loader.style.opacity = "0";
 setTimeout(() => {
   loader.style.display = "none";
 }, 400);
+
 
 </script>
 </head>
