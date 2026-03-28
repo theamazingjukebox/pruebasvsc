@@ -1006,7 +1006,7 @@ button, a, img {
         { src: "Corazon De Venado.mp4", liked: false },
         // Agrega más URLs de videos según sea necesario
         { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-        { src: "yt:a9K14_By3zM", key: "yt1", liked: false }
+        { src: "yt:a9K14_By3zM", key: "yt1", duration: 210000, liked: false } // 3.5 min
     ];
 
     const songInfo = {
@@ -1018,7 +1018,8 @@ button, a, img {
         "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
     };
 
-
+let ytTimeout = null;
+    
     const iframePlayer = document.createElement("iframe");
 iframePlayer.width = "100%";
 iframePlayer.height = "100%";
@@ -1051,6 +1052,10 @@ iframePlayer.allow = "autoplay; encrypted-media";
 
 }
 
+    videoPlayer.onended = () => {
+    playNextVideo();
+};
+
     function playNextVideo() {
         currentVideoIndex++;
         if (currentVideoIndex >= videos.length) {
@@ -1078,6 +1083,8 @@ if (currentSrc.startsWith("yt:")) {
     videoPlayer.src = "";
     videoPlayer.muted = !userInteracted;
 
+    clearTimeout(ytTimeout);
+
     // quitar video si existe
     if (videoContainer.contains(videoPlayer)) {
         videoContainer.removeChild(videoPlayer);
@@ -1102,6 +1109,12 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
     videoPlayer.src = currentSrc;
     videoPlayer.load();
     videoPlayer.play();
+
+    const duration = videos[currentVideoIndex].duration || 300000;
+
+ytTimeout = setTimeout(() => {
+    playNextVideo();
+}, duration);
 
     if (!videoContainer.contains(videoPlayer)) {
         videoContainer.appendChild(videoPlayer);
