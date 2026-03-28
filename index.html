@@ -1018,7 +1018,7 @@ button, a, img {
         "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
     };
 
-let ytTimeout = null;
+
     
     const iframePlayer = document.createElement("iframe");
 iframePlayer.width = "100%";
@@ -1092,10 +1092,11 @@ if (currentSrc.startsWith("yt:")) {
 
     
 const shouldMute = userInteracted ? 0 : 1;
+const duration = videos[currentVideoIndex].duration ?? 300000;
 
 iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
 
-    const duration = videos[currentVideoIndex].duration ?? 300000;
+    
 
     if (!videoContainer.contains(iframePlayer)) {
         videoContainer.appendChild(iframePlayer);
@@ -1140,6 +1141,7 @@ ytTimeout = setTimeout(() => {
     }
 
     let userInteracted = false;
+    let ytTimeout = null;
     
     document.addEventListener("click", () => {
     userInteracted = true;
