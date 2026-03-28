@@ -1173,20 +1173,16 @@ function playNextVideo() {
 
         videoContainer.innerHTML = "";
 
-        videoPlayer.src = currentSrc;
-        videoPlayer.style.display = "block";
-        
+videoPlayer.src = currentSrc;
+videoPlayer.style.display = "block";
 
-        videoContainer.appendChild(videoPlayer);
+videoContainer.appendChild(videoPlayer);
 
-        videoPlayer.muted = !soundEnabled;
-        
-        videoPlayer.load();
+videoPlayer.load();
 
-        videoPlayer.play().then(() => {
-
-    // 🔥 FORZAR PLAY CON GESTURE SI YA HUBO INTERACCIÓN
+// 🔥 CONTROL DE AUDIO CORRECTO
 if (soundEnabled) {
+
     videoPlayer.muted = false;
 
     const playPromise = videoPlayer.play();
@@ -1196,7 +1192,7 @@ if (soundEnabled) {
             videoPlayer.muted = false;
             videoPlayer.volume = 1;
         }).catch(() => {
-            // fallback: intentar con mute y luego quitarlo
+            // fallback
             videoPlayer.muted = true;
             videoPlayer.play().then(() => {
                 videoPlayer.muted = false;
@@ -1205,13 +1201,14 @@ if (soundEnabled) {
     }
 
 } else {
+
     videoPlayer.muted = true;
-    videoPlayer.play();
+    videoPlayer.play().catch(() => {});
 }
 
-    const likeButton = document.getElementById("like-button");
-    if (likeButton) likeButton.disabled = false;
-}
+// 🔥 ESTE VA FUERA DEL PLAY
+const likeButton = document.getElementById("like-button");
+if (likeButton) likeButton.disabled = false;
 
 // ======================
 // LIKE SYSTEM
