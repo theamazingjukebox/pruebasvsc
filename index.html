@@ -1185,16 +1185,29 @@ function playNextVideo() {
 
         videoPlayer.play().then(() => {
 
-    // 🔥 FORZAR SONIDO DESPUÉS DE PLAY
-    if (soundEnabled) {
-        videoPlayer.muted = false;
-        videoPlayer.volume = 1;
+    // 🔥 FORZAR PLAY CON GESTURE SI YA HUBO INTERACCIÓN
+if (soundEnabled) {
+    videoPlayer.muted = false;
+
+    const playPromise = videoPlayer.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            videoPlayer.muted = false;
+            videoPlayer.volume = 1;
+        }).catch(() => {
+            // fallback: intentar con mute y luego quitarlo
+            videoPlayer.muted = true;
+            videoPlayer.play().then(() => {
+                videoPlayer.muted = false;
+            });
+        });
     }
 
-}).catch(() => {
-    console.log("Autoplay bloqueado");
-});
-    }
+} else {
+    videoPlayer.muted = true;
+    videoPlayer.play();
+}
 
     const likeButton = document.getElementById("like-button");
     if (likeButton) likeButton.disabled = false;
@@ -1225,12 +1238,14 @@ let userInteracted = false;
 document.addEventListener("click", () => {
     soundEnabled = true;
 
-    // MP4
+    // 🔥 fuerza reproducción inmediata (clave)
+    videoPlayer.play().catch(() => {});
+
     videoPlayer.muted = false;
 
-    // YT (si existe)
     if (ytPlayer && ytPlayer.unMute) {
         ytPlayer.unMute();
+        ytPlayer.playVideo();
     }
 
 }, { once: true });
