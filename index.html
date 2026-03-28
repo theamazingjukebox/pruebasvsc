@@ -1174,27 +1174,21 @@ function playNextVideo() {
 
         videoContainer.innerHTML = "";
 
-// 🔥 RESET REAL DEL VIDEO
+// 🔥 RESET LIMPIO (UNA SOLA VEZ)
 videoPlayer.pause();
 videoPlayer.removeAttribute("src");
 videoPlayer.load();
 
+// 🔥 CONFIGURAR NUEVO VIDEO
 videoPlayer.src = currentSrc;
 videoPlayer.style.display = "block";
 
 videoContainer.appendChild(videoPlayer);
 
+// 🔥 LOAD UNA SOLA VEZ
 videoPlayer.load();
 
-// 🔥 RESET + PLAY CORRECTO
-videoPlayer.pause();
-videoPlayer.removeAttribute("src");
-videoPlayer.load();
-
-videoPlayer.src = currentSrc;
-videoPlayer.load();
-
-// 🔥 SIEMPRE iniciar muted primero
+// 🔥 AUTOPLAY ESTABLE
 videoPlayer.muted = true;
 
 const playPromise = videoPlayer.play();
@@ -1202,7 +1196,6 @@ const playPromise = videoPlayer.play();
 if (playPromise !== undefined) {
     playPromise.then(() => {
 
-        // 🔥 aplicar estado real después
         if (soundEnabled) {
             videoPlayer.muted = false;
             videoPlayer.volume = 1;
@@ -1213,7 +1206,7 @@ if (playPromise !== undefined) {
     });
 }
 
-// 🔥 ESTE VA FUERA DEL PLAY
+// 🔥 UI
 const likeButton = document.getElementById("like-button");
 if (likeButton) likeButton.disabled = false;
 
