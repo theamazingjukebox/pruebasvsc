@@ -1022,6 +1022,8 @@ const songInfo = {
     "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
 };
 
+    let ytTimeout = null;
+
     let soundEnabled = false;
 // ======================
 // METADATA CACHE
@@ -1068,13 +1070,24 @@ function loadYouTubeVideo(videoId) {
         events: {
             onReady: (event) => {
                 if (soundEnabled) {
-    setTimeout(() => {
-        event.target.unMute();
-        event.target.setVolume(100);
-    }, 100);
-} else {
-    event.target.mute();
-}
+        setTimeout(() => {
+            event.target.unMute();
+            event.target.setVolume(100);
+        }, 100);
+    } else {
+        event.target.mute();
+    }
+
+    event.target.playVideo();
+
+    // 🔥 CONTROL MANUAL DEL FIN
+    const current = videos[currentVideoIndex];
+    const duration = current.duration || 180000;
+
+    ytTimeout = setTimeout(() => {
+        playNextVideo();
+    }, duration);
+},
                 
                 event.target.playVideo();
             },
@@ -1203,6 +1216,11 @@ videoContainer.appendChild(newVideo);
 
 setTimeout(() => {
     const playPromise = newVideo.play();
+
+    if (ytTimeout) {
+    clearTimeout(ytTimeout);
+    ytTimeout = null;
+}
 
     if (playPromise !== undefined) {
         playPromise.then(() => {
