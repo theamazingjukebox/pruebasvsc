@@ -1076,6 +1076,7 @@ if (currentSrc.startsWith("yt:")) {
      // 🔥 detener video anterior
     videoPlayer.pause();
     videoPlayer.src = "";
+    videoPlayer.muted = !userInteracted;
 
     // quitar video si existe
     if (videoContainer.contains(videoPlayer)) {
