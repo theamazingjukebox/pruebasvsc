@@ -1127,6 +1127,8 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
     
     document.addEventListener("click", () => {
     userInteracted = true;
+        // 🔥 IMPORTANTE: desbloquear también el video MP4
+    videoPlayer.muted = false;
 }, { once: true });
 
     
