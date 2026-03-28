@@ -1006,14 +1006,6 @@ button, a, img {
     
 </style>
 <script>
-  const videos = [
-    { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
-    { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
-    { src: "Corazon De Venado.mp4", liked: false },
-    { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-    { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false }
-];
-
 const songInfo = {
     "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
     "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4": { id: 2, name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
@@ -1022,44 +1014,70 @@ const songInfo = {
     "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
 };
 
-    let ytTimeout = null;
+const videos = [
+    { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
+    { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
+    { src: "Corazon De Venado.mp4", liked: false },
+    { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
+    { src: "yt:a9K14_By3zM", key: "yt1", liked: false }
+];
 
-    let soundEnabled = false;
-// ======================
-// METADATA CACHE
-// ======================
-const metadataCache = {};
-
-function getMetadata(id) {
-    return metadataCache[id];
-}
-
-function setMetadata(id, data) {
-    metadataCache[id] = data;
-}
-
-// ======================
-// YOUTUBE
-// ======================
+let ytTimeout = null;
+let soundEnabled = false;
 let ytPlayer = null;
 let isYouTubeReady = false;
+let currentVideoIndex = -1;
 
+// ======================
+// 🔥 CACHE DURACIÓN
+// ======================
+const durationCache = {};
+
+async function getYouTubeDuration(videoId) {
+    if (durationCache[videoId]) return durationCache[videoId];
+
+    const API_KEY = "TU_API_KEY";
+
+    const res = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${API_KEY}`
+    );
+
+    const data = await res.json();
+
+    const iso = data.items[0].contentDetails.duration;
+
+    const match = iso.match(/PT(\d+M)?(\d+S)?/);
+
+    let minutes = match[1] ? parseInt(match[1]) : 0;
+    let seconds = match[2] ? parseInt(match[2]) : 0;
+
+    const duration = (minutes * 60 + seconds) * 1000;
+
+    durationCache[videoId] = duration;
+
+    return duration;
+}
+
+// ======================
+// YOUTUBE READY
+// ======================
 function onYouTubeIframeAPIReady() {
     isYouTubeReady = true;
 }
 
-function loadYouTubeVideo(videoId) {
+// ======================
+// LOAD YT VIDEO
+// ======================
+async function loadYouTubeVideo(videoId) {
 
     const videoContainer = document.getElementById("video-container");
 
-    if (ytPlayer) {
-        ytPlayer.destroy();
-}
+    if (ytPlayer) ytPlayer.destroy();
 
-    videoContainer.innerHTML = ""; // 🔥 importante
+    videoContainer.innerHTML = "";
 
     ytPlayer = new YT.Player("video-container", {
-        videoId: videoId,
+        videoId,
         playerVars: {
             autoplay: 1,
             controls: 1,
@@ -1068,40 +1086,28 @@ function loadYouTubeVideo(videoId) {
             playsinline: 1
         },
         events: {
-            onReady: (event) => {
+            onReady: async (event) => {
+
                 if (soundEnabled) {
-        setTimeout(() => {
-            event.target.unMute();
-            event.target.setVolume(100);
-        }, 100);
-    } else {
-        event.target.mute();
-    }
-
-    event.target.playVideo();
-
-    // 🔥 CONTROL MANUAL DEL FIN
-    const current = videos[currentVideoIndex];
-    const duration = current.duration || 180000;
-
-    ytTimeout = setTimeout(() => {
-        playNextVideo();
-    }, duration);
-},
-                
-                event.target.playVideo();
-            },
-            onStateChange: (event) => {
-                if (event.data === YT.PlayerState.ENDED) {
-                    // 🔥 DAR TIEMPO A YT A LIBERAR
-        setTimeout(() => {
-            playNextVideo();
-        }, 300);
-
+                    setTimeout(() => {
+                        event.target.unMute();
+                        event.target.setVolume(100);
+                    }, 100);
+                } else {
+                    event.target.mute();
                 }
+
+                event.target.playVideo();
+
+                // 🔥 duración automática
+                const duration = await getYouTubeDuration(videoId);
+
+                ytTimeout = setTimeout(() => {
+                    playNextVideo();
+                }, duration);
             },
             onError: () => {
-                console.log("Error en YT, skip...");
+                console.log("Error en YT");
                 playNextVideo();
             }
         }
@@ -1109,59 +1115,20 @@ function loadYouTubeVideo(videoId) {
 }
 
 // ======================
-// VIDEO PLAYER
-// ======================
-let currentVideoIndex = -1;
-
-const videoPlayer = document.createElement("video");
-videoPlayer.controls = true;
-videoPlayer.autoplay = true;
-videoPlayer.muted = true;
-videoPlayer.playsInline = true;
-
-videoPlayer.onended = playNextVideo;
-
-videoPlayer.onerror = () => {
-    console.log("Error en MP4, skip...");
-    playNextVideo();
-};
-
-// ======================
-// UTILS
-// ======================
-const likedSongs = [];
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-        playNextVideo();
-    });
-}
-
-// ======================
-// CORE PLAYER
+// CORE
 // ======================
 function playNextVideo() {
+
+    // 🔥 limpiar timeout SIEMPRE
+    if (ytTimeout) {
+        clearTimeout(ytTimeout);
+        ytTimeout = null;
+    }
 
     currentVideoIndex++;
 
     if (currentVideoIndex >= videos.length) {
         currentVideoIndex = 0;
-        shuffleArray(videos);
-    }
-
-    while (videos[currentVideoIndex].liked) {
-        currentVideoIndex++;
-        if (currentVideoIndex >= videos.length) {
-            currentVideoIndex = 0;
-            shuffleArray(videos);
-        }
     }
 
     const currentSrc = videos[currentVideoIndex].src;
@@ -1171,112 +1138,63 @@ function playNextVideo() {
 
         const videoId = currentSrc.replace("yt:", "");
 
-        videoPlayer.pause();
-        videoPlayer.src = "";
-
-        if (videoContainer.contains(videoPlayer)) {
-            videoContainer.removeChild(videoPlayer);
-        }
-
         if (isYouTubeReady) {
             loadYouTubeVideo(videoId);
-        } else {
-            console.log("YT API aún no lista");
         }
 
     } else {
 
         if (ytPlayer) {
-            ytPlayer.stopVideo();
-            // 🔥 delay para liberar YT COMPLETAMENTE
-    setTimeout(() => {
-        ytPlayer.destroy();
-        ytPlayer = null;
-    }, 100);
-}
+            ytPlayer.destroy();
+            ytPlayer = null;
+        }
+
         videoContainer.innerHTML = "";
 
-// 🔥 crear NUEVO video cada vez (CLAVE)
-const newVideo = document.createElement("video");
+        // 🔥 NUEVO VIDEO SIEMPRE
+        const newVideo = document.createElement("video");
 
-newVideo.controls = true;
-newVideo.autoplay = true;
-newVideo.playsInline = true;
-newVideo.style.display = "block";
+        newVideo.controls = true;
+        newVideo.autoplay = true;
+        newVideo.playsInline = true;
+        newVideo.muted = true;
 
-newVideo.src = currentSrc;
+        newVideo.src = currentSrc;
 
-// 🔥 manejar fin
-newVideo.onended = playNextVideo;
+        newVideo.onended = playNextVideo;
 
-// 🔥 autoplay estable
-newVideo.muted = true;
+        videoContainer.appendChild(newVideo);
 
-videoContainer.appendChild(newVideo);
-
-setTimeout(() => {
-    const playPromise = newVideo.play();
-
-    if (ytTimeout) {
-    clearTimeout(ytTimeout);
-    ytTimeout = null;
-}
-
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            if (soundEnabled) {
-                newVideo.muted = false;
-                newVideo.volume = 1;
-            }
-        }).catch(() => {
-            console.log("Autoplay bloqueado");
-        });
-    }
-}, 50);
-
-// 🔥 UI
-const likeButton = document.getElementById("like-button");
-if (likeButton) likeButton.disabled = false;
-
-    }
-}
-
-// ======================
-// LIKE SYSTEM
-// ======================
-function likeSong() {
-    if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
-        if (!videos[currentVideoIndex].liked) {
-            videos[currentVideoIndex].liked = true;
-
-            const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
-
-            if (currentSong) {
-                likedSongs.push(currentSong);
-            }
-        }
+        setTimeout(() => {
+            newVideo.play().then(() => {
+                if (soundEnabled) {
+                    newVideo.muted = false;
+                    newVideo.volume = 1;
+                }
+            }).catch(() => {});
+        }, 50);
     }
 }
 
 // ======================
 // USER INTERACTION
 // ======================
-let userInteracted = false;
-
 document.addEventListener("click", () => {
     soundEnabled = true;
 
-    // 🔥 fuerza reproducción inmediata (clave)
-    videoPlayer.play().catch(() => {});
-
-    videoPlayer.muted = false;
-
-    if (ytPlayer && ytPlayer.unMute) {
+    if (ytPlayer) {
         ytPlayer.unMute();
         ytPlayer.playVideo();
     }
 
 }, { once: true });
+
+// ======================
+// INIT
+// ======================
+document.addEventListener("DOMContentLoaded", () => {
+    playNextVideo();
+});
 // ======================
 // UI
 // ======================
