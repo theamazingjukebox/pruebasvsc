@@ -1051,8 +1051,14 @@ function loadYouTubeVideo(videoId) {
     const videoContainer = document.getElementById("video-container");
 
     if (ytPlayer) {
+        ytPlayer.stopVideo();
+
+    // 🔥 delay para liberar YT COMPLETAMENTE
+    setTimeout(() => {
         ytPlayer.destroy();
-    }
+        ytPlayer = null;
+    }, 100);
+}
 
     videoContainer.innerHTML = ""; // 🔥 importante
 
@@ -1190,6 +1196,12 @@ videoPlayer.load();
 videoPlayer.src = currentSrc;
 videoPlayer.style.display = "block";
 
+videoPlayer.style.opacity = "0";
+
+setTimeout(() => {
+    videoPlayer.style.opacity = "1";
+}, 50);
+
 videoContainer.appendChild(videoPlayer);
 
 // 🔥 LOAD UNA SOLA VEZ
@@ -1208,9 +1220,11 @@ setTimeout(() => {
 
             if (soundEnabled) {
                 videoPlayer.muted = false;
-                videoPlayer.volume = 1;
-            }
-
+                // hack clave: forzar gesto válido
+    try {
+        videoPlayer.play().catch(() => {});
+    } catch(e) {}
+}
         }).catch(() => {
             console.log("Autoplay bloqueado");
         });
