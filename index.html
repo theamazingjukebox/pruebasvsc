@@ -1028,34 +1028,44 @@ let ytPlayer = null;
 let isYouTubeReady = false;
 let currentVideoIndex = -1;
 
+const likedSongs = [];
+
 // ======================
 // 🔥 CACHE DURACIÓN
 // ======================
 const durationCache = {};
 
 async function getYouTubeDuration(videoId) {
-    if (durationCache[videoId]) return durationCache[videoId];
+    try {
+        if (durationCache[videoId]) return durationCache[videoId];
 
-    const API_KEY = "AIzaSyCE5XnV-IORMlGFr59ArYQSgOvOLdQ8RCY";
+        const API_KEY = "AIzaSyCE5XnV-IORMlGFr59ArYQSgOvOLdQ8RCY";
 
-    const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${API_KEY}`
-    );
+        const res = await fetch(
+            `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${API_KEY}`
+        );
 
-    const data = await res.json();
+        const data = await res.json();
 
-    const iso = data.items[0].contentDetails.duration;
+        if (!data.items || !data.items.length) throw new Error();
 
-    const match = iso.match(/PT(\d+M)?(\d+S)?/);
+        const iso = data.items[0].contentDetails.duration;
 
-    let minutes = match[1] ? parseInt(match[1]) : 0;
-    let seconds = match[2] ? parseInt(match[2]) : 0;
+        const match = iso.match(/PT(?:(\d+)M)?(?:(\d+)S)?/);
 
-    const duration = (minutes * 60 + seconds) * 1000;
+        let minutes = parseInt(match[1] || 0);
+        let seconds = parseInt(match[2] || 0);
 
-    durationCache[videoId] = duration;
+        const duration = (minutes * 60 + seconds) * 1000;
 
-    return duration;
+        durationCache[videoId] = duration;
+
+        return duration;
+
+    } catch (e) {
+        console.log("Fallback duration");
+        return 180000;
+    }
 }
 
 // ======================
@@ -1068,7 +1078,7 @@ function onYouTubeIframeAPIReady() {
 // ======================
 // LOAD YT VIDEO
 // ======================
-async function loadYouTubeVideo(videoId) {
+function loadYouTubeVideo(videoId) {
 
     const videoContainer = document.getElementById("video-container");
 
@@ -1086,7 +1096,7 @@ async function loadYouTubeVideo(videoId) {
             playsinline: 1
         },
         events: {
-            onReady: async (event) => {
+            onReady: (event) => {
 
                 if (soundEnabled) {
                     setTimeout(() => {
@@ -1099,12 +1109,21 @@ async function loadYouTubeVideo(videoId) {
 
                 event.target.playVideo();
 
-                // 🔥 duración automática
-                const duration = await getYouTubeDuration(videoId);
-
+                // 🔥 fallback inmediato
                 ytTimeout = setTimeout(() => {
                     playNextVideo();
-                }, duration);
+                }, 180000);
+
+                // 🔥 ajuste con API
+                getYouTubeDuration(videoId).then(duration => {
+                    if (ytTimeout) {
+                        clearTimeout(ytTimeout);
+
+                        ytTimeout = setTimeout(() => {
+                            playNextVideo();
+                        }, duration);
+                    }
+                });
             },
             onError: () => {
                 console.log("Error en YT");
@@ -1115,11 +1134,20 @@ async function loadYouTubeVideo(videoId) {
 }
 
 // ======================
+// UTILS
+// ======================
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// ======================
 // CORE
 // ======================
 function playNextVideo() {
 
-    // 🔥 limpiar timeout SIEMPRE
     if (ytTimeout) {
         clearTimeout(ytTimeout);
         ytTimeout = null;
@@ -1129,6 +1157,7 @@ function playNextVideo() {
 
     if (currentVideoIndex >= videos.length) {
         currentVideoIndex = 0;
+        shuffleArray(videos);
     }
 
     const currentSrc = videos[currentVideoIndex].src;
@@ -1151,7 +1180,6 @@ function playNextVideo() {
 
         videoContainer.innerHTML = "";
 
-        // 🔥 NUEVO VIDEO SIEMPRE
         const newVideo = document.createElement("video");
 
         newVideo.controls = true;
@@ -1177,6 +1205,22 @@ function playNextVideo() {
 }
 
 // ======================
+// LIKE SYSTEM
+// ======================
+function likeSong() {
+    if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+        if (!videos[currentVideoIndex].liked) {
+            videos[currentVideoIndex].liked = true;
+
+            const key = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+            const currentSong = songInfo[key];
+
+            if (currentSong) likedSongs.push(currentSong);
+        }
+    }
+}
+
+// ======================
 // USER INTERACTION
 // ======================
 document.addEventListener("click", () => {
@@ -1190,9 +1234,31 @@ document.addEventListener("click", () => {
 }, { once: true });
 
 // ======================
+// UI
+// ======================
+function showLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    const likedSongsContent = document.getElementById("liked-songs-content");
+
+    likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+
+    for (const song of likedSongs) {
+        likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
+    }
+
+    likedSongsPopup.style.display = "block";
+}
+
+function closeLikedSongs() {
+    const likedSongsPopup = document.getElementById("liked-songs-popup");
+    likedSongsPopup.style.display = "none";
+}
+
+// ======================
 // INIT
 // ======================
 document.addEventListener("DOMContentLoaded", () => {
+    shuffleArray(videos);
     playNextVideo();
 });
 // ======================
