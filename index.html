@@ -1018,13 +1018,47 @@ button, a, img {
         "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
     };
 
+let ytPlayer = null;
+let isYouTubeReady = false;
 
+    function onYouTubeIframeAPIReady() {
+    isYouTubeReady = true;
+}
+
+function loadYouTubeVideo(videoId) {
+
+    if (ytPlayer) {
+        ytPlayer.destroy(); // limpiar anterior
+    }
+
+    ytPlayer = new YT.Player("video-container", {
+        videoId: videoId,
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1
+        },
+        events: {
+            onReady: (event) => {
+                if (userInteracted) {
+                    event.target.unMute();
+                } else {
+                    event.target.mute();
+                }
+                event.target.playVideo();
+            },
+            onStateChange: (event) => {
+                if (event.data === YT.PlayerState.ENDED) {
+                    playNextVideo();
+                }
+            }
+        }
+    });
+}
     
-    const iframePlayer = document.createElement("iframe");
-iframePlayer.width = "100%";
-iframePlayer.height = "100%";
-iframePlayer.style.border = "none";
-iframePlayer.allow = "autoplay; encrypted-media";
+
 
     
     let currentVideoIndex = -1;
@@ -1078,44 +1112,25 @@ if (currentSrc.startsWith("yt:")) {
 
     const videoId = currentSrc.replace("yt:", "");
 
-     // 🔥 detener video anterior
     videoPlayer.pause();
     videoPlayer.src = "";
-    videoPlayer.muted = !userInteracted;
 
-    clearTimeout(ytTimeout);
-
-    // quitar video si existe
     if (videoContainer.contains(videoPlayer)) {
         videoContainer.removeChild(videoPlayer);
     }
 
-    
-const shouldMute = userInteracted ? 0 : 1;
-const duration = videos[currentVideoIndex].duration ?? 180000;
-
-    
-
-iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${shouldMute}&controls=1&modestbranding=1&rel=0&playsinline=1`;
-
-    
-
-    if (!videoContainer.contains(iframePlayer)) {
-        videoContainer.appendChild(iframePlayer);
+    if (isYouTubeReady) {
+        loadYouTubeVideo(videoId);
+    } else {
+        console.log("YT API aún no lista");
     }
-
-    ytTimeout = setTimeout(() => {
-        playNextVideo();
-    }, duration);
 
 
 } else {
 
-    clearTimeout(ytTimeout);
-
-    // quitar iframe si existe
-    if (videoContainer.contains(iframePlayer)) {
-        videoContainer.removeChild(iframePlayer);
+   if (ytPlayer) {
+        ytPlayer.destroy();
+        ytPlayer = null;
     }
 
     videoPlayer.src = currentSrc;
@@ -1147,7 +1162,7 @@ iframePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=${s
     }
 
     let userInteracted = false;
-    let ytTimeout = null;
+   
     
     document.addEventListener("click", () => {
     userInteracted = true;
@@ -1366,6 +1381,7 @@ setTimeout(() => {
 </div>
 
 <script src="script.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 
 
         
