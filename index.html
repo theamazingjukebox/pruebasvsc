@@ -1051,13 +1051,7 @@ function loadYouTubeVideo(videoId) {
     const videoContainer = document.getElementById("video-container");
 
     if (ytPlayer) {
-        ytPlayer.stopVideo();
-
-    // 🔥 delay para liberar YT COMPLETAMENTE
-    setTimeout(() => {
         ytPlayer.destroy();
-        ytPlayer = null;
-    }, 100);
 }
 
     videoContainer.innerHTML = ""; // 🔥 importante
@@ -1181,55 +1175,45 @@ function playNextVideo() {
 
         if (ytPlayer) {
             ytPlayer.stopVideo();
-            ytPlayer.destroy();
-            ytPlayer = null;
-        }
-
+            // 🔥 delay para liberar YT COMPLETAMENTE
+    setTimeout(() => {
+        ytPlayer.destroy();
+        ytPlayer = null;
+    }, 100);
+}
         videoContainer.innerHTML = "";
 
-// 🔥 RESET LIMPIO (UNA SOLA VEZ)
-videoPlayer.pause();
-videoPlayer.removeAttribute("src");
-videoPlayer.load();
+// 🔥 crear NUEVO video cada vez (CLAVE)
+const newVideo = document.createElement("video");
 
-// 🔥 CONFIGURAR NUEVO VIDEO
-videoPlayer.src = currentSrc;
-videoPlayer.style.display = "block";
+newVideo.controls = true;
+newVideo.autoplay = true;
+newVideo.playsInline = true;
+newVideo.style.display = "block";
 
-videoPlayer.style.opacity = "0";
+newVideo.src = currentSrc;
+
+// 🔥 manejar fin
+newVideo.onended = playNextVideo;
+
+// 🔥 autoplay estable
+newVideo.muted = true;
+
+videoContainer.appendChild(newVideo);
 
 setTimeout(() => {
-    videoPlayer.style.opacity = "1";
-}, 50);
-
-videoContainer.appendChild(videoPlayer);
-
-// 🔥 LOAD UNA SOLA VEZ
-videoPlayer.load();
-
-// 🔥 AUTOPLAY ESTABLE
-videoPlayer.muted = true;
-
-// 🔥 delay ANTES del play (clave)
-setTimeout(() => {
-
-    const playPromise = videoPlayer.play();
+    const playPromise = newVideo.play();
 
     if (playPromise !== undefined) {
         playPromise.then(() => {
-
             if (soundEnabled) {
-                videoPlayer.muted = false;
-                // hack clave: forzar gesto válido
-    try {
-        videoPlayer.play().catch(() => {});
-    } catch(e) {}
-}
+                newVideo.muted = false;
+                newVideo.volume = 1;
+            }
         }).catch(() => {
             console.log("Autoplay bloqueado");
         });
     }
-
 }, 50);
 
 // 🔥 UI
