@@ -1016,6 +1016,7 @@ const songInfo = {
     "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
 };
 
+    let soundEnabled = false;
 // ======================
 // METADATA CACHE
 // ======================
@@ -1060,11 +1061,11 @@ function loadYouTubeVideo(videoId) {
         },
         events: {
             onReady: (event) => {
-                if (userInteracted) {
-                    event.target.unMute();
-                } else {
-                    event.target.mute();
-                }
+                if (soundEnabled) {
+    event.target.unMute();
+} else {
+    event.target.mute();
+}
                 event.target.playVideo();
             },
             onStateChange: (event) => {
@@ -1173,6 +1174,8 @@ function playNextVideo() {
 
         videoContainer.appendChild(videoPlayer);
 
+        videoPlayer.muted = !soundEnabled;
+        
         videoPlayer.load();
 
         videoPlayer.play().catch(() => {
@@ -1207,10 +1210,17 @@ function likeSong() {
 let userInteracted = false;
 
 document.addEventListener("click", () => {
-    userInteracted = true;
-    videoPlayer.muted = false;
-}, { once: true });
+    soundEnabled = true;
 
+    // MP4
+    videoPlayer.muted = false;
+
+    // YT (si existe)
+    if (ytPlayer && ytPlayer.unMute) {
+        ytPlayer.unMute();
+    }
+
+}, { once: true });
 // ======================
 // UI
 // ======================
