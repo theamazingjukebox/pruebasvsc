@@ -1036,7 +1036,7 @@ const durationCache = {};
 async function getYouTubeDuration(videoId) {
     if (durationCache[videoId]) return durationCache[videoId];
 
-    const API_KEY = "TU_API_KEY";
+    const API_KEY = "AIzaSyCE5XnV-IORMlGFr59ArYQSgOvOLdQ8RCY";
 
     const res = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=${API_KEY}`
@@ -1204,6 +1204,8 @@ function showLikedSongs() {
 
     likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
 
+    
+    const likedSongs = [];
     for (const song of likedSongs) {
         likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
     }
