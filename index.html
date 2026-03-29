@@ -1008,37 +1008,71 @@ button, a, img {
 <script>
 
     const videos = [
-    { src: "Kylie Minogue - In My Arms (Official Video).mp4", liked: false },
-    { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
-    { src: "Corazon De Venado.mp4", liked: false },
-    { src: "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4", liked: false },
-    { src: "yt:a9K14_By3zM", key: "yt1", duration: 180000, liked: false }
+
+    // 🎯 PRINCIPALES (YouTube)
+    { 
+        src: "yt:a9K14_By3zM",
+        key: "yt1",
+        liked: false
+    },
+
+    { 
+        src: "yt:Z6gehTVBpEs",
+        key: "yt2",
+        liked: false
+    },
+
+    // 🧯 FALLBACK (solo si lo necesitas)
+    { 
+        src: "Corazon De Venado.mp4",
+        key: "mp4_1",
+        liked: false
+    },
+
+    { 
+        src: "Kylie Minogue - In My Arms (Official Video).mp4",
+        key: "mp4_2",
+        liked: false
+    }
+
 ];
 
 const songInfo = {
-    "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "What it feels like for a Girl", artist: "Madonna", links: "https://youtu.be/qYwgG2oyUbA" },
-    "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4": { id: 2, name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
-    "Corazon De Venado.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
-    "Mario Basanov feat. Athena Radford - Like A Child (Eugene Filatov Remix).mp4": { id: 4, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov feat. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs?si=5_xu3tvaoOftJ5kF" },
-    "yt1": { name: "Song YT", artist: "Artist", links: "https://youtu.be/a9K14_By3zM" }
+
+    // 🎯 YOUTUBE
+    "yt1": {
+        id: 1,
+        name: "Oh God, I Wish I Was Home Tonight",
+        artist: "Rod Stewart",
+        links: "https://youtu.be/a9K14_By3zM"
+    },
+
+    "yt2": {
+        id: 2,
+        name: "Like A Child (Remix)",
+        artist: "Mario Basanov",
+        links: "https://youtu.be/Z6gehTVBpEs"
+    },
+
+    // 🧯 MP4 (fallback / especiales)
+    "mp4_1": {
+        id: 3,
+        name: "I Try",
+        artist: "Macy Gray",
+        links: "https://www.youtube.com/watch?v=WEQ0l_m3Xm0"
+    },
+
+    "mp4_2": {
+        id: 4,
+        name: "In My Arms",
+        artist: "Kylie Minogue",
+        links: "https://youtu.be/qYwgG2oyUbA"
+    }
+
 };
 
-    let soundEnabled = false;
-// ======================
-// METADATA CACHE
-// ======================
-const metadataCache = {};
-
-function getMetadata(id) {
-    return metadataCache[id];
-}
-
-function setMetadata(id, data) {
-    metadataCache[id] = data;
-}
-
-// ======================
-// YOUTUBE
+    // ======================
+// YOUTUBE SETUP
 // ======================
 let ytPlayer = null;
 let isYouTubeReady = false;
@@ -1055,7 +1089,7 @@ function loadYouTubeVideo(videoId) {
         ytPlayer.destroy();
     }
 
-    videoContainer.innerHTML = ""; // 🔥 importante
+    videoContainer.innerHTML = "";
 
     ytPlayer = new YT.Player("video-container", {
         videoId: videoId,
@@ -1068,68 +1102,56 @@ function loadYouTubeVideo(videoId) {
         },
         events: {
             onReady: (event) => {
+
                 if (soundEnabled) {
-    event.target.unMute();
-} else {
-    event.target.mute();
-}
+                    event.target.unMute();
+                } else {
+                    event.target.mute();
+                }
+
                 event.target.playVideo();
             },
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
                     setTimeout(() => {
-        playNextVideo();
-    }, 200);
-}
+                        playNextVideo();
+                    }, 200);
+                }
             },
             onError: () => {
-                console.log("Error en YT, skip...");
+                console.log("Error YT → fallback");
                 playNextVideo();
             }
         }
     });
 }
+    
+      let currentVideoIndex = -1;
+    const videoPlayer = document.createElement("video");
+    videoPlayer.controls = true;
+    videoPlayer.autoplay = true;
+    videoPlayer.muted = true;
+    videoPlayer.playsInline = true; // Agrega esta línea
+    videoPlayer.preload = "metadata";
+    videoPlayer.addEventListener("ended", playNextVideo);
 
-// ======================
-// VIDEO PLAYER
-// ======================
-let currentVideoIndex = -1;
+    const likedSongs = [];
 
-const videoPlayer = document.createElement("video");
-videoPlayer.controls = true;
-videoPlayer.autoplay = true;
-videoPlayer.muted = true;
-videoPlayer.playsInline = true;
-
-videoPlayer.onended = playNextVideo;
-
-videoPlayer.onerror = () => {
-    console.log("Error en MP4, skip...");
-    playNextVideo();
-};
-
-// ======================
-// UTILS
-// ======================
-const likedSongs = [];
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
-}
 
-if ('mediaSession' in navigator) {
+     if ('mediaSession' in navigator) {
+    // Configura el manejador para el evento 'nexttrack'
     navigator.mediaSession.setActionHandler('nexttrack', () => {
         playNextVideo();
     });
-}
 
-// ======================
-// CORE PLAYER
-// ======================
-function playNextVideo() {
+}
+    function playNextVideo() {
 
     currentVideoIndex++;
 
@@ -1146,15 +1168,21 @@ function playNextVideo() {
         }
     }
 
-    const currentSrc = videos[currentVideoIndex].src;
+    const current = videos[currentVideoIndex];
+    const currentSrc = current.src;
     const videoContainer = document.getElementById("video-container");
 
+    // ======================
+    // 🎯 YOUTUBE
+    // ======================
     if (currentSrc.startsWith("yt:")) {
 
         const videoId = currentSrc.replace("yt:", "");
 
+        // limpiar MP4
         videoPlayer.pause();
-        videoPlayer.src = "";
+        videoPlayer.removeAttribute("src");
+        videoPlayer.load();
 
         if (videoContainer.contains(videoPlayer)) {
             videoContainer.removeChild(videoPlayer);
@@ -1162,11 +1190,13 @@ function playNextVideo() {
 
         if (isYouTubeReady) {
             loadYouTubeVideo(videoId);
-        } else {
-            console.log("YT API aún no lista");
         }
 
-    } else {
+    } 
+    // ======================
+    // 🧯 MP4 FALLBACK
+    // ======================
+    else {
 
         if (ytPlayer) {
             ytPlayer.stopVideo();
@@ -1176,123 +1206,170 @@ function playNextVideo() {
 
         videoContainer.innerHTML = "";
 
-        // 🔥 RESET REAL
-videoPlayer.pause();
-videoPlayer.removeAttribute("src");
-videoPlayer.load();
+        videoPlayer.pause();
+        videoPlayer.removeAttribute("src");
+        videoPlayer.load();
 
-videoPlayer.src = currentSrc;
-videoPlayer.style.display = "block";
+        videoPlayer.src = currentSrc;
 
-videoContainer.appendChild(videoPlayer);
+        videoContainer.appendChild(videoPlayer);
 
-videoPlayer.load();
+        videoPlayer.muted = true;
 
-// 🔥 CONTROL DE AUDIO CORRECTO
-if (soundEnabled) {
+        const playPromise = videoPlayer.play();
 
-    videoPlayer.muted = false;
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
 
-    setTimeout(() => {
-    if (soundEnabled) {
-        videoPlayer.muted = false;
-        videoPlayer.volume = 1;
-    }
-}, 50);
+                if (soundEnabled) {
+                    setTimeout(() => {
+                        videoPlayer.muted = false;
+                        videoPlayer.volume = 1;
+                    }, 50);
+                }
 
-    const playPromise = videoPlayer.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-            videoPlayer.muted = false;
-            videoPlayer.volume = 1;
-        }).catch(() => {
-            // fallback
-            videoPlayer.muted = true;
-            videoPlayer.play().then(() => {
-                videoPlayer.muted = false;
+            }).catch(() => {
+                console.log("Autoplay bloqueado");
             });
-        });
+        }
     }
 
-} else {
-
-    videoPlayer.muted = true;
-    videoPlayer.play().catch(() => {});
+    const likeButton = document.getElementById("like-button");
+    likeButton.disabled = false;
 }
 
-// 🔥 ESTE VA FUERA DEL PLAY
-const likeButton = document.getElementById("like-button");
-if (likeButton) likeButton.disabled = false;
-
-    }
-}
-
-// ======================
-// LIKE SYSTEM
-// ======================
-function likeSong() {
-    if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
-        if (!videos[currentVideoIndex].liked) {
-            videos[currentVideoIndex].liked = true;
-
-            const currentSong = songInfo[videos[currentVideoIndex].key || videos[currentVideoIndex].src];
-
-            if (currentSong) {
-                likedSongs.push(currentSong);
+    function likeSong() {
+        if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
+            if (!videos[currentVideoIndex].liked) {
+                videos[currentVideoIndex].liked = true;
+                const key = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+                const currentSong = songInfo[key];
+                if (currentSong) {
+                    likedSongs.push(currentSong);
+                }
             }
         }
     }
-}
 
-// ======================
-// USER INTERACTION
-// ======================
-let userInteracted = false;
-
-document.addEventListener("click", () => {
-    soundEnabled = true;
-
-    // 🔥 fuerza reproducción inmediata (clave)
-    videoPlayer.play().catch(() => {});
-
-    videoPlayer.muted = false;
-
-    if (ytPlayer && ytPlayer.unMute) {
-        ytPlayer.unMute();
-        ytPlayer.playVideo();
+    function showLikedSongs() {
+        const likedSongsPopup = document.getElementById("liked-songs-popup");
+        const likedSongsContent = document.getElementById("liked-songs-content");
+        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+        for (const song of likedSongs) {
+            likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
+        }
+        likedSongsPopup.style.display = "block";
     }
 
-}, { once: true });
-// ======================
-// UI
-// ======================
-function showLikedSongs() {
-    const likedSongsPopup = document.getElementById("liked-songs-popup");
-    const likedSongsContent = document.getElementById("liked-songs-content");
-
-    likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
-
-    for (const song of likedSongs) {
-        likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
+    function closeLikedSongs() {
+        const likedSongsPopup = document.getElementById("liked-songs-popup");
+        likedSongsPopup.style.display = "none";
     }
 
-    likedSongsPopup.style.display = "block";
+    document.addEventListener("DOMContentLoaded", function () {
+        const videoContainer = document.getElementById("video-container");
+        videoContainer.appendChild(videoPlayer);
+        shuffleArray(videos);
+        playNextVideo();
+    
+const chatContainer = document.getElementById("chat");
+const toggleChatBtn = document.getElementById("toggle-chat-btn");
+const toggleIcon = document.getElementById("toggle-icon");
+
+let isChatExpanded = false; // estado inicial colapsado
+
+function updateChatState() {
+    isChatExpanded = !isChatExpanded;
+    setChatState(isChatExpanded);
 }
 
-function closeLikedSongs() {
-    const likedSongsPopup = document.getElementById("liked-songs-popup");
-    likedSongsPopup.style.display = "none";
+function setChatState(expanded) {
+    chatContainer.style.height = expanded ? "300px" : "40px";
+    toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
 }
+
+// Evento del botón
+toggleChatBtn.addEventListener("click", updateChatState);
+
+// Estado inicial al cargar (expandido en este caso)
+setChatState(false);
+messages.scrollTop = 0;
+
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. Forzar abrir el chat
+    setChatState(true);
+
+    // 2. Hacer scroll arriba
+    chatContainer.scrollTop = 0;
+
+    // 3. Volver a contraer tras un breve retraso para asegurar el render
+    setTimeout(() => {
+        setChatState(false);
+    }, 50); // con 50ms suele bastar, puedes ajustar
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const videoContainer = document.getElementById("video-container");
     videoContainer.appendChild(videoPlayer);
     shuffleArray(videos);
     playNextVideo();
+
+    const chatContainer = document.getElementById("chat");
+    const toggleChatBtn = document.getElementById("toggle-chat-btn");
+    const toggleIcon = document.getElementById("toggle-icon");
+
+    let isChatExpanded = false;
+
+    function updateChatState() {
+        isChatExpanded = !isChatExpanded;
+        setChatState(isChatExpanded);
+    }
+
+    function setChatState(expanded) {
+        isChatExpanded = expanded;
+        chatContainer.style.height = expanded ? "300px" : "40px";
+        toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
+    }
+
+    toggleChatBtn.addEventListener("click", updateChatState);
+
+    window.addEventListener('load', () => {
+        setChatState(true); // Expandimos primero
+
+        // Esperamos al siguiente ciclo de renderizado
+        requestAnimationFrame(() => {
+            chatContainer.scrollTop = 0; // Llevar arriba
+
+            // Después de otro frame, contraemos
+            requestAnimationFrame(() => {
+                setChatState(false);
+            });
+        });
+    });
 });
 
-// Loader
+window.addEventListener('load', () => {
+    // Expandir primero
+    setChatState(true);
+
+    // Esperar 500ms para que el navegador pinte la expansión
+    setTimeout(() => {
+        chatContainer.scrollTop = 0;
+
+        // Ahora contraer con animación visible
+        setChatState(false);
+    }, 500); // este delay da tiempo a que el navegador "vea" la expansión antes de contraer
+});
+
+
+
+    })
+
+    
 window.addEventListener("load", () => {
   document.getElementById("loading-screen").style.display = "none";
 });
