@@ -1092,16 +1092,16 @@ function loadYouTubeVideo(videoId) {
     videoContainer.innerHTML = "";
 
     ytPlayer = new YT.Player("video-container", {
-        videoId: videoId,
-            host: "https://www.youtube-nocookie.com"
-        playerVars: {
-            autoplay: 1,
-            controls: 1,
-            modestbranding: 1,
-            rel: 0,
-            playsinline: 1
-            iv_load_policy: 3
-        },
+    videoId,
+    host: "https://www.youtube-nocookie.com",
+    playerVars: {
+        autoplay: 1,
+        controls: 1,
+        modestbranding: 1,
+        rel: 0,
+        playsinline: 1,
+        iv_load_policy: 3
+    },
         events: {
             onReady: (event) => {
 
