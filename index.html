@@ -1021,6 +1021,10 @@ button, a, img {
     transition: transform 0.3s ease;
 }
 
+#youtube-player iframe {
+    transition: opacity 0.3s ease;
+}
+
     
 </style>
 <script>
@@ -1095,6 +1099,7 @@ const songInfo = {
 let ytPlayer = null;
 let isPlayerReady = false;
 let soundEnabled = false;
+let ytTransitionTimer = null;
 
 // detectar interacción del usuario
 document.addEventListener("click", () => {
@@ -1131,7 +1136,11 @@ function initYouTubePlayer(videoId) {
                 }
 
                 event.target.playVideo();
+
+                scheduleYTTransition();
             },
+
+            
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
@@ -1157,6 +1166,28 @@ function initYouTubePlayer(videoId) {
     videoPlayer.playsInline = true; // Agrega esta línea
     videoPlayer.preload = "metadata";
     videoPlayer.addEventListener("ended", playNextVideo);
+
+
+    function scheduleYTTransition() {
+
+    if (!ytPlayer || !isPlayerReady) return;
+
+    const duration = ytPlayer.getDuration();
+
+    if (!duration || duration < 5) {
+    console.log("Duración no lista, reintentando...");
+    setTimeout(scheduleYTTransition, 1000);
+    return;
+}
+
+const transitionTime = (duration - 2) * 1000;
+
+    clearTimeout(ytTransitionTimer);
+
+    ytTransitionTimer = setTimeout(() => {
+        playNextVideo();
+    }, transitionTime);
+}
 
     const likedSongs = [];
 
@@ -1210,6 +1241,25 @@ function initYouTubePlayer(videoId) {
             initYouTubePlayer(videoId);
         } else {
             ytPlayer.loadVideoById(videoId);
+            setTimeout(() => {
+    const ytDiv = document.getElementById("youtube-player");
+    ytDiv.style.opacity = "0";
+
+    setTimeout(() => {
+        ytDiv.style.opacity = "1";
+    }, 200);
+}, 50);
+            clearTimeout(ytTransitionTimer);
+setTimeout(scheduleYTTransition, 500);
+
+            
+
+            setTimeout(() => {
+    const nextId = getNextVideoId();
+    if (nextId) {
+        ytPlayer.cueVideoById(nextId);
+    }
+}, 1500);
 
             if (soundEnabled) {
                 ytPlayer.unMute();
@@ -1263,6 +1313,23 @@ function initYouTubePlayer(videoId) {
     likeButton.disabled = false;
 }
 
+    function getNextVideoId() {
+
+    let nextIndex = currentVideoIndex + 1;
+
+    if (nextIndex >= videos.length) nextIndex = 0;
+
+    const next = videos[nextIndex];
+
+    if (next.src.startsWith("yt:")) {
+        return next.src.replace("yt:", "");
+    }
+
+    return null;
+}
+
+
+    
     function likeSong() {
         if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
             if (!videos[currentVideoIndex].liked) {
