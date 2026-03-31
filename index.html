@@ -1129,14 +1129,10 @@ function initYouTubePlayer(videoId) {
                 isPlayerReady = true;
 
                  if (soundEnabled) {
-                    event.target.unMute();
-                    event.target.setVolume(100);
-                } else {
-                    event.target.mute();
-                }
-
-                event.target.playVideo();
-            },
+                    isPlayerReady = true;
+    event.target.mute(); // 🔒 siempre inicia muteado
+    event.target.playVideo();
+},
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
@@ -1211,6 +1207,9 @@ function initYouTubePlayer(videoId) {
         videoPlayer.pause();
         videoPlayer.style.display = "none";
 
+        const ytFrame = document.getElementById("youtube-player");
+        if (ytFrame) ytFrame.style.display = "block"; // mostrar YT
+
        if (!ytPlayer) {
             initYouTubePlayer(videoId);
         } else {
@@ -1230,11 +1229,11 @@ function initYouTubePlayer(videoId) {
 
         // ocultar YT visualmente (NO destruir)
         if (ytPlayer && isPlayerReady) {
-            ytPlayer.pauseVideo();
-
-        }
-
-        videoPlayer.style.display = "block";
+    ytPlayer.pauseVideo();
+    const ytFrame = document.getElementById("youtube-player");
+    if (ytFrame) ytFrame.style.display = "none"; // 🔒 ocultar YT
+}
+videoPlayer.style.display = "block";
 
         if (!videoContainer.contains(videoPlayer)) {
             videoContainer.appendChild(videoPlayer);
