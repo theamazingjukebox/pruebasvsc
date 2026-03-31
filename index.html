@@ -1052,7 +1052,7 @@ button, a, img {
     },
 
     { 
-        src: "yt:WEQ0l_m3Xm0",
+        src: "Corazon De Venado.mp4",
         key: "yt4",
         liked: false
     }
@@ -1093,27 +1093,15 @@ const songInfo = {
 
 };
 
-// ======================
-// YOUTUBE SETUP (PERSISTENTE)
+    // ======================
+// YOUTUBE SETUP
 // ======================
 let ytPlayer = null;
 let isPlayerReady = false;
-let soundEnabled = false;
-let ytTransitionTimer = null;
-
-// detectar interacción del usuario
-document.addEventListener("click", () => {
-    soundEnabled = true;
-
-    if (ytPlayer && isPlayerReady) {
-        ytPlayer.unMute();
-        ytPlayer.setVolume(100);
-    }
-}, { once: true });
 
 function initYouTubePlayer(videoId) {
 
-    ytPlayer = new YT.Player("youtube-player", {
+    ytPlayer = new YT.Player("video-container", {
         videoId: videoId,
         host: "https://www.youtube-nocookie.com",
         playerVars: {
@@ -1123,24 +1111,20 @@ function initYouTubePlayer(videoId) {
             rel: 0,
             playsinline: 1,
             iv_load_policy: 3
+            
         },
         events: {
             onReady: (event) => {
                 isPlayerReady = true;
 
-                if (soundEnabled) {
+                 if (soundEnabled) {
                     event.target.unMute();
-                    event.target.setVolume(100);
                 } else {
                     event.target.mute();
                 }
 
                 event.target.playVideo();
-
-                scheduleYTTransition();
             },
-
-            
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
@@ -1151,7 +1135,7 @@ function initYouTubePlayer(videoId) {
             },
 
             onError: () => {
-                console.log("YT error → siguiente video");
+                console.log("YT error → fallback");
                 playNextVideo();
             }
         }
@@ -1166,28 +1150,6 @@ function initYouTubePlayer(videoId) {
     videoPlayer.playsInline = true; // Agrega esta línea
     videoPlayer.preload = "metadata";
     videoPlayer.addEventListener("ended", playNextVideo);
-
-
-    function scheduleYTTransition() {
-
-    if (!ytPlayer || !isPlayerReady) return;
-
-    const duration = ytPlayer.getDuration();
-
-    if (!duration || duration < 5) {
-    console.log("Duración no lista, reintentando...");
-    setTimeout(scheduleYTTransition, 1000);
-    return;
-}
-
-const transitionTime = (duration - 2) * 1000;
-
-    clearTimeout(ytTransitionTimer);
-
-    ytTransitionTimer = setTimeout(() => {
-        playNextVideo();
-    }, transitionTime);
-}
 
     const likedSongs = [];
 
@@ -1233,39 +1195,24 @@ const transitionTime = (duration - 2) * 1000;
 
         const videoId = currentSrc.replace("yt:", "");
 
-        // ocultar MP4 (NO destruir YT)
+        // limpiar MP4
         videoPlayer.pause();
-        videoPlayer.style.display = "none";
+        videoPlayer.removeAttribute("src");
+        videoPlayer.load();
+
+        if (videoContainer.contains(videoPlayer)) {
+            videoContainer.removeChild(videoPlayer);
+        }
 
         if (!ytPlayer) {
-            initYouTubePlayer(videoId);
-        } else {
-            ytPlayer.loadVideoById(videoId);
-            setTimeout(() => {
-    const ytDiv = document.getElementById("youtube-player");
-    ytDiv.style.opacity = "0";
+    initYouTubePlayer(videoId);
+} else {
+    ytPlayer.loadVideoById(videoId);
 
-    setTimeout(() => {
-        ytDiv.style.opacity = "1";
-    }, 200);
-}, 50);
-            clearTimeout(ytTransitionTimer);
-setTimeout(scheduleYTTransition, 500);
-
-            
-
-            setTimeout(() => {
-    const nextId = getNextVideoId();
-    if (nextId) {
-        ytPlayer.cueVideoById(nextId);
+    if (soundEnabled) {
+        ytPlayer.unMute();
     }
-}, 1500);
-
-            if (soundEnabled) {
-                ytPlayer.unMute();
-                ytPlayer.setVolume(100);
-            }
-        }
+}
 
     } 
     // ======================
@@ -1273,21 +1220,22 @@ setTimeout(scheduleYTTransition, 500);
     // ======================
     else {
 
-        // ocultar YT visualmente (NO destruir)
-        if (ytPlayer && isPlayerReady) {
-            ytPlayer.pauseVideo();
+        if (ytPlayer) {
+            ytPlayer.stopVideo();
+            ytPlayer.destroy();
+            ytPlayer = null;
         }
 
-        videoPlayer.style.display = "block";
+        videoContainer.innerHTML = "";
 
-        if (!videoContainer.contains(videoPlayer)) {
-            videoContainer.appendChild(videoPlayer);
-        }
-
-        videoPlayer.src = currentSrc;
+        videoPlayer.pause();
+        videoPlayer.removeAttribute("src");
         videoPlayer.load();
 
-        // SIEMPRE iniciar muted (clave autoplay)
+        videoPlayer.src = currentSrc;
+
+        videoContainer.appendChild(videoPlayer);
+
         videoPlayer.muted = true;
 
         const playPromise = videoPlayer.play();
@@ -1308,28 +1256,10 @@ setTimeout(scheduleYTTransition, 500);
         }
     }
 
-    // habilitar like
     const likeButton = document.getElementById("like-button");
     likeButton.disabled = false;
 }
 
-    function getNextVideoId() {
-
-    let nextIndex = currentVideoIndex + 1;
-
-    if (nextIndex >= videos.length) nextIndex = 0;
-
-    const next = videos[nextIndex];
-
-    if (next.src.startsWith("yt:")) {
-        return next.src.replace("yt:", "");
-    }
-
-    return null;
-}
-
-
-    
     function likeSong() {
         if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
             if (!videos[currentVideoIndex].liked) {
@@ -1472,7 +1402,6 @@ loader.style.opacity = "0";
 setTimeout(() => {
   loader.style.display = "none";
 }, 400);
-
 
 </script>
 </head>
