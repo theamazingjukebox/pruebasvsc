@@ -1075,35 +1075,24 @@ const songInfo = {
 // YOUTUBE SETUP
 // ======================
 let ytPlayer = null;
-let isYouTubeReady = false;
+let isPlayerReady = false;
 
-function onYouTubeIframeAPIReady() {
-    isYouTubeReady = true;
-}
-
-function loadYouTubeVideo(videoId) {
-
-    const videoContainer = document.getElementById("video-container");
-
-    if (ytPlayer) {
-        ytPlayer.destroy();
-    }
-
-    videoContainer.innerHTML = "";
+function initYouTubePlayer(videoId) {
 
     ytPlayer = new YT.Player("video-container", {
-    videoId,
-    host: "https://www.youtube-nocookie.com",
-    playerVars: {
-        autoplay: 1,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0,
-        playsinline: 1,
-        iv_load_policy: 3
-    },
+        videoId: videoId,
+        host: "https://www.youtube-nocookie.com",
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1,
+            iv_load_policy: 3
+        },
         events: {
             onReady: (event) => {
+                isPlayerReady = true;
 
                 if (soundEnabled) {
                     event.target.unMute();
@@ -1113,6 +1102,7 @@ function loadYouTubeVideo(videoId) {
 
                 event.target.playVideo();
             },
+
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
                     setTimeout(() => {
@@ -1120,8 +1110,9 @@ function loadYouTubeVideo(videoId) {
                     }, 200);
                 }
             },
+
             onError: () => {
-                console.log("Error YT → fallback");
+                console.log("YT error → fallback");
                 playNextVideo();
             }
         }
@@ -1190,9 +1181,15 @@ function loadYouTubeVideo(videoId) {
             videoContainer.removeChild(videoPlayer);
         }
 
-        if (isYouTubeReady) {
-            loadYouTubeVideo(videoId);
-        }
+        if (!ytPlayer) {
+    initYouTubePlayer(videoId);
+} else {
+    ytPlayer.loadVideoById(videoId);
+
+    if (soundEnabled) {
+        ytPlayer.unMute();
+    }
+}
 
     } 
     // ======================
