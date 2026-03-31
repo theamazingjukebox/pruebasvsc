@@ -1241,7 +1241,7 @@ function initYouTubePlayer(videoId) {
         if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
             if (!videos[currentVideoIndex].liked) {
                 videos[currentVideoIndex].liked = true;
-                const key = videos[currentVideoIndex].key || videos[currentVideoIndex].key;
+                const key = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
                 const currentSong = songInfo[key];
                 if (currentSong) {
                     likedSongs.push(currentSong);
