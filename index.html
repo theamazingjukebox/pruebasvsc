@@ -1162,7 +1162,7 @@ function initYouTubePlayer(videoId) {
     }
 
     const current = videos[currentVideoIndex];
-    const currentSrc = current.key;
+    const currentSrc = current.src;
     const videoContainer = document.getElementById("video-container");
 
     // ======================
@@ -1209,7 +1209,7 @@ function initYouTubePlayer(videoId) {
         videoPlayer.removeAttribute("src");
         videoPlayer.load();
 
-        videoPlayer.key = currentSrc;
+        videoPlayer.src = currentSrc;
 
         videoContainer.appendChild(videoPlayer);
 
