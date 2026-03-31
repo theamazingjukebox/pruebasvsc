@@ -1084,24 +1084,24 @@ function initYouTubePlayer(videoId) {
         host: "https://www.youtube-nocookie.com",
         playerVars: {
             autoplay: 1,
-            controls: 1,
+            controls: 0,
             modestbranding: 1,
             rel: 0,
             playsinline: 1,
             iv_load_policy: 3
+            disablekb: 1,         // desactiva teclado dentro del iframe
+            fs: 0                 // oculta botón de pantalla completa
         },
         events: {
             onReady: (event) => {
                 isPlayerReady = true;
 
-                if (soundEnabled) {
-                    event.target.unMute();
-                } else {
-                    event.target.mute();
-                }
+                event.target.mute();
+    event.target.playVideo();
 
-                event.target.playVideo();
-            },
+    if (soundEnabled) {
+        setTimeout(() => event.target.unMute(), 200);
+    },
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
@@ -1184,7 +1184,8 @@ function initYouTubePlayer(videoId) {
         if (!ytPlayer) {
     initYouTubePlayer(videoId);
 } else {
-    ytPlayer.loadVideoById(videoId);
+    ytPlayer.cueVideoById(videoId);
+ytPlayer.playVideo();
 
     if (soundEnabled) {
         ytPlayer.unMute();
