@@ -1122,16 +1122,15 @@ function initYouTubePlayer(videoId) {
                 isPlayerReady = true;
 
                 // 🔥 FORZAR estado inicial SIEMPRE mute
-    event.target.mute();
-    event.target.setVolume(0);
+    if (soundEnabled) {
+                    event.target.unMute();
+                    event.target.setVolume(100);
+                } else {
+                    event.target.mute();
+                }
 
-                 if (soundEnabled) {
-        event.target.Mute();
-        event.target.setVolume(100);
-    }
-
-    event.target.playVideo();
-},
+                event.target.playVideo();
+            },
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
