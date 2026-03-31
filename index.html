@@ -1053,7 +1053,7 @@ button, a, img {
 
     { 
         src: "Corazon De Venado.mp4",
-        key: "mp4_1",
+        key: "yt4",
         liked: false
     }
 
@@ -1127,9 +1127,6 @@ function initYouTubePlayer(videoId) {
         events: {
             onReady: (event) => {
                 isPlayerReady = true;
-
-                 if (soundEnabled) {
-                    isPlayerReady = true;
     event.target.mute(); // 🔒 siempre inicia muteado
     event.target.playVideo();
 },
@@ -1207,9 +1204,6 @@ function initYouTubePlayer(videoId) {
         videoPlayer.pause();
         videoPlayer.style.display = "none";
 
-        const ytFrame = document.getElementById("youtube-player");
-        if (ytFrame) ytFrame.style.display = "block"; // mostrar YT
-
        if (!ytPlayer) {
             initYouTubePlayer(videoId);
         } else {
@@ -1229,11 +1223,13 @@ function initYouTubePlayer(videoId) {
 
         // ocultar YT visualmente (NO destruir)
         if (ytPlayer && isPlayerReady) {
-    ytPlayer.pauseVideo();
+            ytPlayer.pauseVideo();
     const ytFrame = document.getElementById("youtube-player");
     if (ytFrame) ytFrame.style.display = "none"; // 🔒 ocultar YT
 }
 videoPlayer.style.display = "block";
+
+        videoPlayer.style.display = "block";
 
         if (!videoContainer.contains(videoPlayer)) {
             videoContainer.appendChild(videoPlayer);
@@ -1410,6 +1406,8 @@ loader.style.opacity = "0";
 setTimeout(() => {
   loader.style.display = "none";
 }, 400);
+
+    
 
 </script>
 </head>
