@@ -124,7 +124,7 @@ function shareCurrentSong() {
 
         function playSongById(id) {
             // Encuentra el índice de la canción con el id proporcionado
-            const index = videos.findIndex(video => songInfo[video.src].id === id);
+            const index = videos.findIndex(video => songInfo[video.key].id === id);
         
             // Si se encontró la canción, cámbiala y reprodúcela
             if (index !== -1) {
@@ -146,7 +146,7 @@ function shareCurrentSong() {
             if (encodedInfo) {
                 try {
                     const decodedInfo = JSON.parse(atob(encodedInfo));
-                    const songIndex = videos.findIndex(video => video.src === decodedInfo.songSrc);
+                    const songIndex = videos.findIndex(video => video.key === decodedInfo.songSrc);
         
                     if (songIndex !== -1) {
                         currentVideoIndex = songIndex;
