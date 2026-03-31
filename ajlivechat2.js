@@ -123,19 +123,28 @@ function shareCurrentSong() {
         }}}
 
         function playSongById(id) {
-            // Encuentra el índice de la canción con el id proporcionado
-            const index = videos.findIndex(video => songInfo[video.key].id === id);
-        
-            // Si se encontró la canción, cámbiala y reprodúcela
-            if (index !== -1) {
-                currentVideoIndex = index;
-                videoPlayer.key = videos[currentVideoIndex].src;
-                videoPlayer.load();
-                videoPlayer.play();
-                const likeButton = document.getElementById("like-button");
-                likeButton.disabled = false; // Habilitar botón para cada nueva canción
-            }
+    // Encuentra el índice de la canción con el id proporcionado
+    const index = videos.findIndex(video => songInfo[video.key].id === id);
+
+    // Si se encontró la canción, cámbiala y reprodúcela
+    if (index !== -1) {
+        currentVideoIndex = index;
+        const current = videos[currentVideoIndex];
+
+        if (current.src.startsWith("yt:")) {
+            const videoId = current.src.replace("yt:", "");
+            ytPlayer.loadVideoById(videoId);
+            if (soundEnabled) ytPlayer.unMute();
+        } else {
+            videoPlayer.src = current.src;
+            videoPlayer.load();
+            videoPlayer.play();
         }
+
+        const likeButton = document.getElementById("like-button");
+        likeButton.disabled = false;
+    }
+}
     
         function generateSongLink(songSrc) {
             const encodedInfo = btoa(JSON.stringify({ songSrc: songSrc }));
