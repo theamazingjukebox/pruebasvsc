@@ -1100,6 +1100,16 @@ let ytPlayer = null;
 let isPlayerReady = false;
 let soundEnabled = false;
 
+    // detectar interacción del usuario
+document.addEventListener("click", () => {
+    soundEnabled = true;
+
+    if (ytPlayer && isPlayerReady) {
+        ytPlayer.unMute();
+        ytPlayer.setVolume(100);
+    }
+}, { once: true });
+
     
 function initYouTubePlayer(videoId) {
 
