@@ -405,10 +405,24 @@ body {
         box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
 }
 
-    #youtube-player{
+
+    @media (min-width: 768px) {
+    #youtube-player {
+        width: 326px; /* Ancho mayor en dispositivos grandes */
+        height: 230px; /* Altura mayor en dispositivos grandes */
+        
+    }
+}
+
+     @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #youtube-player {
+        z-index: 10;
         width: 270px;
         height: 190px;
     }
+}
+    
+   
 
 
 
