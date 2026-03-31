@@ -1046,14 +1046,14 @@ button, a, img {
 
     // 🧯 FALLBACK (solo si lo necesitas)
     { 
-        src: "yt:qYwgG2oyUbA",
+        src: "yt:WEQ0l_m3Xm0",
         key: "yt3",
         liked: false
     },
 
     { 
-        src: "Corazon De Venado.mp4",
-        key: "mp4_1",
+        src: "yt:qYwgG2oyUbA",
+        key: "yt4",
         liked: false
     }
 
@@ -1129,15 +1129,17 @@ function initYouTubePlayer(videoId) {
             onReady: (event) => {
                 isPlayerReady = true;
 
-                 if (soundEnabled) {
-                    event.target.unMute();
-                    event.target.setVolume(100);
-                } else {
-                    event.target.mute();
-                }
+                // 🔥 FORZAR estado inicial SIEMPRE mute
+    event.target.mute();
+    event.target.setVolume(0);
 
-                event.target.playVideo();
-            },
+                 if (soundEnabled) {
+        event.target.unMute();
+        event.target.setVolume(100);
+    }
+
+    event.target.playVideo();
+},
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
