@@ -1,17 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>The Amazing Jukebox – A Different Listening Experience</title>
-<meta name="description" content="A digital jukebox where curated music appears by chance rather than algorithms, turning each visit into a moment of discovery.">
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=0.31, maximum-scale=5, user-scalable=yes">
-<meta property="og:image" content="https://www.theamazingjukebox.com/ogpreview34.jpeg">
-<meta property="og:url" content="https://www.theamazingjukebox.com/">
+<meta property="og:image" content="https://theamazingjukebox.github.io/pruebasvsc/ogpreview33.png">
+<meta property="og:url" content="https://theamazingjukebox.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Step inside the jukebox 🕹️">
-<meta property="og:description" content="A Different Listening Experience">
-<link rel="icon" type="image/png" href="icon11.2.svg">
+<meta property="og:title" content="Interactive Online Music Discovery">
+<meta property="og:description" content="Explore songs, like tracks, and enjoy a playful music discovery experience.">
+
+<title>The Amazing Jukebox</title>
+<link rel="icon" type="image/png" href=".svg">
 <link rel="stylesheet" type="text/css" href="./ajlivechat.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
     
     /* Estilos del botón personalizado */
     #toggle-chat-btn {
-        background-color: #3498db00;
+        background-color: #3498db01;
     outline: none;
     color: white;
     border: none;
@@ -283,12 +283,15 @@ body {
     position: relative;
     width: 100%;
     height: 110%;
+    top: 20%
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
     
+    
 }
+
 
 .background-img {
     width: 100%;
@@ -297,11 +300,13 @@ body {
     position: relative;
     object-fit: contain;
     border-radius: 15px;
+    pointer-events: none;
     top: 0;
     left: 0;
     z-index: 1;
     
 }
+    
 
 @media (max-width: 768px) {
     .background-container {
@@ -323,23 +328,16 @@ body {
     .background-container {
         width: 100%;
         height: 225vh;
+        
     }
 }
-
 
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 3;
-  
-}
-
-.overlay2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -2;
+  z-index: 20;
+  pointer-events: none;
   
 }
 
@@ -352,7 +350,7 @@ body {
   height: 100%;
   object-fit: contain;
   z-index: -3;
-  transform: translateZ(0);
+
 }
 
 
@@ -360,14 +358,15 @@ body {
 #video-container {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
     top: 46.9%; /* Centra verticalmente */
-    left: 49.9%; /* Centra horizontalmente */
+    left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%); /* Ajusta para centrar */
-    width: 267px; /* Ancho deseado */
+    width: 467px; /* Ancho deseado */
     height: 191px; /* Altura deseada */
-    z-index: 2; /* Asegura que el video esté encima de la imagen */
+    z-index: 10; /* Asegura que el video esté encima de la imagen */
     display: flex;
     align-items: center;
     justify-content: center;
+    
     
 }
 
@@ -375,11 +374,13 @@ body {
     #video-container {
         width: 326px; /* Ancho mayor en dispositivos grandes */
         height: 230px; /* Altura mayor en dispositivos grandes */
+        
     }
 }
     
     @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #video-container {
+        z-index: 10;
         width: 270px;
         height: 190px;
     }
@@ -394,7 +395,34 @@ body {
         border-radius: 15px; 
         box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
         z-index: 0;
+        
+        
 }
+
+    #video-container iframe {
+    border: 2px solid rgba(216, 106, 2, 0.5);
+        border-radius: 15px; 
+        box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5), 0px 0px 40px rgba(255, 255, 255, 0.5);
+}
+
+
+    @media (min-width: 768px) {
+    #youtube-player {
+        width: 326px; /* Ancho mayor en dispositivos grandes */
+        height: 230px; /* Altura mayor en dispositivos grandes */
+        
+    }
+}
+
+     @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #youtube-player {
+        z-index: 10;
+        width: 270px;
+        height: 190px;
+    }
+}
+    
+   
 
 
 
@@ -454,8 +482,7 @@ body {
   }
 }
 
-    
- #loading-screen {
+    #loading-screen {
   position: fixed;
   inset: 0;
   display: flex;
@@ -491,20 +518,13 @@ body {
 }
 
 .loading-title{
-  font-size:55px;
+  font-size:35px;
   margin-bottom:10px;
   letter-spacing:2px;
 }
 
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .loading-title {
-        font-size:35px;
-        
-    }
-}
-
 .loading-message{
-  font-size:42px;
+  font-size:22px;
   margin-bottom:15px;
 }
 
@@ -517,23 +537,14 @@ body {
 
 .loading-hint{
   margin-top:10px;
-  font-size:34px;
+  font-size:14px;
   opacity:0.8;
 }
 
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .loading-hint {
-        font-size:14px;
-        
-    }
-}
-
-
-
 .loading-dots span{
   display:inline-block;
-  width:25px;
-  height:25px;
+  width:10px;
+  height:10px;
   margin:0 3px;
   border-radius:50%;
   background:#00eaff;
@@ -550,15 +561,7 @@ body {
   50%{opacity:1; transform:scale(1.2);}
   100%{opacity:0.2; transform:scale(0.8);}
 }
-
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .loading-dots span {
-        width:10px;
-       height:10px;
-        
-    }
-}
-
+    
     
     #ad-container {
         
@@ -600,12 +603,13 @@ body {
         margin-bottom: -5%;
         width: 63%;
         margin-left: 11%;
+        
     }
 }
          
     #liked-songs-button {
     position: absolute; /* Posiciona el botón sobre la imagen */
-    top: 55.3%; /* Ajusta este valor para colocar el botón verticalmente */
+    top: 55.1%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 57.2%; /* Centra horizontalmente */
     transform: translate(-50%, -50%); /* Centrado preciso */
     padding: 10px 20px;
@@ -677,7 +681,7 @@ background-image: url('boton-3.1.webp');
         
         overflow-y: auto;
         
-        z-index: 9999999999;
+        z-index: 9999;
     }
     #liked-songs-content {
         color: rgb(116, 12, 61); /* Cambia el color de letra aquí */
@@ -949,7 +953,7 @@ overflow: hidden;
 
 .logos8 {
     position: absolute;
-    
+   
     bottom: -75.5%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
@@ -960,7 +964,6 @@ overflow: hidden;
 overflow: hidden;
         
 }
-    
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .logos8 {
@@ -969,7 +972,6 @@ overflow: hidden;
         
     }
 }
-
 
     
     #messages {
@@ -1019,29 +1021,797 @@ button, a, img {
     transition: transform 0.3s ease;
 }
 
+#youtube-player iframe {
+    transition: opacity 0.3s ease;
+}
 
     
 </style>
 <script>
+
     const videos = [
-        { src: "Future Girlfriend 音楽 X 悲しい ANDROID - APARTMENT¶ -_- 今を生きる.mp4", liked: false },
-        { src: "Corazon De Venado.mp4", liked: false },
-        // Agrega más URLs de videos según sea necesario
-        { src: "Camino del desierto (original).mp4", liked: false },
-        { src: "Earth, Wind  Fire - Fantasy (Audio).mp4", liked: false },
-       
-    ];
 
-    const songInfo = {
-        "Kylie Minogue - In My Arms (Official Video).mp4": { id: 1, name: "In My Arms (Official Video)", artist: "Kylie Minogue", links: "https://youtu.be/Nj6IKIPteuE?si=Pr7g07GTE_W__5r0" },
-        "D.A.N.K. - My Planet [The Treehouse] [W DOWNLOAD LINK].mp4": { id: 2,  name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
-        "macy.mp4": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/embed/WEQ0l_m3Xm0" },
-        // Agrega más información de canciones según sea necesario
-        "deacon.mp4": { id: 4, name: "Real Gone Kid", artist: "Deacon Blue", links: "https://youtu.be/5SD4lI9GKUE" },
+    // 🎯 PRINCIPALES (YouTube)
+    
+{ src: "yt:Nj6IKIPteuE", key: "yt1", liked: false },
+{ src: "yt:aoe-qo5jgGk", key: "yt2", liked: false },
+{ src: "yt:WEQ0l_m3Xm0", key: "yt3", liked: false },
+{ src: "yt:5SD4lI9GKUE", key: "yt4", liked: false },
+{ src: "yt:r58GQYFZeLE", key: "yt5", liked: false },
+{ src: "yt:ZUHKDHkRasc", key: "yt6", liked: false },
+{ src: "yt:wlMvYx11V-Y", key: "yt7", liked: false },
+{ src: "yt:S3a-mKUxIew", key: "yt8", liked: false },
+{ src: "yt:_TYlOXVdVcQ", key: "yt9", liked: false },
+{ src: "yt:txapREGWHp0", key: "yt10", liked: false },
+{ src: "yt:ZSFjLTROTfY", key: "yt11", liked: false },
+{ src: "yt:Hat1Hc9SNwE", key: "yt12", liked: false },
+{ src: "yt:kOL7aeIDruA", key: "yt13", liked: false },
+{ src: "yt:OAuIY_eaL5U", key: "yt14", liked: false },
+{ src: "yt:0P4A1K4lXDo", key: "yt15", liked: false },
+{ src: "yt:QZweyIKNwX4", key: "yt16", liked: false },
+{ src: "yt:qJS3xnD7Mus", key: "yt17", liked: false },
+{ src: "yt:w46bWxS9IjY", key: "yt18", liked: false },
+{ src: "yt:xJeWySiuq1I", key: "yt19", liked: false },
+{ src: "yt:hRzGzRqNj58", key: "yt20", liked: false },
+{ src: "yt:zPwpVJ-eIgg", key: "yt21", liked: false },
+{ src: "yt:RYDhw8_lAn0", key: "yt22", liked: false },
+{ src: "yt:5vSVkDkpfpA", key: "yt23", liked: false },
+{ src: "yt:L3xpmfJp0Xc", key: "yt24", liked: false },
+{ src: "yt:DRnmNeizUk4", key: "yt25", liked: false },
+{ src: "yt:7hqgC3W9GUI", key: "yt26", liked: false },
+{ src: "yt:Y8_Qhq7XpFU", key: "yt27", liked: false },
+{ src: "yt:kU8OJAOMbPg", key: "yt28", liked: false },
+{ src: "yt:C6HcP8pK6_w", key: "yt29", liked: false },
+{ src: "yt:taZXFX1jzKk", key: "yt30", liked: false },
+{ src: "yt:YCYaALgW80c", key: "yt31", liked: false },
+{ src: "yt:ClbmWkbocoY", key: "yt32", liked: false },
+{ src: "yt:xcWOviMI6Lk", key: "yt33", liked: false },
+{ src: "yt:tKjZuykKY1I", key: "yt34", liked: false },
+{ src: "yt:79r_XaUU7yE", key: "yt35", liked: false },
+{ src: "yt:l73FJBnjp28", key: "yt36", liked: false },
+{ src: "yt:j8J874vYp60", key: "yt37", liked: false },
+{ src: "yt:ThYOmxGgXzw", key: "yt38", liked: false },
+{ src: "yt:cFFBSSntZgs", key: "yt39", liked: false },
+{ src: "yt:dVNdTXEJv1A", key: "yt40", liked: false },
+{ src: "yt:DaBWlBknNgs", key: "yt41", liked: false },
+{ src: "yt:VZt7J0iaUD0", key: "yt42", liked: false },
+{ src: "yt:cMOKamtpUA8", key: "yt43", liked: false },
+{ src: "yt:mlg4fV1MEQ8", key: "yt44", liked: false },
+{ src: "yt:aME0qvhZ37o", key: "yt45", liked: false },
+{ src: "yt:wsA7rdZelLc", key: "yt46", liked: false },
+{ src: "yt:6WOYnv59Bi8", key: "yt47", liked: false },
+{ src: "yt:PXatLOWjr-k", key: "yt48", liked: false },
+{ src: "yt:KnaJzImxP_w", key: "yt49", liked: false },
+{ src: "yt:n-3_3fWC1vg", key: "yt50", liked: false },
+{ src: "yt:Hn-enjcgV1o", key: "yt51", liked: false },
+{ src: "yt:5YXVMCHG-Nk", key: "yt52", liked: false },
+{ src: "yt:oXk-PPmH5ak", key: "yt53", liked: false },
+{ src: "yt:y8AWFf7EAc4", key: "yt54", liked: false },
+{ src: "yt:THTklwIscew", key: "yt55", liked: false },
+{ src: "yt:WtdRv6GT9Zg", key: "yt56", liked: false },
+{ src: "yt:uxk7aSCLj4g", key: "yt57", liked: false },
+{ src: "yt:o2n-blwYJ4s", key: "yt58", liked: false },
+{ src: "yt:OQitfe8u7i4", key: "yt59", liked: false },
+{ src: "yt:GM_V1wMCjeU", key: "yt60", liked: false },
+{ src: "yt:N3kkNfH4yco", key: "yt61", liked: false },
+{ src: "yt:HnYWmgSZdlM", key: "yt62", liked: false },
+{ src: "yt:iqu132vTl5Y", key: "yt63", liked: false },
+{ src: "yt:ueT3qH1GC5E", key: "yt64", liked: false },
+{ src: "yt:vHwXoY0LiQk", key: "yt65", liked: false },
+{ src: "yt:LCCiwPEdEpg", key: "yt66", liked: false },
+{ src: "yt:aDdOnl0bHO4", key: "yt67", liked: false },
+{ src: "yt:uIbXvaE39wM", key: "yt68", liked: false },
+{ src: "yt:3m8ElO9Y50Y", key: "yt69", liked: false },
+{ src: "yt:1iQl46-zIcM", key: "yt70", liked: false },
+{ src: "yt:0habxsuXW4g", key: "yt71", liked: false },
+{ src: "yt:8uGVZoqJjn4", key: "yt72", liked: false },
+{ src: "yt:Qu0dIn3_2Zc", key: "yt73", liked: false },
+{ src: "yt:RQCT1f8IHK0", key: "yt74", liked: false },
+{ src: "yt:on0OPQvZ1cY", key: "yt75", liked: false },
+{ src: "yt:j4jtIDaeaWI", key: "yt76", liked: false },
+{ src: "yt:rJppnG1tflU", key: "yt77", liked: false },
+{ src: "yt:Dc3YAINjlyE", key: "yt78", liked: false },
+{ src: "yt:k2C5TjS2sh4", key: "yt79", liked: false },
+{ src: "yt:40Z5cWP4IqQ", key: "yt80", liked: false },
+{ src: "yt:qf8BoWKeHow", key: "yt81", liked: false },
+{ src: "yt:htgr3pvBr-I", key: "yt82", liked: false },
+{ src: "yt:92cwKCU8Z5c", key: "yt83", liked: false },
+{ src: "yt:BscZ5LD-N90", key: "yt84", liked: false },
+{ src: "yt:El1kgCqD7Xk", key: "yt85", liked: false },
+{ src: "yt:LvdLovAaYzM", key: "yt86", liked: false },
+{ src: "yt:DeM3CmMA9K0", key: "yt87", liked: false },
+{ src: "yt:EaEPCsQ4608", key: "yt88", liked: false },
+{ src: "yt:HCm6gRHINqA", key: "yt89", liked: false },
+{ src: "yt:w_x3DaZAGAg", key: "yt90", liked: false },
+{ src: "yt:IbRwSI8yi1o", key: "yt91", liked: false },
+{ src: "yt:DSRSgMp5X1w", key: "yt92", liked: false },
+{ src: "yt:X28-olxweYk", key: "yt93", liked: false },
+{ src: "yt:nA2k79EGHbc", key: "yt94", liked: false },
+{ src: "yt:v45F0YesdZM", key: "yt95", liked: false },
+{ src: "yt:i9HGwRbMiVY", key: "yt96", liked: false },
+{ src: "yt:tDl3bdE3YQA", key: "yt97", liked: false },
+{ src: "yt:lqAOB143KqY", key: "yt98", liked: false },
+{ src: "yt:LfRNRymrv9k", key: "yt99", liked: false },
+{ src: "yt:b8dy8tfUCEg", key: "yt100", liked: false },
+{ src: "yt:RhxF9Qg5mOU", key: "yt101", liked: false },
+{ src: "yt:0T1IVyXBGjM", key: "yt102", liked: false },
+{ src: "yt:zWzy5q_M5Ho", key: "yt103", liked: false },
+{ src: "yt:qbAab1hTxN4", key: "yt104", liked: false },
+{ src: "yt:bEOl38y8Nj8", key: "yt105", liked: false },
+{ src: "yt:uVjEcIANv1o", key: "yt106", liked: false },
+{ src: "yt:H7_sqdkaAfo", key: "yt107", liked: false },
+{ src: "yt:4qPOWeA-L5I", key: "yt108", liked: false },
+{ src: "yt:13EifDb4GYs", key: "yt109", liked: false },
+{ src: "yt:_qW9wqUI4Lg", key: "yt110", liked: false },
+{ src: "yt:qFe0sc8XW94", key: "yt111", liked: false },
+{ src: "yt:GlRQjzltaMQ", key: "yt112", liked: false },
+{ src: "yt:ZHwVBirqD2s", key: "yt113", liked: false },
+{ src: "yt:on8DJBt07eU", key: "yt114", liked: false },
+{ src: "yt:cFH5JgyZK1I", key: "yt115", liked: false },
+{ src: "yt:BF5bV6oWXJg", key: "yt116", liked: false },
+{ src: "yt:PSoOFn3wQV4", key: "yt117", liked: false },
+{ src: "yt:JdXecuVl7_4", key: "yt118", liked: false },
+{ src: "yt:HASBaqR8pl8", key: "yt119", liked: false },
+{ src: "yt:o3hHsVtqNFQ", key: "yt120", liked: false },
+{ src: "yt:4Fc67yQsPqQ", key: "yt121", liked: false },
+{ src: "yt:Ds-MkhyZfmw", key: "yt122", liked: false },
+{ src: "yt:Cz0UdxIJ7uk", key: "yt123", liked: false },
+{ src: "yt:mwgg1Pu6cNg", key: "yt124", liked: false },
+{ src: "yt:KiRyiVgWj6g", key: "yt125", liked: false },
+{ src: "yt:YkADj0TPrJA", key: "yt126", liked: false },
+{ src: "yt:8BYKpQ_6GbM", key: "yt127", liked: false },
+{ src: "yt:0C-vHuerhI8", key: "yt128", liked: false },
+{ src: "yt:E8gmARGvPlI", key: "yt129", liked: false },
+{ src: "yt:f43nR8Wu_1Y", key: "yt130", liked: false },
+{ src: "yt:j7oQEPfe-O8", key: "yt131", liked: false },
+{ src: "yt:4T6e3GJCjow", key: "yt132", liked: false },
+{ src: "yt:B3Anlv2HCNk", key: "yt133", liked: false },
+{ src: "yt:tbkOZTSvrHs", key: "yt134", liked: false },
+{ src: "yt:wmYT79tPvLg", key: "yt135", liked: false },
+{ src: "yt:08DjMT-qR9g", key: "yt136", liked: false },
+{ src: "yt:K_lhBNtXwBY", key: "yt137", liked: false },
+{ src: "yt:3Vt0d9YlTC4", key: "yt138", liked: false },
+{ src: "yt:xFrGuyw1V8s", key: "yt139", liked: false },
+{ src: "yt:yGL2lcaRYqk", key: "yt140", liked: false },
+{ src: "yt:9HEdLmbZoJQ", key: "yt141", liked: false },
+{ src: "yt:jEJdfDD4dVg", key: "yt142", liked: false },
         
-    };
+{ src: "yt:XV6aRWLLchQ", key: "yt143", liked: false },
+{ src: "yt:l_exNthTDGw", key: "yt144", liked: false },
+{ src: "yt:109t8zXh3j8", key: "yt145", liked: false },
+{ src: "yt:hBjQPVoy-Yg", key: "yt146", liked: false },
+        
+{ src: "yt:IIOJdMdS56k", key: "yt147", liked: false },
+{ src: "yt:lcOxhH8N3Bo", key: "yt148", liked: false },
+{ src: "yt:WGU_4-5RaxU", key: "yt149", liked: false },
+{ src: "yt:mWvrtRpX2-E", key: "yt150", liked: false },
+{ src: "yt:-crgQGdpZR0", key: "yt151", liked: false },
+{ src: "yt:iUrzicaiRLU", key: "yt152", liked: false },
+{ src: "yt:XNBNOjhLW_U", key: "yt153", liked: false },
+{ src: "yt:8TToLgW7zuc", key: "yt154", liked: false },
+{ src: "yt:woR6ohiFeYE", key: "yt155", liked: false },
+{ src: "yt:AJsqjRxtKhU", key: "yt156", liked: false },
+{ src: "yt:3xigVJMJRi4", key: "yt157", liked: false },
+{ src: "yt:WPpDyIJdasg", key: "yt158", liked: false },
+{ src: "yt:kIDWgqDBNXA", key: "yt159", liked: false },
+{ src: "yt:VAtGOESO7W8", key: "yt160", liked: false },
+{ src: "yt:5fwGZohSJ9g", key: "yt161", liked: false },
+{ src: "yt:jQvUBf5l7Vw", key: "yt162", liked: false },
+{ src: "yt:IxxstCcJlsc", key: "yt163", liked: false },
+{ src: "yt:HKLnmMacEB4", key: "yt164", liked: false },
+{ src: "yt:PnARSBuy47c", key: "yt165", liked: false },
+{ src: "yt:Z6gehTVBpEs", key: "yt166", liked: false },
+{ src: "yt:xIYJ7VaSxYY", key: "yt167", liked: false },
+{ src: "yt:u3IAybZOt-E", key: "yt168", liked: false },
+{ src: "yt:6yJYn6n4NWo", key: "yt169", liked: false },
+{ src: "yt:ttXv00QZqiQ", key: "yt170", liked: false },
+{ src: "yt:wp43OdtAAkM", key: "yt171", liked: false },
+{ src: "yt:fVMtKQMAZqw", key: "yt172", liked: false },
+{ src: "yt:yG4dgSd-f2w", key: "yt173", liked: false },
+{ src: "yt:b_eQ63Plv6A", key: "yt174", liked: false },
+{ src: "yt:zpdQQoc-gkk", key: "yt175", liked: false },
+{ src: "yt:R8AOAap6_k4", key: "yt176", liked: false },
+{ src: "yt:eBShN8qT4lk", key: "yt177", liked: false },
+{ src: "yt:0XmmXF-fpG0", key: "yt178", liked: false },
+{ src: "yt:96Zw6CIpe9k", key: "yt179", liked: false },
+{ src: "yt:S43YhQ_eGTw", key: "yt180", liked: false },
+{ src: "yt:9cvKl9FqcHE", key: "yt181", liked: false },
+{ src: "yt:JetrXTkZGUw", key: "yt182", liked: false },
+{ src: "yt:cL55NhsiwyQ", key: "yt183", liked: false },
+{ src: "yt:wsrvmNtWU4E", key: "yt184", liked: false },
+{ src: "yt:EkU5QNHK3oY", key: "yt185", liked: false },
+{ src: "yt:jMcWldfg28s", key: "yt186", liked: false },
+{ src: "yt:PE1lzqJCeJ0", key: "yt187", liked: false },
+{ src: "yt:Q5lByFc7HiM", key: "yt188", liked: false },
+{ src: "yt:AR8D2yqgQ1U", key: "yt189", liked: false },
+{ src: "yt:9b4F_ppjnKU", key: "yt190", liked: false },
+{ src: "yt:I4zG4tGgSAY", key: "yt191", liked: false },
+{ src: "yt:NyhPHT6r658", key: "yt192", liked: false },
+{ src: "yt:VkKxmnrRVHo", key: "yt193", liked: false },
+{ src: "yt:ftMp6Y20D_Q", key: "yt194", liked: false },
+{ src: "yt:-JJAXwAaA2w", key: "yt195", liked: false },
+{ src: "yt:rcCOl_ttcbE", key: "yt196", liked: false },
+{ src: "yt:906LOdN4I_c", key: "yt197", liked: false },
+{ src: "yt:4oxqODvm1tM", key: "yt198", liked: false },
+{ src: "yt:N733Ofj2cVQ", key: "yt199", liked: false },
+{ src: "yt:SBcNVBAkvwA", key: "yt200", liked: false },
+{ src: "yt:ZC7v2gFsCz0", key: "yt201", liked: false },
+{ src: "yt:jV127kNz0hs", key: "yt202", liked: false },
+{ src: "yt:MIBEeZEHASM", key: "yt203", liked: false },
+{ src: "yt:rFHp4W55vhI", key: "yt204", liked: false },
+{ src: "yt:LVFm8wu1NFQ", key: "yt205", liked: false },
+{ src: "yt:t6omUxqhG78", key: "yt206", liked: false },
+{ src: "yt:x7mOxdEDNn8", key: "yt207", liked: false },
+{ src: "yt:K8ouQdBzpMQ", key: "yt208", liked: false },
+{ src: "yt:wzDG0jA3XVY", key: "yt209", liked: false },
+{ src: "yt:j3dlmWXP0yE", key: "yt210", liked: false },
+{ src: "yt:XRZS1NrkpJQ", key: "yt211", liked: false },
+{ src: "yt:j0GYIQOS8T8", key: "yt212", liked: false },
+{ src: "yt:hU4Cv8E_yxE", key: "yt213", liked: false },
+{ src: "yt:GN29TfWxzJ4", key: "yt214", liked: false },
+{ src: "yt:57-J8K3q-vo", key: "yt215", liked: false },
+{ src: "yt:3BTBdZ-lFAI", key: "yt216", liked: false },
+{ src: "yt:2xzDj-XOX2U", key: "yt217", liked: false },
+{ src: "yt:KOVyBhVsOV0", key: "yt218", liked: false },
+{ src: "yt:tG7JMXa5UPc", key: "yt219", liked: false },
+{ src: "yt:uAhzBVALop4", key: "yt220", liked: false },
+{ src: "yt:BinwuzZVjnE", key: "yt221", liked: false },
+{ src: "yt:_TRDq-5Fbrc", key: "yt222", liked: false },
+{ src: "yt:EvuL5jyCHOw", key: "yt223", liked: false },
+{ src: "yt:jqUg_9aWgV8", key: "yt224", liked: false },
+{ src: "yt:mclRu9jByho", key: "yt225", liked: false },
+{ src: "yt:JzOQC7ynuA4", key: "yt226", liked: false },
+{ src: "yt:Epj84QVw2rc", key: "yt227", liked: false },
+{ src: "yt:YBcdt6DsLQA", key: "yt228", liked: false },
+{ src: "yt:46kfsA5gruo", key: "yt229", liked: false },
+{ src: "yt:A73voVPhMfY", key: "yt230", liked: false },
+{ src: "yt:X23v5_K7cXk", key: "yt231", liked: false },
+{ src: "yt:97Pxe9KTgJc", key: "yt232", liked: false },
+{ src: "yt:vm78KpEw3uw", key: "yt233", liked: false },
+{ src: "yt:s6b_FgQnXL8", key: "yt234", liked: false },
+{ src: "yt:mvCC3XpMcPQ", key: "yt235", liked: false },
+{ src: "yt:9K2l8QfpeLE", key: "yt236", liked: false },
+{ src: "yt:j9-iUuF-FbU", key: "yt237", liked: false },
+{ src: "yt:g1_lIYHGavA", key: "yt238", liked: false },
+{ src: "yt:h0ffIJ7ZO4U", key: "yt239", liked: false },
+{ src: "yt:l_uh8XjgLTE", key: "yt240", liked: false },
+{ src: "yt:leSkAbfgR4k", key: "yt241", liked: false },
+{ src: "yt:KCog-KpzwgY", key: "yt242", liked: false },
+{ src: "yt:bhxhNIQBKJI", key: "yt243", liked: false },
+{ src: "yt:PiUQr5CUddQ", key: "yt244", liked: false },
+{ src: "yt:Cg8DHOsr-Ls", key: "yt245", liked: false },
+{ src: "yt:VfGSd-tikH4", key: "yt246", liked: false },
+{ src: "yt:7U_LhzgwJ4U", key: "yt247", liked: false },
+{ src: "yt:4aeETEoNfOg", key: "yt248", liked: false },
+{ src: "yt:0H6re3PCP3E", key: "yt249", liked: false },
+{ src: "yt:JXr6MJHiF40", key: "yt250", liked: false },
+{ src: "yt:Y8FdbstV6uo", key: "yt251", liked: false },
+{ src: "yt:8jmGeLorSKQ", key: "yt252", liked: false },
+{ src: "yt:8LhCd1W2V0Q", key: "yt253", liked: false },
+{ src: "yt:XeF_eRMTsuY", key: "yt254", liked: false },
+{ src: "yt:lMPtIhAPnn4", key: "yt255", liked: false },
+{ src: "yt:Z-FH7iZWIyM", key: "yt256", liked: false },
+{ src: "yt:OkFPoC370Nw", key: "yt257", liked: false },
+{ src: "yt:eFtiwNUDIcs", key: "yt258", liked: false },
+{ src: "yt:PbX5zPTfPXU", key: "yt259", liked: false },
+{ src: "yt:KNtJGQkC-WI", key: "yt260", liked: false },
+{ src: "yt:HQt6jIKNwgU", key: "yt261", liked: false },
+{ src: "yt:By8xCnMkAQM", key: "yt262", liked: false },
+{ src: "yt:pD2KFOViVc4", key: "yt263", liked: false },
+{ src: "yt:e4miAlnuw8M", key: "yt264", liked: false },
+{ src: "yt:OlV66HD-cAw", key: "yt265", liked: false },
+{ src: "yt:HWMomwOgYKk", key: "yt266", liked: false },
+{ src: "yt:nNEb2k_EmMg", key: "yt267", liked: false },
+{ src: "yt:xrhfuHQTbdI", key: "yt268", liked: false },
+{ src: "yt:6gZ-11-kOSQ", key: "yt269", liked: false },
+{ src: "yt:l4qsuBZl8ns", key: "yt270", liked: false },
+{ src: "yt:9p8L79qhLsI", key: "yt271", liked: false }, 
+{ src: "yt:wgONfaExB_k", key: "yt272", liked: false },
+{ src: "yt:OH9A6tn_P6g", key: "yt273", liked: false },
+{ src: "yt:q8CSN_W44yE", key: "yt274", liked: false },
+{ src: "yt:aScE05jfZuY", key: "yt275", liked: false },
+{ src: "yt:LA8bSCf2N-s", key: "yt276", liked: false },
+{ src: "yt:yrybsh9QFKE", key: "yt277", liked: false },
+{ src: "yt:bjYiFkPELhY", key: "yt278", liked: false },
+{ src: "yt:lCRlgxoTsQs", key: "yt279", liked: false },
+{ src: "yt:medu3pl440E", key: "yt280", liked: false },
+{ src: "yt:YZ9uzpxBfnQ", key: "yt281", liked: false },
+{ src: "yt:G_UXvcr22rM", key: "yt282", liked: false },
+{ src: "yt:JsntlJZ9h1U", key: "yt283", liked: false },
+{ src: "yt:blDjUkMA9oU", key: "yt284", liked: false },
+{ src: "yt:as0wQ-8xOVE", key: "yt285", liked: false },
+{ src: "yt:4oScRBsOV6I", key: "yt286", liked: false },
+{ src: "yt:PaiOTGEnuJk", key: "yt287", liked: false },
+{ src: "yt:YOtCVfBxUtc", key: "yt288", liked: false },
+{ src: "yt:B8DyYFq1ezo", key: "yt289", liked: false },
+{ src: "yt:79SNvZi3ltE", key: "yt290", liked: false },
+{ src: "yt:PJwt2dxx9yg", key: "yt291", liked: false },
+{ src: "yt:cWm5-eKPpio", key: "yt292", liked: false },
+{ src: "yt:w6tff1NguOE", key: "yt293", liked: false },
+{ src: "yt:efrb_2nR6Yw", key: "yt294", liked: false },
+{ src: "yt:-lOg8eOBykM", key: "yt295", liked: false },
+{ src: "yt:cbre8oAx1Wk", key: "yt296", liked: false },
+{ src: "yt:luoPfhDnZHM", key: "yt297", liked: false },
+{ src: "yt:ugAcsVVJkXk", key: "yt298", liked: false },
+{ src: "yt:10Lln9uWZ6E", key: "yt299", liked: false },
+{ src: "yt:eI2Sovdp1Ck", key: "yt300", liked: false },
+{ src: "yt:rAKeygQRHLI", key: "yt301", liked: false },
+{ src: "yt:H1NJTeNnBIQ", key: "yt302", liked: false },
+{ src: "yt:e1Hdlu3Slaw", key: "yt303", liked: false },
+{ src: "yt:UY9ySc9A4kg", key: "yt304", liked: false },
+{ src: "yt:kuggtL-bQzc", key: "yt305", liked: false },
+{ src: "yt:qmDHK2-9Iuo", key: "yt306", liked: false },
+{ src: "yt:8OyHuuwtm2Q", key: "yt307", liked: false },
+{ src: "yt:BoXL0soJ22M", key: "yt308", liked: false },
+{ src: "yt:KaxyYIAsyuY", key: "yt309", liked: false },
+{ src: "yt:LeGB-DY58dE", key: "yt310", liked: false },
+{ src: "yt:JGtZLON2DV0", key: "yt311", liked: false },
+{ src: "yt:v7Srbp8WPMY", key: "yt312", liked: false },
+{ src: "yt:Q3VLPnonur8", key: "yt313", liked: false },
+{ src: "yt:1Vu-aAH66u8", key: "yt314", liked: false },
+{ src: "yt:MrSgSLcOYDo", key: "yt315", liked: false },
+{ src: "yt:NiGuJ--EfmA", key: "yt316", liked: false },
+{ src: "yt:SVbPbo_5foI", key: "yt317", liked: false },
+{ src: "yt:NvESV234lg0", key: "yt318", liked: false },
+{ src: "yt:2RFRP0vSy6I", key: "yt319", liked: false },
+{ src: "yt:-pzpMX8Yxr4", key: "yt320", liked: false },
 
-    let currentVideoIndex = -1;
+// 🌐 externos (respetados)
+{ src: "yt:S5jozkx2Pfs", key: "yt321", liked: false },
+{ src: "yt:S5jozkx2Pfs", key: "yt322", liked: false },
+{ src: "yt:S5jozkx2Pfs", key: "yt323", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt324", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt325", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt326", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt327", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt328", liked: false },
+{ src: "yt:fxewd0cO1E4", key: "yt329", liked: false },
+{ src: "yt:RWuyFF7jzdg", key: "yt330", liked: false },
+{ src: "yt:RWuyFF7jzdg", key: "yt331", liked: false },
+{ src: "yt:RWuyFF7jzdg", key: "yt332", liked: false },
+
+{ src: "yt:bu0F1yiHOr4", key: "yt333", liked: false },
+{ src: "yt:rdUQIJvPZUc", key: "yt334", liked: false },
+{ src: "yt:x9KouVsBj5g", key: "yt335", liked: false },
+{ src: "yt:MTOJy85SFfM", key: "yt336", liked: false },
+{ src: "yt:3Pnqx4yjIyg", key: "yt337", liked: false },
+{ src: "yt:Bw72CQYfHvY", key: "yt338", liked: false },
+{ src: "yt:eIZkVaM-0K8", key: "yt339", liked: false },
+{ src: "yt:tFSaAaPHPas", key: "yt340", liked: false },
+{ src: "yt:8Z2qFTbyyOQ", key: "yt341", liked: false },
+{ src: "yt:-bJFHj5aneM", key: "yt342", liked: false },
+{ src: "yt:6Q0_ixCbdeo", key: "yt343", liked: false },
+{ src: "yt:8dNIPca1LD8", key: "yt344", liked: false },
+{ src: "yt:knoKngdT9lU", key: "yt345", liked: false },
+{ src: "yt:N45QsMsr6xU", key: "yt346", liked: false },
+{ src: "yt:45Xzgma4LMk", key: "yt347", liked: false },
+{ src: "yt:RCdneDxFRYQ", key: "yt348", liked: false },
+{ src: "yt:7hbBeE2kBwU", key: "yt349", liked: false },
+{ src: "yt:VaTseh8lEec", key: "yt350", liked: false },
+{ src: "yt:MQHvKuqOC_Y", key: "yt351", liked: false },
+{ src: "yt:NR9Rsy5l-H4", key: "yt352", liked: false },
+{ src: "yt:cUuN8pablQ4", key: "yt353", liked: false }
+
+];
+
+const songInfo = {
+
+    // 🎯 YOUTUBE
+    
+"yt1": { id: 1, name: "In My Arms (Official Video)", artist: "Kylie Minogue", links: "https://youtu.be/Nj6IKIPteuE?si=Pr7g07GTE_W__5r0" },
+"yt2": { id: 2, name: "My Planet", artist: "D.A.N.K", links: "https://youtu.be/aoe-qo5jgGk?si=bnA9IrJsKyn3zfBc" },
+"yt3": { id: 3, name: "I Try", artist: "Macy Gray", links: "https://www.youtube.com/watch?v=WEQ0l_m3Xm0" },
+"yt4": { id: 4, name: "Real Gone Kid", artist: "Deacon Blue", links: "https://youtu.be/5SD4lI9GKUE" },
+"yt5": { id: 5, name: "Fantasy", artist: "Earth, Wind & Fire", links: "https://youtu.be/r58GQYFZeLE" },
+"yt6": { id: 6, name: "Dont Dream Its Over", artist: "Sixpence None The Richer", links: "https://youtu.be/ZUHKDHkRasc" },
+"yt7": { id: 7, name: "I was Zero Cool", artist: "Hackers (1995)", links: "https://youtu.be/wlMvYx11V-Y" },
+"yt8": { id: 8, name: "Rote", artist: "D.A.N.K", links: "https://youtu.be/S3a-mKUxIew" },
+"yt9": { id: 9, name: "Hallelujah [OFFICIAL VIDEO]", artist: "Paramore", links: "https://youtu.be/_TYlOXVdVcQ" },
+"yt10": { id: 10, name: "Perfect", artist: "Fairground Attraction", links: "https://youtu.be/txapREGWHp0" },
+"yt11": { id: 11, name: "Im only sleeping", artist: "The Vines", links: "https://youtu.be/ZSFjLTROTfY" },
+"yt12": { id: 12, name: "Without You", artist: "Mariah Carey", links: "https://youtu.be/Hat1Hc9SNwE" },
+"yt13": { id: 13, name: "Turn Off The Light", artist: "Nelly Furtado", links: "https://youtu.be/kOL7aeIDruA" },
+"yt14": { id: 14, name: "Your Song (Elton John GRAMMY Salute) (Rehearsal) (January 29th 2018)", artist: "Lady Gaga", links: "https://youtu.be/OAuIY_eaL5U" },
+"yt15": { id: 15, name: "Scream", artist: "Michael Jackson & Janet Jackson", links: "https://youtu.be/0P4A1K4lXDo" },
+"yt16": { id: 16, name: "Hate to see Your Heart Brake", artist: "Paramore ft. Joy Williams", links: "https://youtu.be/QZweyIKNwX4" },
+"yt17": { id: 17, name: "Disco 2000", artist: "Pulp", links: "https://youtu.be/qJS3xnD7Mus" },
+"yt18": { id: 18, name: "I Dont Want To Talk About It", artist: "Rod Stewart ft. Amy Belle", links: "https://youtu.be/w46bWxS9IjY" },
+"yt19": { id: 19, name: "Vienna", artist: "Ultravox", links: "https://youtu.be/xJeWySiuq1I" },
+"yt20": { id: 20, name: "Jealous Guy", artist: "Roxy Music", links: "https://youtu.be/hRzGzRqNj58" },
+"yt21": { id: 21, name: "Emotion", artist: "Samantha Sang with the Bee Gees", links: "https://youtu.be/zPwpVJ-eIgg" },
+"yt22": { id: 22, name: "I Cut Like A Buffalo (Version II - Official Video)", artist: "The Dead Weather", links: "https://youtu.be/RYDhw8_lAn0" },
+"yt23": { id: 23, name: "Living In America", artist: "The Sounds", links: "https://youtu.be/5vSVkDkpfpA" },
+"yt24": { id: 24, name: "Valerie", artist: "The Zutons", links: "https://youtu.be/L3xpmfJp0Xc" },
+"yt25": { id: 25, name: "Come Back Lover", artist: "Charlie Ash (Fiord remix)", links: "https://youtu.be/DRnmNeizUk4" },
+"yt26": { id: 26, name: "Marys Prayer", artist: "Danny Wilson", links: "https://youtu.be/7hqgC3W9GUI" },
+"yt27": { id: 27, name: "You Give Me Something (New Version)", artist: "James Morrison", links: "https://youtu.be/Y8_Qhq7XpFU" },
+"yt28": { id: 28, name: "In Your Eyes", artist: "Peter Gabriel", links: "https://youtu.be/kU8OJAOMbPg" },
+"yt29": { id: 29, name: "Fader", artist: "Róisín Murphy", links: "https://youtu.be/C6HcP8pK6_w" },
+"yt30": { id: 30, name: "Entre pairos y derivas", artist: "Fernando Delgadillo", links: "https://youtu.be/taZXFX1jzKk" },
+"yt31": { id: 31, name: "Stay", artist: "Shakespears Sister", links: "https://youtu.be/YCYaALgW80c" },
+"yt32": { id: 32, name: "All I Wanna Do", artist: "Sheryl Crow", links: "https://youtu.be/ClbmWkbocoY" },
+"yt33": { id: 33, name: "Millenium", artist: "Robbie Williams", links: "https://youtu.be/xcWOviMI6Lk" },
+"yt34": { id: 34, name: "I Believe In A Thing Called Love", artist: "The Darkness", links: "https://youtu.be/tKjZuykKY1I" },
+"yt35": { id: 35, name: "Baby I Love Your Way", artist: "Will To Power", links: "https://youtu.be/79r_XaUU7yE" },
+"yt36": { id: 36, name: "Say Something (Official Video)", artist: "Kylie Minogue", links: "https://youtu.be/l73FJBnjp28" },
+"yt37": { id: 37, name: "Lost Without You", artist: "Delta Goodrem", links: "https://youtu.be/j8J874vYp60" },
+"yt38": { id: 38, name: "Mary", artist: "Scissor Sisters", links: "https://youtu.be/ThYOmxGgXzw" },
+"yt39": { id: 39, name: "Unwritten", artist: "Natasha Bedingfield", links: "https://youtu.be/cFFBSSntZgs" },
+"yt40": { id: 40, name: "Pure Shores", artist: "All Saints", links: "https://youtu.be/dVNdTXEJv1A" },
+"yt41": { id: 41, name: "Analyse", artist: "The Cranberries", links: "https://youtu.be/DaBWlBknNgs" },
+"yt42": { id: 42, name: "Luka", artist: "Suzanne Vega", links: "https://youtu.be/VZt7J0iaUD0" },
+"yt43": { id: 43, name: "Back on the Chain Gang", artist: "The Pretenders", links: "https://youtu.be/cMOKamtpUA8" },
+"yt44": { id: 44, name: "Corazón de poeta", artist: "Jeanette", links: "https://youtu.be/mlg4fV1MEQ8" },
+"yt45": { id: 45, name: "In The Mood 1941 [5K] (Colorized, Stereo)", artist: "Glenn Miller", links: "https://youtu.be/aME0qvhZ37o" },
+"yt46": { id: 46, name: "System Addict", artist: "Five Star", links: "https://youtu.be/wsA7rdZelLc" },
+"yt47": { id: 47, name: "Erase Rewind Directors Cut", artist: "The Cardigans", links: "https://youtu.be/6WOYnv59Bi8" },
+"yt48": { id: 48, name: "Why Does It Always Rain On Me", artist: "Travis", links: "https://youtu.be/PXatLOWjr-k" },
+"yt49": { id: 49, name: "Primer estrella de la tarde", artist: "Fernando Delgadillo", links: "https://youtu.be/KnaJzImxP_w" },
+"yt50": { id: 50, name: "Thick Skull [OFFICIAL VIDEO]", artist: "Paramore", links: "https://youtu.be/n-3_3fWC1vg" },
+"yt51": { id: 51, name: "Baby Come Back", artist: "Player", links: "https://youtu.be/Hn-enjcgV1o" },
+"yt52": { id: 52, name: "Tubular Bells Part 1", artist: "Mike Oldfield", links: "https://youtu.be/5YXVMCHG-Nk" },
+"yt53": { id: 53, name: "The Very First Time", artist: "Robin Beck", links: "https://youtu.be/oXk-PPmH5ak" },
+"yt54": { id: 54, name: "Hallelujah", artist: "Jeff Buckley", links: "https://youtu.be/y8AWFf7EAc4" },
+"yt55": { id: 55, name: "Walkin In The Rain With The One I Love", artist: "Love Unlimited", links: "https://youtu.be/THTklwIscew" },
+"yt56": { id: 56, name: "The Power Of Love", artist: "Frankie Goes To Hollywood", links: "https://youtu.be/WtdRv6GT9Zg" },
+"yt57": { id: 57, name: "Don't Leave Me This Way", artist: "The Communards", links: "https://youtu.be/uxk7aSCLj4g" },
+"yt58": { id: 58, name: "Love Resurrection", artist: "Alison Moyet", links: "https://youtu.be/o2n-blwYJ4s" },
+"yt59": { id: 59, name: "the light is coming ft. Nicki Minaj", artist: "Ariana Grande", links: "https://youtu.be/OQitfe8u7i4" },
+"yt60": { id: 60, name: "Lago", artist: "Freedarich and Stiggsen", links: "https://www.youtube.com/watch?v=GM_V1wMCjeU" },
+"yt61": { id: 61, name: "The Weekend", artist: "Michael Gray", links: "https://youtu.be/N3kkNfH4yco" },
+"yt62": { id: 62, name: "Na Na Hey Hey (Kiss Him Goodbye)", artist: "Bananarama", links: "https://youtu.be/HnYWmgSZdlM" },
+"yt63": { id: 63, name: "The Sign", artist: "Ace of Base", links: "https://youtu.be/iqu132vTl5Y" },
+"yt64": { id: 64, name: "Victory Song", artist: "Ensiferum", links: "https://youtu.be/ueT3qH1GC5E" },
+"yt65": { id: 65, name: "Right Here (Human Nature Radio Mix - Official Video)", artist: "SWV", links: "https://youtu.be/vHwXoY0LiQk" },
+"yt66": { id: 66, name: "Dreamer", artist: "Ozzy Osbourne", links: "https://youtu.be/LCCiwPEdEpg" },
+"yt67": { id: 67, name: "One Of Us", artist: "Joan Osborne", links: "https://youtu.be/aDdOnl0bHO4" },
+"yt68": { id: 68, name: "Hold On", artist: "Wilson Phillips", links: "https://youtu.be/uIbXvaE39wM" },
+"yt69": { id: 69, name: "Pool (Official Audio)", artist: "Paramore", links: "https://youtu.be/3m8ElO9Y50Y" },
+"yt70": { id: 70, name: "Keep On Movin'", artist: "Soul II Soul", links: "https://youtu.be/1iQl46-zIcM" },
+"yt71": { id: 71, name: "We Belong Together", artist: "Mariah Carey", links: "https://youtu.be/0habxsuXW4g" },
+"yt72": { id: 72, name: "Look What I Found (from A Star Is Born)", artist: "Lady Gaga", links: "https://youtu.be/8uGVZoqJjn4" },
+"yt73": { id: 73, name: "Save Me", artist: "Remy Zero", links: "https://youtu.be/Qu0dIn3_2Zc" },
+"yt74": { id: 74, name: "To Love Somebody", artist: "Bee Gees", links: "https://youtu.be/RQCT1f8IHK0" },
+"yt75": { id: 75, name: "Say What You Want (Version 2)", artist: "Texas", links: "https://www.youtube.com/watch?v=on0OPQvZ1cY" },
+"yt76": { id: 76, name: "Tom's Diner", artist: "Suzanne Vega, DNA", links: "https://youtu.be/j4jtIDaeaWI" },
+"yt77": { id: 77, name: "Rocket", artist: "Goldfrapp", links: "https://youtu.be/rJppnG1tflU" },
+"yt78": { id: 78, name: "Against All Odds", artist: "Mariah Carey feat. Westlife", links: "https://youtu.be/Dc3YAINjlyE" },
+"yt79": { id: 79, name: "It Must Have Been Love", artist: "Roxette", links: "https://youtu.be/k2C5TjS2sh4" },
+"yt80": { id: 80, name: "Fernando", artist: "ABBA", links: "https://youtu.be/40Z5cWP4IqQ" },
+"yt81": { id: 81, name: "Foolish Beat", artist: "Debbie Gibson", links: "https://youtu.be/qf8BoWKeHow" },
+"yt82": { id: 82, name: "Hold The Line", artist: "Toto", links: "https://youtu.be/htgr3pvBr-I" },
+"yt83": { id: 83, name: "The Winner Takes It All", artist: "ABBA", links: "https://youtu.be/92cwKCU8Z5c" },
+"yt84": { id: 84, name: "Smile", artist: "The Royal Concept", links: "https://youtu.be/BscZ5LD-N90" },
+"yt85": { id: 85, name: "Straight Up", artist: "Paula Abdul", links: "https://youtu.be/El1kgCqD7Xk" },
+"yt86": { id: 86, name: "Toy Soldiers", artist: "Martika", links: "https://youtu.be/LvdLovAaYzM" },
+"yt87": { id: 87, name: "Dont Close Your Eyes", artist: "Kix", links: "https://youtu.be/DeM3CmMA9K0" },
+"yt88": { id: 88, name: "Grace Kelly (Extended Version)", artist: "MIKA", links: "https://youtu.be/EaEPCsQ4608" },
+"yt89": { id: 89, name: "To The Moon & Back (Extended Version)", artist: "Savage Garden", links: "https://youtu.be/HCm6gRHINqA" },
+"yt90": { id: 90, name: "Quezacotl", artist: "deadmau5", links: "https://youtu.be/w_x3DaZAGAg" },
+"yt91": { id: 91, name: "Gone", artist: "NSYNC", links: "https://youtu.be/IbRwSI8yi1o" },
+"yt92": { id: 92, name: "Accelerate", artist: "Christina Aguilera ft. Ty Dolla $ign, 2 Chainz", links: "https://youtu.be/DSRSgMp5X1w" },
+"yt93": { id: 93, name: "Never Ever", artist: "All Saints", links: "https://youtu.be/X28-olxweYk" },
+"yt94": { id: 94, name: "The Voice Within", artist: "Christina Aguilera", links: "https://youtu.be/nA2k79EGHbc" },
+"yt95": { id: 95, name: "Kiss Me / There She Goes", artist: "Sixpence None the Richer", links: "https://youtu.be/v45F0YesdZM" },
+"yt96": { id: 96, name: "Stay (I Missed You)", artist: "Lisa Loeb", links: "https://youtu.be/i9HGwRbMiVY" },
+"yt97": { id: 97, name: "What I Am", artist: "Edie Brickell & New Bohemians", links: "https://youtu.be/tDl3bdE3YQA" },
+"yt98": { id: 98, name: "Electric Youth", artist: "Debbie Gibson", links: "https://youtu.be/lqAOB143KqY" },
+"yt99": { id: 99, name: "Always Be My Baby", artist: "Mariah Carey", links: "https://youtu.be/LfRNRymrv9k" },
+"yt100": { id: 100, name: "Love Changes Everything", artist: "Climie Fisher", links: "https://youtu.be/b8dy8tfUCEg" },
+"yt101": { id: 101, name: "Waiting for a Star to Fall", artist: "Boy Meets Girl", links: "https://youtu.be/RhxF9Qg5mOU" },
+"yt102": { id: 102, name: "Love Bites", artist: "Def Leppard", links: "https://youtu.be/0T1IVyXBGjM" },
+"yt103": { id: 103, name: "Never", artist: "Heart", links: "https://youtu.be/zWzy5q_M5Ho" },
+"yt104": { id: 104, name: "Don't Get Me Wrong", artist: "The Pretenders", links: "https://youtu.be/qbAab1hTxN4" },
+"yt105": { id: 105, name: "It's A Heartache", artist: "Bonnie Tyler", links: "https://youtu.be/bEOl38y8Nj8" },
+"yt106": { id: 106, name: "Against All Odds", artist: "Phil Collins", links: "https://youtu.be/uVjEcIANv1o" },
+"yt107": { id: 107, name: "I'm Every Woman", artist: "Whitney Houston", links: "https://youtu.be/H7_sqdkaAfo" },
+"yt108": { id: 108, name: "I Believe I Can Fly", artist: "R. Kelly", links: "https://youtu.be/4qPOWeA-L5I" },
+"yt109": { id: 109, name: "Porcelain", artist: "Moby", links: "https://youtu.be/13EifDb4GYs" },
+"yt110": { id: 110, name: "Tiny Dancer (Almost Famous)", artist: "Elton John", links: "https://www.youtube.com/watch?v=_qW9wqUI4Lg" },
+"yt111": { id: 111, name: "The Fool On The Hill", artist: "Sergio Mendes & Brasil 66", links: "https://youtu.be/qFe0sc8XW94" },
+"yt112": { id: 112, name: "The Way It Is", artist: "Bruce Hornsby", links: "https://youtu.be/GlRQjzltaMQ" },
+"yt113": { id: 113, name: "I'm Still Standing", artist: "Elton John", links: "https://youtu.be/ZHwVBirqD2s" },
+"yt114": { id: 114, name: "Rapture", artist: "iiO", links: "https://youtu.be/on8DJBt07eU" },
+"yt115": { id: 115, name: "It's My Life", artist: "Talk Talk", links: "https://youtu.be/cFH5JgyZK1I" },
+"yt116": { id: 116, name: "Something", artist: "Lasgo", links: "https://youtu.be/BF5bV6oWXJg" },
+"yt117": { id: 117, name: "Eternal Flame", artist: "The Bangles", links: "https://youtu.be/PSoOFn3wQV4" },
+"yt118": { id: 118, name: "Crying At The Discotheque", artist: "Sophie Ellis-Bextor", links: "https://youtu.be/JdXecuVl7_4" },
+"yt119": { id: 119, name: "Yes Sir, I Can Boogie", artist: "Sophie Ellis-Bextor", links: "https://youtu.be/HASBaqR8pl8" },
+"yt120": { id: 120, name: "Call Me", artist: "Blondie", links: "https://youtu.be/o3hHsVtqNFQ" },
+"yt121": { id: 121, name: "Crazy", artist: "Seal", links: "https://youtu.be/4Fc67yQsPqQ" },
+"yt122": { id: 122, name: "I Could Be The One", artist: "Donna Lewis", links: "https://youtu.be/Ds-MkhyZfmw" },
+"yt123": { id: 123, name: "You're Not Alone", artist: "Olive", links: "https://youtu.be/Cz0UdxIJ7uk" },
+"yt124": { id: 124, name: "Gypsy", artist: "Fleetwood Mac", links: "https://youtu.be/mwgg1Pu6cNg" },
+"yt125": { id: 125, name: "Fairground", artist: "Simply Red", links: "https://youtu.be/KiRyiVgWj6g" },
+"yt126": { id: 126, name: "In The Air Tonight", artist: "Phil Collins", links: "https://youtu.be/YkADj0TPrJA" },
+"yt127": { id: 127, name: "Kids In America", artist: "Kim Wilde", links: "https://youtu.be/8BYKpQ_6GbM" },
+"yt128": { id: 128, name: "Household Goods (Mano Le Tough Remix)", artist: "Totally Enormous Extinct Dinosaurs", links: "https://youtu.be/0C-vHuerhI8" },
+"yt129": { id: 129, name: "Last Christmas", artist: "Wham!", links: "https://youtu.be/E8gmARGvPlI" },
+"yt130": { id: 130, name: "Somethin' Stupid", artist: "Robbie Williams, Nicole Kidman", links: "https://youtu.be/f43nR8Wu_1Y" },
+"yt131": { id: 131, name: "The One I Love", artist: "R.E.M.", links: "https://youtu.be/j7oQEPfe-O8" },
+"yt132": { id: 132, name: "The King of Rock N Roll", artist: "Prefab Sprout", links: "https://youtu.be/4T6e3GJCjow" },
+"yt133": { id: 133, name: "One II (Alex Barck Remix)", artist: "Benny Sings", links: "https://youtu.be/B3Anlv2HCNk" },
+"yt134": { id: 134, name: "You're the Voice", artist: "John Farnham", links: "https://youtu.be/tbkOZTSvrHs" },
+"yt135": { id: 135, name: "LDN", artist: "Lily Allen", links: "https://youtu.be/wmYT79tPvLg" },
+"yt136": { id: 136, name: "Chasing Pavements", artist: "Adele", links: "https://youtu.be/08DjMT-qR9g" },
+"yt137": { id: 137, name: "Music Gets The Best Of Me", artist: "Sophie Ellis-Bextor", links: "https://youtu.be/K_lhBNtXwBY" },
+"yt138": { id: 138, name: "Wrong Impression", artist: "Natalie Imbruglia", links: "https://youtu.be/3Vt0d9YlTC4" },
+"yt139": { id: 139, name: "Dancing Queen", artist: "ABBA", links: "https://youtu.be/xFrGuyw1V8s" },
+"yt140": { id: 140, name: "Sleeping Satellite", artist: "Tasmin Archer", links: "https://youtu.be/yGL2lcaRYqk" },
+"yt141": { id: 141, name: "Gotta Get Thru This", artist: "Daniel Bedingfield", links: "https://youtu.be/9HEdLmbZoJQ" },
+"yt142": { id: 142, name: "Cars and Girls", artist: "Prefab Sprout", links: "https://youtu.be/jEJdfDD4dVg" },
+
+"yt143": { id: 143, name: "Hidden Message", artist: "The Amazing Jukebox", links: "https://www.youtube.com/watch?v=DwF-vxCHRbs" },
+"yt144": { id: 144, name: "Hidden Message", artist: "The Amazing Jukebox", links: "https://youtu.be/8dgDcHRKejw" },
+"yt145": { id: 145, name: "Hidden Message", artist: "The Amazing Jukebox", links: "https://www.youtube.com/watch?v=HIXwkduDI3w&t=3641s" },
+"yt146": { id: 146, name: "Special Hidden Message", artist: "The Amazing Jukebox", links: "https://youtu.be/dVHiAOQHn9g" },
+
+"yt147": { id: 147, name: "Breakout", artist: "Swing Out Sister", links: "https://youtu.be/IIOJdMdS56k" },
+"yt148": { id: 148, name: "Total Eclipse of the Heart", artist: "Bonnie Tyler", links: "https://youtu.be/lcOxhH8N3Bo" },
+"yt149": { id: 149, name: "Heart Of Glass", artist: "Blondie", links: "https://youtu.be/WGU_4-5RaxU" },
+"yt150": { id: 150, name: "Philipp Dolphia (Original Mix)", artist: "Jacob Mikesh Filburt", links: "https://youtu.be/mWvrtRpX2-E" },
+"yt151": { id: 151, name: "Take A Chance On Me", artist: "ABBA", links: "https://youtu.be/-crgQGdpZR0" },
+"yt152": { id: 152, name: "Knowing Me Knowing You", artist: "ABBA", links: "https://youtu.be/iUrzicaiRLU" },
+"yt153": { id: 153, name: "More", artist: "The Warning", links: "https://youtu.be/XNBNOjhLW_U" },
+"yt154": { id: 154, name: "You Belong To The City", artist: "Glenn Frey", links: "https://youtu.be/8TToLgW7zuc" },
+"yt155": { id: 155, name: "Rocket Skates", artist: "Deftones", links: "https://youtu.be/woR6ohiFeYE" },
+"yt156": { id: 156, name: "Here We Go Again", artist: "Paramore", links: "https://youtu.be/AJsqjRxtKhU" },
+"yt157": { id: 157, name: "Seven Days A Week", artist: "The Sounds", links: "https://youtu.be/3xigVJMJRi4" },
+"yt158": { id: 158, name: "Change (In The House Of Flies)", artist: "Deftones", links: "https://youtu.be/WPpDyIJdasg" },
+"yt159": { id: 159, name: "Genie In A Bottle", artist: "Christina Aguilera", links: "https://youtu.be/kIDWgqDBNXA" },
+"yt160": { id: 160, name: "Sowing The Seeds Of Love", artist: "Tears For Fears", links: "https://youtu.be/VAtGOESO7W8" },
+"yt161": { id: 161, name: "The Leaving Song Pt. II", artist: "AFI", links: "https://youtu.be/5fwGZohSJ9g" },
+"yt162": { id: 162, name: "Lust For Life", artist: "Iggy Pop", links: "https://youtu.be/jQvUBf5l7Vw" },
+"yt163": { id: 163, name: "Clarity", artist: "Zedd ft. Foxes", links: "https://youtu.be/IxxstCcJlsc" },
+"yt164": { id: 164, name: "The Game Of Love", artist: "Santana ft. Michelle Branch", links: "https://youtu.be/HKLnmMacEB4" },
+"yt165": { id: 165, name: "Put a Light On Me (Eva Be Remix)", artist: "KASAR", links: "https://youtu.be/PnARSBuy47c" },
+"yt166": { id: 166, name: "Like A Child (Eugene Filatov Remix)", artist: "Mario Basanov ft. Athena Radford", links: "https://youtu.be/Z6gehTVBpEs" },
+"yt167": { id: 167, name: "This Is Why", artist: "Paramore", links: "https://youtu.be/xIYJ7VaSxYY" },
+"yt168": { id: 168, name: "When It Rains", artist: "Paramore", links: "https://youtu.be/u3IAybZOt-E" },
+"yt169": { id: 169, name: "Perfecta (Versión 2023)", artist: "Miranda!, Maria Becerra, FMK", links: "https://youtu.be/6yJYn6n4NWo" },
+"yt170": { id: 170, name: "Slide Away (Zev Remix)", artist: "No Regular Play", links: "https://youtu.be/ttXv00QZqiQ" },
+"yt171": { id: 171, name: "Running Up That Hill", artist: "Kate Bush", links: "https://youtu.be/wp43OdtAAkM" },
+"yt172": { id: 172, name: "Cloud 9", artist: "Jamiroquai", links: "https://youtu.be/fVMtKQMAZqw" },
+"yt173": { id: 173, name: "Busca Por Dentro", artist: "Grupo Niche", links: "https://youtu.be/yG4dgSd-f2w" },
+"yt174": { id: 174, name: "Him", artist: "Rupert Holmes", links: "https://youtu.be/b_eQ63Plv6A" },
+"yt175": { id: 175, name: "Something About You", artist: "Level 42", links: "https://youtu.be/zpdQQoc-gkk" },
+"yt176": { id: 176, name: "Teardrops", artist: "Womack & Womack", links: "https://youtu.be/R8AOAap6_k4" },
+"yt177": { id: 177, name: "Fight For Your Right", artist: "Beastie Boys", links: "https://youtu.be/eBShN8qT4lk" },
+"yt178": { id: 178, name: "Corazon De Venado", artist: "Jorge Reyes", links: "https://youtu.be/0XmmXF-fpG0" },
+"yt179": { id: 179, name: "Este Mundo Va", artist: "Miguel Bosé", links: "https://youtu.be/96Zw6CIpe9k" },
+"yt180": { id: 180, name: "New York Mining Disaster 1941", artist: "Bee Gees", links: "https://youtu.be/S43YhQ_eGTw" },
+"yt181": { id: 181, name: "Massachusetts", artist: "Bee Gees", links: "https://youtu.be/9cvKl9FqcHE" },
+"yt182": { id: 182, name: "Wild Horses", artist: "Prefab Sprout", links: "https://youtu.be/JetrXTkZGUw" },
+"yt183": { id: 183, name: "You First", artist: "Paramore", links: "https://youtu.be/cL55NhsiwyQ" },
+"yt184": { id: 184, name: "Whiskey In The Jar", artist: "Metallica", links: "https://youtu.be/wsrvmNtWU4E" },
+"yt185": { id: 185, name: "Replay The Night", artist: "68 Beats", links: "https://youtu.be/EkU5QNHK3oY" },
+"yt186": { id: 186, name: "Sherry", artist: "The Four Seasons", links: "https://youtu.be/jMcWldfg28s" },
+"yt187": { id: 187, name: "Together in Electric Dreams", artist: "Philip Oakey & Giorgio Moroder", links: "https://youtu.be/PE1lzqJCeJ0" },
+"yt188": { id: 188, name: "Set A Drift On Memory Bliss", artist: "PM Dawn", links: "https://youtu.be/Q5lByFc7HiM" },
+"yt189": { id: 189, name: "True", artist: "Spandau Ballet", links: "https://youtu.be/AR8D2yqgQ1U" },
+"yt190": { id: 190, name: "Seven Wonders", artist: "Fleetwood Mac", links: "https://youtu.be/9b4F_ppjnKU" },
+"yt191": { id: 191, name: "Drive Slowly", artist: "Eva's Finest", links: "https://youtu.be/I4zG4tGgSAY" },
+"yt192": { id: 192, name: "Camino del desierto (original)", artist: "MJ Baez", links: "https://youtu.be/NyhPHT6r658" },
+"yt193": { id: 193, name: "It's Too Late", artist: "Carole King", links: "https://youtu.be/VkKxmnrRVHo" },
+"yt194": { id: 194, name: "Space Me Out", artist: "Downtown Party Network", links: "https://youtu.be/ftMp6Y20D_Q" },
+"yt195": { id: 195, name: "The Bitter End", artist: "Placebo", links: "https://youtu.be/-JJAXwAaA2w" },
+"yt196": { id: 196, name: "Light the Skies", artist: "Cerf, Mitiska & Jaren", links: "https://youtu.be/rcCOl_ttcbE" },
+"yt197": { id: 197, name: "Mind Dimension", artist: "Tiga", links: "https://youtu.be/906LOdN4I_c" },
+"yt198": { id: 198, name: "Close These Curtains", artist: "Yoko Duo", links: "https://youtu.be/4oxqODvm1tM" },
+"yt199": { id: 199, name: "Pickle Surprise", artist: "Tom Rubnitz", links: "https://youtu.be/N733Ofj2cVQ" },
+"yt200": { id: 200, name: "Proper Thang", artist: "Westpark Unit", links: "https://youtu.be/SBcNVBAkvwA" },
+"yt201": { id: 201, name: "Grease", artist: "Frankie Valli", links: "https://youtu.be/ZC7v2gFsCz0" },
+"yt202": { id: 202, name: "Close to You", artist: "Carpenters", links: "https://youtu.be/jV127kNz0hs" },
+"yt203": { id: 203, name: "Heaven Scent", artist: "Bedrock", links: "https://youtu.be/MIBEeZEHASM" },
+"yt204": { id: 204, name: "Stray", artist: "Henry L, Ingo Sänger", links: "https://youtu.be/rFHp4W55vhI" },
+"yt205": { id: 205, name: "Oye Como Va", artist: "Santana", links: "https://youtu.be/LVFm8wu1NFQ" },
+"yt206": { id: 206, name: "Corazón Espinado", artist: "Santana ft. Maná", links: "https://youtu.be/t6omUxqhG78" },
+"yt207": { id: 207, name: "This Picture", artist: "Placebo", links: "https://youtu.be/x7mOxdEDNn8" },
+"yt208": { id: 208, name: "B.U.R.T (The Journey)", artist: "6th Borough Project", links: "https://youtu.be/K8ouQdBzpMQ" },
+"yt209": { id: 209, name: "I Just Don't Know What to Do With Myself", artist: "The White Stripes", links: "https://youtu.be/wzDG0jA3XVY" },
+"yt210": { id: 210, name: "Make It Wit Chu (Remix)", artist: "Queens Of The Stone Age", links: "https://youtu.be/j3dlmWXP0yE" },
+"yt211": { id: 211, name: "Accidente", artist: "Las Ligas Menores", links: "https://youtu.be/XRZS1NrkpJQ" },
+"yt212": { id: 212, name: "They Are Not Alone", artist: "Flowjob", links: "https://youtu.be/j0GYIQOS8T8" },
+"yt213": { id: 213, name: "Heartbreaker", artist: "Crazy P", links: "https://youtu.be/hU4Cv8E_yxE" },
+"yt214": { id: 214, name: "Ethereal (Maya X Pionas Remix)", artist: "TOKYOPILL", links: "https://youtu.be/GN29TfWxzJ4" },
+"yt215": { id: 215, name: "Native Tongue", artist: "Paramore", links: "https://youtu.be/57-J8K3q-vo" },
+"yt216": { id: 216, name: "Día Cero", artist: "La Ley", links: "https://youtu.be/3BTBdZ-lFAI" },
+"yt217": { id: 217, name: "Fly Away From Here", artist: "Aerosmith", links: "https://youtu.be/2xzDj-XOX2U" },
+"yt218": { id: 218, name: "Sara", artist: "Fleetwood Mac", links: "https://youtu.be/KOVyBhVsOV0" },
+"yt219": { id: 219, name: "The Jaguar Knight", artist: "Vacant Throne", links: "https://youtu.be/tG7JMXa5UPc" },
+"yt220": { id: 220, name: "If You Can't Say No", artist: "Lenny Kravitz", links: "https://youtu.be/uAhzBVALop4" },
+"yt221": { id: 221, name: "Anybody Seen My Baby", artist: "The Rolling Stones", links: "https://youtu.be/BinwuzZVjnE" },
+"yt222": { id: 222, name: "Roses And Lollipops", artist: "Psilocybian", links: "https://youtu.be/_TRDq-5Fbrc" },
+"yt223": { id: 223, name: "Fly Away", artist: "Lenny Kravitz", links: "https://youtu.be/EvuL5jyCHOw" },
+"yt224": { id: 224, name: "Hanukkah", artist: "flodz_", links: "https://youtu.be/jqUg_9aWgV8" },
+"yt225": { id: 225, name: "Birds Of A Feather", artist: "Billie Eilish", links: "https://youtu.be/mclRu9jByho" },
+"yt226": { id: 226, name: "The Dreamer", artist: "Andromeda", links: "https://youtu.be/JzOQC7ynuA4" },
+"yt227": { id: 227, name: "Come Undone", artist: "Duran Duran", links: "https://youtu.be/Epj84QVw2rc" },
+"yt228": { id: 228, name: "In My Life", artist: "The Beatles", links: "https://youtu.be/YBcdt6DsLQA" },
+"yt229": { id: 229, name: "Change Everything", artist: "Flowjob", links: "https://youtu.be/46kfsA5gruo" },
+"yt230": { id: 230, name: "Burning Down the House (Behind The Scenes)", artist: "Paramore", links: "https://youtu.be/A73voVPhMfY" },
+"yt231": { id: 231, name: "Sad Songs (Say So Much)", artist: "Elton John", links: "https://youtu.be/X23v5_K7cXk" },
+"yt232": { id: 232, name: "Evolve (Live)", artist: "The Warning", links: "https://youtu.be/97Pxe9KTgJc" },
+"yt233": { id: 233, name: "Money", artist: "The Warning", links: "https://youtu.be/vm78KpEw3uw" },
+"yt234": { id: 234, name: "Hell You Call A Dream (Live)", artist: "The Warning", links: "https://youtu.be/s6b_FgQnXL8" },
+"yt235": { id: 235, name: "All This Time", artist: "Dubson", links: "https://youtu.be/mvCC3XpMcPQ" },
+"yt236": { id: 236, name: "Eterna Espiral", artist: "Cromoxoma", links: "https://youtu.be/9K2l8QfpeLE" },
+"yt237": { id: 237, name: "Gate of Heaven", artist: "Heavens Gate", links: "https://youtu.be/j9-iUuF-FbU" },
+"yt238": { id: 238, name: "Conectarte", artist: "Cromoxoma", links: "https://youtu.be/g1_lIYHGavA" },
+"yt239": { id: 239, name: "Sultans Of Swing", artist: "Dire Straits", links: "https://youtu.be/h0ffIJ7ZO4U" },
+"yt240": { id: 240, name: "High Enough", artist: "Damn Yankees", links: "https://youtu.be/l_uh8XjgLTE" },
+"yt241": { id: 241, name: "It's Only Love Doing Its Thing", artist: "Joseph Terruel", links: "https://youtu.be/leSkAbfgR4k" },
+"yt242": { id: 242, name: "Gold", artist: "Years & Years", links: "https://youtu.be/KCog-KpzwgY" },
+"yt243": { id: 243, name: "Dance To This", artist: "Troye Sivan ft. Ariana Grande", links: "https://youtu.be/bhxhNIQBKJI" },
+"yt244": { id: 244, name: "Quetzalcoatl", artist: "Therion", links: "https://youtu.be/PiUQr5CUddQ" },
+"yt245": { id: 245, name: "Box Of Birds", artist: "Antix", links: "https://youtu.be/Cg8DHOsr-Ls" },
+"yt246": { id: 246, name: "Cry Baby", artist: "Janis Joplin", links: "https://youtu.be/VfGSd-tikH4" },
+"yt247": { id: 247, name: "How Not To Drown", artist: "CHVRCHES, Robert Smith", links: "https://youtu.be/7U_LhzgwJ4U" },
+"yt248": { id: 248, name: "1979", artist: "The Smashing Pumpkins", links: "https://youtu.be/4aeETEoNfOg" },
+"yt249": { id: 249, name: "Brass In Pocket", artist: "The Pretenders", links: "https://youtu.be/0H6re3PCP3E" },
+"yt250": { id: 250, name: "Romance Te Puedo Dar", artist: "Marisa de Lille", links: "https://youtu.be/JXr6MJHiF40" },
+"yt251": { id: 251, name: "Tania", artist: "Fase", links: "https://youtu.be/Y8FdbstV6uo" },
+"yt252": { id: 252, name: "Molecular", artist: "Saúl Hernández", links: "https://youtu.be/8jmGeLorSKQ" },
+"yt253": { id: 253, name: "Are You Gonna Go My Way", artist: "Lenny Kravitz", links: "https://youtu.be/8LhCd1W2V0Q" },
+"yt254": { id: 254, name: "Grow Up", artist: "Paramore", links: "https://youtu.be/XeF_eRMTsuY" },
+"yt255": { id: 255, name: "Back To School", artist: "Deftones", links: "https://youtu.be/lMPtIhAPnn4" },
+"yt256": { id: 256, name: "Paseo Inmoral", artist: "Gustavo Cerati", links: "https://youtu.be/Z-FH7iZWIyM" },
+"yt257": { id: 257, name: "Thank You", artist: "MACROSS 82-99", links: "https://youtu.be/OkFPoC370Nw" },
+"yt258": { id: 258, name: "Forever Young", artist: "Alphaville", links: "https://youtu.be/eFtiwNUDIcs" },
+"yt259": { id: 259, name: "What's a Future Funk", artist: "LemKuuja", links: "https://youtu.be/PbX5zPTfPXU" },
+"yt260": { id: 260, name: "We Can't Be Friends", artist: "Ariana Grande", links: "https://youtu.be/KNtJGQkC-WI" },
+"yt261": { id: 261, name: "I Want You", artist: "Savage Garden", links: "https://youtu.be/HQt6jIKNwgU" },
+"yt262": { id: 262, name: "Looking Up", artist: "Paramore", links: "https://youtu.be/By8xCnMkAQM" },
+"yt263": { id: 263, name: "Let The Flames Begin (Live)", artist: "Paramore", links: "https://youtu.be/pD2KFOViVc4" },
+"yt264": { id: 264, name: "Brighter", artist: "Paramore", links: "https://youtu.be/e4miAlnuw8M" },
+"yt265": { id: 265, name: "Dawn (Unreleased)", artist: "Tropical Bleyage", links: "https://www.youtube.com/watch?v=OlV66HD-cAw" },
+"yt266": { id: 266, name: "Feeling Sorry", artist: "Paramore", links: "https://youtu.be/HWMomwOgYKk" },
+"yt267": { id: 267, name: "Gloria", artist: "Laura Branigan", links: "https://youtu.be/nNEb2k_EmMg" },
+"yt268": { id: 268, name: "Turn It Off", artist: "Paramore", links: "https://youtu.be/xrhfuHQTbdI" },
+"yt269": { id: 269, name: "Right Here Right Now", artist: "Giorgio Moroder ft. Kylie Minogue", links: "https://youtu.be/6gZ-11-kOSQ" },
+"yt270": { id: 270, name: "アスカ Bad Girl", artist: "MACROSS 82-99", links: "https://www.youtube.com/watch?v=l4qsuBZl8ns" },
+"yt271": { id: 271, name: "Night In Tokyo Pt. II", artist: "MACROSS 82-99", links: "https://www.youtube.com/watch?v=9p8L79qhLsI" },
+"yt272": { id: 272, name: "Your Kids Are Gonna Love It", artist: "Zeridium & Siloka", links: "https://youtu.be/wgONfaExB_k" },
+"yt273": { id: 273, name: "Ignorance", artist: "Paramore", links: "https://youtu.be/OH9A6tn_P6g" },
+"yt274": { id: 274, name: "Happy Flight", artist: "Klaus Doldinger", links: "https://youtu.be/q8CSN_W44yE" },
+"yt275": { id: 275, name: "The Auryn", artist: "Klaus Doldinger", links: "https://youtu.be/aScE05jfZuY" },
+"yt276": { id: 276, name: "Moonchild", artist: "Klaus Doldinger", links: "https://youtu.be/LA8bSCf2N-s" },
+"yt277": { id: 277, name: "Atreju Meets Falkor", artist: "Klaus Doldinger", links: "https://youtu.be/yrybsh9QFKE" },
+"yt278": { id: 278, name: "Atreju's Quest", artist: "Klaus Doldinger", links: "https://youtu.be/bjYiFkPELhY" },
+"yt279": { id: 279, name: "Bastian's Happy Flight", artist: "Klaus Doldinger", links: "https://youtu.be/lCRlgxoTsQs" },
+"yt280": { id: 280, name: "Decirnos la Verdad", artist: "Meteoros", links: "https://youtu.be/medu3pl440E" },
+"yt281": { id: 281, name: "No Estás Sola", artist: "Miguel Ríos", links: "https://youtu.be/YZ9uzpxBfnQ" },
+"yt282": { id: 282, name: "Would I Lie To You", artist: "Charles & Eddie", links: "https://youtu.be/G_UXvcr22rM" },
+"yt283": { id: 283, name: "Private Eyes", artist: "Daryl Hall & John Oates", links: "https://youtu.be/JsntlJZ9h1U" },
+"yt284": { id: 284, name: "Where The Lines Overlap", artist: "Paramore", links: "https://youtu.be/blDjUkMA9oU" },
+"yt285": { id: 285, name: "Fuego en la Rumba", artist: "Pop Stream", links: "https://youtu.be/as0wQ-8xOVE" },
+"yt286": { id: 286, name: "Future", artist: "Paramore", links: "https://youtu.be/4oScRBsOV6I" },
+"yt287": { id: 287, name: "Fast In My Car", artist: "Paramore", links: "https://youtu.be/PaiOTGEnuJk" },
+"yt288": { id: 288, name: "Only The Lonely", artist: "The Motels", links: "https://youtu.be/YOtCVfBxUtc" },
+"yt289": { id: 289, name: "Blackout", artist: "Orbital Vision", links: "https://youtu.be/B8DyYFq1ezo" },
+"yt290": { id: 290, name: "The Best Things In Life Are Free", artist: "Luther Vandross & Janet Jackson", links: "https://youtu.be/79SNvZi3ltE" },
+"yt291": { id: 291, name: "Steppin' Out", artist: "Joe Jackson", links: "https://youtu.be/PJwt2dxx9yg" },
+"yt292": { id: 292, name: "A Night Out", artist: "UniBe@t", links: "https://youtu.be/cWm5-eKPpio" },
+"yt293": { id: 293, name: "Fantasize", artist: "UniBe@t", links: "https://youtu.be/w6tff1NguOE" },
+"yt294": { id: 294, name: "Searching for Some Peace of Mind", artist: "Fi7i", links: "https://youtu.be/efrb_2nR6Yw" },
+"yt295": { id: 295, name: "Fight for Me (M. Tur Remix)", artist: "Wildbirds & Peacedrums", links: "https://youtu.be/-lOg8eOBykM" },
+"yt296": { id: 296, name: "Just a Little Bit", artist: "Hunter", links: "https://youtu.be/cbre8oAx1Wk" },
+"yt297": { id: 297, name: "Moment Of Our Life", artist: "Silverella", links: "https://youtu.be/luoPfhDnZHM" },
+"yt298": { id: 298, name: "7th Son (Ticon Remix)", artist: "Sub6 ft. Michele Adamson", links: "https://youtu.be/ugAcsVVJkXk" },
+"yt299": { id: 299, name: "Realize", artist: "Agrume", links: "https://youtu.be/10Lln9uWZ6E" },
+"yt300": { id: 300, name: "Catch!", artist: "Night Tempo", links: "https://youtu.be/eI2Sovdp1Ck" },
+"yt301": { id: 301, name: "Switch", artist: "Beckers", links: "https://youtu.be/rAKeygQRHLI" },
+"yt302": { id: 302, name: "Catch!", artist: "Night Tempo", links: "https://youtu.be/H1NJTeNnBIQ" },
+"yt303": { id: 303, name: "Ride Like the Wind", artist: "Christopher Cross", links: "https://youtu.be/e1Hdlu3Slaw" },
+"yt304": { id: 304, name: "First & Last", artist: "The Zebras", links: "https://youtu.be/UY9ySc9A4kg" },
+"yt305": { id: 305, name: "Winona", artist: "DJ Boring", links: "https://youtu.be/kuggtL-bQzc" },
+"yt306": { id: 306, name: "Beach & Sun", artist: "Rafael Fernández", links: "https://youtu.be/qmDHK2-9Iuo" },
+"yt307": { id: 307, name: "Miracle", artist: "ナイトNaito", links: "https://youtu.be/8OyHuuwtm2Q" },
+"yt308": { id: 308, name: "Want You Here", artist: "SDR", links: "https://youtu.be/BoXL0soJ22M" },
+"yt309": { id: 309, name: "Are We Cool Yet", artist: "悲しい Android - Apartment", links: "https://youtu.be/KaxyYIAsyuY" },
+"yt310": { id: 310, name: "Know U Better", artist: "jarradcleofe", links: "https://youtu.be/LeGB-DY58dE" },
+"yt311": { id: 311, name: "Eyes On Me", artist: "Desired", links: "https://youtu.be/JGtZLON2DV0" },
+"yt312": { id: 312, name: "Snake Way", artist: "MAITRO", links: "https://youtu.be/v7Srbp8WPMY" },
+"yt313": { id: 313, name: "Move On", artist: "MAITRO", links: "https://youtu.be/Q3VLPnonur8" },
+"yt314": { id: 314, name: "Groovin'", artist: "Flamingosis x YUNG BAE", links: "https://youtu.be/1Vu-aAH66u8" },
+"yt315": { id: 315, name: "Flight of The Flamingo", artist: "Flamingosis", links: "https://youtu.be/MrSgSLcOYDo" },
+"yt316": { id: 316, name: "Sonic Masala", artist: "Zentura", links: "https://youtu.be/NiGuJ--EfmA" },
+"yt317": { id: 317, name: "Turbo Turbo UFO", artist: "Jaspey & Miley", links: "https://youtu.be/SVbPbo_5foI" },
+"yt318": { id: 318, name: "A Second to Midnight", artist: "Kylie Minogue & Years & Years", links: "https://youtu.be/NvESV234lg0" },
+"yt319": { id: 319, name: "So Fast (feat. Ryo)", artist: "Andrea Bertolini Remix", links: "https://youtu.be/2RFRP0vSy6I" },
+"yt320": { id: 320, name: "Rainy日", artist: "T4ichi", links: "https://youtu.be/-pzpMX8Yxr4" },
+
+"yt321": { id: 321, name: "ULTRA LE TEINT", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt322": { id: 322, name: "ULTRA LE TEINT", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt323": { id: 323, name: "ULTRA LE TEINT", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt324": { id: 324, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt325": { id: 325, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt326": { id: 326, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt327": { id: 327, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt328": { id: 328, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt329": { id: 329, name: "CHANCE EAU SPLENDIDE", artist: "CHANEL", links: "https://www.chanel.com/" },
+"yt330": { id: 330, name: "Black Opium", artist: "Yves Saint Laurent", links: "https://www.ysl.com/" },
+"yt331": { id: 331, name: "Black Opium", artist: "Yves Saint Laurent", links: "https://www.ysl.com/" },
+"yt332": { id: 332, name: "Black Opium", artist: "Yves Saint Laurent", links: "https://www.ysl.com/" },
+
+"yt333": { id: 333, name: "Divine", artist: "Andrea Cassino", links: "https://youtu.be/bu0F1yiHOr4" },
+"yt334": { id: 334, name: "Mint", artist: "Night Tempo", links: "https://youtu.be/rdUQIJvPZUc" },
+"yt335": { id: 335, name: "March of No Coincidence", artist: "Uniforms", links: "https://youtu.be/x9KouVsBj5g" },
+"yt336": { id: 336, name: "Talk To Me", artist: "3D BLAST", links: "https://youtu.be/MTOJy85SFfM" },
+"yt337": { id: 337, name: "Sunrise", artist: "Simply Red", links: "https://youtu.be/3Pnqx4yjIyg" },
+"yt338": { id: 338, name: "Ego Death At A Bachelorette Party", artist: "Hayley Williams", links: "https://youtu.be/Bw72CQYfHvY" },
+"yt339": { id: 339, name: "Dead Horse", artist: "Hayley Williams", links: "https://youtu.be/eIZkVaM-0K8" },
+"yt340": { id: 340, name: "Peace & Melody", artist: "Musetta", links: "https://youtu.be/tFSaAaPHPas" },
+"yt341": { id: 341, name: "A Good Heart", artist: "Feargal Sharkey", links: "https://youtu.be/8Z2qFTbyyOQ" },
+"yt342": { id: 342, name: "Run", artist: "Alison Wonderland", links: "https://youtu.be/-bJFHj5aneM" },
+"yt343": { id: 343, name: "Already Gone", artist: "Alison Wonderland", links: "https://youtu.be/6Q0_ixCbdeo" },
+"yt344": { id: 344, name: "Innerbloom (Remix)", artist: "RÜFÜS", links: "https://youtu.be/8dNIPca1LD8" },
+"yt345": { id: 345, name: "If U Wanna", artist: "True Lies", links: "https://youtu.be/knoKngdT9lU" },
+"yt346": { id: 346, name: "Cuando Estás Tú", artist: "Sofia Reyes, Piso 21", links: "https://youtu.be/N45QsMsr6xU" },
+"yt347": { id: 347, name: "Part II", artist: "Paramore", links: "https://youtu.be/45Xzgma4LMk" },
+"yt348": { id: 348, name: "There Must Be An Angel", artist: "Eurythmics", links: "https://youtu.be/RCdneDxFRYQ" },
+"yt349": { id: 349, name: "The Pursuit (Remix)", artist: "The Blaxploited Orchestra", links: "https://youtu.be/7hbBeE2kBwU" },
+"yt350": { id: 350, name: "Physical Thrill (Remix)", artist: "Tom Trago & Young Marco & Awanto 3", links: "https://youtu.be/VaTseh8lEec" },
+"yt351": { id: 351, name: "The Sun (Dub Mix)", artist: "Larse", links: "https://youtu.be/MQHvKuqOC_Y" },
+"yt352": { id: 352, name: "By Myself (Remix)", artist: "Mousse T. ft. Inaya Day", links: "https://youtu.be/NR9Rsy5l-H4" },
+"yt353": { id: 353, name: "今を生きる", artist: "Future Girlfriend 音楽", links: "https://youtu.be/cUuN8pablQ4" }
+
+
+};
+
+// ======================
+// YOUTUBE SETUP (PERSISTENTE)
+// ======================
+let ytPlayer = null;
+let isPlayerReady = false;
+
+    
+function initYouTubePlayer(videoId) {
+
+    ytPlayer = new YT.Player("youtube-player", {
+        videoId: videoId,
+        host: "https://www.youtube-nocookie.com",
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1,
+            iv_load_policy: 3
+            
+        },
+        events: {
+            onReady: (event) => {
+                isPlayerReady = true;
+
+                
+    if (soundEnabled) {
+                    event.target.unMute();
+                    event.target.setVolume(100);
+                } else {
+                    event.target.mute();
+                }
+
+                event.target.playVideo();
+            },
+
+            onStateChange: (event) => {
+                if (event.data === YT.PlayerState.ENDED) {
+                    setTimeout(() => {
+                        playNextVideo();
+                    }, 200);
+                }
+            },
+
+            onError: () => {
+                console.log("YT error → siguiente video");
+                playNextVideo();
+            }
+        }
+    });
+}
+    
+      let currentVideoIndex = -1;
     const videoPlayer = document.createElement("video");
     videoPlayer.controls = true;
     videoPlayer.autoplay = true;
@@ -1067,33 +1837,101 @@ button, a, img {
 
 }
     function playNextVideo() {
+
+    currentVideoIndex++;
+
+    if (currentVideoIndex >= videos.length) {
+        currentVideoIndex = 0;
+        shuffleArray(videos);
+    }
+
+    while (videos[currentVideoIndex].liked) {
         currentVideoIndex++;
         if (currentVideoIndex >= videos.length) {
             currentVideoIndex = 0;
             shuffleArray(videos);
         }
+    }
 
-        while (videos[currentVideoIndex].liked) {
-            currentVideoIndex++;
-            if (currentVideoIndex >= videos.length) {
-                currentVideoIndex = 0;
-                shuffleArray(videos);
+    const current = videos[currentVideoIndex];
+    const currentSrc = current.src;
+    const videoContainer = document.getElementById("video-container");
+
+    // ======================
+    // 🎯 YOUTUBE
+    // ======================
+    if (currentSrc.startsWith("yt:")) {
+
+        const videoId = currentSrc.replace("yt:", "");
+
+        // ocultar MP4 (NO destruir YT)
+        videoPlayer.pause();
+        videoPlayer.style.display = "none";
+
+       if (!ytPlayer) {
+            initYouTubePlayer(videoId);
+        } else {
+            ytPlayer.loadVideoById(videoId);
+
+            if (soundEnabled) {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(100);
             }
         }
 
-        videoPlayer.src = videos[currentVideoIndex].src;
-        videoPlayer.load();
-        videoPlayer.play();
+    } 
+    // ======================
+    // 🧯 MP4 FALLBACK
+    // ======================
+    else {
 
-        const likeButton = document.getElementById("like-button");
-        likeButton.disabled = false; // Habilitar botón para cada nuevo video
+        // ocultar YT visualmente (NO destruir)
+        if (ytPlayer && isPlayerReady) {
+            ytPlayer.pauseVideo();
+
+        }
+
+        videoPlayer.style.display = "block";
+
+        if (!videoContainer.contains(videoPlayer)) {
+            videoContainer.appendChild(videoPlayer);
+        }
+
+        videoPlayer.src = currentSrc;
+        videoPlayer.load();
+
+        // SIEMPRE iniciar muted (clave autoplay)
+
+        videoPlayer.muted = true;
+
+        const playPromise = videoPlayer.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+
+                if (soundEnabled) {
+                    setTimeout(() => {
+                        videoPlayer.muted = false;
+                        videoPlayer.volume = 1;
+                    }, 50);
+                }
+
+            }).catch(() => {
+                console.log("Autoplay bloqueado");
+            });
+        }
     }
+
+    const likeButton = document.getElementById("like-button");
+    likeButton.disabled = false;
+}
 
     function likeSong() {
         if (currentVideoIndex >= 0 && currentVideoIndex < videos.length) {
             if (!videos[currentVideoIndex].liked) {
                 videos[currentVideoIndex].liked = true;
-                const currentSong = songInfo[videos[currentVideoIndex].src];
+                const key = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+                const currentSong = songInfo[key];
                 if (currentSong) {
                     likedSongs.push(currentSong);
                 }
@@ -1231,6 +2069,7 @@ setTimeout(() => {
   loader.style.display = "none";
 }, 400);
 
+    
 
 </script>
 </head>
@@ -1243,8 +2082,13 @@ setTimeout(() => {
         <img src="8nov.webp" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
         <img src="nov2.3.webp" class="background-img overlay" alt="Overlay Image" />
         
+        
+        
+        
 
-        <video
+         
+
+       <video
   id="bg-video"
   autoplay
   muted
@@ -1256,6 +2100,7 @@ setTimeout(() => {
 >
   <source src="Copia de 0212 (17Belvnuevo).mp4" type="video/mp4">
 </video>
+
 
         <header id="top-banner">
         
@@ -1287,7 +2132,7 @@ setTimeout(() => {
     <br>
     <br>
     <h2>About Us</h2>
-    <p>The Amazing Jukebox is your gateway to discover special music gems 💎 in an interactive format! Whether you're on mobile or desktop, our digital jukebox music encyclopedia is designed for all music lovers to explore, enjoy, and uncover unique tracks.<br>Join us and dive into the world of music <b>online</b> across any web browser! <br>📲🖥️🌎🔊🔊🎶🎶🎶 </p>
+    <p>The Amazing Jukebox is your gateway to discover special music gems 💎 in an interactive format! Whether you're on mobile or desktop, our digital jukebox's music encyclopedia is designed for all music lovers to explore, enjoy, and uncover unique tracks.<br>Join us and dive into the world of music <b>online</b> across any web browser! <br>📲🖥️🌎🔊🔊🎶🎶🎶 </p>
 </div>
 
 <div id="contact-us-content" class="info-box">
@@ -1300,17 +2145,19 @@ setTimeout(() => {
     <br>
     <br>
     <h2>Contact</h2>
-    <p>Feel free to share your experience, thoughts or even song submissions with us, we want to hear from you! <br>✉ <span style="color: blue; font-weight: bold; font-size: 7px;">theamazingjukebox.contact@gmail.com</span> <br> <span style= "color: rgb(0, 0, 0);  font-family: 'Orbitron', Times, serif; font-size: 9px; font-weight: bold; justify-content: center;"> <br> 👁️ Listen to more of these artists on the official platforms linked in the “Liked Songs” button window display. The Amazing Jukebox is intended to be a music discovery platform, we encourage our users to visit the artist´s official streaming services. </span> <br> <span style="color: rgb(199, 28, 142); font-size: 11px; font-weight: bolder;"> THE AMAZING JUKEBOX © </span> <span style="color: rgba(86, 253, 203, 0.822); font-size: 8px;"> {{{The Digital Museum of Modern Music}}} </span> <span style="color: rgb(255, 255, 255); font-size: 11px; font-style: italic;"> Discover//remember Amazing music to Fuel your playlists </span> 
+    <p>Feel free to share your experience, thoughts or even song submissions with us, we want to hear from you! <br>✉ <span style="color: blue; font-weight: bold; font-size: 7px;">theamazingjukebox.contact@gmail.com</span> <br> <span style= "color: rgb(0, 0, 0);  font-family: 'Orbitron', Times, serif; font-size: 9px; font-weight: bold; justify-content: center;"> <br> 👁️ Listen to more of these Artists on the official platforms provided on the “Show Liked Songs” links section, The Amazing Jukebox is intended to be a music discovery platform, we encourage our users to visit the artist´s official streaming services </span> <br> <span style="color: rgb(199, 28, 142); font-size: 11px; font-weight: bolder;"> THE AMAZING JUKEBOX © </span> <span style="color: rgba(86, 253, 203, 0.822); font-size: 8px;"> {{{The Digital Museum of Modern Music}}} </span> <span style="color: rgb(255, 255, 255); font-size: 11px; font-style: italic;"> Discover//remember Amazing music to Fuel your playlists </span> 
  </p>
 </div>
 
 <script src="script.js"></script>
-
+<script src="https://www.youtube.com/iframe_api"></script>
 
 
         
-        <div id="video-container"></div>
-        <div id="video-activation-zone"></div>
+            <div id="video-container">
+    <div id="youtube-player"></div>
+</div>
+           
        
             <!-- Contenido del video aquí -->
             <div id="like-button" onclick="likeSong()" disabled>
@@ -1320,8 +2167,8 @@ setTimeout(() => {
             <div id="next-song-button" onclick="playNextVideo()">
                 <img src="file.webp" alt="Next" class="next-button-img">
             </div>
-        
 
+            
         <div id="loading-screen">
   <div class="loading-box">
     <div class="loading-title">🕹️</div>
@@ -1346,7 +2193,6 @@ setTimeout(() => {
     </div>
   </div>
 </div>
-
 
         
             <div id="disco-mode-button" onclick="toggleDiscoMode()">
@@ -1376,6 +2222,8 @@ setTimeout(() => {
                 <button class="close-button" onclick="closeLikedSongs()">Close</button>
             </div>
         </div>
+
+    
 
         
 
@@ -1484,11 +2332,6 @@ setTimeout(() => {
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 <script src="ajlivechat2.js"></script>
+    
 </body>
 </html>
-
-
-
-
-
-
