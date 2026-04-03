@@ -1785,6 +1785,9 @@ function initYouTubePlayer(videoId) {
             onReady: (event) => {
                 isPlayerReady = true;
 
+                // 🔥 calidad baja inicial (clave)
+    event.target.setPlaybackQuality('small');
+                
                 
     if (soundEnabled) {
                     event.target.unMute();
@@ -1794,7 +1797,12 @@ function initYouTubePlayer(videoId) {
                 }
 
                 event.target.playVideo();
-            },
+
+    // 🔥 kickstart (clave)
+    setTimeout(() => {
+        event.target.playVideo();
+    }, 120);
+},
 
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
