@@ -1959,55 +1959,11 @@ function initYouTubePlayer(videoId) {
         likedSongsPopup.style.display = "none";
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const videoContainer = document.getElementById("video-container");
-        videoContainer.appendChild(videoPlayer);
-        shuffleArray(videos);
-        playNextVideo();
-    
-const chatContainer = document.getElementById("chat");
-const toggleChatBtn = document.getElementById("toggle-chat-btn");
-const toggleIcon = document.getElementById("toggle-icon");
-
-let isChatExpanded = false; // estado inicial colapsado
-
-function updateChatState() {
-    isChatExpanded = !isChatExpanded;
-    setChatState(isChatExpanded);
-}
-
-function setChatState(expanded) {
-    chatContainer.style.height = expanded ? "300px" : "40px";
-    toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
-}
-
-// Evento del botón
-toggleChatBtn.addEventListener("click", updateChatState);
-
-// Estado inicial al cargar (expandido en este caso)
-setChatState(false);
-messages.scrollTop = 0;
-
-
-
-
-window.addEventListener('DOMContentLoaded', () => {
-    // 1. Forzar abrir el chat
-    setChatState(true);
-
-    // 2. Hacer scroll arriba
-    chatContainer.scrollTop = 0;
-
-    // 3. Volver a contraer tras un breve retraso para asegurar el render
-    setTimeout(() => {
-        setChatState(false);
-    }, 50); // con 50ms suele bastar, puedes ajustar
-});
-
-
 document.addEventListener("DOMContentLoaded", function () {
+
     const videoContainer = document.getElementById("video-container");
     videoContainer.appendChild(videoPlayer);
+
     shuffleArray(videos);
     playNextVideo();
 
@@ -2017,34 +1973,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isChatExpanded = false;
 
-    function updateChatState() {
-        isChatExpanded = !isChatExpanded;
-        setChatState(isChatExpanded);
-    }
-
     function setChatState(expanded) {
         isChatExpanded = expanded;
         chatContainer.style.height = expanded ? "300px" : "40px";
         toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
     }
 
+    function updateChatState() {
+        setChatState(!isChatExpanded);
+    }
+
     toggleChatBtn.addEventListener("click", updateChatState);
 
-    window.addEventListener('load', () => {
-        setChatState(true); // Expandimos primero
+    // 🔥 Estado inicial limpio
+    setChatState(false);
+    chatContainer.scrollTop = 0;
 
-        // Esperamos al siguiente ciclo de renderizado
-        requestAnimationFrame(() => {
-            chatContainer.scrollTop = 0; // Llevar arriba
-
-            // Después de otro frame, contraemos
-            requestAnimationFrame(() => {
-                setChatState(false);
-            });
-        });
+    // 🔥 Ajuste fino después de render (sin duplicar lógica)
+    requestAnimationFrame(() => {
+        chatContainer.scrollTop = 0;
     });
+
 });
 
+    
 window.addEventListener('load', () => {
     // Expandir primero
     setChatState(true);
@@ -2060,7 +2012,7 @@ window.addEventListener('load', () => {
 
 
 
-    })
+    
 
     
 window.addEventListener("load", () => {
