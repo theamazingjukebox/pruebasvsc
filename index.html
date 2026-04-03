@@ -1798,12 +1798,26 @@ function initYouTubePlayer(videoId) {
 
                 event.target.playVideo();
 
-    // 🔥 kickstart (clave)
-    setTimeout(() => {
-        event.target.playVideo();
-    }, 120);
 },
 
+
+            onStateChange: (event) => {
+    if (event.data === YT.PlayerState.PLAYING) {
+
+        // 🔥 pequeño delay para que YouTube no lo sobrescriba
+        setTimeout(() => {
+            event.target.setPlaybackQuality('small');
+        }, 200);
+    }
+
+    if (event.data === YT.PlayerState.ENDED) {
+        setTimeout(() => {
+            playNextVideo();
+        }, 200);
+    }
+},
+
+                
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.ENDED) {
                     setTimeout(() => {
