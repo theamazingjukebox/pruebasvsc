@@ -350,6 +350,10 @@ body {
   height: 100%;
   object-fit: contain;
   z-index: -3;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint size;
 
 }
 
