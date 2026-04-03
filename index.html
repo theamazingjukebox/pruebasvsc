@@ -1764,8 +1764,8 @@ const songInfo = {
 // ======================
 let ytPlayer = null;
 let isPlayerReady = false;
-let pendingVideoId = null;
 
+    
 function initYouTubePlayer(videoId) {
 
     ytPlayer = new YT.Player("youtube-player", {
@@ -1778,24 +1778,18 @@ function initYouTubePlayer(videoId) {
             rel: 0,
             playsinline: 1,
             iv_load_policy: 3
+            
         },
         events: {
             onReady: (event) => {
                 isPlayerReady = true;
 
-                // 🔥 CLAVE: si había video pendiente, usar ese
-                const idToLoad = pendingVideoId || videoId;
-
-                if (soundEnabled) {
+                
+    if (soundEnabled) {
                     event.target.unMute();
                     event.target.setVolume(100);
                 } else {
                     event.target.mute();
-                }
-
-                if (idToLoad) {
-                    event.target.loadVideoById(idToLoad);
-                    pendingVideoId = null;
                 }
 
                 event.target.playVideo();
@@ -1875,16 +1869,17 @@ function initYouTubePlayer(videoId) {
         videoPlayer.style.display = "none";
 
        if (!ytPlayer) {
-    pendingVideoId = videoId;
-    initYouTubePlayer(videoId);
-} else if (isPlayerReady) {
-    ytPlayer.loadVideoById(videoId);
-} else {
-    pendingVideoId = videoId;
-}
+            initYouTubePlayer(videoId);
+        } else {
+            ytPlayer.loadVideoById(videoId);
+
+            if (soundEnabled) {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(100);
+            }
         }
 
-    
+    } 
     // ======================
     // 🧯 MP4 FALLBACK
     // ======================
@@ -1959,7 +1954,7 @@ function initYouTubePlayer(videoId) {
         likedSongsPopup.style.display = "none";
     }
 
-
+ 
 // ======================
 // 🌐 ESTADO GLOBAL CHAT (ÚNICO)
 // ======================
@@ -2057,6 +2052,8 @@ function waitForYTAndPlay() {
 
     }, 100);
 }
+  
+    
 
 </script>
 </head>
