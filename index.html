@@ -1997,7 +1997,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-    
+ window.addEventListener('load', () => {
+    // Expandir primero
+    setChatState(true);
+
+    // Esperar 500ms para que el navegador pinte la expansión
+    setTimeout(() => {
+        chatContainer.scrollTop = 0;
+
+        // Ahora contraer con animación visible
+        setChatState(false);
+    }, 500); // este delay da tiempo a que el navegador "vea" la expansión antes de contraer
+});
+
+   
 
     
 window.addEventListener("load", () => {
