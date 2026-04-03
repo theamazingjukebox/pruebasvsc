@@ -1806,30 +1806,22 @@ function initYouTubePlayer(videoId) {
 
 
             onStateChange: (event) => {
-    if (event.data === YT.PlayerState.PLAYING) {
 
-        // 🔥 pequeño delay para que YouTube no lo sobrescriba
+    // 🔥 cuando empieza a reproducir → forzar calidad
+    if (event.data === YT.PlayerState.PLAYING) {
         setTimeout(() => {
             event.target.setPlaybackQuality('small');
         }, 200);
     }
 
+    // 🔥 cuando termina → siguiente video
     if (event.data === YT.PlayerState.ENDED) {
         setTimeout(() => {
             playNextVideo();
         }, 200);
     }
 },
-
-                
-            onStateChange: (event) => {
-                if (event.data === YT.PlayerState.ENDED) {
-                    setTimeout(() => {
-                        playNextVideo();
-                    }, 200);
-                }
-            },
-
+            
             onError: () => {
                 console.log("YT error → siguiente video");
                 playNextVideo();
