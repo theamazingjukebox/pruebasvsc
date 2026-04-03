@@ -1990,7 +1990,7 @@ document.addEventListener("DOMContentLoaded", function () {
     videoContainer.appendChild(videoPlayer);
 
     shuffleArray(videos);
-    playNextVideo();
+    waitForYTAndPlay();
 
     const chatContainer = document.getElementById("chat");
     const toggleChatBtn = document.getElementById("toggle-chat-btn");
@@ -2033,7 +2033,30 @@ window.addEventListener("load", () => {
         }, 550);
     });
 });
-    
+
+
+function waitForYTAndPlay() {
+    let attempts = 0;
+
+    const interval = setInterval(() => {
+        attempts++;
+
+        // 🔥 condiciones reales de seguridad
+        if (window.YT && YT.Player && ytPlayer && isPlayerReady) {
+            clearInterval(interval);
+            console.log("✅ YT listo, iniciando video");
+            playNextVideo();
+        }
+
+        // 🔒 fallback (evita loop infinito)
+        if (attempts > 20) {
+            clearInterval(interval);
+            console.warn("⚠️ YT tardó demasiado, fallback");
+            playNextVideo();
+        }
+
+    }, 100);
+}
 
 </script>
 </head>
