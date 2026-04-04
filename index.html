@@ -1779,7 +1779,7 @@ function startEndWatcher() {
         const duration = ytPlayer.getDuration();
         const current = ytPlayer.getCurrentTime();
 
-        if (duration && (duration - current < 0.5)) {
+        if (duration && (duration - current < 0.3)) {
             clearInterval(endCheckInterval);
             playNextVideo();
         }
