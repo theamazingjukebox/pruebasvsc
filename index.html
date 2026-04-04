@@ -1027,6 +1027,9 @@ button, a, img {
     transition: opacity 0.3s ease;
 }
 
+#youtube-player {
+  transition: opacity 0.25s ease;
+}
     
 </style>
 <script>
@@ -1769,6 +1772,16 @@ let ytPlayer = null;
 let isPlayerReady = false;
 let qualityInterval = null;
 let endCheckInterval = null;
+let isFirstLoad = true;
+
+function hidePlayerForTransition() {
+    if (isFirstLoad) return; // 🔥 NO ocultar en el primero
+
+    const playerEl = document.getElementById("youtube-player");
+    if (playerEl) {
+        playerEl.style.opacity = "0";
+    }
+}
 
 function startEndWatcher() {
     if (endCheckInterval) clearInterval(endCheckInterval);
@@ -1838,6 +1851,16 @@ function initYouTubePlayer(videoId) {
         if (event.data === YT.PlayerState.PLAYING) {
     startEndWatcher();
 }
+        // 🔥 mostrar ya estable
+    const playerEl = document.getElementById("youtube-player");
+    if (playerEl) {
+        setTimeout(() => {
+            playerEl.style.opacity = "1";
+        }, 120);
+    }
+
+    // 🔥 a partir de aquí ya no es primer load
+    isFirstLoad = false;
 
         // 🔥 detener después de estabilizar
         setTimeout(() => {
@@ -1917,6 +1940,7 @@ function initYouTubePlayer(videoId) {
         // ocultar MP4 (NO destruir YT)
         videoPlayer.pause();
         videoPlayer.style.display = "none";
+        hidePlayerForTransition();
 
        if (!ytPlayer) {
             initYouTubePlayer(videoId);
