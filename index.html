@@ -1767,7 +1767,7 @@ const songInfo = {
 // ======================
 let ytPlayer = null;
 let isPlayerReady = false;
-
+let qualityInterval = null;
     
 function initYouTubePlayer(videoId) {
 
@@ -1805,14 +1805,24 @@ function initYouTubePlayer(videoId) {
 
             onStateChange: (event) => {
 
-    // 🔥 cuando empieza a reproducir → forzar calidad
     if (event.data === YT.PlayerState.PLAYING) {
+
+        // 🔥 limpiar previo
+        if (qualityInterval) clearInterval(qualityInterval);
+
+        // 🔥 insistir durante los primeros segundos
+        qualityInterval = setInterval(() => {
+            if (ytPlayer && isPlayerReady) {
+                ytPlayer.setPlaybackQuality('small');
+            }
+        }, 500);
+
+        // 🔥 detener después de estabilizar
         setTimeout(() => {
-            event.target.setPlaybackQuality('small');
-        }, 200);
+            clearInterval(qualityInterval);
+        }, 4000);
     }
 
-    // 🔥 cuando termina → siguiente video
     if (event.data === YT.PlayerState.ENDED) {
         setTimeout(() => {
             playNextVideo();
