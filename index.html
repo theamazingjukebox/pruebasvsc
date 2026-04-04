@@ -2128,6 +2128,34 @@ function waitForYTAndPlay() {
     }, 100);
 }
 
+
+const bgVideos = [
+    document.getElementById("bg-video-1"),
+    document.getElementById("bg-video-2"),
+    document.getElementById("bg-video-3")
+];
+
+let currentBgIndex = 0;
+
+function switchBackground() {
+
+    // 🔴 apagar actual
+    bgVideos[currentBgIndex].pause();
+    bgVideos[currentBgIndex].style.display = "none";
+
+    // 👉 siguiente index
+    currentBgIndex = (currentBgIndex + 1) % bgVideos.length;
+
+    const nextVideo = bgVideos[currentBgIndex];
+
+    // 🟢 encender siguiente
+    nextVideo.style.display = "block";
+    nextVideo.currentTime = 0; // opcional: reiniciar
+    nextVideo.play();
+}
+
+document.getElementById("bg-toggle-btn")
+    .addEventListener("click", switchBackground);
      
     
 
@@ -2143,24 +2171,22 @@ function waitForYTAndPlay() {
         <img src="nov2.3.webp" class="background-img overlay" alt="Overlay Image" />
         
         
-        
-        
-
-         
-
-       <video
-  id="bg-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="metadata"
-  poster="background-preview.webp"
-  class="background-video"
->
-  <source src="Copia de 0212 (17Belvnuevo).webm" type="video/mp4">
+ 
+<video id="bg-video-1" class="background-video" autoplay muted loop playsinline preload="metadata" poster="background-preview.webp">
+  <source src="Copia de 0212 (17Belvnuevo).webm" type="video/webm">
 </video>
 
+<video id="bg-video-2" class="background-video" muted loop playsinline preload="none" style="display:none;">
+  <source src="videonov1.mp4" type="video/webm">
+</video>
+
+<video id="bg-video-3" class="background-video" muted loop playsinline preload="none" style="display:none;">
+  <source src="28nov2.mp4" type="video/webm">
+</video>
+
+<button id="bg-toggle-btn">Change Background</button>
+
+        
 
         <header id="top-banner">
         
