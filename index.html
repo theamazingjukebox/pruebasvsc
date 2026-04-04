@@ -1768,6 +1768,24 @@ const songInfo = {
 let ytPlayer = null;
 let isPlayerReady = false;
 let qualityInterval = null;
+let endCheckInterval = null;
+
+function startEndWatcher() {
+    if (endCheckInterval) clearInterval(endCheckInterval);
+
+    endCheckInterval = setInterval(() => {
+        if (!ytPlayer || !isPlayerReady) return;
+
+        const duration = ytPlayer.getDuration();
+        const current = ytPlayer.getCurrentTime();
+
+        if (duration && (duration - current < 0.5)) {
+            clearInterval(endCheckInterval);
+            playNextVideo();
+        }
+
+    }, 200);
+}
     
 function initYouTubePlayer(videoId) {
 
@@ -1816,6 +1834,10 @@ function initYouTubePlayer(videoId) {
                 ytPlayer.setPlaybackQuality('small');
             }
         }, 500);
+
+        if (event.data === YT.PlayerState.PLAYING) {
+    startEndWatcher();
+}
 
         // 🔥 detener después de estabilizar
         setTimeout(() => {
