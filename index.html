@@ -1839,6 +1839,16 @@ function initYouTubePlayer(videoId) {
 
     if (event.data === YT.PlayerState.PLAYING) {
 
+        const poster = document.getElementById("video-poster");
+
+    if (poster) {
+        poster.style.opacity = "0";
+
+        setTimeout(() => {
+            poster.style.display = "none";
+        }, 300);
+    }
+
         // 🔥 limpiar previo
         if (qualityInterval) clearInterval(qualityInterval);
 
