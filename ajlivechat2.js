@@ -610,32 +610,61 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-const bgVideos = [
-    document.getElementById("bg-video-1"),
-    document.getElementById("bg-video-2")
-    
-];
+document.addEventListener("DOMContentLoaded", () => {
 
-let currentBgIndex = 0;
+    const bgVideos = [
+        {
+            el: document.getElementById("bg-video-1"),
+            src: "Copia de 0212 (17Belvnuevo).webm"
+        },
+        {
+            el: document.getElementById("bg-video-2"),
+            src: "Copia de Copia de Copia3 de 21Nov (3).mp4"
+        }
+    ];
 
-function switchBackground() {
+    let currentBgIndex = 0;
 
-    // 🔴 apagar actual
-    bgVideos[currentBgIndex].pause();
-    bgVideos[currentBgIndex].style.display = "none";
+    function loadVideo(videoObj) {
+        if (!videoObj.el.src) {
+            videoObj.el.src = videoObj.src;
+            videoObj.el.load();
+        }
+    }
 
-    // 👉 siguiente index
-    currentBgIndex = (currentBgIndex + 1) % bgVideos.length;
+    function switchBackground() {
 
-    const nextVideo = bgVideos[currentBgIndex];
+        const current = bgVideos[currentBgIndex];
 
-    // 🟢 encender siguiente
-    nextVideo.style.display = "block";
-    nextVideo.currentTime = 0; // opcional: reiniciar
-    nextVideo.play();
-}
+        // 🔴 apagar actual
+        current.el.pause();
+        current.el.removeAttribute("src"); // 🔥 clave
+        current.el.load(); // 🔥 libera memoria
+        current.el.style.display = "none";
 
-document.getElementById("bg-toggle-btn")
-    .addEventListener("click", switchBackground);
-     
+        // 👉 siguiente
+        currentBgIndex = (currentBgIndex + 1) % bgVideos.length;
 
+        const next = bgVideos[currentBgIndex];
+
+        // 🟢 cargar SOLO ahora
+        loadVideo(next);
+
+        next.el.style.display = "block";
+        next.el.currentTime = 0;
+        next.el.playsInline = true;
+        next.el.muted = true;
+        next.el.play().catch(() => {});
+    }
+
+    // 🔥 cargar SOLO el primero al inicio
+    loadVideo(bgVideos[0]);
+    bgVideos[0].el.style.display = "block";
+    bgVideos[0].el.play().catch(() => {});
+
+    const btn = document.getElementById("bg-toggle-btn");
+    if (btn) {
+        btn.addEventListener("click", switchBackground);
+    }
+
+});
