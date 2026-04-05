@@ -365,6 +365,7 @@ body {
   font-size: 24px;
   font-weight: bold;
   font-family: Orbitron, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 
   color: #00eaff;
   background: rgba(0, 0, 0, 0.6);
@@ -392,6 +393,11 @@ body {
 #bg-toggle-btn:active {
   transform: translateX(-50%) scale(0.95);
   box-shadow: none;
+}
+
+/* 🔥 esto fuerza que vuelva */
+#bg-toggle-btn:not(:active) {
+  transform: translateX(-50%) scale(1);
 }
 
 
