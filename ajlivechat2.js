@@ -638,3 +638,14 @@ function switchBackground() {
 document.getElementById("bg-toggle-btn")
     .addEventListener("click", switchBackground);
      
+
+
+const btn = document.getElementById("bg-toggle-btn");
+
+btn.addEventListener("touchstart", () => {
+  btn.classList.add("pressed");
+});
+
+btn.addEventListener("touchend", () => {
+  btn.classList.remove("pressed");
+});
