@@ -613,7 +613,8 @@ document.addEventListener("DOMContentLoaded", function() {
 const bgVideos = [
     document.getElementById("bg-video-1"),
     document.getElementById("bg-video-2"),
-    document.getElementById("bg-video-3")
+    document.getElementById("bg-video-3"),
+    document.getElementById("bg-video-4")
 ];
 
 let currentBgIndex = 0;
