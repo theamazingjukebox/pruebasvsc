@@ -357,34 +357,41 @@ body {
 
 #bg-toggle-btn {
   position: absolute;
-  bottom: 155px;
-  right: 30%;
-  
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
 
-  width: 230px;
-  height: 230px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Orbitron, sans-serif;
 
-  background-image: url("Diseño sin título - 2026-04-04T144933.491.png"); /* 🔥 tu imagen */
-  background-size: 70%;
-  background-repeat: no-repeat;
-  background-position: center;
+  color: #00eaff;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 234, 255, 0.5);
+  border-radius: 8px;
 
-  
- background-color: transparent; /* ✅ fuerza transparencia */
-  border: none; /* ✅ elimina borde del botón */
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+
+  box-shadow:
+    0 0 10px rgba(0, 234, 255, 0.5),
+    0 0 20px rgba(0, 234, 255, 0.3);
+
+  transition: all 0.2s ease;
+
   z-index: 9999;
 }
     
 #bg-toggle-btn:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9));
+  transform: translateX(-50%) scale(1.05);
+  box-shadow:
+    0 0 15px rgba(0, 234, 255, 0.8),
+    0 0 30px rgba(0, 234, 255, 0.5);
 }
 
 #bg-toggle-btn:active {
-  transform: scale(0.9);
+  transform: translateX(-50%) scale(0.95);
+  box-shadow: none;
 }
 
 
