@@ -73,7 +73,7 @@
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #chat {
-        top: 80.5%;
+        top: 84.5%;
     }
 }
 
@@ -232,7 +232,7 @@
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #username-modal {
-        top: 82%;
+        top: 86%;
     }
 }
 
