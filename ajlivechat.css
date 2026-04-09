@@ -734,6 +734,12 @@ font-size: 1.4em;
     max-width: 219px;
     height: 730px;    
     transition: all 0.3s ease; /* Suave */
+    border: 2px solid #39ff14; 
+    box-shadow: 
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #39ff14;
 }
 
 
