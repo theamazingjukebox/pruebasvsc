@@ -511,7 +511,7 @@ function generateTwinklingStars() {
     // Función para detectar si es una pantalla grande
     const isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
 
-    for (let i = 0; i < 345; i++) { // Generar 345 estrellas
+    for (let i = 0; i < 145; i++) { // Generar 345 estrellas
         const star = document.createElement('img');
         star.src = 'starlight2.png';
         star.classList.add('star');
@@ -609,3 +609,62 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("scroll", tryPlay, { once: true });
 });
 
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const bgVideos = [
+        {
+            el: document.getElementById("bg-video-1"),
+            src: "Copia de 0212 (17Belvnuevo).webm"
+        },
+        {
+            el: document.getElementById("bg-video-2"),
+            src: "Copia de Copia de Copia3 de 21Nov (3).webm"
+        }
+    ];
+
+    let currentBgIndex = 0;
+
+    function loadVideo(videoObj) {
+        if (!videoObj.el.src) {
+            videoObj.el.src = videoObj.src;
+            videoObj.el.load();
+        }
+    }
+
+    function switchBackground() {
+
+        const current = bgVideos[currentBgIndex];
+
+        // 🔴 apagar actual
+        current.el.pause();
+        current.el.removeAttribute("src"); // 🔥 clave
+        current.el.load(); // 🔥 libera memoria
+        current.el.style.display = "none";
+
+        // 👉 siguiente
+        currentBgIndex = (currentBgIndex + 1) % bgVideos.length;
+
+        const next = bgVideos[currentBgIndex];
+
+        // 🟢 cargar SOLO ahora
+        loadVideo(next);
+
+        next.el.style.display = "block";
+        next.el.currentTime = 0;
+        next.el.playsInline = true;
+        next.el.muted = true;
+        next.el.play().catch(() => {});
+    }
+
+    // 🔥 cargar SOLO el primero al inicio
+    loadVideo(bgVideos[0]);
+    bgVideos[0].el.style.display = "block";
+    bgVideos[0].el.play().catch(() => {});
+
+    const btn = document.getElementById("bg-toggle-btn");
+    if (btn) {
+        btn.addEventListener("click", switchBackground);
+    }
+
+});
