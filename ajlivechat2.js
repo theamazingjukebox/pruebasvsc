@@ -511,7 +511,7 @@ function generateTwinklingStars() {
     // Función para detectar si es una pantalla grande
     const isLargeScreen = window.matchMedia('(min-width: 768px)').matches;
 
-    for (let i = 0; i < 145; i++) { // Generar 345 estrellas
+    for (let i = 0; i < 195; i++) { // Generar 345 estrellas
         const star = document.createElement('img');
         star.src = 'starlight2.png';
         star.classList.add('star');
