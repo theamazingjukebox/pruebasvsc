@@ -357,6 +357,46 @@ body {
 
 
 
+#bg-toggle-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 172.86px; /* ajusta al ancho real del botón */
+  
+
+  padding: 12px 20px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Orbitron, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+
+  color: #00eaff;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 234, 255, 0.5);
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 10px rgba(0, 234, 255, 0.5),
+    0 0 20px rgba(0, 234, 255, 0.3);
+
+  transition: all 0.2s ease;
+
+  z-index: 9999;
+}
+    
+
+#bg-toggle-btn:active {
+            box-shadow: none;
+            transform: scale(0.93); /* Simula un botón presionado */
+        }
+
+
+
+
 
 #video-container {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
@@ -2144,9 +2184,14 @@ function waitForYTAndPlay() {
         
         
 
-<video id="bg-video" autoplay muted loop playsinline preload="auto" poster="poster1.jpg" class="background-video">
-  <source src="Copia de 0212 (17Belvnuevo).webm" type="video/webm">
+<video id="bg-video-1" autoplay muted loop playsinline poster="poster1.jpg" class="background-video">
 </video>
+
+<video id="bg-video-2" muted loop playsinline class="background-video">
+</video>
+        
+        
+<button id="bg-toggle-btn">- switch -</button>
 
         
 
