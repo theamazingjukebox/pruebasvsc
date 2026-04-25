@@ -687,7 +687,7 @@ font-size: 1.4em;
 
 @media (min-width: 768px) {
     .info-box {
-        margin-top: 16.2%;
+        margin-top: 16.5%;
         margin-left: 47%;
         
     }
@@ -699,7 +699,7 @@ font-size: 1.4em;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box {
-        margin-top: 12.3%;    
+        margin-top: 12.6%;    
         left: 37%;   
             
     }
