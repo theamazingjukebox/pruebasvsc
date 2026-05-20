@@ -1,20 +1,21 @@
 {
+  "id": "/pruebasvsc/",
   "name": "The Amazing Jukebox",
   "short_name": "Jukebox",
   "start_url": "/pruebasvsc/",
   "scope": "/pruebasvsc/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/pruebasvsc/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/pruebasvsc/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
