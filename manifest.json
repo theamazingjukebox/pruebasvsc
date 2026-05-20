@@ -1,7 +1,7 @@
 {
   "id": "/pruebasvsc/",
   "name": "The Amazing Jukebox",
-  "short_name": "Jukebox",
+  "short_name": "The Amazing Jukebox",
   "start_url": "/pruebasvsc/",
   "scope": "/pruebasvsc/",
   "display": "standalone",
