@@ -2174,14 +2174,7 @@ function waitForYTAndPlay() {
     
 
 </script>
-</head>
-
-    <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
-}
-</script>
-    
+</head>    
 <body>
 <div id="wrapper">
     
@@ -2435,6 +2428,11 @@ if ('serviceWorker' in navigator) {
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
 <script src="ajlivechat2.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+</script>
     
 </body>
 </html>
