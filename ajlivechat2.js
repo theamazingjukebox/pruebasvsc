@@ -737,3 +737,18 @@ window.addEventListener('appinstalled', () => {
 
     deferredPrompt = null;
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true; // soporte para iPhone
+
+    if (isStandalone) {
+        const installMenu = document.getElementById("get-the-app-content");
+        if (installMenu) {
+            installMenu.style.display = "none";
+        }
+    }
+});
