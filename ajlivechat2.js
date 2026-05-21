@@ -746,7 +746,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.navigator.standalone === true; // soporte para iPhone
 
     if (isStandalone) {
-        const installMenu = document.getElementById("get-the-app-content");
+        const installMenu = document.getElementById("info-box3");
         if (installMenu) {
             installMenu.style.display = "none";
         }
