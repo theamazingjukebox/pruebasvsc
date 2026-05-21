@@ -684,3 +684,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+
+document.getElementById('install-app-btn').addEventListener('click', function () {
+    // Aquí irá la lógica para instalar la app
+    alert('Install app feature coming soon!');
+});
