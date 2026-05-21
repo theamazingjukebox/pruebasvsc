@@ -686,7 +686,55 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-document.getElementById('install-app-btn').addEventListener('click', function () {
-    // Aquí irá la lógica para instalar la app
-    alert('Install app feature coming soon!');
+let deferredPrompt = null;
+
+// Capturar el evento que permite instalar la PWA
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Evita el prompt automático
+    deferredPrompt = e;
+
+    // Mostrar tu botón de instalación
+    const installBtn = document.getElementById('install-app-btn');
+    if (installBtn) {
+        installBtn.style.display = 'inline-block';
+    }
+});
+
+// Al hacer clic en tu botón
+document.getElementById('install-app-btn').addEventListener('click', async function () {
+
+    if (!deferredPrompt) {
+        alert('Installation is not available on this device yet.');
+        return;
+    }
+
+    // Mostrar el prompt nativo
+    deferredPrompt.prompt();
+
+    // Esperar la decisión del usuario
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === 'accepted') {
+        console.log('User accepted the installation');
+    } else {
+        console.log('User dismissed the installation');
+    }
+
+    // Limpiar referencia
+    deferredPrompt = null;
+
+    // Ocultar el botón después del intento
+    this.style.display = 'none';
+});
+
+// Si la app ya quedó instalada
+window.addEventListener('appinstalled', () => {
+    console.log('PWA installed successfully');
+
+    const installBtn = document.getElementById('install-app-btn');
+    if (installBtn) {
+        installBtn.style.display = 'none';
+    }
+
+    deferredPrompt = null;
 });
