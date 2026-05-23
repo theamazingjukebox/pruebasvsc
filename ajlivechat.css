@@ -772,6 +772,15 @@ font-size: 1.4em;
     }
 }
 
+@media all and (display-mode: standalone), 
+       all and (-webkit-display-mode: standalone) {
+
+    .info-box2 {
+        height: 500px;
+        top: 100px;
+    }
+}
+
 
 .info-box3 {
     display: none; /* Cuadros ocultos por defecto */
