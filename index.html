@@ -1196,6 +1196,35 @@ button, a, img {
     }
 }
 
+.panel-header-ui {
+
+    width: 85%;
+    height: 18px;
+
+    margin: 8px auto 16px auto;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0,255,255,0.18),
+            rgba(255,0,255,0.18)
+        );
+
+    border: 1px solid rgba(0,255,255,0.35);
+
+    backdrop-filter: blur(6px);
+
+    box-shadow:
+        0 0 10px rgba(0,255,255,0.25),
+        0 0 20px rgba(255,0,255,0.15);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
     
 </style>
     
@@ -2342,7 +2371,7 @@ function waitForYTAndPlay() {
     <br>
     <br>
     <br>
-     <h2>About Us</h2>
+     <div class="panel-header-ui"></div>
     <p class="browser-about"><b>The Amazing Jukebox ©</b> works as a browser-based listening experience where music videos are displayed non-stop — from a carefully curated catalogue —— allowing users to step into great music — on an immersive setup — designed to play it by chance 🔮<br>The site is available across any web browser, for desktop or mobile devices on any operating system.
     </p>
     <!-- TEXTO PARA APP -->
