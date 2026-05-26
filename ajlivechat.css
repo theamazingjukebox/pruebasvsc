@@ -716,6 +716,7 @@ font-size: 1.4em;
 .info-box2 {
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
+    overflow: hidden;
     margin-top: 63%;
     left: 32.3%;
     transform: translate(-50%, -50%);
@@ -782,6 +783,49 @@ font-size: 1.4em;
             0 0 20px #2fb9be;
 
         border-color: #2fb9be;
+    }
+}
+
+
+.info-box2::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+    left: -50%;
+
+    width: 200%;
+    height: 250%;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 30%,
+            rgba(255,255,255,0.08) 50%,
+            transparent 70%
+        );
+
+    transform: rotate(8deg);
+
+    animation: hologramSweep 8s linear infinite;
+
+    pointer-events: none;
+}
+
+@keyframes hologramSweep {
+
+    0% {
+        transform:
+            translateY(-40%)
+            rotate(8deg);
+    }
+
+    100% {
+        transform:
+            translateY(40%)
+            rotate(8deg);
     }
 }
 
