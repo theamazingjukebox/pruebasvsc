@@ -631,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bgVideos = [
         {
             el: document.getElementById("bg-video-1"),
-            src: "0106.mp4"
+            src: "Copia de 0212 (23).mp4"
         },
         {
             el: document.getElementById("bg-video-2"),
