@@ -662,6 +662,7 @@ font-size: 1.4em;
 .info-box {
     display: none; /* Cuadros ocultos por defecto */
     position: absolute;
+        overflow: hidden; 
     margin-top: 63%;
     left: 32.3%;
     transform: translate(-50%, -50%);
