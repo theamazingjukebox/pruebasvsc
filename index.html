@@ -594,7 +594,7 @@ body {
 
     #loading-screen {
   position: fixed;
-  inset: 0 0 1020px 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -611,6 +611,15 @@ body {
     }
 }
 
+@media all and (display-mode: standalone), 
+       all and (-webkit-display-mode: standalone) {
+
+    #loading-screen {
+        inset: 0 0 420px 0;
+    }
+}
+
+    
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #loading-screen {
         inset: 0;
