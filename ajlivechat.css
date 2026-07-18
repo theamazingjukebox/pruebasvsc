@@ -915,7 +915,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) {
     .info-box2 {
-        margin-top: 22%; 
+        margin-top: 15%; 
         margin-left: 47%;
         
     }
@@ -929,7 +929,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box2 {
-        margin-top: 12.3%;   
+        margin-top: 10.3%;   
         left: 37%;   
             
     }
