@@ -823,7 +823,7 @@ border: 2px solid #2fb9be;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 999;
     max-width: 219px;
-    height: 730px;    
+    min-height: 100px;    
     transition: all 0.3s ease; /* Suave */
     border: 2px solid #2fb9be; 
     box-shadow: 
@@ -915,8 +915,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) {
     .info-box2 {
-        height: 690px;    
-        margin-top: 164px;
+        margin-top: 22%; 
         margin-left: 47%;
         
     }
@@ -930,8 +929,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box2 {
-        height: 690px;      
-        margin-top: 154px;    
+        margin-top: 17.3%;   
         left: 37%;   
             
     }
@@ -973,7 +971,7 @@ border: 2px solid #2fb9be;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 999;
     max-width: 219px;
-    height: 430px;    
+    min-height: 100px;   
     transition: all 0.3s ease; /* Suave */
     border: 2px solid #2fb9be; 
     box-shadow: 
@@ -986,7 +984,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) {
     .info-box3 {
-        margin-top: 15%;
+        margin-top: 22%;
         margin-left: 47%;
         
     }
@@ -1000,7 +998,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box3 {
-        margin-top: 180px;    
+        margin-top: 17.3%;   
         left: 37%;   
             
     }
