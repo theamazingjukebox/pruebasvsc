@@ -915,7 +915,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) {
     .info-box2 {
-        height: 680px;    
+        height: 690px;    
         margin-top: 164px;
         margin-left: 47%;
         
@@ -930,7 +930,7 @@ border: 2px solid #2fb9be;
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box2 {
-        height: 680px;      
+        height: 690px;      
         margin-top: 154px;    
         left: 37%;   
             
@@ -941,7 +941,7 @@ border: 2px solid #2fb9be;
        all and (-webkit-display-mode: standalone) {
 
     .info-box2 {
-        height: 680px;
+        height: 690px;
         margin-top: 164px;
     }
 }
