@@ -715,7 +715,7 @@ box-shadow:
     transform: translate(-50%, -50%);
 
     background:rgba(18,22,30,.78);
-color:#87ffff;
+color:#dffcff;
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
@@ -819,7 +819,7 @@ box-shadow:
     transform: translate(-50%, -50%);
 
     background:rgba(18,22,30,.78);
-color:#87ffff;
+color:#dffcff;
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
