@@ -602,8 +602,10 @@ font-size: 1.4em;
 
 
 #menu ul li a {
-    color: white;
-    text-decoration: none;
+    color:#dffcff;
+
+    text-shadow:
+        0 0 8px rgba(73,255,246,.18);
 }
 
 #menu ul li:hover {
