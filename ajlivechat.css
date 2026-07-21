@@ -674,14 +674,14 @@ font-size: 1.4em;
 
     transform: translate(-50%, -50%);
 
-    background: rgba(18,22,30,.80);
+    background: rgba(22,22,22,.58);
+color: rgb(136, 101, 165);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:blur(14px);
 
     font-family: 'Orbitron';
 
-    color:#dffcff;
+    
 
     text-shadow:
         0 0 8px rgba(73,255,246,.18);
@@ -698,15 +698,13 @@ font-size: 1.4em;
 
     transition:all .30s ease;
 
-    border:1px solid rgba(85,255,255,.15);
+    border:1px solid rgba(47,185,190,.55);
 
     box-shadow:
 
-        0 14px 45px rgba(0,0,0,.45),
+        0 0 14px rgba(47,185,190,.30),
 
-        0 0 14px rgba(73,255,246,.12),
-
-        0 0 26px rgba(57,184,255,.10);
+        0 0 30px rgba(216,60,164,.18);
 
     animation:
 
