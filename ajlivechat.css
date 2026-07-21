@@ -781,47 +781,6 @@ box-shadow:
 
 }
 
-.info-box::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: -100%;
-    left: -50%;
-
-    width: 200%;
-    height: 250%;
-
-    background:
-        linear-gradient(
-            120deg,
-            transparent 35%,
-rgba(255,255,255,.035) 50%,
-transparent 65%
-        );
-
-    transform: rotate(8deg);
-
-    animation: hologramSweep 8s linear infinite;
-
-    pointer-events: none;
-}
-
-@keyframes hologramSweep {
-
-    0% {
-        transform:
-            translateY(-40%)
-            rotate(8deg);
-    }
-
-    100% {
-        transform:
-            translateY(40%)
-            rotate(8deg);
-    }
-}
 
 
 @media (min-width: 768px) {
