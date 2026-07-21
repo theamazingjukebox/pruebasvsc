@@ -538,11 +538,11 @@ font-size: 1.4em;
     position: absolute;
     top: 60px;
     right: 0px;
-    background-color: rgba(18,22,30,.78);
+    background-color: rgba(18,22,30,.80);
     background: linear-gradient(
         to right, /* Dirección del degradado, puedes cambiarlo a 'to bottom', 'to top', etc. */
-        #a0458c0e, /* Color inicial */
-        #a0458c88 /* Color final, puedes elegir uno que haga buen contraste */
+        rgba(18, 22, 30, 0.178), /* Color inicial */
+        rgba(18,22,30,.80) /* Color final, puedes elegir uno que haga buen contraste */
     );
     width: 150px;
     border-radius: 5px;
