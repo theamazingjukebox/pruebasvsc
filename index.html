@@ -737,11 +737,6 @@ font-size:14px;
    DOTS
 =========================== */
 
-.loading-dots {
-  background: linear-gradient(90deg, #1ed9d7, #d83ca4);
-  display: inline-block; /* O el display que uses para alinearlos */
-  padding: 10px; 
-}
 
 .loading-dots span{
 
@@ -755,10 +750,10 @@ margin:0 3px;
 
 border-radius:50%;
 
-/* Fondo blanco que contrastará con el modo de mezcla */
-  background: white; 
-  /* Hace que el color del padre solo se vea donde están los círculos */
-  mix-blend-mode: screen; 
+ /* Cambiamos a 90deg para que vaya de izquierda a derecha */
+  background: linear-gradient(90deg, #1ed9d7, #d83ca4);
+  /* Esto hace que el degradado sea continuo entre los puntos */
+  background-attachment: fixed; 
 
 
 
