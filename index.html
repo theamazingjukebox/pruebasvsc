@@ -752,8 +752,8 @@ border-radius:50%;
 
  /* Cambiamos a 90deg para que vaya de izquierda a derecha */
   background: linear-gradient(90deg, #1ed9d7, #d83ca4);
-  /* Esto hace que el degradado sea continuo entre los puntos */
-  background-attachment: fixed; 
+
+     background-size: 500% 100%;
 
 
 
@@ -761,29 +761,13 @@ animation:dotPulse 1.4s infinite ease-in-out;
 
 }
 
-.loading-dots span:nth-child(2){
+/* 3. Desplazamos el fondo de cada punto para que continúe el degradado del anterior */
+.loading-dots span:nth-child(1) { background-position: 0% 0%; }
+.loading-dots span:nth-child(2) { background-position: 25% 0%; animation-delay: .2s; }
+.loading-dots span:nth-child(3) { background-position: 50% 0%; animation-delay: .4s; }
+.loading-dots span:nth-child(4) { background-position: 75% 0%; animation-delay: .6s; }
+.loading-dots span:nth-child(5) { background-position: 100% 0%; animation-delay: .8s; }
 
-animation-delay:.2s;
-
-}
-
-.loading-dots span:nth-child(3){
-
-animation-delay:.4s;
-
-}
-
-.loading-dots span:nth-child(4){
-
-animation-delay:.6s;
-
-}
-
-.loading-dots span:nth-child(5){
-
-animation-delay:.8s;
-
-}
 
 @keyframes dotPulse{
 
