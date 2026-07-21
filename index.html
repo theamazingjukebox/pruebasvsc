@@ -631,72 +631,104 @@ all and (-webkit-display-mode:standalone){
 
 }
 
-/* ===========================
-   NEW GLASS STYLE
-=========================== */
+/* =====================================================
+   THE AMAZING JUKEBOX GLASS PANEL
+===================================================== */
 
 .loading-box{
 
-    background:rgba(18,22,30,.78);
+    background:rgba(18,22,30,.80);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
     border-radius:24px;
 
-    border:1px solid rgba(0,255,255,.18);
+    border:1px solid rgba(85,255,255,.14);
 
     padding:30px 45px;
 
-    color:#87ffff;
+    color:#dffcff;
 
     font-family:Orbitron,monospace;
 
     text-align:center;
 
     box-shadow:
-        0 12px 45px rgba(0,0,0,.45),
-        0 0 35px rgba(0,255,255,.18);
+
+        0 14px 45px rgba(0,0,0,.45),
+
+        0 0 14px rgba(73,255,246,.12),
+
+        0 0 26px rgba(57,184,255,.10),
+
+        0 0 40px rgba(141,118,255,.08),
+
+        0 0 55px rgba(255,94,201,.05);
 
     animation:glassPulse 2.8s ease-in-out infinite;
 
 }
 
-/* ===========================
-   Glow Animation
-=========================== */
+/* =====================================================
+   GLASS GLOW
+===================================================== */
 
 @keyframes glassPulse{
 
 0%{
 
 box-shadow:
-0 12px 45px rgba(0,0,0,.45),
-0 0 18px rgba(0,255,255,.12);
+
+0 14px 45px rgba(0,0,0,.45),
+
+0 0 12px rgba(73,255,246,.10),
+
+0 0 22px rgba(57,184,255,.08),
+
+0 0 32px rgba(141,118,255,.06),
+
+0 0 46px rgba(255,94,201,.04);
 
 }
 
 50%{
 
 box-shadow:
-0 14px 50px rgba(0,0,0,.48),
-0 0 30px rgba(0,255,255,.24);
+
+0 14px 48px rgba(0,0,0,.48),
+
+0 0 20px rgba(73,255,246,.18),
+
+0 0 34px rgba(57,184,255,.16),
+
+0 0 46px rgba(141,118,255,.13),
+
+0 0 62px rgba(255,94,201,.10);
 
 }
 
 100%{
 
 box-shadow:
-0 12px 45px rgba(0,0,0,.45),
-0 0 18px rgba(0,255,255,.12);
+
+0 14px 45px rgba(0,0,0,.45),
+
+0 0 12px rgba(73,255,246,.10),
+
+0 0 22px rgba(57,184,255,.08),
+
+0 0 32px rgba(141,118,255,.06),
+
+0 0 46px rgba(255,94,201,.04);
 
 }
 
 }
 
-/* ===========================
-   TEXT
-=========================== */
+/* =====================================================
+   TITLE
+===================================================== */
 
 .loading-title{
 
@@ -706,11 +738,24 @@ margin-bottom:10px;
 
 letter-spacing:2px;
 
-color:#7ffcff;
+font-weight:700;
+
+background:
+
+linear-gradient(
+90deg,
+#49fff6,
+#39b8ff,
+#8d76ff,
+#ff5ec9
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 
 text-shadow:
 
-0 0 10px rgba(0,255,255,.30);
+0 0 12px rgba(73,255,246,.18);
 
 }
 
@@ -724,17 +769,21 @@ font-size:35px;
 
 }
 
+/* =====================================================
+   MESSAGE
+===================================================== */
+
 .loading-message{
 
 font-size:42px;
 
 margin-bottom:15px;
 
-color:#7ffcff;
+color:#dffcff;
 
 text-shadow:
 
-0 0 8px rgba(0,255,255,.22);
+0 0 10px rgba(73,255,246,.16);
 
 }
 
@@ -748,15 +797,19 @@ font-size:22px;
 
 }
 
+/* =====================================================
+   HINT
+===================================================== */
+
 .loading-hint{
 
 margin-top:10px;
 
 font-size:34px;
 
-opacity:.72;
+opacity:.75;
 
-color:#c5ffff;
+color:#cfefff;
 
 }
 
@@ -770,9 +823,9 @@ font-size:14px;
 
 }
 
-/* ===========================
+/* =====================================================
    DOTS
-=========================== */
+===================================================== */
 
 .loading-dots span{
 
@@ -786,43 +839,27 @@ margin:0 3px;
 
 border-radius:50%;
 
-background:linear-gradient(
-180deg,
-#49ffff,
-#00b7ff
+background:
+
+linear-gradient(
+135deg,
+#49fff6,
+#39b8ff,
+#8d76ff
 );
 
 box-shadow:
 
-0 0 10px rgba(0,255,255,.35);
+0 0 12px rgba(73,255,246,.30);
 
 animation:dotPulse 1.4s infinite ease-in-out;
 
 }
 
-.loading-dots span:nth-child(2){
-
-animation-delay:.2s;
-
-}
-
-.loading-dots span:nth-child(3){
-
-animation-delay:.4s;
-
-}
-
-.loading-dots span:nth-child(4){
-
-animation-delay:.6s;
-
-}
-
-.loading-dots span:nth-child(5){
-
-animation-delay:.8s;
-
-}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+.loading-dots span:nth-child(4){animation-delay:.6s;}
+.loading-dots span:nth-child(5){animation-delay:.8s;}
 
 @keyframes dotPulse{
 
@@ -839,6 +876,14 @@ transform:scale(.82);
 opacity:1;
 
 transform:scale(1.18);
+
+box-shadow:
+
+0 0 16px rgba(73,255,246,.30),
+
+0 0 28px rgba(57,184,255,.20),
+
+0 0 40px rgba(141,118,255,.12);
 
 }
 
