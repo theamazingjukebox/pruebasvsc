@@ -818,14 +818,15 @@ box-shadow:
 
     transform: translate(-50%, -50%);
 
-    background: rgba(18,22,30,.80);
+    background:rgba(18,22,30,.78);
+color:#87ffff;
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
 
-    font-family: 'Orbitron';
+    font-family:Orbitron,monospace;
 
-    color:#dffcff;
+    
 
     text-shadow:
         0 0 8px rgba(73,255,246,.18);
@@ -842,120 +843,47 @@ box-shadow:
 
     transition:all .30s ease;
 
-    border:1px solid rgba(85,255,255,.15);
+    border:1px solid rgba(0,255,255,.18);
 
     box-shadow:
+        0 12px 45px rgba(0,0,0,.45),
+        0 0 35px rgba(0,255,255,.18);
 
-        0 14px 45px rgba(0,0,0,.45),
-
-        0 0 14px rgba(73,255,246,.12),
-
-        0 0 26px rgba(57,184,255,.10);
-
-    animation:
-
-        panelPulse 3.5s ease-in-out infinite;
+    animation:glassPulse 2.8s ease-in-out infinite;
 
 }
 
+/* ===========================
+   Glow Animation
+=========================== */
 
-@keyframes panelPulse{
+@keyframes glassPulse{
 
 0%{
 
 box-shadow:
-
-0 14px 45px rgba(0,0,0,.45),
-
-0 0 14px rgba(73,255,246,.10),
-
-0 0 24px rgba(57,184,255,.08);
-
-border-color:
-
-rgba(73,255,246,.14);
+0 12px 45px rgba(0,0,0,.45),
+0 0 18px rgba(0,255,255,.12);
 
 }
 
 50%{
 
 box-shadow:
-
 0 14px 50px rgba(0,0,0,.48),
-
-0 0 20px rgba(73,255,246,.18),
-
-0 0 34px rgba(57,184,255,.16),
-
-0 0 46px rgba(141,118,255,.10);
-
-border-color:
-
-rgba(73,255,246,.24);
+0 0 30px rgba(0,255,255,.24);
 
 }
 
 100%{
 
 box-shadow:
-
-0 14px 45px rgba(0,0,0,.45),
-
-0 0 14px rgba(73,255,246,.10),
-
-0 0 24px rgba(57,184,255,.08);
-
-border-color:
-
-rgba(73,255,246,.14);
+0 12px 45px rgba(0,0,0,.45),
+0 0 18px rgba(0,255,255,.12);
 
 }
 
 }
-
-
-.info-box2::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: -100%;
-    left: -50%;
-
-    width: 200%;
-    height: 250%;
-
-    background:
-        linear-gradient(
-            120deg,
-            transparent 35%,
-rgba(255,255,255,.035) 50%,
-transparent 65%
-        );
-
-    transform: rotate(8deg);
-
-    animation: hologramSweep 8s linear infinite;
-
-    pointer-events: none;
-}
-
-@keyframes hologramSweep {
-
-    0% {
-        transform:
-            translateY(-40%)
-            rotate(8deg);
-    }
-
-    100% {
-        transform:
-            translateY(40%)
-            rotate(8deg);
-    }
-}
-
 
 @media (min-width: 768px) {
     .info-box2 {
