@@ -657,49 +657,68 @@ all and (-webkit-display-mode:standalone){
         0 12px 45px rgba(0,0,0,.45),
         0 0 35px rgba(0,255,255,.18);
 
+animation:
+
+        panelPulse 3.5s ease-in-out infinite;
+
 }
 
-.loading-box::before {
 
-    content: "";
+@keyframes panelPulse{
 
-    position: absolute;
+0%{
 
-    top: -100%;
-    left: -50%;
+box-shadow:
 
-    width: 200%;
-    height: 250%;
+0 14px 45px rgba(0,0,0,.45),
 
-    background:
-        linear-gradient(
-            120deg,
-            transparent 35%,
-rgba(255,255,255,.035) 50%,
-transparent 65%
-        );
+0 0 14px rgba(73,255,246,.10),
 
-    transform: rotate(8deg);
+0 0 24px rgba(57,184,255,.08);
 
-    animation: hologramSweep 8s linear infinite;
+border-color:
 
-    pointer-events: none;
+rgba(73,255,246,.14);
+
 }
 
-@keyframes hologramSweep {
+50%{
 
-    0% {
-        transform:
-            translateY(-40%)
-            rotate(8deg);
-    }
+box-shadow:
 
-    100% {
-        transform:
-            translateY(40%)
-            rotate(8deg);
-    }
+0 14px 50px rgba(0,0,0,.48),
+
+0 0 20px rgba(73,255,246,.18),
+
+0 0 34px rgba(57,184,255,.16),
+
+0 0 46px rgba(141,118,255,.10);
+
+border-color:
+
+rgba(73,255,246,.24);
+
 }
+
+100%{
+
+box-shadow:
+
+0 14px 45px rgba(0,0,0,.45),
+
+0 0 14px rgba(73,255,246,.10),
+
+0 0 24px rgba(57,184,255,.08);
+
+border-color:
+
+rgba(73,255,246,.14);
+
+}
+
+}
+
+
 
 /* ===========================
    TEXT
