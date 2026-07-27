@@ -738,6 +738,19 @@ text-shadow:
 
 0 0 10px rgba(0,255,255,.30);   
 
+animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetición */
+}
+
+@keyframes parpadeo {
+  0% {
+    opacity: 0; /* Invisible */
+  }
+  50% {
+    opacity: 1; /* Visible */
+  }
+  100% {
+    opacity: 0; /* Vuelve a desaparecer */
+  }
 }
 
 @media (min-width:768px) and (hover:hover) and (pointer:fine){
