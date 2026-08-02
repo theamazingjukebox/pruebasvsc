@@ -862,7 +862,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 15px;
-          width: 100%; margin-top: -30px; margin-left: 30px;
+          width: 100%; margin-top: -60px; margin-left: 90px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -909,7 +909,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: rgba(216, 60, 164, 0.15);
           box-shadow: 0 0 15px rgba(216, 60, 164, 0.5);
         }
-        .mini-footer { width: 100%; text-align: center; margin-top: 5px; }
+        .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
