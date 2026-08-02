@@ -861,8 +861,8 @@ document.addEventListener("DOMContentLoaded", () => {
           text-transform: uppercase;
         }
         .widget-controls {
-          display: flex; justify-content: center; align-items: center; gap: 25px;
-          width: 100%; margin-top: 0px;
+          display: flex; justify-content: center; align-items: center; gap: 15px;
+          width: 100%; margin-top: 4px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Efecto al pasar el mouse por encima (Hover) */
         .w-btn:hover { 
           color: #87ffff; 
-          border-color: #87ffff;
+          
           background-color: rgba(135, 255, 255, 0.08);
           box-shadow: 0 0 12px rgba(73, 255, 246, 0.3);
           
@@ -905,7 +905,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Hover exclusivo para la burbuja de Play/Pause */
         .btn-main:hover {
           color: #ffffff;
-          border-color: #ff52c5;
+          
           background-color: rgba(216, 60, 164, 0.15);
           box-shadow: 0 0 15px rgba(216, 60, 164, 0.5);
         }
