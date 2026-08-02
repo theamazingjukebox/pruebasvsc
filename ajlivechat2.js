@@ -861,7 +861,7 @@ document.addEventListener("DOMContentLoaded", () => {
           text-transform: uppercase;
         }
         .widget-controls {
-          display: flex; justify-content: center; align-items: center; gap: 35px;
+          display: flex; justify-content: center; align-items: center; gap: 25px;
           width: 100%; margin-top: 2px;
         }
         
