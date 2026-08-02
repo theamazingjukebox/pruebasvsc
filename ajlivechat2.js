@@ -870,7 +870,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: rgba(24, 28, 41, 0.6); /* Burbuja oscura translúcida */
           border: 1px solid #1f1a3a;
           color: #dffcff; 
-          font-size: 19px; 
+          font-size: 21px; 
           cursor: pointer; 
           width: 38px; height: 38px; /* Forma de círculo perfecto */
           border-radius: 50%; /* Redondeado total tipo burbuja */
@@ -893,7 +893,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: rgba(24, 28, 41, 0.6); /* Burbuja oscura translúcida */
           border: 1px solid #1f1a3a;
           color: #dffcff; 
-          font-size: 19px; 
+          font-size: 21px; 
           cursor: pointer; 
           width: 38px; height: 38px; /* Forma de círculo perfecto */
           border-radius: 50%; /* Redondeado total tipo burbuja */
