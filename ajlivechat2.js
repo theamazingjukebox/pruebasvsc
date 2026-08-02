@@ -861,8 +861,8 @@ document.addEventListener("DOMContentLoaded", () => {
           text-transform: uppercase;
         }
         .widget-controls {
-          display: flex; justify-content: center; align-items: center; gap: 15px;
-          width: 100%; margin-top: -60px; margin-left: 90px;
+          display: flex; justify-content: center; align-items: center; gap: 10px;
+          width: 100%; margin-top: -75px; margin-left: 120px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
