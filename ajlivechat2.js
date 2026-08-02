@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 240,
-        height: 200,
+        height: 210,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -829,7 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(0, 33, 34); 
+          background-color: rgba(0, 32, 33); 
           border: 2px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
@@ -881,7 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
-          font-size: 8px; letter-spacing: 1.5px;
+          font-size: 9px; letter-spacing: 1.5px;
           margin: 0;
         }
       `;
