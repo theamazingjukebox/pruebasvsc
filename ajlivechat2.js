@@ -968,4 +968,33 @@ document.addEventListener("DOMContentLoaded", () => {
       myPipBtn.addEventListener('click', openMiniPlayer);
     }
   });
+
+      // ========================================================
+  // DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA
+  // ========================================================
+  document.addEventListener('visibilitychange', () => {
+    // Si la pestaña principal de la rocola se vuelve oculta (el usuario cambia de pestaña)
+    if (document.visibilityState === 'hidden') {
+      
+      // Validamos que el mini-player NO esté abierto actualmente en pantalla
+      if (!pipWindow || pipWindow.closed) {
+        
+        // REGLA DE YOUTUBE: Solo sugerimos el mini player si la música realmente está sonando
+        const activePlayer = window.ytPlayer || ytPlayer;
+        if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
+          const state = activePlayer.getPlayerState();
+          
+          // 1 = PLAYING (reproduciendo), 3 = BUFFERING (cargando)
+          if (state === 1 || state === 3) {
+            
+            // Lanzamos la pregunta sutil nativa en el navegador del usuario
+            const wantsMiniPlayer = confirm("¿Quieres seguir escuchando en el mini-reproductor flotante?");
+            if (wantsMiniPlayer) {
+              openMiniPlayer(); // Llama a tu función actual sin modificarle nada
+            }
+          }
+        }
+      }
+    }
+  });
 })();
