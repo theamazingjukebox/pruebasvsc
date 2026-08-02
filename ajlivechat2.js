@@ -864,10 +864,7 @@ if (youtubeIframe) {
   slot.appendChild(playerContainer);
 }
 
-// Reemplaza 'nombreDeTuVariable' por la variable real que guarda el título en tu web
-if (typeof nombreDeTuVariable !== 'undefined') {
-  pipWindow.document.getElementById('mini-track-title').innerText = "🎶 " + currentVideoIndex;
-}
+
     // 5. Actualizar el título actual si tienes la variable disponible
     // (Ejemplo: pipWindow.document.getElementById('mini-track-title').innerText = miCancionActual;)
 
