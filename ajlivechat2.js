@@ -851,28 +851,29 @@ async function openMiniPlayer() {
     `;
     pipWindow.document.head.appendChild(style);
 
-    // 4. Mover tu reproductor de YouTube al contenedor diseñado de la mini-ventana
+     // 4. Mover tu reproductor de YouTube al contenedor diseñado de la mini-ventana
     const slot = pipWindow.document.getElementById('mini-player-slot');
     
-    // Buscamos si hay un iframe de YouTube adentro de tu contenedor o usamos el contenedor directo
-    const youtubeIframe = playerContainer.querySelector('iframe') || playerContainer;
-    if (youtubeIframe) {
-      slot.appendChild(youtubeIframe);
+    // Buscamos exhaustivamente el iframe o el contenedor de YouTube
+    const realTarget = playerContainer.querySelector('iframe') || 
+                       document.querySelector('#youtube-player iframe') || 
+                       playerContainer;
+
+    if (realTarget && slot) {
+      slot.appendChild(realTarget);
+      console.log("¡Target de YouTube encontrado y movido con éxito!");
+    } else {
+      console.error("No se encontró el elemento del reproductor de YouTube en el DOM.");
     }
 
     // 6. Detectar cuando el usuario cierra la mini-ventana para devolver el reproductor a la web original
     pipWindow.addEventListener('pagehide', () => {
-      const activeIframe = slot.querySelector('iframe') || youtubeIframe;
-      if (activeIframe) {
-        playerContainer.appendChild(activeIframe); 
+      const activeElement = slot.querySelector('iframe') || slot.firstChild;
+      if (activeElement && playerContainer) {
+        playerContainer.appendChild(activeElement); 
       }
       pipWindow = null;
     });
-
-  } catch (error) {
-    console.error("Error al abrir el mini-reproductor:", error);
-  }
-}
 
 // ==========================================
 // DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA Y BOTÓN
