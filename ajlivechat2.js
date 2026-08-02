@@ -761,13 +761,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ========================================================
-// MINI-WIDGET DE AUDIO INTERACTIVO (VERSIÓN CORREGIDA)
+// MINI-WIDGET DE AUDIO INTERACTIVO (VERSIÓN WEBP + NO-FLICKER)
 // ========================================================
 (function() {
   if (!('documentPictureInPicture' in window)) return;
 
   let pipWindow = null;
   let trackCheckInterval = null;
+  let lastLoadedVideoId = ""; // Guarda el último ID para evitar el parpadeo de la portada
 
   async function openMiniPlayer() {
     try {
@@ -779,13 +780,14 @@ document.addEventListener("DOMContentLoaded", () => {
         height: 180,
       });
 
-      // 2. Inyectar la interfaz optimizada (Sin botón previo y con créditos de la página)
+      // 2. Inyectar la interfaz optimizada
       pipWindow.document.body.innerHTML = `
         <div class="mini-widget">
           <div class="widget-content">
-            <!-- Portada de la canción desde YouTube -->
+            <!-- Portada de la canción desde los servidores WebP de YouTube -->
             <div class="album-art-container">
-              <img id="mini-album-art" src="" alt="Cover">
+              <img id="mini-album-art" src="" alt="Cover" style="display:none;">
+              <div id="mini-album-fallback" class="art-fallback">🎶</div>
             </div>
             
             <div class="track-info">
@@ -794,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
           
-          <!-- CONTROLES INTERACTIVOS OPTIMIZADOS -->
+          <!-- CONTROLES INTERACTIVOS -->
           <div class="widget-controls">
             <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
             <button id="mini-btn-next" class="w-btn">⏭</button>
@@ -823,10 +825,17 @@ document.addEventListener("DOMContentLoaded", () => {
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
-        .album-art-container img {
+        .album-art-container {
+          width: 65px; height: 65px; position: relative;
+        }
+        .album-art-container img, .art-fallback {
           width: 65px; height: 65px; border-radius: 8px;
           border: 1px solid #00ff80; box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
-          object-fit: cover; background-color: #12101f;
+          object-fit: cover; position: absolute; top:0; left:0;
+        }
+        .art-fallback {
+          background-color: #12101f; display: flex; justify-content: center;
+          align-items: center; color: #00ff80; font-size: 20px;
         }
         .track-info {
           display: flex; flex-direction: column; flex: 1; overflow: hidden;
@@ -849,7 +858,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cursor: pointer; transition: all 0.2s;
         }
         .w-btn:hover { color: #00ff80; text-shadow: 0 0 8px #00ff80; }
-        .btn-main { font-size: 24px; color: #00ff80; }
+        .btn-main { font-size: 24px; color: #00ff80; width: 30px; }
         .mini-footer { width: 100%; text-align: center; margin-top: 5px; }
         .mini-footer .tagline {
           color: #4a4370; font-size: 9px; letter-spacing: 1px;
@@ -858,11 +867,17 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       pipWindow.document.head.appendChild(style);
 
+      // Resetear la memoria de la última canción cargada al abrir
+      lastLoadedVideoId = "";
+
       // 4. FUNCIÓN PARA SINCRONIZAR DATOS EN TIEMPO REAL
       function syncWidgetData() {
+        const activePlayer = window.ytPlayer || ytPlayer;
+        
         if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
           const currentSongObj = videos[currentVideoIndex];
           const currentSongKey = currentSongObj.key || currentSongObj.src;
+          const ytId = currentSongKey.replace("yt:", "").trim();
           
           if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
             const track = songInfo[currentSongKey];
@@ -870,32 +885,53 @@ document.addEventListener("DOMContentLoaded", () => {
             const titleEl = pipWindow.document.getElementById('mini-track-title');
             const artistEl = pipWindow.document.getElementById('mini-track-artist');
             const artEl = pipWindow.document.getElementById('mini-album-art');
+            const fallbackEl = pipWindow.document.getElementById('mini-album-fallback');
             
-            if (titleEl) titleEl.innerText = track.name;
-            if (artistEl) artistEl.innerText = track.artist || "Unknown Artist";
+            if (titleEl && titleEl.innerText !== track.name) titleEl.innerText = track.name;
+            if (artistEl && artistEl.innerText !== track.artist) artistEl.innerText = track.artist || "Unknown Artist";
             
-            if (artEl) {
-              // Limpiamos el prefijo 'yt:' de tu base de datos para obtener el ID puro de YouTube
-              const ytId = currentSongKey.replace("yt:", "");
-              // Cargamos la imagen hqdefault directamente
-              artEl.src = `https://youtube.com{ytId}/hqdefault.jpg`;
+            // 🔥 CONTROL DE PARPADEO: Solo cambia la imagen si el ID del video cambió
+            if (artEl && ytId !== lastLoadedVideoId) {
+              lastLoadedVideoId = ytId;
+              
+              // Intentamos cargar la miniatura WebP oficial de YouTube
+              artEl.src = `https://ytimg.com{ytId}/mqdefault.webp`;
+              
+              artEl.onload = () => {
+                artEl.style.display = "block";
+                if (fallbackEl) fallbackEl.style.display = "none";
+              };
+              
+              artEl.onerror = () => {
+                // Fallback secundario por si el WebP falla en algún video antiguo
+                artEl.src = `https://youtube.com{ytId}/mqdefault.jpg`;
+                artEl.onerror = () => {
+                  artEl.style.display = "none";
+                  if (fallbackEl) fallbackEl.style.display = "flex";
+                };
+              };
             }
           }
         }
 
-        // Sincronizar el estado del botón Play/Pause usando tu variable 'ytPlayer'
+        // Sincronizar el estado visual del botón Play/Pause constantemente
         const playBtn = pipWindow.document.getElementById('mini-btn-play');
-        if (playBtn && window.ytPlayer && typeof window.ytPlayer.getPlayerState === 'function') {
-          const state = window.ytPlayer.getPlayerState();
-          playBtn.innerText = (state === 1) ? "⏸" : "▶"; 
+        if (playBtn && activePlayer && typeof activePlayer.getPlayerState === 'function') {
+          const state = activePlayer.getPlayerState();
+          // 1 = PLAYING, 3 = BUFFERING
+          if (state === 1 || state === 3) {
+            playBtn.innerHTML = "&#9208;"; // Icono de Pausa ⏸
+          } else {
+            playBtn.innerHTML = "&#9654;"; // Icono de Play ▶
+          }
         }
       }
 
       // Ejecutamos la sincronización inicial y el loop de escaneo
       syncWidgetData();
-      trackCheckInterval = setInterval(syncWidgetData, 1000);
+      trackCheckInterval = setInterval(syncWidgetData, 500); // Escaneo más rápido (cada 0.5s) para reflejar cambios
 
-      // 5. CONEXIÓN DE BOTONES CON TU API 'ytPlayer' Y 'playNextVideo'
+      // 5. CONEXIÓN DE BOTONES INTERACTIVOS
       pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
         if (typeof playNextVideo === 'function') {
           playNextVideo();
@@ -904,16 +940,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       pipWindow.document.getElementById('mini-btn-play').addEventListener('click', () => {
-        // Apuntamos directamente a tu variable local o global 'ytPlayer'
         const activePlayer = window.ytPlayer || ytPlayer;
+        const playBtn = pipWindow.document.getElementById('mini-btn-play');
+        
         if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
+          
           if (state === 1) {
             activePlayer.pauseVideo();
+            if (playBtn) playBtn.innerHTML = "&#9654;"; // Cambio visual inmediato a Play ▶
           } else {
             activePlayer.playVideo();
+            if (playBtn) playBtn.innerHTML = "&#9208;"; // Cambio visual inmediato a Pausa ⏸
           }
-          setTimeout(syncWidgetData, 100);
         }
       });
 
