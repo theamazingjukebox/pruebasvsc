@@ -761,8 +761,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Variables para controlar el estado del reproductor
-const playerContainer = document.getElementById('jukebox-player-container'); // Tu div de YouTube
-const originalParent = document.getElementById('original-parent-element'); // El padre original en tu web
+const playerContainer = document.getElementById('youtube-player'); // Tu div de YouTube
+const originalParent = document.getElementById('video-container'); // El padre original en tu web
 
 let pipWindow = null;
 
