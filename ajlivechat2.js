@@ -839,7 +839,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .album-art-container img {
           width: 95px; height: 95px; border-radius: 12px;
-          border: 1px solid #87ffff; /* Borde Cian Orbitron */
+          border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 12px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
