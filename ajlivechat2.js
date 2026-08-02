@@ -862,7 +862,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 15px;
-          width: 100%; margin-top: -10px;
+          width: 100%; margin-top: -30px; margin-left: 30px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
