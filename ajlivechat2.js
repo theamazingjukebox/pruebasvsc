@@ -752,3 +752,145 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+
+
+
+
+
+
+
+// Variables para controlar el estado del reproductor
+const playerContainer = document.getElementById('jukebox-player-container'); // Tu div de YouTube
+const originalParent = document.getElementById('original-parent-element'); // El padre original en tu web
+
+let pipWindow = null;
+
+// Función principal para abrir la mini-rocola con diseño propio
+async function openMiniPlayer() {
+  try {
+    // Si ya está abierta, no hacer nada
+    if (window.documentPictureInPicture.window) return;
+
+    // 1. Abrir la ventana flotante
+    pipWindow = await window.documentPictureInPicture.requestWindow({
+      width: 320,
+      height: 380,
+    });
+
+    // 2. Inyectar el diseño HTML exclusivo de la mini-rocola
+    pipWindow.document.body.innerHTML = `
+      <div class="mini-jukebox">
+        <div class="mini-header">
+          <span class="disco-ball-mini">🔮</span>
+          <p id="mini-track-title">🎶 Cargando canción...</p>
+        </div>
+        
+        <!-- Aquí moveremos el reproductor de YouTube -->
+        <div id="mini-player-slot"></div>
+        
+        <div class="mini-footer">
+          <p class="tagline">The Amazing Jukebox</p>
+        </div>
+      </div>
+    `;
+
+    // 3. Inyectar los estilos CSS exclusivos (Diseñados desde cero)
+    const style = pipWindow.document.createElement('style');
+    style.textContent = `
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0b0914;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .mini-jukebox {
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border: 2px solid #1f1a3a;
+        border-radius: 12px;
+        box-shadow: inset 0 0 20px rgba(0, 255, 128, 0.1);
+      }
+      #mini-track-title {
+        color: #ffffff;
+        font-size: 13px;
+        text-align: center;
+        margin: 5px 0 12px 0;
+        text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
+        animation: pulseGlow 2.5s infinite ease-in-out;
+      }
+      @keyframes pulseGlow {
+        0% { text-shadow: 0 0 4px rgba(0, 255, 128, 0.4); opacity: 0.8; }
+        50% { text-shadow: 0 0 12px rgba(0, 255, 128, 0.9); opacity: 1; }
+        100% { text-shadow: 0 0 4px rgba(0, 255, 128, 0.4); opacity: 0.8; }
+      }
+      #mini-player-slot iframe {
+        width: 280px !important;
+        height: 160px !important;
+        border-radius: 8px;
+        border: 1px solid #00ff80;
+        box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+      }
+      .mini-footer .tagline {
+        color: #4a4370;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin: 8px 0 0 0;
+      }
+    `;
+    pipWindow.document.head.appendChild(style);
+
+    // 4. Mover tu reproductor de YouTube al contenedor diseñado de la mini-ventana
+    const slot = pipWindow.document.getElementById('mini-player-slot');
+    slot.appendChild(playerContainer);
+
+    // 5. Actualizar el título actual si tienes la variable disponible
+    // (Ejemplo: pipWindow.document.getElementById('mini-track-title').innerText = miCancionActual;)
+
+    // 6. Detectar cuando el usuario cierra la mini-ventana para devolver el reproductor a la web original
+    pipWindow.addEventListener('pagehide', () => {
+      originalParent.appendChild(playerContainer);
+      pipWindow = null;
+    });
+
+  } catch (error) {
+    console.error("Error al abrir el mini-reproductor:", error);
+  }
+}
+
+// ==========================================
+// DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA
+// ==========================================
+if ('documentPictureInPicture' in window) {
+  
+  document.addEventListener('visibilitychange', () => {
+    // Si la pestaña se vuelve oculta (el usuario cambió de pestaña o minimizó)
+    if (document.visibilityState === 'hidden') {
+      
+      // Verificamos que la música esté sonando actualmente (ajusta según tus variables de estado)
+      // e.g., if (isPlaying && !pipWindow) { ... }
+      if (!pipWindow) {
+        // Lanzamos la pregunta sutil en el navegador del usuario
+        const wantsPiP = confirm("¿Quieres seguir escuchando en el mini-reproductor flotante?");
+        if (wantsPiP) {
+          openMiniPlayer();
+        }
+      }
+    }
+  });
+
+  // También dejamos listo tu botón físico por si quieren abrirlo manualmente
+  document.getElementById('pip-button').addEventListener('click', openMiniPlayer);
+}
