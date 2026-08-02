@@ -829,7 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(0, 32, 33); 
+          background-color: rgba(18, 22, 30, 0.85); 
           border: 2px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
@@ -838,9 +838,9 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
-          width: 125px; height: 125px; border-radius: 49px;
+          width: 125px; height: 125px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
-          box-shadow: 0 0 1px rgba(73, 255, 246, 0.2);
+          box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
@@ -886,6 +886,36 @@ document.addEventListener("DOMContentLoaded", () => {
           font-size: 8px; letter-spacing: 1.5px;
           margin: 0;
         }
+
+                /* Ajuste necesario en el contenedor para fijar las partículas */
+        .album-art-container {
+          width: 65px; height: 65px; position: relative; cursor: pointer;
+        }
+
+        /* ESTILO PARA LA NOTA FLOTANTE */
+        .floating-note {
+          position: absolute;
+          font-size: 16px;
+          pointer-events: none; /* Evita que la nota interfiera con futuros clics */
+          color: #87ffff;
+          text-shadow: 0 0 8px rgba(73, 255, 246, 0.6);
+          user-select: none;
+          animation: floatUpAndFade 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* ANIMACIÓN DE FLOTADO Y DESVANECIMIENTO */
+        @keyframes floatUpAndFade {
+          0% {
+            transform: translate(-50%, -50%) scale(0.5) translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            /* Flota hacia arriba 40 píxeles, se agranda un poco y gira a su ángulo aleatorio */
+            transform: translate(-50%, -50%) scale(1.2) translateY(-40px) rotate(var(--rotation, 20deg));
+            opacity: 0;
+          }
+        }
+
       `;
       pipWindow.document.head.appendChild(style);
 
@@ -928,6 +958,52 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ejecutamos la sincronización inicial y el bucle cada medio segundo
       syncWidgetData();
       trackCheckInterval = setInterval(syncWidgetData, 500);
+
+        
+
+      // ========================================================
+      // EFECTO VISUAL: NOTAS MUSICALES AL DAR CLIC EN LA ROCOLA
+      // ========================================================
+      const jukeboxImg = pipWindow.document.getElementById('mini-jukebox-animation');
+      
+      if (jukeboxImg) {
+        jukeboxImg.addEventListener('click', (e) => {
+          // Arreglo con los emojis que pueden salir al hacer clic
+          const particles = ["🎵", "🎶", "✨"];
+          const randomParticle = particles[Math.floor(Math.random() * particles.length)];
+          
+          // Crear el elemento flotante
+          const note = pipWindow.document.createElement('span');
+          note.className = 'floating-note';
+          note.innerText = randomParticle;
+          
+          // Calcular la posición relativa del clic dentro de la imagen
+          const rect = jukeboxImg.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // Posicionar la nota
+          note.style.left = `${x}px`;
+          note.style.top = `${y}px`;
+          
+          // Un ángulo de rotación aleatorio para que se vea más orgánico
+          const randomRotation = Math.floor(Math.random() * 60) - 30; // Entre -30 y 30 grados
+          note.style.setProperty('--rotation', `${randomRotation}deg`);
+          
+          // Meter la nota dentro del contenedor de la imagen
+          const container = pipWindow.document.querySelector('.album-art-container');
+          if (container) {
+            container.appendChild(note);
+            
+            // Eliminar la nota del DOM después de 1 segundo (cuando termina la animación CSS)
+            setTimeout(() => {
+              note.remove();
+            }, 1000);
+          }
+        });
+      }
+
+        
 
       // 6. CONEXIÓN DE BOTONES INTERACTIVOS
       pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
