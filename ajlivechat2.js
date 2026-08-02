@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="VideoProject131-ezgif.com-video-to-webp-converter.webp" alt="Jukebox">
+              <img id="mini-jukebox-animation" src="Diseosinttulo6-ezgif.com-video-to-webp-converter.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
@@ -969,32 +969,93 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-      // ========================================================
-  // DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA
+        // ========================================================
+  // NOTIFICACIÓN INTELIGENTE DE MINI-PLAYER (ESTILO WEB)
   // ========================================================
   document.addEventListener('visibilitychange', () => {
-    // Si la pestaña principal de la rocola se vuelve oculta (el usuario cambia de pestaña)
-    if (document.visibilityState === 'hidden') {
+    // Si el usuario cambia de pestaña y luego REGRESA a la rocola
+    if (document.visibilityState === 'visible') {
       
-      // Validamos que el mini-player NO esté abierto actualmente en pantalla
+      // Validamos si la música está sonando y el mini-player no está abierto
       if (!pipWindow || pipWindow.closed) {
-        
-        // REGLA DE YOUTUBE: Solo sugerimos el mini player si la música realmente está sonando
         const activePlayer = window.ytPlayer || ytPlayer;
         if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
           
-          // 1 = PLAYING (reproduciendo), 3 = BUFFERING (cargando)
           if (state === 1 || state === 3) {
-            
-            // Lanzamos la pregunta sutil nativa en el navegador del usuario
-            const wantsMiniPlayer = confirm("¿Quieres seguir escuchando en el mini-reproductor flotante?");
-            if (wantsMiniPlayer) {
-              openMiniPlayer(); // Llama a tu función actual sin modificarle nada
-            }
+            showMiniPlayerBanner();
           }
         }
       }
     }
   });
+
+  function showMiniPlayerBanner() {
+    // Si el banner ya existe en la pantalla, no hacemos nada
+    if (document.getElementById('pip-smart-banner')) return;
+
+    // Crear el contenedor del banner flotante
+    const banner = document.createElement('div');
+    banner.id = 'pip-smart-banner';
+    
+    // Inyectar el diseño con la misma estética Orbitron/Neón de tu web
+    banner.innerHTML = `
+      <div class="banner-body">
+        <span class="banner-icon">🔮</span>
+        <div class="banner-text">
+          <p class="banner-title">MINI-PLAYER AVAILABLE</p>
+          <p class="banner-desc">Keep listening without interruptions while browsing other tabs.</p>
+        </div>
+        <button id="banner-btn-accept" class="b-btn b-accept">LAUNCH</button>
+        <button id="banner-btn-close" class="b-btn b-close">✕</button>
+      </div>
+    `;
+
+    // Estilos de neón incrustados para que luzca espectacular en tu esquina inferior derecha
+    const style = document.createElement('style');
+    style.id = 'pip-banner-styles';
+    style.textContent = `
+      #pip-smart-banner {
+        position: fixed; bottom: 25px; right: 25px; z-index: 10000;
+        background-color: rgba(18, 22, 30, 0.9); backdrop-filter: blur(10px);
+        border: 2px solid #d83ca4; border-radius: 16px; padding: 12px 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(135,255,255,0.15);
+        font-family: 'Orbitron', monospace; width: 320px;
+        animation: slideInBanner 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      @keyframes slideInBanner {
+        from { transform: translateY(100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .banner-body { display: flex; align-items: center; gap: 12px; position: relative; }
+      .banner-icon { font-size: 22px; }
+      .banner-text { flex: 1; display: flex; flex-direction: column; }
+      .banner-title { color: #87ffff; font-size: 11px; font-weight: bold; margin: 0 0 2px 0; letter-spacing: 0.5px; }
+      .banner-desc { color: #dffcff; font-size: 9px; margin: 0; line-height: 1.2; font-family: sans-serif; }
+      .b-btn { border: none; background: none; cursor: pointer; font-family: 'Orbitron', monospace; }
+      .b-accept { background-color: #d83ca4; color: #fff; font-size: 10px; font-weight: bold; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 8px rgba(216,60,164,0.4); transition: all 0.2s; }
+      .b-accept:hover { background-color: #ff52c5; box-shadow: 0 0 12px #ff52c5; }
+      .b-close { color: #4a4370; font-size: 14px; padding: 0 4px; }
+      .b-close:hover { color: #d83ca4; }
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(banner);
+
+    // Evento para lanzar el reproductor al dar clic (Aceptado por el navegador por ser un clic real)
+    document.getElementById('banner-btn-accept').addEventListener('click', () => {
+      openMiniPlayer();
+      dismissBanner();
+    });
+
+    // Evento para cerrar el banner
+    document.getElementById('banner-btn-close').addEventListener('click', dismissBanner);
+  }
+
+  function dismissBanner() {
+    const banner = document.getElementById('pip-smart-banner');
+    const styles = document.getElementById('pip-banner-styles');
+    if (banner) banner.remove();
+    if (styles) styles.remove();
+  }
 })();
