@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="mi-rockola-animada.webp" alt="Jukebox">
+              <img id="mini-jukebox-animation" src="disco.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
@@ -830,7 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85); 
-          border: 2px solid #d83ca4; /* Rosa Neón */
+          border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
