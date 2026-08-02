@@ -761,127 +761,164 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ========================================================
-// MINI-REPRODUCTOR FLOTANTE FLUIDO (MÉTODO ESPEJO CANVAS)
+// MINI-WIDGET DE AUDIO INTERACTIVO (SIN BLOQUEOS DE CORTES)
 // ========================================================
 (function() {
-  if (!('documentPictureInPicture' in window)) {
-    const pipBtn = document.getElementById('pip-button');
-    if (pipBtn) pipBtn.style.display = 'none';
-    return;
-  }
+  if (!('documentPictureInPicture' in window)) return;
 
   let pipWindow = null;
-  let canvasInterval = null;
+  let trackCheckInterval = null;
 
   async function openMiniPlayer() {
-    // Buscamos el elemento de video real que genera el iframe de YouTube
-    const mainIframe = document.querySelector('#youtube-player iframe') || document.getElementById('youtube-player');
-    
-    if (!mainIframe) {
-      console.error("No se encontró el reproductor de YouTube listo.");
-      return;
-    }
-
     try {
       if (window.documentPictureInPicture.window) return;
 
-      // 1. Abrir la ventana flotante
+      // 1. Abrir la ventana flotante en un formato de Widget de audio (más ancho que alto)
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 320,
-        height: 240, // Más compacto estilo widget
+        width: 340,
+        height: 180,
       });
 
-      // 2. Inyectar el diseño de la mini-rockola con un Canvas espejo
+      // 2. Inyectar la interfaz de la mini-rockola con controles
       pipWindow.document.body.innerHTML = `
-        <div class="mini-jukebox">
-          <div class="mini-header">
-            <span class="disco-ball-mini">🔮</span>
-            <p id="mini-track-title">🎶 Enjoying the Session</p>
+        <div class="mini-widget">
+          <div class="widget-content">
+            <!-- Portada de la canción (Clonamos el póster actual o usamos un fallback retro) -->
+            <div class="album-art-container">
+              <img id="mini-album-art" src="" alt="Cover" onerror="this.src='down17.png'">
+            </div>
+            
+            <div class="track-info">
+              <p id="mini-track-title">🎶 Leyendo pista...</p>
+              <p id="mini-track-artist" class="artist-name">The Amazing Jukebox</p>
+            </div>
           </div>
           
-          <!-- El canvas recibirá la imagen clonada en tiempo real -->
-          <canvas id="mini-canvas-mirror" width="280" height="160"></canvas>
-          
-          <div class="mini-footer">
-            <p class="tagline">The Amazing Jukebox</p>
+          <!-- CONTROLES INTERACTIVOS REALES -->
+          <div class="widget-controls">
+            <button id="mini-btn-prev" class="w-btn">⏮</button>
+            <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
+            <button id="mini-btn-next" class="w-btn">⏭</button>
           </div>
         </div>
       `;
 
-      // 3. Estilos limpios y estéticos
+      // 3. Estilos de neón y glow hiper-limpios diseñados desde cero
       const style = pipWindow.document.createElement('style');
       style.textContent = `
         body {
-          margin: 0; padding: 0;
-          background-color: #0b0914;
-          font-family: 'Segoe UI', sans-serif;
-          display: flex; justify-content: center; align-items: center;
-          height: 100vh; overflow: hidden;
+          margin: 0; padding: 0; background-color: #0b0914;
+          font-family: 'Segoe UI', sans-serif; display: flex;
+          justify-content: center; align-items: center; height: 100vh; overflow: hidden;
         }
-        .mini-jukebox {
-          width: 100%; height: 100%; padding: 10px;
-          box-sizing: border-box; display: flex; flex-direction: column;
-          justify-content: space-between; align-items: center;
+        .mini-widget {
+          width: 100%; height: 100%; padding: 12px; box-sizing: border-box;
+          display: flex; flex-direction: column; justify-content: space-between;
           border: 2px solid #1f1a3a; border-radius: 12px;
+          box-shadow: inset 0 0 15px rgba(0, 255, 128, 0.05);
+        }
+        .widget-content {
+          display: flex; width: 100%; align-items: center; gap: 12px;
+        }
+        .album-art-container img {
+          width: 65px; height: 65px; border-radius: 8px;
+          border: 1px solid #00ff80; box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
+          object-fit: cover; background-color: #12101f;
+        }
+        .track-info {
+          display: flex; flex-direction: column; flex: 1; overflow: hidden;
         }
         #mini-track-title {
-          color: #ffffff; font-size: 12px; text-align: center; margin: 2px 0;
-          text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
+          color: #ffffff; font-size: 13px; font-weight: bold; margin: 0 0 4px 0;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+          text-shadow: 0 0 6px rgba(0, 255, 128, 0.5);
         }
-        #mini-canvas-mirror {
-          border-radius: 8px;
-          border: 1px solid #00ff80;
-          box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
-          background-color: #000;
+        .artist-name {
+          color: #8b83ba; font-size: 11px; margin: 0;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .mini-footer .tagline {
-          color: #4a4370; font-size: 9px; letter-spacing: 1px;
-          text-transform: uppercase; margin: 4px 0 0 0;
+        .widget-controls {
+          display: flex; justify-content: center; align-items: center; gap: 20px;
+          width: 100%; margin-top: 5px;
         }
+        .w-btn {
+          background: none; border: none; color: #8b83ba; font-size: 16px;
+          cursor: pointer; transition: all 0.2s;
+        }
+        .w-btn:hover { color: #00ff80; text-shadow: 0 0 8px #00ff80; }
+        .btn-main { font-size: 22px; color: #00ff80; }
       `;
       pipWindow.document.head.appendChild(style);
 
-      // 4. ACTUALIZACIÓN DEL TÍTULO DINÁMICO DESDE TU CONFIGURACIÓN
-      // Buscamos si existe la lista de videos y tu índice actual para pintar el nombre real
-      if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
-        const currentSongKey = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
-        if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
-          pipWindow.document.getElementById('mini-track-title').innerText = "🎶 " + songInfo[currentSongKey].name;
+      // 4. FUNCIÓN PARA SINCRONIZAR DATOS EN TIEMPO REAL
+      function syncWidgetData() {
+        if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
+          const currentSongKey = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+          
+          if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
+            const track = songInfo[currentSongKey];
+            
+            // Actualizamos título y artista en el widget
+            const titleEl = pipWindow.document.getElementById('mini-track-title');
+            const artistEl = pipWindow.document.getElementById('mini-track-artist');
+            const artEl = pipWindow.document.getElementById('mini-album-art');
+            
+            if (titleEl) titleEl.innerText = track.name;
+            if (artistEl) artistEl.innerText = track.artist || "Unknown Artist";
+            
+            // Si tienes guardadas las URLs de las portadas en tu objeto songInfo, las pintamos aquí:
+            if (track.cover && artEl) {
+              artEl.src = track.cover;
+            } else if (artEl) {
+              // Si no hay portada manual, extraemos automáticamente la miniatura oficial de YouTube usando el ID
+              const ytId = currentSongKey.replace("yt:", "");
+              artEl.src = `https://youtube.com{ytId}/hqdefault.jpg`;
+            }
+          }
+        }
+
+        // Sincronizar el estado del botón Play/Pause (si está pausado o reproduciendo)
+        const playBtn = pipWindow.document.getElementById('mini-btn-play');
+        if (playBtn && window.ytPlayer && typeof window.ytPlayer.getPlayerState === 'function') {
+          const state = window.ytPlayer.getPlayerState();
+          playBtn.innerText = (state === 1) ? "⏸" : "▶"; // 1 significa PLAYING
         }
       }
 
-      // 5. EL TRUCO DEL ESPEJO: Dibujar el iframe en el canvas de la mini ventana
-      const miniCanvas = pipWindow.document.getElementById('mini-canvas-mirror');
-      const ctx = miniCanvas.getContext('2d');
+      // Ejecutamos la sincronización inicial
+      syncWidgetData();
 
-      // Creamos un ciclo continuo que copia el aspecto visual sin mover el elemento del DOM principal
-      canvasInterval = setInterval(() => {
-        if (mainIframe && ctx) {
-          try {
-            // Dibujamos el estado actual del reproductor en el mini canvas
-            ctx.drawImage(mainIframe, 0, 0, miniCanvas.width, miniCanvas.height);
-          } catch (e) {
-            // Fallback elegante en caso de restricciones estrictas de CORS en el modo no-cookie de YT
-            // Esto mantendrá la mini-pantalla negra pero el AUDIO sonando perfectamente de fondo sin romperse
-            ctx.fillStyle = "#12101f";
-            ctx.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
-            ctx.fillStyle = "#00ff80";
-            ctx.font = "11px Segoe UI";
-            ctx.textAlign = "center";
-            ctx.fillText("Audio Session Active 🟢", miniCanvas.width / 2, miniCanvas.height / 2 + 4);
-          }
+      // Creamos un loop que revise cada segundo si la canción cambió en tu web principal
+      trackCheckInterval = setInterval(syncWidgetData, 1000);
+
+      // 5. CONEXIÓN DE LOS BOTONES DEL WIDGET CON TU API DE YOUTUBE
+      pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
+        if (typeof playNextVideo === 'function') {
+          playNextVideo();
+          setTimeout(syncWidgetData, 300); // Forzar actualización visual rápida
         }
-      }, 1000 / 24); // 24 cuadros por segundo para que sea fluido
+      });
 
-      // 6. Al cerrar la ventana, simplemente limpiamos el bucle.
-      // Como el iframe original nunca se movió de tu HTML, el audio seguirá como si nada
+      pipWindow.document.getElementById('mini-btn-play').addEventListener('click', () => {
+        if (window.ytPlayer && typeof window.ytPlayer.getPlayerState === 'function') {
+          const state = window.ytPlayer.getPlayerState();
+          if (state === 1) {
+            window.ytPlayer.pauseVideo();
+          } else {
+            window.ytPlayer.playVideo();
+          }
+          syncWidgetData();
+        }
+      });
+
+      // 6. Limpieza al cerrar
       pipWindow.addEventListener('pagehide', () => {
-        if (canvasInterval) clearInterval(canvasInterval);
+        if (trackCheckInterval) clearInterval(trackCheckInterval);
         pipWindow = null;
       });
 
     } catch (error) {
-      console.error("Error en la sesión del mini-reproductor:", error);
+      console.error("Error al abrir el mini-widget:", error);
     }
   }
 
