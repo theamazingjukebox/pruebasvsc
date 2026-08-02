@@ -890,20 +890,31 @@ document.addEventListener("DOMContentLoaded", () => {
         
         /* BURBUJA PRINCIPAL (PLAY / PAUSE) MÁS DESTATCADA */
         .btn-main { 
-          font-size: 18px; 
-          color: #87ffff; 
-          width: 48px; height: 48px; /* Burbuja más grande para el control central */
-          border-color: #d83ca4; /* Borde rosa neón a juego con tu pop-up */
-          background-color: rgba(216, 60, 164, 0.05);
-          box-shadow: 0 4px 12px rgba(216, 60, 164, 0.2);
+          background-color: rgba(24, 28, 41, 0.6); /* Burbuja oscura translúcida */
+          border: 1px solid #1f1a3a;
+          color: #dffcff; 
+          font-size: 14px; 
+          cursor: pointer; 
+          width: 38px; height: 38px; /* Forma de círculo perfecto */
+          border-radius: 50%; /* Redondeado total tipo burbuja */
+          display: inline-flex; align-items: center; justify-content: center;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         
         /* Hover exclusivo para la burbuja de Play/Pause */
         .btn-main:hover {
-          color: #ffffff;
-          border-color: #ff52c5;
-          background-color: rgba(216, 60, 164, 0.15);
-          box-shadow: 0 0 15px rgba(216, 60, 164, 0.5);
+          color: #87ffff; 
+          border-color: #87ffff;
+          background-color: rgba(135, 255, 255, 0.08);
+          box-shadow: 0 0 12px rgba(73, 255, 246, 0.3);
+          transform: translateY(-2px); /* Pequeño brinco sutil hacia arriba */
+        }
+        .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
+        .mini-footer .tagline {
+          color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
+          font-size: 8px; letter-spacing: 1.5px;
+          margin: 0;
         }
       `;
       pipWindow.document.head.appendChild(style);
@@ -1025,7 +1036,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="banner-icon">🔮</span>
         <div class="banner-text">
           <p class="banner-title">MINI-PLAYER AVAILABLE</p>
-          <p class="banner-desc">Keep using the reproduction controls 🕹️ while browsing other tabs.</p>
+          <p class="banner-desc">Keep using the reproduction controls while browsing other tabs.</p>
         </div>
         <button id="banner-btn-accept" class="b-btn b-accept">LAUNCH</button>
         <button id="banner-btn-close" class="b-btn b-close">✕</button>
