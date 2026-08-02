@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="disco.webp" alt="Jukebox">
+              <img id="mini-jukebox-animation" src="VideoProject131-ezgif.com-video-to-webp-converter.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
