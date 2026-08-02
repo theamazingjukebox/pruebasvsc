@@ -775,8 +775,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 340,
-        height: 180,
+        width: 285,
+        height: 240,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -830,7 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85); 
-          border: 1px solid #d83ca4; /* Rosa Neón */
+          border: 2px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
@@ -838,7 +838,7 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
-          width: 65px; height: 65px; border-radius: 12px;
+          width: 95px; height: 95px; border-radius: 12px;
           border: 1px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 12px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
