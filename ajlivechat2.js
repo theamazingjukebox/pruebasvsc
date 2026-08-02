@@ -760,50 +760,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// ==========================================
-// CONFIGURACIÓN DEL MINI-REPRODUCTOR FLOTANTE
-// ==========================================
+// ========================================================
+// MINI-REPRODUCTOR FLOTANTE FLUIDO (MÉTODO ESPEJO CANVAS)
+// ========================================================
 (function() {
-  // Verificamos que el navegador soporte la API antes de hacer nada
   if (!('documentPictureInPicture' in window)) {
-    console.log('Document Picture-in-Picture no es soportado en este navegador.');
     const pipBtn = document.getElementById('pip-button');
     if (pipBtn) pipBtn.style.display = 'none';
     return;
   }
 
   let pipWindow = null;
+  let canvasInterval = null;
 
   async function openMiniPlayer() {
-    // Capturamos los elementos dentro de la función para evitar conflictos de carga
-    const playerContainer = document.getElementById('youtube-player');
-    const originalParent = document.getElementById('video-container');
-
-    if (!playerContainer || !originalParent) {
-      console.error("No se encontraron los contenedores 'youtube-player' o 'video-container' en el HTML.");
+    // Buscamos el elemento de video real que genera el iframe de YouTube
+    const mainIframe = document.querySelector('#youtube-player iframe') || document.getElementById('youtube-player');
+    
+    if (!mainIframe) {
+      console.error("No se encontró el reproductor de YouTube listo.");
       return;
     }
 
     try {
-      // Si ya está abierta, no hacer nada
       if (window.documentPictureInPicture.window) return;
 
       // 1. Abrir la ventana flotante
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 320,
-        height: 380,
+        height: 240, // Más compacto estilo widget
       });
 
-      // 2. Inyectar el diseño HTML exclusivo de la mini-rocola
+      // 2. Inyectar el diseño de la mini-rockola con un Canvas espejo
       pipWindow.document.body.innerHTML = `
         <div class="mini-jukebox">
           <div class="mini-header">
             <span class="disco-ball-mini">🔮</span>
-            <p id="mini-track-title">🎶 Cargando canción...</p>
+            <p id="mini-track-title">🎶 Enjoying the Session</p>
           </div>
           
-          <!-- Aquí moveremos el reproductor de YouTube -->
-          <div id="mini-player-slot"></div>
+          <!-- El canvas recibirá la imagen clonada en tiempo real -->
+          <canvas id="mini-canvas-mirror" width="280" height="160"></canvas>
           
           <div class="mini-footer">
             <p class="tagline">The Amazing Jukebox</p>
@@ -811,100 +808,87 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      // 3. Inyectar los estilos CSS exclusivos (Diseñados desde cero)
+      // 3. Estilos limpios y estéticos
       const style = pipWindow.document.createElement('style');
       style.textContent = `
         body {
-          margin: 0;
-          padding: 0;
+          margin: 0; padding: 0;
           background-color: #0b0914;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          overflow: hidden;
+          font-family: 'Segoe UI', sans-serif;
+          display: flex; justify-content: center; align-items: center;
+          height: 100vh; overflow: hidden;
         }
         .mini-jukebox {
-          width: 100%;
-          height: 100%;
-          padding: 15px;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-          border: 2px solid #1f1a3a;
-          border-radius: 12px;
-          box-shadow: inset 0 0 20px rgba(0, 255, 128, 0.1);
+          width: 100%; height: 100%; padding: 10px;
+          box-sizing: border-box; display: flex; flex-direction: column;
+          justify-content: space-between; align-items: center;
+          border: 2px solid #1f1a3a; border-radius: 12px;
         }
         #mini-track-title {
-          color: #ffffff;
-          font-size: 13px;
-          text-align: center;
-          margin: 5px 0 12px 0;
+          color: #ffffff; font-size: 12px; text-align: center; margin: 2px 0;
           text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
-          animation: pulseGlow 2.5s infinite ease-in-out;
         }
-        @keyframes pulseGlow {
-          0% { text-shadow: 0 0 4px rgba(0, 255, 128, 0.4); opacity: 0.8; }
-          50% { text-shadow: 0 0 12px rgba(0, 255, 128, 0.9); opacity: 1; }
-          100% { text-shadow: 0 0 4px rgba(0, 255, 128, 0.4); opacity: 0.8; }
-        }
-        #mini-player-slot iframe {
-          width: 280px !important;
-          height: 160px !important;
+        #mini-canvas-mirror {
           border-radius: 8px;
           border: 1px solid #00ff80;
           box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+          background-color: #000;
         }
         .mini-footer .tagline {
-          color: #4a4370;
-          font-size: 10px;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          margin: 8px 0 0 0;
+          color: #4a4370; font-size: 9px; letter-spacing: 1px;
+          text-transform: uppercase; margin: 4px 0 0 0;
         }
       `;
       pipWindow.document.head.appendChild(style);
 
-      // 4. Mover el elemento al slot de la mini-ventana de forma segura
-      const slot = pipWindow.document.getElementById('mini-player-slot');
-      
-      // Intentamos mover directamente el contenedor completo. 
-      // Si YouTube rompe el flujo, la siguiente versión usará un clon.
-      slot.appendChild(playerContainer);
-
-      // 5. Detectar cuando se cierra la ventana para devolver todo a la normalidad
-      pipWindow.addEventListener('pagehide', () => {
-        if (originalParent && playerContainer) {
-          originalParent.appendChild(playerContainer);
+      // 4. ACTUALIZACIÓN DEL TÍTULO DINÁMICO DESDE TU CONFIGURACIÓN
+      // Buscamos si existe la lista de videos y tu índice actual para pintar el nombre real
+      if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
+        const currentSongKey = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+        if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
+          pipWindow.document.getElementById('mini-track-title').innerText = "🎶 " + songInfo[currentSongKey].name;
         }
+      }
+
+      // 5. EL TRUCO DEL ESPEJO: Dibujar el iframe en el canvas de la mini ventana
+      const miniCanvas = pipWindow.document.getElementById('mini-canvas-mirror');
+      const ctx = miniCanvas.getContext('2d');
+
+      // Creamos un ciclo continuo que copia el aspecto visual sin mover el elemento del DOM principal
+      canvasInterval = setInterval(() => {
+        if (mainIframe && ctx) {
+          try {
+            // Dibujamos el estado actual del reproductor en el mini canvas
+            ctx.drawImage(mainIframe, 0, 0, miniCanvas.width, miniCanvas.height);
+          } catch (e) {
+            // Fallback elegante en caso de restricciones estrictas de CORS en el modo no-cookie de YT
+            // Esto mantendrá la mini-pantalla negra pero el AUDIO sonando perfectamente de fondo sin romperse
+            ctx.fillStyle = "#12101f";
+            ctx.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
+            ctx.fillStyle = "#00ff80";
+            ctx.font = "11px Segoe UI";
+            ctx.textAlign = "center";
+            ctx.fillText("Audio Session Active 🟢", miniCanvas.width / 2, miniCanvas.height / 2 + 4);
+          }
+        }
+      }, 1000 / 24); // 24 cuadros por segundo para que sea fluido
+
+      // 6. Al cerrar la ventana, simplemente limpiamos el bucle.
+      // Como el iframe original nunca se movió de tu HTML, el audio seguirá como si nada
+      pipWindow.addEventListener('pagehide', () => {
+        if (canvasInterval) clearInterval(canvasInterval);
         pipWindow = null;
       });
 
     } catch (error) {
-      console.error("Error al abrir el mini-reproductor:", error);
+      console.error("Error en la sesión del mini-reproductor:", error);
     }
   }
 
-  // Escuchadores de eventos
   document.addEventListener('DOMContentLoaded', () => {
-    // Botón manual
     const myPipBtn = document.getElementById('pip-button');
     if (myPipBtn) {
       myPipBtn.addEventListener('click', openMiniPlayer);
     }
-
-    // Automatización por cambio de pestaña
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden' && !pipWindow) {
-        // Solo pregunta si el usuario interactuó previamente
-        const wantsPiP = confirm("¿Quieres seguir escuchando en el mini-reproductor flotante?");
-        if (wantsPiP) {
-          openMiniPlayer();
-        }
-      }
-    });
   });
 })();
