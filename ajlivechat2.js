@@ -761,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ========================================================
-// MINI-WIDGET DE AUDIO CON ANIMACIÓN DE ROCOLA EXCLUSIVA
+// MINI-WIDGET CON ESTÉTICA "LIKED SONGS" (ORBITRON + NEÓN)
 // ========================================================
 (function() {
   if (!('documentPictureInPicture' in window)) return;
@@ -773,93 +773,121 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       if (window.documentPictureInPicture.window) return;
 
-      // 1. Abrir la ventana flotante
+      // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 340,
         height: 180,
       });
 
-      // 2. Inyectar la interfaz optimizada con tu imagen animada local
-      // REEMPLAZA 'mi-rockola-animada.webp' POR LA RUTA REAL DE TU ARCHIVO
+      // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
+      const fontLink = pipWindow.document.createElement('link');
+      fontLink.rel = 'stylesheet';
+      fontLink.href = 'https://googleapis.com';
+      pipWindow.document.head.appendChild(fontLink);
+
+      // 3. Inyectar la interfaz optimizada con tu imagen animada local
+      // REEMPLAZA 'mi-rockola-animada.webp' POR TU RUTA REAL
       pipWindow.document.body.innerHTML = `
         <div class="mini-widget">
           <div class="widget-content">
-            <!-- Animación exclusiva de la rocola (idéntica para todas las canciones) -->
+            <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="disco.webp" alt="Jukebox">
+              <img id="mini-jukebox-animation" src="mi-rockola-animada.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
-              <p id="mini-track-title">🎶 Leyendo pista...</p>
-              <p id="mini-track-artist" class="artist-name">The Amazing Jukebox</p>
+              <p id="mini-track-title">🎶 LOADING...</p>
+              <p id="mini-track-artist" class="artist-name">THE AMAZING JUKEBOX</p>
             </div>
           </div>
           
-          <!-- CONTROLES INTERACTIVOS -->
+          <!-- CONTROLES INTERACTIVOS CON ESTILO CIAN -->
           <div class="widget-controls">
             <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
             <button id="mini-btn-next" class="w-btn">⏭</button>
           </div>
 
           <div class="mini-footer">
-            <p class="tagline">The Amazing Jukebox ©</p>
+            <p class="tagline">THE AMAZING JUKEBOX ©</p>
           </div>
         </div>
       `;
 
-      // 3. Estilos de neón limpios con el branding de tu sitio
+      // 4. Inyectar los estilos clonados EXACTAMENTE de tu #liked-songs-popup
       const style = pipWindow.document.createElement('style');
       style.textContent = `
         body {
-          margin: 0; padding: 0; background-color: #0b0914;
-          font-family: 'Segoe UI', sans-serif; display: flex;
-          justify-content: center; align-items: center; height: 100vh; overflow: hidden;
+          margin: 0; padding: 0; 
+          background-color: #0b0d14; /* Tono oscuro a juego con tu paleta */
+          font-family: 'Orbitron', monospace; 
+          display: flex; justify-content: center; align-items: center; 
+          height: 100vh; overflow: hidden;
         }
         .mini-widget {
           width: 100%; height: 100%; padding: 14px; box-sizing: border-box;
           display: flex; flex-direction: column; justify-content: space-between;
-          align-items: center; border: 2px solid #1f1a3a; border-radius: 12px;
-          box-shadow: inset 0 0 15px rgba(0, 255, 128, 0.05);
+          align-items: center; 
+          
+          /* Estilos exactos de tu pop-up */
+          background-color: rgba(18, 22, 30, 0.85); 
+          border: 2px solid #d83ca4; /* Rosa Neón */
+          border-radius: 24px; /* Bordes redondeados idénticos */
+          box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
-          width: 65px; height: 65px; border-radius: 8px;
-          border: 1px solid #00ff80; box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
-          object-fit: cover; background-color: #12101f;
+          width: 65px; height: 65px; border-radius: 12px;
+          border: 1px solid #87ffff; /* Borde Cian Orbitron */
+          box-shadow: 0 0 12px rgba(73, 255, 246, 0.2);
+          object-fit: cover; background-color: #12161e;
         }
         .track-info {
           display: flex; flex-direction: column; flex: 1; overflow: hidden;
         }
         #mini-track-title {
-          color: #ffffff; font-size: 13px; font-weight: bold; margin: 0 0 4px 0;
+          color: #87ffff; /* Color de tu texto principal */
+          font-size: 13px; font-weight: bold; margin: 0 0 4px 0;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-          text-shadow: 0 0 6px rgba(0, 255, 128, 0.5);
+          text-shadow: 0 0 8px rgba(73, 255, 246, 0.4);
+          text-transform: uppercase; /* Vibe arcade retro */
         }
         .artist-name {
-          color: #8b83ba; font-size: 11px; margin: 0;
+          color: #dffcff; /* Color secundario de tu pop-up */
+          font-size: 10px; margin: 0;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+          text-shadow: 0 0 6px rgba(73, 255, 246, 0.18);
+          text-transform: uppercase;
         }
         .widget-controls {
-          display: flex; justify-content: center; align-items: center; gap: 30px;
-          width: 100%; margin-top: 5px;
+          display: flex; justify-content: center; align-items: center; gap: 35px;
+          width: 100%; margin-top: 2px;
         }
         .w-btn {
-          background: none; border: none; color: #8b83ba; font-size: 18px;
-          cursor: pointer; transition: all 0.2s;
+          background: none; border: none; 
+          color: #dffcff; /* Texto claro */
+          font-size: 18px; cursor: pointer; transition: all 0.2s;
         }
-        .w-btn:hover { color: #00ff80; text-shadow: 0 0 8px #00ff80; }
-        .btn-main { font-size: 24px; color: #00ff80; width: 30px; }
-        .mini-footer { width: 100%; text-align: center; margin-top: 5px; }
+        .w-btn:hover { 
+          color: #87ffff; 
+          text-shadow: 0 0 12px #87ffff; 
+        }
+        .btn-main { 
+          font-size: 24px; 
+          color: #87ffff; /* Destaca el Play/Pause en cian */
+          width: 30px; 
+        }
+        .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
-          color: #4a4370; font-size: 9px; letter-spacing: 1px;
-          text-transform: uppercase; margin: 0;
+          color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
+          font-size: 8px; letter-spacing: 1.5px;
+          margin: 0;
         }
       `;
       pipWindow.document.head.appendChild(style);
 
-      // 4. FUNCIÓN PARA SINCRONIZAR SÓLO TEXTOS Y ESTADO DE PLAY
+      // 5. FUNCIÓN PARA SINCRONIZAR TEXTOS Y ESTADO DE PLAY
       function syncWidgetData() {
         const activePlayer = window.ytPlayer || ytPlayer;
         
@@ -873,8 +901,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const titleEl = pipWindow.document.getElementById('mini-track-title');
             const artistEl = pipWindow.document.getElementById('mini-track-artist');
             
-            if (titleEl && titleEl.innerText !== track.name) titleEl.innerText = track.name;
-            if (artistEl && artistEl.innerText !== track.artist) artistEl.innerText = track.artist || "Unknown Artist";
+            // Forzamos mayúsculas para encajar con el estilo Orbitron clásico
+            if (titleEl && titleEl.innerText !== track.name.toUpperCase()) {
+              titleEl.innerText = track.name.toUpperCase();
+            }
+            if (artistEl && artistEl.innerText !== track.artist.toUpperCase()) {
+              artistEl.innerText = (track.artist || "UNKNOWN ARTIST").toUpperCase();
+            }
           }
         }
 
@@ -894,7 +927,7 @@ document.addEventListener("DOMContentLoaded", () => {
       syncWidgetData();
       trackCheckInterval = setInterval(syncWidgetData, 500);
 
-      // 5. CONEXIÓN DE BOTONES INTERACTIVOS
+      // 6. CONEXIÓN DE BOTONES INTERACTIVOS
       pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
         if (typeof playNextVideo === 'function') {
           playNextVideo();
@@ -918,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // 6. Limpieza al cerrar
+      // 7. Limpieza al cerrar
       pipWindow.addEventListener('pagehide', () => {
         if (trackCheckInterval) clearInterval(trackCheckInterval);
         pipWindow = null;
