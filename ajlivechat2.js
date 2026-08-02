@@ -838,7 +838,7 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
-          width: 125px; height: 125px; border-radius: 25px;
+          width: 125px; height: 125px; border-radius: 29px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
@@ -881,7 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
-          font-size: 9px; letter-spacing: 1.5px;
+          font-size: 8px; letter-spacing: 1.5px;
           margin: 0;
         }
       `;
@@ -1004,7 +1004,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="banner-icon">🔮</span>
         <div class="banner-text">
           <p class="banner-title">MINI-PLAYER AVAILABLE</p>
-          <p class="banner-desc">Keep listening without interruptions while browsing other tabs.</p>
+          <p class="banner-desc">Keep using the reproduction controls while browsing other tabs.</p>
         </div>
         <button id="banner-btn-accept" class="b-btn b-accept">LAUNCH</button>
         <button id="banner-btn-close" class="b-btn b-close">✕</button>
