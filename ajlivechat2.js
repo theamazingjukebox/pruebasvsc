@@ -862,7 +862,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 25px;
-          width: 100%; margin-top: 2px;
+          width: 100%; margin-top: 0px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -870,7 +870,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: rgba(24, 28, 41, 0.6); /* Burbuja oscura translúcida */
           border: 1px solid #1f1a3a;
           color: #dffcff; 
-          font-size: 14px; 
+          font-size: 19px; 
           cursor: pointer; 
           width: 38px; height: 38px; /* Forma de círculo perfecto */
           border-radius: 50%; /* Redondeado total tipo burbuja */
@@ -885,7 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
           border-color: #87ffff;
           background-color: rgba(135, 255, 255, 0.08);
           box-shadow: 0 0 12px rgba(73, 255, 246, 0.3);
-          transform: translateY(-2px); /* Pequeño brinco sutil hacia arriba */
+          
         }
         
         /* BURBUJA PRINCIPAL (PLAY / PAUSE) MÁS DESTATCADA */
@@ -893,7 +893,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: rgba(24, 28, 41, 0.6); /* Burbuja oscura translúcida */
           border: 1px solid #1f1a3a;
           color: #dffcff; 
-          font-size: 14px; 
+          font-size: 19px; 
           cursor: pointer; 
           width: 38px; height: 38px; /* Forma de círculo perfecto */
           border-radius: 50%; /* Redondeado total tipo burbuja */
