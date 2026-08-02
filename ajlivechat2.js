@@ -853,22 +853,31 @@ async function openMiniPlayer() {
     pipWindow.document.head.appendChild(style);
 
     // 4. Mover tu reproductor de YouTube al contenedor diseñado de la mini-ventana
-    const slot = pipWindow.document.getElementById('mini-player-slot');
-    slot.appendChild(playerContainer);
+const slot = pipWindow.document.getElementById('mini-player-slot');
 
+// Truco: Buscamos si hay un iframe de YouTube adentro de tu contenedor
+const youtubeIframe = playerContainer.querySelector('iframe') || playerContainer;
+
+if (youtubeIframe) {
+  slot.appendChild(youtubeIframe);
+} else {
+  slot.appendChild(playerContainer);
+}
+
+// Reemplaza 'nombreDeTuVariable' por la variable real que guarda el título en tu web
+if (typeof nombreDeTuVariable !== 'undefined') {
+  pipWindow.document.getElementById('mini-track-title').innerText = "🎶 " + currentVideoIndex;
+}
     // 5. Actualizar el título actual si tienes la variable disponible
     // (Ejemplo: pipWindow.document.getElementById('mini-track-title').innerText = miCancionActual;)
 
     // 6. Detectar cuando el usuario cierra la mini-ventana para devolver el reproductor a la web original
-    pipWindow.addEventListener('pagehide', () => {
-      originalParent.appendChild(playerContainer);
-      pipWindow = null;
-    });
-
-  } catch (error) {
-    console.error("Error al abrir el mini-reproductor:", error);
-  }
-}
+pipWindow.addEventListener('pagehide', () => {
+  const youtubeIframe = slot.querySelector('iframe') || playerContainer;
+  // Regresamos el reproductor a su contenedor original en tu web (youtube-player)
+  playerContainer.appendChild(youtubeIframe); 
+  pipWindow = null;
+});
 
 // ==========================================
 // DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA
