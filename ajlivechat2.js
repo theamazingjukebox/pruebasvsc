@@ -763,14 +763,13 @@ document.addEventListener("DOMContentLoaded", () => {
 // Variables para controlar el estado del reproductor
 const playerContainer = document.getElementById('youtube-player'); // Tu div de YouTube
 const originalParent = document.getElementById('video-container'); // El padre original en tu web
-
 let pipWindow = null;
 
 // Función principal para abrir la mini-rocola con diseño propio
 async function openMiniPlayer() {
   try {
     // Si ya está abierta, no hacer nada
-    if (window.documentPictureInPicture.window) return;
+    if (window.documentPictureInPicture && window.documentPictureInPicture.window) return;
 
     // 1. Abrir la ventana flotante
     pipWindow = await window.documentPictureInPicture.requestWindow({
@@ -853,40 +852,36 @@ async function openMiniPlayer() {
     pipWindow.document.head.appendChild(style);
 
     // 4. Mover tu reproductor de YouTube al contenedor diseñado de la mini-ventana
-const slot = pipWindow.document.getElementById('mini-player-slot');
-
-// Truco: Buscamos si hay un iframe de YouTube adentro de tu contenedor
-const youtubeIframe = playerContainer.querySelector('iframe') || playerContainer;
-
-if (youtubeIframe) {
-  slot.appendChild(youtubeIframe);
-} else {
-  slot.appendChild(playerContainer);
-}
-
-
-    // 5. Actualizar el título actual si tienes la variable disponible
-    // (Ejemplo: pipWindow.document.getElementById('mini-track-title').innerText = miCancionActual;)
+    const slot = pipWindow.document.getElementById('mini-player-slot');
+    
+    // Buscamos si hay un iframe de YouTube adentro de tu contenedor o usamos el contenedor directo
+    const youtubeIframe = playerContainer.querySelector('iframe') || playerContainer;
+    if (youtubeIframe) {
+      slot.appendChild(youtubeIframe);
+    }
 
     // 6. Detectar cuando el usuario cierra la mini-ventana para devolver el reproductor a la web original
-pipWindow.addEventListener('pagehide', () => {
-  const youtubeIframe = slot.querySelector('iframe') || playerContainer;
-  // Regresamos el reproductor a su contenedor original en tu web (youtube-player)
-  playerContainer.appendChild(youtubeIframe); 
-  pipWindow = null;
-});
+    pipWindow.addEventListener('pagehide', () => {
+      const activeIframe = slot.querySelector('iframe') || youtubeIframe;
+      if (activeIframe) {
+        playerContainer.appendChild(activeIframe); 
+      }
+      pipWindow = null;
+    });
+
+  } catch (error) {
+    console.error("Error al abrir el mini-reproductor:", error);
+  }
+}
 
 // ==========================================
-// DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA
+// DETECTOR AUTOMÁTICO DE CAMBIO DE PESTAÑA Y BOTÓN
 // ==========================================
 if ('documentPictureInPicture' in window) {
   
   document.addEventListener('visibilitychange', () => {
     // Si la pestaña se vuelve oculta (el usuario cambió de pestaña o minimizó)
     if (document.visibilityState === 'hidden') {
-      
-      // Verificamos que la música esté sonando actualmente (ajusta según tus variables de estado)
-      // e.g., if (isPlaying && !pipWindow) { ... }
       if (!pipWindow) {
         // Lanzamos la pregunta sutil en el navegador del usuario
         const wantsPiP = confirm("¿Quieres seguir escuchando en el mini-reproductor flotante?");
@@ -897,6 +892,9 @@ if ('documentPictureInPicture' in window) {
     }
   });
 
-  // También dejamos listo tu botón físico por si quieren abrirlo manualmente
-  document.getElementById('pip-button').addEventListener('click', openMiniPlayer);
+  // Listener para el botón físico manual
+  const myPipBtn = document.getElementById('pip-button');
+  if (myPipBtn) {
+    myPipBtn.addEventListener('click', openMiniPlayer);
+  }
 }
