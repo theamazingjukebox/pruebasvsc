@@ -761,33 +761,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ========================================================
-// MINI-WIDGET DE AUDIO INTERACTIVO (VERSIÓN WEBP + NO-FLICKER)
+// MINI-WIDGET DE AUDIO CON ANIMACIÓN DE ROCOLA EXCLUSIVA
 // ========================================================
 (function() {
   if (!('documentPictureInPicture' in window)) return;
 
   let pipWindow = null;
   let trackCheckInterval = null;
-  let lastLoadedVideoId = ""; // Guarda el último ID para evitar el parpadeo de la portada
 
   async function openMiniPlayer() {
     try {
       if (window.documentPictureInPicture.window) return;
 
-      // 1. Abrir la ventana flotante en un formato de Widget de audio compacto
+      // 1. Abrir la ventana flotante
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 340,
         height: 180,
       });
 
-      // 2. Inyectar la interfaz optimizada
+      // 2. Inyectar la interfaz optimizada con tu imagen animada local
+      // REEMPLAZA 'mi-rockola-animada.webp' POR LA RUTA REAL DE TU ARCHIVO
       pipWindow.document.body.innerHTML = `
         <div class="mini-widget">
           <div class="widget-content">
-            <!-- Portada de la canción desde los servidores WebP de YouTube -->
+            <!-- Animación exclusiva de la rocola (idéntica para todas las canciones) -->
             <div class="album-art-container">
-              <img id="mini-album-art" src="" alt="Cover" style="display:none;">
-              <div id="mini-album-fallback" class="art-fallback">🎶</div>
+              <img id="mini-jukebox-animation" src="disco.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
@@ -825,17 +824,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
-        .album-art-container {
-          width: 65px; height: 65px; position: relative;
-        }
-        .album-art-container img, .art-fallback {
+        .album-art-container img {
           width: 65px; height: 65px; border-radius: 8px;
           border: 1px solid #00ff80; box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
-          object-fit: cover; position: absolute; top:0; left:0;
-        }
-        .art-fallback {
-          background-color: #12101f; display: flex; justify-content: center;
-          align-items: center; color: #00ff80; font-size: 20px;
+          object-fit: cover; background-color: #12101f;
         }
         .track-info {
           display: flex; flex-direction: column; flex: 1; overflow: hidden;
@@ -867,69 +859,40 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       pipWindow.document.head.appendChild(style);
 
-      // Resetear la memoria de la última canción cargada al abrir
-      lastLoadedVideoId = "";
-
-      // 4. FUNCIÓN PARA SINCRONIZAR DATOS EN TIEMPO REAL
+      // 4. FUNCIÓN PARA SINCRONIZAR SÓLO TEXTOS Y ESTADO DE PLAY
       function syncWidgetData() {
         const activePlayer = window.ytPlayer || ytPlayer;
         
         if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
           const currentSongObj = videos[currentVideoIndex];
           const currentSongKey = currentSongObj.key || currentSongObj.src;
-          const ytId = currentSongKey.replace("yt:", "").trim();
           
           if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
             const track = songInfo[currentSongKey];
             
             const titleEl = pipWindow.document.getElementById('mini-track-title');
             const artistEl = pipWindow.document.getElementById('mini-track-artist');
-            const artEl = pipWindow.document.getElementById('mini-album-art');
-            const fallbackEl = pipWindow.document.getElementById('mini-album-fallback');
             
             if (titleEl && titleEl.innerText !== track.name) titleEl.innerText = track.name;
             if (artistEl && artistEl.innerText !== track.artist) artistEl.innerText = track.artist || "Unknown Artist";
-            
-            // 🔥 CONTROL DE PARPADEO: Solo cambia la imagen si el ID del video cambió
-            if (artEl && ytId !== lastLoadedVideoId) {
-              lastLoadedVideoId = ytId;
-              
-              // Intentamos cargar la miniatura WebP oficial de YouTube
-              artEl.src = `https://ytimg.com{ytId}/mqdefault.webp`;
-              
-              artEl.onload = () => {
-                artEl.style.display = "block";
-                if (fallbackEl) fallbackEl.style.display = "none";
-              };
-              
-              artEl.onerror = () => {
-                // Fallback secundario por si el WebP falla en algún video antiguo
-                artEl.src = `https://youtube.com{ytId}/mqdefault.jpg`;
-                artEl.onerror = () => {
-                  artEl.style.display = "none";
-                  if (fallbackEl) fallbackEl.style.display = "flex";
-                };
-              };
-            }
           }
         }
 
-        // Sincronizar el estado visual del botón Play/Pause constantemente
+        // Sincronizar el estado visual del botón Play/Pause
         const playBtn = pipWindow.document.getElementById('mini-btn-play');
         if (playBtn && activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
-          // 1 = PLAYING, 3 = BUFFERING
           if (state === 1 || state === 3) {
-            playBtn.innerHTML = "&#9208;"; // Icono de Pausa ⏸
+            playBtn.innerHTML = "&#9208;"; // ⏸
           } else {
-            playBtn.innerHTML = "&#9654;"; // Icono de Play ▶
+            playBtn.innerHTML = "&#9654;"; // ▶
           }
         }
       }
 
-      // Ejecutamos la sincronización inicial y el loop de escaneo
+      // Ejecutamos la sincronización inicial y el bucle cada medio segundo
       syncWidgetData();
-      trackCheckInterval = setInterval(syncWidgetData, 500); // Escaneo más rápido (cada 0.5s) para reflejar cambios
+      trackCheckInterval = setInterval(syncWidgetData, 500);
 
       // 5. CONEXIÓN DE BOTONES INTERACTIVOS
       pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
@@ -945,13 +908,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
-          
           if (state === 1) {
             activePlayer.pauseVideo();
-            if (playBtn) playBtn.innerHTML = "&#9654;"; // Cambio visual inmediato a Play ▶
+            if (playBtn) playBtn.innerHTML = "&#9654;";
           } else {
             activePlayer.playVideo();
-            if (playBtn) playBtn.innerHTML = "&#9208;"; // Cambio visual inmediato a Pausa ⏸
+            if (playBtn) playBtn.innerHTML = "&#9208;";
           }
         }
       });
