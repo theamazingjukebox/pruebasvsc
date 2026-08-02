@@ -761,7 +761,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ========================================================
-// MINI-WIDGET DE AUDIO INTERACTIVO (SIN BLOQUEOS DE CORTES)
+// MINI-WIDGET DE AUDIO INTERACTIVO (VERSIÓN CORREGIDA)
 // ========================================================
 (function() {
   if (!('documentPictureInPicture' in window)) return;
@@ -773,19 +773,19 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       if (window.documentPictureInPicture.window) return;
 
-      // 1. Abrir la ventana flotante en un formato de Widget de audio (más ancho que alto)
+      // 1. Abrir la ventana flotante en un formato de Widget de audio compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 340,
         height: 180,
       });
 
-      // 2. Inyectar la interfaz de la mini-rockola con controles
+      // 2. Inyectar la interfaz optimizada (Sin botón previo y con créditos de la página)
       pipWindow.document.body.innerHTML = `
         <div class="mini-widget">
           <div class="widget-content">
-            <!-- Portada de la canción (Clonamos el póster actual o usamos un fallback retro) -->
+            <!-- Portada de la canción desde YouTube -->
             <div class="album-art-container">
-              <img id="mini-album-art" src="" alt="Cover" onerror="this.src='down17.png'">
+              <img id="mini-album-art" src="" alt="Cover">
             </div>
             
             <div class="track-info">
@@ -794,16 +794,19 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
           
-          <!-- CONTROLES INTERACTIVOS REALES -->
+          <!-- CONTROLES INTERACTIVOS OPTIMIZADOS -->
           <div class="widget-controls">
-            <button id="mini-btn-prev" class="w-btn">⏮</button>
             <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
             <button id="mini-btn-next" class="w-btn">⏭</button>
+          </div>
+
+          <div class="mini-footer">
+            <p class="tagline">The Amazing Jukebox ©</p>
           </div>
         </div>
       `;
 
-      // 3. Estilos de neón y glow hiper-limpios diseñados desde cero
+      // 3. Estilos de neón limpios con el branding de tu sitio
       const style = pipWindow.document.createElement('style');
       style.textContent = `
         body {
@@ -812,13 +815,13 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center; align-items: center; height: 100vh; overflow: hidden;
         }
         .mini-widget {
-          width: 100%; height: 100%; padding: 12px; box-sizing: border-box;
+          width: 100%; height: 100%; padding: 14px; box-sizing: border-box;
           display: flex; flex-direction: column; justify-content: space-between;
-          border: 2px solid #1f1a3a; border-radius: 12px;
+          align-items: center; border: 2px solid #1f1a3a; border-radius: 12px;
           box-shadow: inset 0 0 15px rgba(0, 255, 128, 0.05);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 12px;
+          display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
           width: 65px; height: 65px; border-radius: 8px;
@@ -838,27 +841,32 @@ document.addEventListener("DOMContentLoaded", () => {
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .widget-controls {
-          display: flex; justify-content: center; align-items: center; gap: 20px;
+          display: flex; justify-content: center; align-items: center; gap: 30px;
           width: 100%; margin-top: 5px;
         }
         .w-btn {
-          background: none; border: none; color: #8b83ba; font-size: 16px;
+          background: none; border: none; color: #8b83ba; font-size: 18px;
           cursor: pointer; transition: all 0.2s;
         }
         .w-btn:hover { color: #00ff80; text-shadow: 0 0 8px #00ff80; }
-        .btn-main { font-size: 22px; color: #00ff80; }
+        .btn-main { font-size: 24px; color: #00ff80; }
+        .mini-footer { width: 100%; text-align: center; margin-top: 5px; }
+        .mini-footer .tagline {
+          color: #4a4370; font-size: 9px; letter-spacing: 1px;
+          text-transform: uppercase; margin: 0;
+        }
       `;
       pipWindow.document.head.appendChild(style);
 
       // 4. FUNCIÓN PARA SINCRONIZAR DATOS EN TIEMPO REAL
       function syncWidgetData() {
         if (typeof videos !== 'undefined' && typeof currentVideoIndex !== 'undefined' && currentVideoIndex >= 0) {
-          const currentSongKey = videos[currentVideoIndex].key || videos[currentVideoIndex].src;
+          const currentSongObj = videos[currentVideoIndex];
+          const currentSongKey = currentSongObj.key || currentSongObj.src;
           
           if (typeof songInfo !== 'undefined' && songInfo[currentSongKey]) {
             const track = songInfo[currentSongKey];
             
-            // Actualizamos título y artista en el widget
             const titleEl = pipWindow.document.getElementById('mini-track-title');
             const artistEl = pipWindow.document.getElementById('mini-track-artist');
             const artEl = pipWindow.document.getElementById('mini-album-art');
@@ -866,48 +874,46 @@ document.addEventListener("DOMContentLoaded", () => {
             if (titleEl) titleEl.innerText = track.name;
             if (artistEl) artistEl.innerText = track.artist || "Unknown Artist";
             
-            // Si tienes guardadas las URLs de las portadas en tu objeto songInfo, las pintamos aquí:
-            if (track.cover && artEl) {
-              artEl.src = track.cover;
-            } else if (artEl) {
-              // Si no hay portada manual, extraemos automáticamente la miniatura oficial de YouTube usando el ID
+            if (artEl) {
+              // Limpiamos el prefijo 'yt:' de tu base de datos para obtener el ID puro de YouTube
               const ytId = currentSongKey.replace("yt:", "");
+              // Cargamos la imagen hqdefault directamente
               artEl.src = `https://youtube.com{ytId}/hqdefault.jpg`;
             }
           }
         }
 
-        // Sincronizar el estado del botón Play/Pause (si está pausado o reproduciendo)
+        // Sincronizar el estado del botón Play/Pause usando tu variable 'ytPlayer'
         const playBtn = pipWindow.document.getElementById('mini-btn-play');
         if (playBtn && window.ytPlayer && typeof window.ytPlayer.getPlayerState === 'function') {
           const state = window.ytPlayer.getPlayerState();
-          playBtn.innerText = (state === 1) ? "⏸" : "▶"; // 1 significa PLAYING
+          playBtn.innerText = (state === 1) ? "⏸" : "▶"; 
         }
       }
 
-      // Ejecutamos la sincronización inicial
+      // Ejecutamos la sincronización inicial y el loop de escaneo
       syncWidgetData();
-
-      // Creamos un loop que revise cada segundo si la canción cambió en tu web principal
       trackCheckInterval = setInterval(syncWidgetData, 1000);
 
-      // 5. CONEXIÓN DE LOS BOTONES DEL WIDGET CON TU API DE YOUTUBE
+      // 5. CONEXIÓN DE BOTONES CON TU API 'ytPlayer' Y 'playNextVideo'
       pipWindow.document.getElementById('mini-btn-next').addEventListener('click', () => {
         if (typeof playNextVideo === 'function') {
           playNextVideo();
-          setTimeout(syncWidgetData, 300); // Forzar actualización visual rápida
+          setTimeout(syncWidgetData, 300);
         }
       });
 
       pipWindow.document.getElementById('mini-btn-play').addEventListener('click', () => {
-        if (window.ytPlayer && typeof window.ytPlayer.getPlayerState === 'function') {
-          const state = window.ytPlayer.getPlayerState();
+        // Apuntamos directamente a tu variable local o global 'ytPlayer'
+        const activePlayer = window.ytPlayer || ytPlayer;
+        if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
+          const state = activePlayer.getPlayerState();
           if (state === 1) {
-            window.ytPlayer.pauseVideo();
+            activePlayer.pauseVideo();
           } else {
-            window.ytPlayer.playVideo();
+            activePlayer.playVideo();
           }
-          syncWidgetData();
+          setTimeout(syncWidgetData, 100);
         }
       });
 
