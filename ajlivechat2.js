@@ -838,9 +838,9 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 14px; margin-top: 5px;
         }
         .album-art-container img {
-          width: 125px; height: 125px; border-radius: 29px;
+          width: 125px; height: 125px; border-radius: 49px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
-          box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
+          box-shadow: 0 0 1px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
