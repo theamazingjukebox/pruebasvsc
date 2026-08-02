@@ -904,11 +904,10 @@ document.addEventListener("DOMContentLoaded", () => {
         
         /* Hover exclusivo para la burbuja de Play/Pause */
         .btn-main:hover {
-          color: #87ffff; 
-          border-color: #87ffff;
-          background-color: rgba(135, 255, 255, 0.08);
-          box-shadow: 0 0 12px rgba(73, 255, 246, 0.3);
-          transform: translateY(-2px); /* Pequeño brinco sutil hacia arriba */
+          color: #ffffff;
+          border-color: #ff52c5;
+          background-color: rgba(216, 60, 164, 0.15);
+          box-shadow: 0 0 15px rgba(216, 60, 164, 0.5);
         }
         .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
