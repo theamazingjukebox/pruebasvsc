@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -45px; margin-left: 10px;
+          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 35px; margin-left: 0px;
         }
         .album-art-container img {
           width: 125px; height: 125px; border-radius: 39px;
