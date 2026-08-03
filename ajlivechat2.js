@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 0px; margin-left: -10px;
+          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -10px; margin-left: -10px;
         }
         .album-art-container img {
           width: 135px; height: 135px; border-radius: 39px;
@@ -845,7 +845,7 @@ document.addEventListener("DOMContentLoaded", () => {
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 70px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 65px; margin-top: 20px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -890,8 +890,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                  /* Ajuste en el contenedor de la rocola animada */
         .album-art-container {
-          width: 65px; 
-          height: 65px; 
+          width: 75px; 
+          height: 75px; 
           position: relative; 
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
