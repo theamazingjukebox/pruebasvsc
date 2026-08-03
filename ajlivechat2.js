@@ -839,13 +839,13 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -10px; margin-left: -10px;
         }
         .album-art-container img {
-          width: 135px; height: 135px; border-radius: 39px;
+          width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 65px; margin-top: 20px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 55px; margin-top: 40px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -35px; margin-left: 120px;
+          width: 100%; margin-top: -55px; margin-left: 120px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
