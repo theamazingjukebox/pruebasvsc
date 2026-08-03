@@ -818,6 +818,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <span></span>
             <span></span>
             <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
 
           <div class="mini-footer">
@@ -877,7 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -25px; margin-left: 135px;
+          width: 100%; margin-top: -10px; margin-left: 125px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -944,7 +948,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 6px 6px 0 20px;
+          margin: 6px 15px 0 35px;
           width: 100%;
         }
 
@@ -953,8 +957,8 @@ document.addEventListener("DOMContentLoaded", () => {
           display: block;
           width: 3px;
           height: 3px; /* Altura en estado quieto (mínima) */
-          background-color: #87ffff; /* Tu Cian Orbitron */
-          box-shadow: 0 0 6px #00ffff;
+          background-color: #ff87e5;
+          box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
           transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -973,6 +977,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-audio-spectrum.animation-active span:nth-child(6) { animation-delay: 0.5s; animation-duration: 0.7s; }
         .mini-audio-spectrum.animation-active span:nth-child(7) { animation-delay: 0.1s; animation-duration: 1.2s; }
         .mini-audio-spectrum.animation-active span:nth-child(8) { animation-delay: 0.7s; animation-duration: 0.9s; }
+        .mini-audio-spectrum.animation-active span:nth-child(2) { animation-delay: 0.4s; animation-duration: 1.1s; }
+        .mini-audio-spectrum.animation-active span:nth-child(4) { animation-delay: 0.6s; animation-duration: 1.3s; }
+        .mini-audio-spectrum.animation-active span:nth-child(1) { animation-delay: 0.1s; animation-duration: 0.8s; }
+        .mini-audio-spectrum.animation-active span:nth-child(6) { animation-delay: 0.5s; animation-duration: 0.7s; }
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
