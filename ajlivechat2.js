@@ -900,7 +900,7 @@ document.addEventListener("DOMContentLoaded", () => {
           color: #87ffff; /* Destaca el Play/Pause en cian */
           width: 30px; 
         }
-        .mini-footer { width: 100%; text-align: center; margin-top: -12px; }
+        .mini-footer { width: 100%; text-align: center; margin-top: -22px; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
@@ -912,6 +912,7 @@ document.addEventListener("DOMContentLoaded", () => {
           width: 75px; 
           height: 75px; 
           position: relative; 
+          z-index: 2;
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
           
@@ -955,7 +956,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       opacity 0.8s ease, 
                       height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
-          z-index: 2;
+          z-index: 1;
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
