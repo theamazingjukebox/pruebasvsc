@@ -948,11 +948,11 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 16px 15px 0 25px;
+          margin: 21px 19px 0 25px;
           width: 100%;
-          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                      opacity 0.8s ease, 
-                      height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 0.16s ease, 
+                      height 0.16s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
         }
 
