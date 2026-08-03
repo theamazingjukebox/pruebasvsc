@@ -877,7 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -45px; margin-left: 135px;
+          width: 100%; margin-top: -25px; margin-left: 135px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -944,7 +944,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 6px 0;
+          margin: 6px 6px 0 20px;
           width: 100%;
         }
 
