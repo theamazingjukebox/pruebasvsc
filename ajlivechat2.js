@@ -956,7 +956,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #87ffff; /* Tu Cian Orbitron */
           box-shadow: 0 0 6px #00ffff;
           border-radius: 1px;
-          transition: height 0.2s ease;
+          transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* REGLA MAESTRA: Solo se mueven si el contenedor tiene la clase .animation-active */
