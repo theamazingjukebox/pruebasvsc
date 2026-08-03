@@ -979,8 +979,10 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #ff87e5;
           box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
+          margin-top: 15px;
           animation: bounceSpectrum 1.2s ease infinite alternate;
           animation-play-state: paused; /* Inicia pausada por defecto */
+          z-index: 1;
         }
 
         /* CUANDO LA MÚSICA ESTÁ SONANDO (PLAY) */
@@ -1017,7 +1019,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
           0% { height: 3px; }
-          100% { height: 18px; } /* Sube hasta el tope del contenedor */
+          100% { height: var(--max-h, 18px); } /* Lee el valor '--max-h' de arriba */
         }
       `;
       pipWindow.document.head.appendChild(style);
