@@ -846,7 +846,7 @@ document.addEventListener("DOMContentLoaded", () => {
           width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
-          object-fit: cover; background-color: #12161e;
+          object-fit: cover; background-color: transparent;
         }
         .track-info {
           display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 40px;
