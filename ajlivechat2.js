@@ -775,8 +775,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 240,
-        height: 210,
+        width: 250,
+        height: 200,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -839,13 +839,13 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -10px; margin-left: -10px;
         }
         .album-art-container img {
-          width: 155px; height: 155px; border-radius: 39px;
+          width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 65px; margin-top: 40px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 75px; margin-top: 40px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -65px; margin-left: 120px;
+          width: 100%; margin-top: -55px; margin-left: 135px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
