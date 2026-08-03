@@ -900,12 +900,12 @@ document.addEventListener("DOMContentLoaded", () => {
           color: #87ffff; /* Destaca el Play/Pause en cian */
           width: 30px; 
         }
-        .mini-footer { width: 100%; text-align: center; margin-top: -32px; }
+        .mini-footer { width: 100%; text-align: center; margin-top: -32px; z-index: 4; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
-          margin: 10px 0 0 0;
-          z-index: 4;
+          margin: 20px 0 0 0;
+          
         }
 
                  /* Ajuste en el contenedor de la rocola animada */
@@ -951,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 10px 0 0 0px;
+          margin: 15px 0 0 0px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
