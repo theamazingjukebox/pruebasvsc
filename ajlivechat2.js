@@ -948,12 +948,12 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 6px 15px 0 35px;
+          margin: 16px 15px 0 25px;
           width: 100%;
-       transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                      opacity 0.4s ease, 
-                      height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-          transform-origin: bottom; /* La escala se encoge hacia abajo */
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 0.8s ease, 
+                      height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          transform-origin: bottom;
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
@@ -982,7 +982,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Al quitar la clase, el contenedor se encoge suavemente aplastando las barras hacia el suelo */
         .mini-audio-spectrum:not(.animation-active) {
           transform: scaleY(0.15); /* Encoge las barras verticalmente hasta el mínimo */
-          opacity: 0.7; /* Se atenúa ligeramente el brillo de neón al pausar */
+          opacity: 0.5; /* Atenuamos el neón un poco más (50%) para dar sensación de 'apagado' */
         }
 
         /* TIEMPOS ALEATORIOS PARA CADA BARRA (Para que se vea orgánico y vivo) */
@@ -994,10 +994,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-audio-spectrum.animation-active span:nth-child(6) { animation-delay: 0.5s; animation-duration: 0.7s; }
         .mini-audio-spectrum.animation-active span:nth-child(7) { animation-delay: 0.1s; animation-duration: 1.2s; }
         .mini-audio-spectrum.animation-active span:nth-child(8) { animation-delay: 0.7s; animation-duration: 0.9s; }
-        .mini-audio-spectrum.animation-active span:nth-child(2) { animation-delay: 0.4s; animation-duration: 1.1s; }
-        .mini-audio-spectrum.animation-active span:nth-child(4) { animation-delay: 0.6s; animation-duration: 1.3s; }
-        .mini-audio-spectrum.animation-active span:nth-child(1) { animation-delay: 0.1s; animation-duration: 0.8s; }
-        .mini-audio-spectrum.animation-active span:nth-child(6) { animation-delay: 0.5s; animation-duration: 0.7s; }
+        .mini-audio-spectrum.animation-active span:nth-child(9) { animation-delay: 0.4s; animation-duration: 1.1s; }
+        .mini-audio-spectrum.animation-active span:nth-child(10) { animation-delay: 0.6s; animation-duration: 1.3s; }
+        .mini-audio-spectrum.animation-active span:nth-child(11) { animation-delay: 0.1s; animation-duration: 0.8s; }
+        .mini-audio-spectrum.animation-active span:nth-child(12) { animation-delay: 0.5s; animation-duration: 0.7s; }
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
