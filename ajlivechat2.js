@@ -864,7 +864,7 @@ document.addEventListener("DOMContentLoaded", () => {
           z-index: 3;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 45px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 55px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -900,7 +900,7 @@ document.addEventListener("DOMContentLoaded", () => {
           color: #87ffff; /* Destaca el Play/Pause en cian */
           width: 30px; 
         }
-        .mini-footer { width: 100%; text-align: center; margin-top: -22px; }
+        .mini-footer { width: 100%; text-align: center; margin-top: -32px; }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
@@ -950,7 +950,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 15px 20px 65px 90px;
+          margin: 15px -15px 65px 90px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
