@@ -914,7 +914,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
-          margin: 20px 0 0 0;
+          margin: 0px 0 0 0;
           pointer-events: none;
         }
 
@@ -1003,18 +1003,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         /* TIEMPOS ALEATORIOS PARA CADA BARRA (Para que se vea orgánico y vivo) */
-        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.1s; animation-duration: 1.8s; } --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.4s; animation-duration: 2.4s; } --max-h: 16px; }
-        .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s; } --max-h: 12px; }
-        .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s; } --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(5) { animation-delay: 0.3s; animation-duration: 2.2s; } --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(6) { animation-delay: 0.5s; animation-duration: 1.6s; } --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(7) { animation-delay: 0.1s; animation-duration: 2.6s; } --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(8) { animation-delay: 0.7s; animation-duration: 2.0s; } --max-h: 12px; }
-        .mini-audio-spectrum span:nth-child(9) { animation-delay: 0.1s; animation-duration: 1.8s; } --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(10) { animation-delay: 0.3s; animation-duration: 2.2s; } --max-h: 16px; }
-        .mini-audio-spectrum span:nth-child(11) { animation-delay: 0.6s; animation-duration: 2.8s; } --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(12) { animation-delay: 0.5s; animation-duration: 1.6s; } --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
+        .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(5) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(6) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(7) { animation-delay: 0.1s; animation-duration: 2.6s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(8) { animation-delay: 0.7s; animation-duration: 2.0s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(9) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(10) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 16px; }
+        .mini-audio-spectrum span:nth-child(11) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(12) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 12px; }
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
