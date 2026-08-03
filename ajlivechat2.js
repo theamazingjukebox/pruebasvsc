@@ -896,7 +896,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
           
-          cursor: url('cursor5.png'), pointer; 
+          cursor: url('neoncursor4.png'), pointer; 
         }
 
         /* ESTILO PARA LA NOTA FLOTANTE */
@@ -1149,5 +1149,5 @@ const preloadJukeboxAnim = new Image();
 preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
 
  const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'cursor5.png';
+  preloadJukeboxCursor.src = 'neoncursor4.png';
 })();
