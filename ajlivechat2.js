@@ -835,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 5px; padding-left: 14px;
+          display: flex; width: 100%; align-items: center; gap: 26px; margin-top: 5px; padding-left: 14px;
         }
         .album-art-container img {
           width: 125px; height: 125px; border-radius: 39px;
@@ -887,15 +887,21 @@ document.addEventListener("DOMContentLoaded", () => {
           margin: 0;
         }
 
-                /* Ajuste necesario en el contenedor para fijar las partículas */
+                 /* Ajuste en el contenedor de la rocola animada */
         .album-art-container {
-          width: 65px; height: 65px; position: relative; cursor: pointer;
+          width: 65px; 
+          height: 65px; 
+          position: relative; 
+          
+          /* TRUCO DEL CURSOR PERSONALIZADO */
+          /* Reemplaza 'tu-cursor-icono.png' por el archivo de tu cursor */
+          cursor: url('objetivo2.png'), pointer; 
         }
 
         /* ESTILO PARA LA NOTA FLOTANTE */
         .floating-note {
           position: absolute;
-          font-size: 16px;
+          font-size: 20px;
           pointer-events: none; /* Evita que la nota interfiera con futuros clics */
           color: #87ffff;
           text-shadow: 0 0 8px rgba(73, 255, 246, 0.6);
