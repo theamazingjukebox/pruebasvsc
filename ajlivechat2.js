@@ -839,13 +839,13 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 35px; margin-left: 0px;
         }
         .album-art-container img {
-          width: 125px; height: 125px; border-radius: 39px;
+          width: 135px; height: 135px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 40px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -896,7 +896,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
           
-          cursor: url('neoncursor3.png'), pointer; 
+          cursor: url('cursor5.png'), pointer; 
         }
 
         /* ESTILO PARA LA NOTA FLOTANTE */
@@ -1149,5 +1149,5 @@ const preloadJukeboxAnim = new Image();
 preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
 
  const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'neoncursor3.png';
+  preloadJukeboxCursor.src = 'cursor5.png';
 })();
