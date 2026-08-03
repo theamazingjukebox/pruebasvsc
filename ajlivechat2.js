@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 250,
-        height: 195,
+        height: 185,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -845,7 +845,7 @@ document.addEventListener("DOMContentLoaded", () => {
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 70px; margin-top: 40px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 40px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -60px; margin-left: 135px;
+          width: 100%; margin-top: -45px; margin-left: 135px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
