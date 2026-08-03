@@ -821,6 +821,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #0b0d14; /* Tono oscuro a juego con tu paleta */
           font-family: 'Orbitron', monospace; 
           display: flex; justify-content: center; align-items: center; 
+          cursor: url('neoncursor2.png'), auto;
           height: 100vh; overflow: hidden;
         }
         .mini-widget {
@@ -844,7 +845,7 @@ document.addEventListener("DOMContentLoaded", () => {
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 70px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 40px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
