@@ -948,7 +948,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 0px 0px 75px 75px;
+          margin: 0px 0px 65px 90px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
