@@ -903,17 +903,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer { 
           width: 100%; 
           text-align: center; 
-          margin-top: -32px; 
-          
-          
-          z-index: 4;         
-          
-          
+          margin-top: -29px; 
+          z-index: 4;          
           padding-top: 5px;
         }
+        
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
-          font-size: 10px; letter-spacing: 1.5px;
+          font-size: 9px; letter-spacing: 1.5px;
           margin: 0px 0 0 0;
           pointer-events: none;
           z-index: 2;
