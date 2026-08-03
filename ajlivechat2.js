@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="Diseosinttulo6-ezgif.com-video-to-webp-converter.webp" alt="Jukebox">
+              <img id="mini-jukebox-animation" src="CopiadeSinttulo31-ezgif.com-optiwebp.webp" alt="Jukebox">
             </div>
             
             <div class="track-info">
@@ -835,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 5px; padding-left: 4px;
+          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 5px; padding-left: 14px;
         }
         .album-art-container img {
           width: 125px; height: 125px; border-radius: 39px;
@@ -1136,4 +1136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (banner) banner.remove();
     if (styles) styles.remove();
   }
+
+// Precarga silenciosa en la caché del navegador
+const preloadJukeboxAnim = new Image();
+preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
 })();
