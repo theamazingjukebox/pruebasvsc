@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 250,
-        height: 200,
+        height: 195,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -831,7 +831,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85); 
-          border: 2px solid #d83ca4; /* Rosa Neón */
+          border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
@@ -845,7 +845,7 @@ document.addEventListener("DOMContentLoaded", () => {
           object-fit: cover; background-color: #12161e;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 75px; margin-top: 40px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 70px; margin-top: 40px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -55px; margin-left: 135px;
+          width: 100%; margin-top: -60px; margin-left: 135px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -878,12 +878,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .btn-main { 
           font-size: 20px; 
-          color: #d83ca4; /* Destaca el Play/Pause en cian */
+          color: #87ffff; /* Destaca el Play/Pause en cian */
           width: 30px; 
-        }
-        .btn-main:hover { 
-          color: #d83ca4; 
-          text-shadow: 0 0 12px #d83ca4; 
         }
         .mini-footer { width: 100%; text-align: center; margin-top: 2px; }
         .mini-footer .tagline {
