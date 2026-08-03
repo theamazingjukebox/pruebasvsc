@@ -830,7 +830,11 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(0, 32, 33); 
+          background-color: rgba(18, 22, 30, 0.85);
+          background-image: url("Diseosinttulo3-ezgif.com-gif-to-webp-converter.webp");   /* Animación transparente */
+          background-repeat: no-repeat;              /* No repetir */
+          background-position: center;               /* Centrar */
+          background-size: contain;                  /* Ajustar sin recortar */
           border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
