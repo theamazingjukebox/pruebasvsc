@@ -800,6 +800,12 @@ document.addEventListener("DOMContentLoaded", () => {
               <p id="mini-track-artist" class="artist-name">THE AMAZING JUKEBOX</p>
             </div>
           </div>
+          
+          <!-- CONTROLES INTERACTIVOS CON ESTILO CIAN -->
+          <div class="widget-controls">
+            <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
+            <button id="mini-btn-next" class="w-btn">⏭</button>
+          </div>
 
           <!-- BARRA DE ESPECTRO SONORO HORIZONTAL (NUEVO ELEMENTO) -->
           <!-- Puedes mover este div entero más arriba o más abajo según tu diseño -->
@@ -812,12 +818,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <span></span>
             <span></span>
             <span></span>
-          </div>
-          
-          <!-- CONTROLES INTERACTIVOS CON ESTILO CIAN -->
-          <div class="widget-controls">
-            <button id="mini-btn-play" class="w-btn btn-main">⏸</button>
-            <button id="mini-btn-next" class="w-btn">⏭</button>
           </div>
 
           <div class="mini-footer">
@@ -844,10 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("Diseosinttulo3-ezgif.com-gif-to-webp-converter.webp");   /* Animación transparente */
-          background-repeat: no-repeat;              /* No repetir */
-          background-position: center;               /* Centrar */
-          background-size: contain;                  /* Ajustar sin recortar */
+          
           border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
