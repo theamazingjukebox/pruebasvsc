@@ -882,7 +882,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: 0; margin-left: 125px;
+          width: 100%; margin-top: 0px; margin-left: 125px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -904,7 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
-          margin: 0 0 15px 0;
+          margin: 0 0 0 0;
         }
 
                  /* Ajuste en el contenedor de la rocola animada */
@@ -950,7 +950,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 0 0 0 90px;
+          margin: 10px 0 0 50px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
