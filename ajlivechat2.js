@@ -835,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 26px; margin-top: 5px; padding-left: 14px;
+          display: flex; width: 100%; align-items: center; gap: 26px; margin-top: 5px; padding-left: 34px;
         }
         .album-art-container img {
           width: 125px; height: 125px; border-radius: 39px;
@@ -894,14 +894,14 @@ document.addEventListener("DOMContentLoaded", () => {
           position: relative; 
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
-          /* Reemplaza 'tu-cursor-icono.png' por el archivo de tu cursor */
-          cursor: url('objetivo2.png'), pointer; 
+          
+          cursor: url('cursor-del-raton2.png'), pointer; 
         }
 
         /* ESTILO PARA LA NOTA FLOTANTE */
         .floating-note {
           position: absolute;
-          font-size: 20px;
+          font-size: 30px;
           pointer-events: none; /* Evita que la nota interfiera con futuros clics */
           color: #87ffff;
           text-shadow: 0 0 8px rgba(73, 255, 246, 0.6);
@@ -975,7 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (jukeboxImg) {
         jukeboxImg.addEventListener('click', (e) => {
           // Arreglo con los emojis que pueden salir al hacer clic
-          const particles = ["🎵", "🎶", "✨"];
+          const particles = ["🎵", "🎶", "✨","🎸", "🎹", "✨"];
           const randomParticle = particles[Math.floor(Math.random() * particles.length)];
           
           // Crear el elemento flotante
@@ -1146,4 +1146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Precarga silenciosa en la caché del navegador
 const preloadJukeboxAnim = new Image();
 preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
+
+ const preloadJukeboxCursor = new Image();
+  preloadJukeboxCursor.src = 'cursor-del-raton2.png';
 })();
