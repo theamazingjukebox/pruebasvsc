@@ -908,8 +908,7 @@ document.addEventListener("DOMContentLoaded", () => {
           position: relative; /* 🔥 CLAVE: Permite que el z-index funcione */
           z-index: 4;         /* Capa alta (Pasa por encima de las barras) */
           
-          /* Opcional: Un fondo muy sutil para bloquear las barras detrás del texto */
-          background: linear-gradient(to top, #0b0914 70%, transparent);
+          
           padding-top: 5px;
         }
         .mini-footer .tagline {
