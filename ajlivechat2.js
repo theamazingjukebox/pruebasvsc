@@ -905,7 +905,7 @@ document.addEventListener("DOMContentLoaded", () => {
           text-align: center; 
           margin-top: -32px; 
           
-          position: relative; /* 🔥 CLAVE: Permite que el z-index funcione */
+          
           z-index: 4;         /* Capa alta (Pasa por encima de las barras) */
           
           
@@ -967,7 +967,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       opacity 0.8s ease, 
                       height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
-          position: relative;
+          
           z-index: 1;
         }
 
