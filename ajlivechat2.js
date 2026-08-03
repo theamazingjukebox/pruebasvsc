@@ -861,9 +861,10 @@ document.addEventListener("DOMContentLoaded", () => {
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: transparent;
+          z-index: 3;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 40px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 45px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -903,7 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
           font-size: 8px; letter-spacing: 1.5px;
-          margin: 0;
+          margin: 0 0 15px 0;
         }
 
                  /* Ajuste en el contenedor de la rocola animada */
@@ -948,12 +949,13 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           height: 18px; /* Alto máximo de las barritas */
-          margin: 15px 15px 65px 90px;
+          margin: 15px 20px 65px 90px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
                       height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
+          z-index: 2;
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
