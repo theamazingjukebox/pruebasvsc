@@ -800,6 +800,19 @@ document.addEventListener("DOMContentLoaded", () => {
               <p id="mini-track-artist" class="artist-name">THE AMAZING JUKEBOX</p>
             </div>
           </div>
+
+          <!-- BARRA DE ESPECTRO SONORO HORIZONTAL (NUEVO ELEMENTO) -->
+          <!-- Puedes mover este div entero más arriba o más abajo según tu diseño -->
+          <div id="mini-spectrum" class="mini-audio-spectrum">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           
           <!-- CONTROLES INTERACTIVOS CON ESTILO CIAN -->
           <div class="widget-controls">
@@ -927,6 +940,48 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
+                /* CONTENEDOR DEL ESPECTRO SONORO */
+        .mini-audio-spectrum {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 3px;
+          height: 18px; /* Alto máximo de las barritas */
+          margin: 6px 0;
+          width: 100%;
+        }
+
+        /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
+        .mini-audio-spectrum span {
+          display: block;
+          width: 3px;
+          height: 3px; /* Altura en estado quieto (mínima) */
+          background-color: #87ffff; /* Tu Cian Orbitron */
+          box-shadow: 0 0 6px #00ffff;
+          border-radius: 1px;
+          transition: height 0.2s ease;
+        }
+
+        /* REGLA MAESTRA: Solo se mueven si el contenedor tiene la clase .animation-active */
+        .mini-audio-spectrum.animation-active span {
+          animation: bounceSpectrum 1.2s ease infinite alternate;
+        }
+
+        /* TIEMPOS ALEATORIOS PARA CADA BARRA (Para que se vea orgánico y vivo) */
+        .mini-audio-spectrum.animation-active span:nth-child(1) { animation-delay: 0.1s; animation-duration: 0.8s; }
+        .mini-audio-spectrum.animation-active span:nth-child(2) { animation-delay: 0.4s; animation-duration: 1.1s; }
+        .mini-audio-spectrum.animation-active span:nth-child(3) { animation-delay: 0.2s; animation-duration: 0.9s; }
+        .mini-audio-spectrum.animation-active span:nth-child(4) { animation-delay: 0.6s; animation-duration: 1.3s; }
+        .mini-audio-spectrum.animation-active span:nth-child(5) { animation-delay: 0.3s; animation-duration: 1.0s; }
+        .mini-audio-spectrum.animation-active span:nth-child(6) { animation-delay: 0.5s; animation-duration: 0.7s; }
+        .mini-audio-spectrum.animation-active span:nth-child(7) { animation-delay: 0.1s; animation-duration: 1.2s; }
+        .mini-audio-spectrum.animation-active span:nth-child(8) { animation-delay: 0.7s; animation-duration: 0.9s; }
+
+        /* ANIMACIÓN DE SUBIDA Y BAJADA */
+        @keyframes bounceSpectrum {
+          0% { height: 3px; }
+          100% { height: 18px; } /* Sube hasta el tope del contenedor */
+        }
       `;
       pipWindow.document.head.appendChild(style);
 
@@ -956,12 +1011,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Sincronizar el estado visual del botón Play/Pause
         const playBtn = pipWindow.document.getElementById('mini-btn-play');
+        const spectrumEl = pipWindow.document.getElementById('mini-spectrum');
         if (playBtn && activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
           if (state === 1 || state === 3) {
             playBtn.innerHTML = "&#9208;"; // ⏸
+              if (spectrumEl) spectrumEl.classList.add('animation-active');
           } else {
             playBtn.innerHTML = "&#9654;"; // ▶
+              if (spectrumEl) spectrumEl.classList.remove('animation-active');
           }
         }
       }
@@ -1027,15 +1085,18 @@ document.addEventListener("DOMContentLoaded", () => {
       pipWindow.document.getElementById('mini-btn-play').addEventListener('click', () => {
         const activePlayer = window.ytPlayer || ytPlayer;
         const playBtn = pipWindow.document.getElementById('mini-btn-play');
+        const spectrumEl = pipWindow.document.getElementById('mini-spectrum');
         
         if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
           const state = activePlayer.getPlayerState();
           if (state === 1) {
             activePlayer.pauseVideo();
             if (playBtn) playBtn.innerHTML = "&#9654;";
+              if (spectrumEl) spectrumEl.classList.remove('animation-active');
           } else {
             activePlayer.playVideo();
             if (playBtn) playBtn.innerHTML = "&#9208;";
+              if (spectrumEl) spectrumEl.classList.add('animation-active');
           }
         }
       });
