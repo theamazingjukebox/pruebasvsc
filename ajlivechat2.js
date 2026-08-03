@@ -960,7 +960,7 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: flex-end;
           justify-content: center;
           gap: 3px;
-          height: 18px; /* Alto máximo de las barritas */
+          
           margin: 25px 0 0 0px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
