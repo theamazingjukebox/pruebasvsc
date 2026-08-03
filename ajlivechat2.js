@@ -906,16 +906,17 @@ document.addEventListener("DOMContentLoaded", () => {
           margin-top: -32px; 
           
           
-          z-index: 4;         /* Capa alta (Pasa por encima de las barras) */
+          z-index: 4;         
           
           
           padding-top: 5px;
         }
         .mini-footer .tagline {
           color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
-          font-size: 8px; letter-spacing: 1.5px;
+          font-size: 10px; letter-spacing: 1.5px;
           margin: 0px 0 0 0;
           pointer-events: none;
+          z-index: 2;
         }
 
                  /* Ajuste en el contenedor de la rocola animada */
