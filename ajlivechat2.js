@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
         .widget-content {
-          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: 5px; margin-left: 10px;
+          display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -45px; margin-left: 10px;
         }
         .album-art-container img {
           width: 125px; height: 125px; border-radius: 39px;
@@ -863,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: -75px; margin-left: 120px;
+          width: 100%; margin-top: -35px; margin-left: 120px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
@@ -896,7 +896,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* TRUCO DEL CURSOR PERSONALIZADO */
           
-          cursor: url('cursor-del-raton2.png'), pointer; 
+          cursor: url('neoncursor3.png'), pointer; 
         }
 
         /* ESTILO PARA LA NOTA FLOTANTE */
@@ -1149,5 +1149,5 @@ const preloadJukeboxAnim = new Image();
 preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
 
  const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'cursor-del-raton2.png';
+  preloadJukeboxCursor.src = 'neoncursor3.png';
 })();
