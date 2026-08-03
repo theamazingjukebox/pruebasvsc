@@ -950,6 +950,10 @@ document.addEventListener("DOMContentLoaded", () => {
           height: 18px; /* Alto máximo de las barritas */
           margin: 6px 15px 0 35px;
           width: 100%;
+       transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                      opacity 0.4s ease, 
+                      height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+          transform-origin: bottom; /* La escala se encoge hacia abajo */
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
@@ -960,12 +964,25 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #ff87e5;
           box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
-          transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+          animation: bounceSpectrum 1.2s ease infinite alternate;
+          animation-play-state: paused; /* Inicia pausada por defecto */
         }
 
-        /* REGLA MAESTRA: Solo se mueven si el contenedor tiene la clase .animation-active */
+        /* CUANDO LA MÚSICA ESTÁ SONANDO (PLAY) */
+        .mini-audio-spectrum.animation-active {
+          transform: scaleY(1);
+          opacity: 1;
+          height: 18px;
+        }
         .mini-audio-spectrum.animation-active span {
-          animation: bounceSpectrum 1.2s ease infinite alternate;
+          animation-play-state: running; /* Encendemos el motor de la animación */
+        }
+
+        /* ESTADO DE PAUSA SUAVE (Cuando NO tiene la clase .animation-active) */
+        /* Al quitar la clase, el contenedor se encoge suavemente aplastando las barras hacia el suelo */
+        .mini-audio-spectrum:not(.animation-active) {
+          transform: scaleY(0.15); /* Encoge las barras verticalmente hasta el mínimo */
+          opacity: 0.7; /* Se atenúa ligeramente el brillo de neón al pausar */
         }
 
         /* TIEMPOS ALEATORIOS PARA CADA BARRA (Para que se vea orgánico y vivo) */
