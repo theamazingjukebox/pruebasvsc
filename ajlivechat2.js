@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 250,
-        height: 175,
+        height: 165,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -976,7 +976,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           
-          margin: 0px 0 5px 0px;
+          margin: 0px 0 15px 0px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
