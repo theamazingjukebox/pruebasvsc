@@ -884,13 +884,13 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(18, 22, 30, 0.85);
+          background-color: black;
           background-image: url("mini-footer9.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
           
-          border: 1px solid #d83ca4; /* Rosa Neón */
+          border: 1px rgb(33, 102, 90); /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
           
