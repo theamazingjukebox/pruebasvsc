@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-            <video id="Copia de Sin título (2).mp4" autoplay loop muted playsinline></video>
+            <video id="mini-jukebox-animation" src="Copia de Sin título (2).mp4" autoplay loop muted playsinline></video>
           </div>
             
             <div class="track-info">
@@ -901,7 +901,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .album-art-container img, .album-art-container video {
           width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
-          box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
+          box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: transparent;
           
           display: block;
@@ -962,8 +962,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                  /* Ajuste en el contenedor de la rocola animada */
         .album-art-container {
-          width: 75px; 
-          height: 75px; 
+          width: 145px; 
+  height: 145px; 
           position: relative; 
           
           
@@ -1010,7 +1010,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
           
-          z-index: -1;
+          
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
