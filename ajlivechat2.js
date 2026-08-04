@@ -885,7 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer7.svg");   /* Animación transparente */
+          background-image: url("mini-footer8.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
@@ -924,7 +924,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: 0px; margin-left: 125px; margin-bottom: 20px;
+          width: 100%; margin-top: 0px; margin-left: 125px; margin-bottom: 30px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
