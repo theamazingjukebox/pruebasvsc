@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 245,
-        height: 150,
+        height: 155,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -810,6 +810,54 @@ document.addEventListener("DOMContentLoaded", () => {
           <!-- BARRA DE ESPECTRO SONORO HORIZONTAL (NUEVO ELEMENTO) -->
           <!-- Puedes mover este div entero más arriba o más abajo según tu diseño -->
           <div id="mini-spectrum" class="mini-audio-spectrum">
+          <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
             
           </div>
 
@@ -948,7 +996,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 /* CONTENEDOR DEL ESPECTRO SONORO */
         .mini-audio-spectrum {
-          display: flex;
+          display: none;
           align-items: flex-end;
           justify-content: center;
           gap: 3px;
@@ -965,7 +1013,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
         .mini-audio-spectrum span {
-          display: block;
+          display: none;
           width: 3px;
           height: 3px; /* Altura en estado quieto (mínima) */
           background-color: #ff87e5;
