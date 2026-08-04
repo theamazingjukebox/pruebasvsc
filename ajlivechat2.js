@@ -886,7 +886,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: black;
-          background-image: url("");   /* Animación transparente */
+          background-image: url("mini-footer9.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
