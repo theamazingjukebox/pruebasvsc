@@ -860,7 +860,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer.svg");   /* Animación transparente */
+          background-image: url("mini-footer2.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
@@ -1022,26 +1022,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
         .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
         .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
-        .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
-        .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(5) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(6) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(5) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(6) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 18px; }
-        .mini-audio-spectrum span:nth-child(7) { animation-delay: 0.1s; animation-duration: 2.6s;  --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(8) { animation-delay: 0.7s; animation-duration: 2.0s;  --max-h: 12px; }
-        .mini-audio-spectrum span:nth-child(9) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
-        .mini-audio-spectrum span:nth-child(3) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
-        .mini-audio-spectrum span:nth-child(4) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
-        .mini-audio-spectrum span:nth-child(10) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 16px; }
-        .mini-audio-spectrum span:nth-child(11) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 14px; }
-        .mini-audio-spectrum span:nth-child(12) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(5) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(6) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
+        .mini-audio-spectrum span:nth-child(7) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(8) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(9) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(10) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(11) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(12) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(13) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(14) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 18px; }
+        .mini-audio-spectrum span:nth-child(15) { animation-delay: 0.1s; animation-duration: 2.6s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(16) { animation-delay: 0.7s; animation-duration: 2.0s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(17) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(18) { animation-delay: 0.1s; animation-duration: 1.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(19) { animation-delay: 0.4s; animation-duration: 2.4s;  --max-h: 16px; }
+        .mini-audio-spectrum span:nth-child(20) { animation-delay: 0.2s; animation-duration: 2.0s;  --max-h: 12px; }
+        .mini-audio-spectrum span:nth-child(21) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 17px; }
+        .mini-audio-spectrum span:nth-child(22) { animation-delay: 0.3s; animation-duration: 2.2s;  --max-h: 16px; }
+        .mini-audio-spectrum span:nth-child(23) { animation-delay: 0.6s; animation-duration: 2.8s;  --max-h: 14px; }
+        .mini-audio-spectrum span:nth-child(24) { animation-delay: 0.5s; animation-duration: 1.6s;  --max-h: 12px; }
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
