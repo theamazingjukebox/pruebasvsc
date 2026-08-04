@@ -892,7 +892,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           border: 1px solid #16946e; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
-          box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
+          border-image: linear-gradient(135deg, #d83ca4, #87ffff) 1;
           
         }
         .widget-content {
