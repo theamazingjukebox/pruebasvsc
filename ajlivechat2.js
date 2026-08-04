@@ -791,7 +791,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="mini-widget">
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
-            <div class="album-art-container">
             <div class="album-art-container"> 
         <img id="mini-jukebox-animation" src="CopiadeSinttulo31-ezgif.com-optiwebp.webp" alt="Jukebox"> 
         </div>
