@@ -792,8 +792,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-              <img id="mini-jukebox-animation" src="CopiadeSinttulo31-ezgif.com-optiwebp.webp" alt="Jukebox">
-            </div>
+            <video id="Copia de Sin título (2).mp4" autoplay loop muted playsinline></video>
+          </div>
             
             <div class="track-info">
               <p id="mini-track-title">🎶 LOADING...</p>
@@ -884,7 +884,7 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(18, 22, 30, 0.85);
+          background-color: black;
           background-image: url("mini-footer9.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
@@ -898,7 +898,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
         }
-        .album-art-container img {
+        .album-art-container img, .album-art-container video {
           width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 opx rgba(73, 255, 246, 0.2);
@@ -1336,7 +1336,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Precarga silenciosa en la caché del navegador
 const preloadJukeboxAnim = new Image();
-preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp';
+preloadJukeboxAnim.src = 'Copia de Sin título (2).mp4';
+
+const preloadJukeboxCursor = new Image();
+  preloadJukeboxCursor.src = 'mini-footer9.svg';
 
  const preloadJukeboxCursor = new Image();
   preloadJukeboxCursor.src = 'neoncursor4.png';
