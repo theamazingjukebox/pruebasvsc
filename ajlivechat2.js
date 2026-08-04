@@ -1334,13 +1334,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (styles) styles.remove();
   }
 
-// Precarga silenciosa en la caché del navegador
-const preloadJukeboxAnim = new Image();
-preloadJukeboxAnim.src = 'Copia de Sin título (2).mp4';
+  // ========================================================
+  // PRECARGAS SILENCIOSAS EN CACHÉ (VERSIÓN MP4 + CURSOR)
+  // ========================================================
+  
+  // 1. Precarga inteligente de tu video MP4 en segundo plano
+  const preloadJukeboxVideo = document.createElement('link');
+  preloadJukeboxVideo.rel = 'preload';
+  preloadJukeboxVideo.as = 'video';
+  preloadJukeboxVideo.type = 'video/mp4';
+  preloadJukeboxVideo.href = 'Copia de Sin título (2).mp4'; // Tu archivo de Canva
+  document.head.appendChild(preloadJukeboxVideo);
 
-const preloadJukeboxCursor = new Image();
+  // 2. Precarga de tu cursor personalizado (Se queda igual porque es imagen)
+  const preloadJukeboxCursor = new Image();
+  preloadJukeboxCursor.src = 'neoncursor4.png';
+
+    const preloadJukeboxCursor = new Image();
   preloadJukeboxCursor.src = 'mini-footer9.svg';
 
- const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'neoncursor4.png';
 })();
