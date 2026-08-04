@@ -878,23 +878,39 @@ document.addEventListener("DOMContentLoaded", () => {
           cursor: url('neoncursor2.png'), auto;
           height: 100vh; overflow: hidden;
         }
-        .mini-widget {
-          width: 100%; height: 100%; padding: 14px; box-sizing: border-box;
-          display: flex; flex-direction: column; justify-content: space-between;
+                .mini-widget {
+          width: 100%; 
+          height: 100%; 
+          padding: 14px; 
+          box-sizing: border-box; 
+          display: flex; 
+          flex-direction: column; 
+          justify-content: space-between; 
           align-items: center; 
           
-          /* Estilos exactos de tu pop-up */
-          background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer9.svg");   /* Animación transparente */
-  background-repeat: no-repeat;              /* No repetir */
-  background-position: center;               /* Centrar */
-  background-size: contain;     
+          /* 1. Definimos un borde transparente del grosor que quieras (ej. 2px o 3px) */
+          border: 2px solid transparent;
+          border-radius: 24px; /* ¡Ahora el navegador SÍ respetará las esquinas! */
+
+          /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas */
+          /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
+          background-image: url("mini-footer9.svg"), 
+                            linear-gradient(rgba(18, 22, 30, 0.85), rgba(18, 22, 30, 0.85)), 
+                            linear-gradient(135deg, #d83ca4, #87ffff);
           
-          border: 1px solid #16946e; /* Rosa Neón */
-          border-radius: 24px; /* Bordes redondeados idénticos */
-          border-image: linear-gradient(135deg, #d83ca4, #87ffff) 1;
-          
+          /* Indicamos cómo se debe recortar cada capa de fondo */
+          background-clip: padding-box, padding-box, border-box;
+          background-origin: padding-box, padding-box, border-box;
+
+          /* Configuración específica para tu SVG */
+          background-repeat: no-repeat, no-repeat, no-repeat; 
+          background-position: center, center, center; 
+          background-size: contain, cover, cover; 
+
+          /* Tus sombras de neón del pop-up Liked Songs */
+          box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
+
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
         }
