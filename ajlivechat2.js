@@ -1350,7 +1350,5 @@ document.addEventListener("DOMContentLoaded", () => {
   const preloadJukeboxCursor = new Image();
   preloadJukeboxCursor.src = 'neoncursor4.png';
 
-    const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'mini-footer9.svg';
 
 })();
