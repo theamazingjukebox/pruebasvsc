@@ -825,7 +825,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
 
           <div class="mini-footer">
-            <p class="tagline">THE AMAZING JUKEBOX ©</p>
+            <p class="tagline"></p>
           </div>
         </div>
       `;
@@ -848,10 +848,15 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
+          background-image: url("mini-footer.png");   /* Animación transparente */
+  background-repeat: no-repeat;              /* No repetir */
+  background-position: center;               /* Centrar */
+  background-size: contain;     
           
           border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
+          z-index: 2;
         }
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
