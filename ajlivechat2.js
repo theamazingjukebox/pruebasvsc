@@ -895,7 +895,7 @@ document.addEventListener("DOMContentLoaded", () => {
           /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas */
           /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
           background-image: url("mini-footer9.svg"), 
-                            linear-gradient(rgba(18, 22, 30, 0.85), rgba(18, 22, 30, 0.85)), 
+                            linear-gradient(rgba(18, 22, 30), rgba(18, 22, 30)), 
                             linear-gradient(135deg, #d83ca4, #87ffff);
           
           /* Indicamos cómo se debe recortar cada capa de fondo */
@@ -1292,7 +1292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inyectar el diseño con la misma estética Orbitron/Neón de tu web
     banner.innerHTML = `
       <div class="banner-body">
-        <span class="banner-icon">🔮</span>
+        <span class="banner-icon">📟</span>
         <div class="banner-text">
           <p class="banner-title">MINI-PLAYER AVAILABLE</p>
           <p class="banner-desc">Keep using the reproduction controls while browsing other tabs.</p>
