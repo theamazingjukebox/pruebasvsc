@@ -962,8 +962,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                  /* Ajuste en el contenedor de la rocola animada */
         .album-art-container {
-          width: 145px; 
-  height: 145px; 
+          width: 75px; 
+  height: 75px; 
           position: relative; 
           
           
