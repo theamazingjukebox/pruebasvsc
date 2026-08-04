@@ -775,8 +775,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 250,
-        height: 160,
+        width: 245,
+        height: 150,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -810,54 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <!-- BARRA DE ESPECTRO SONORO HORIZONTAL (NUEVO ELEMENTO) -->
           <!-- Puedes mover este div entero más arriba o más abajo según tu diseño -->
           <div id="mini-spectrum" class="mini-audio-spectrum">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            
           </div>
 
           <div class="mini-footer">
@@ -884,7 +837,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer5.svg");   /* Animación transparente */
+          background-image: url("mini-footer7.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
@@ -905,7 +858,7 @@ document.addEventListener("DOMContentLoaded", () => {
           z-index: 3;
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 55px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 65px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -923,7 +876,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .widget-controls {
           display: flex; justify-content: center; align-items: center; gap: 10px;
-          width: 100%; margin-top: 0px; margin-left: 125px; margin-bottom: 30px;
+          width: 100%; margin-top: 0px; margin-left: 125px; margin-bottom: 20px;
         }
         
         /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
