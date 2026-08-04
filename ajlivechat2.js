@@ -889,14 +889,14 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* 1. Definimos un borde transparente del grosor que quieras (ej. 2px o 3px) */
-          border: 0px solid transparent;
+          border: 2px solid transparent;
           border-radius: 24px; /* ¡Ahora el navegador SÍ respetará las esquinas! */
 
           /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas */
           /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
-          background-image: url("mini-footer9.1.svg"), 
+          background-image: url("mini-footer9.svg"), 
                             linear-gradient(rgba(18, 22, 30, 0.90), rgba(18, 22, 30, 0.90)), 
-                            linear-gradient(135deg, #d83ca4, #87ffff);
+                            linear-gradient(180deg, #6d7486, #0a0d13);
           
           /* Indicamos cómo se debe recortar cada capa de fondo */
           background-clip: padding-box, padding-box, border-box;
@@ -1359,7 +1359,7 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadJukeboxCursor.src = 'neoncursor4.png';
 
     const preloadJukeboxBgSvg = new Image();
-  preloadJukeboxBgSvg.src = 'mini-footer9.1.svg';
+  preloadJukeboxBgSvg.src = 'mini-footer9.svg';
 
     
 })();
