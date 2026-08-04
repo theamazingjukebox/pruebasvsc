@@ -848,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer.png");   /* Animación transparente */
+          background-image: url("mini-footer.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
@@ -856,7 +856,7 @@ document.addEventListener("DOMContentLoaded", () => {
           border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
-          z-index: 2;
+          z-index: 3;
         }
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
@@ -971,7 +971,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
           
-          z-index: 1;
+          z-index: -1;
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
@@ -985,7 +985,7 @@ document.addEventListener("DOMContentLoaded", () => {
           margin-top: 10px;
           animation: bounceSpectrum 1.2s ease infinite alternate;
           animation-play-state: paused; /* Inicia pausada por defecto */
-          z-index: 1;
+          
         }
 
         /* CUANDO LA MÚSICA ESTÁ SONANDO (PLAY) */
