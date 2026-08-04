@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-            <video id="mini-jukebox-animation" src="Copia de Sin título (2).mp4" autoplay loop muted playsinline></video>
+            <video id="mini-jukebox-animation" src="Copia de Sin título (2) (1).mp4" autoplay loop muted playsinline></video>
           </div>
             
             <div class="track-info">
@@ -1345,7 +1345,7 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadJukeboxVideo.rel = 'preload';
   preloadJukeboxVideo.as = 'video';
   preloadJukeboxVideo.type = 'video/mp4';
-  preloadJukeboxVideo.href = 'Copia de Sin título (2).mp4'; // Tu archivo de Canva
+  preloadJukeboxVideo.href = 'Copia de Sin título (2) (1).mp4'; // Tu archivo de Canva
   document.head.appendChild(preloadJukeboxVideo);
 
   // 2. Precarga de tu cursor personalizado (Se queda igual porque es imagen)
