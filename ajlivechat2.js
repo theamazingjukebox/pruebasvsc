@@ -868,7 +868,7 @@ document.addEventListener("DOMContentLoaded", () => {
           border: 1px solid #d83ca4; /* Rosa Neón */
           border-radius: 24px; /* Bordes redondeados idénticos */
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
-          z-index: 3;
+          z-index: 9999;
         }
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
