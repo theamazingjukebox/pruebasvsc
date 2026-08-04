@@ -885,7 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           /* Estilos exactos de tu pop-up */
           background-color: black;
-          background-image: url("mini-footer9.svg");   /* Animación transparente */
+          background-image: url("");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
@@ -908,7 +908,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 65px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 55px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
