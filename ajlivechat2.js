@@ -884,8 +884,8 @@ document.addEventListener("DOMContentLoaded", () => {
           align-items: center; 
           
           /* Estilos exactos de tu pop-up */
-          background-color: rgba(18, 22, 30, 0.85);
-          background-image: url("mini-footer8.svg");   /* Animación transparente */
+          background-color: #11201e;
+          background-image: url("mini-footer9.svg");   /* Animación transparente */
   background-repeat: no-repeat;              /* No repetir */
   background-position: center;               /* Centrar */
   background-size: contain;     
