@@ -776,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
         width: 245,
-        height: 150,
+        height: 155,
       });
 
       // 2. Inyectar la fuente Orbitron directamente en el head del widget flotante
@@ -792,8 +792,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container">
-            <video id="mini-jukebox-animation" src="Copia de Sin título (2) (1).mp4" autoplay loop muted playsinline></video>
-          </div>
+            <div class="album-art-container"> 
+        <img id="mini-jukebox-animation" src="CopiadeSinttulo31-ezgif.com-optiwebp.webp" alt="Jukebox"> 
+        </div>
             
             <div class="track-info">
               <p id="mini-track-title">🎶 LOADING...</p>
@@ -898,17 +899,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .widget-content {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
         }
-        .album-art-container img, .album-art-container video {
+        .album-art-container img {
           width: 145px; height: 145px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: transparent;
           
-          display: block;
-          
         }
         .track-info {
-          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 55px;
+          display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 65px;
         }
         #mini-track-title {
           color: #87ffff; /* Color de tu texto principal */
@@ -1336,21 +1335,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (styles) styles.remove();
   }
 
-  // ========================================================
-  // PRECARGAS SILENCIOSAS EN CACHÉ (VERSIÓN MP4 + CURSOR)
-  // ========================================================
-  
-  // 1. Precarga inteligente de tu video MP4 en segundo plano
-  const preloadJukeboxVideo = document.createElement('link');
-  preloadJukeboxVideo.rel = 'preload';
-  preloadJukeboxVideo.as = 'video';
-  preloadJukeboxVideo.type = 'video/mp4';
-  preloadJukeboxVideo.href = 'Copia de Sin título (2) (1).mp4'; // Tu archivo de Canva
-  document.head.appendChild(preloadJukeboxVideo);
 
-  // 2. Precarga de tu cursor personalizado (Se queda igual porque es imagen)
+    const preloadJukeboxAnim = new Image(); 
+    preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp'; 
+
+    // 2. Precarga de tu cursor personalizado (Se queda igual porque es imagen)
   const preloadJukeboxCursor = new Image();
   preloadJukeboxCursor.src = 'neoncursor4.png';
 
+    const preloadJukeboxBgSvg = new Image();
+  preloadJukeboxBgSvg.src = 'mini-footer9.svg';
 
+    
 })();
