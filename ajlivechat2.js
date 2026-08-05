@@ -775,7 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 270,
+        width: 267,
         height: 165,
       });
 
@@ -997,9 +997,9 @@ document.addEventListener("DOMContentLoaded", () => {
           
           margin: 0px 0 75px 85px;
           width: 100%;
-          transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
-                      opacity 0.16s ease, 
-                      height 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 1.6s ease, 
+                      height 1.6s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
           
           
@@ -1039,7 +1039,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 /* DISPOSICIÓN ASIMÉTRICA EN PIRÁMIDE (48 BARRITAS) */
     
-        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.2s; animation-duration: 1.8s; --max-h: 6px; }
+        .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.2s; animation-duration: 1.8s; --max-h: 4px; }
         
         .mini-audio-spectrum span:nth-child(2) { animation-delay: 0.1s; animation-duration: 1.6s; --max-h: 7px; }
     
@@ -1088,7 +1088,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         .mini-audio-spectrum span:nth-child(23) { animation-delay: 0.6s; animation-duration: 2.1s; --max-h: 7px; }
       
-        .mini-audio-spectrum span:nth-child(24) { animation-delay: 0.4s; animation-duration: 2.4s; --max-h: 6px; }
+        .mini-audio-spectrum span:nth-child(24) { animation-delay: 0.4s; animation-duration: 2.4s; --max-h: 4px; }
+
+        .mini-audio-spectrum span:nth-child(-n+6) {
+          background-color: #0055ff;
+          box-shadow: 0 0 6px #0055ff, 0 0 12px rgba(0, 85, 255, 0.4);
+        }
+
+        /* Grupo 2 (Barras 13 a 24): Centro izquierdo - Cian Orbitron */
+        .mini-audio-spectrum span:nth-child(n+6):nth-child(-n+12) {
+          background-color: #87ffff;
+          box-shadow: 0 0 6px #00ffff, 0 0 12px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Grupo 3 (Barras 25 a 36): Centro derecho - Rosa Neón Liked Songs */
+        .mini-audio-spectrum span:nth-child(n+13):nth-child(-n+18) {
+          background-color: #d83ca4;
+          box-shadow: 0 0 6px #ff00c8, 0 0 12px rgba(216, 60, 164, 0.4);
+        }
+
+        /* Grupo 4 (Barras 37 a 48): Extremo derecho - Morado Cyberpunk */
+        .mini-audio-spectrum span:nth-child(n+18) {
+          background-color: #9d00ff;
+          box-shadow: 0 0 6px #9d00ff, 0 0 12px rgba(157, 0, 255, 0.4);
+        }
 
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
