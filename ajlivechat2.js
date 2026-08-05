@@ -775,7 +775,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 1. Abrir la ventana flotante en formato compacto
       pipWindow = await window.documentPictureInPicture.requestWindow({
-        width: 267,
+        width: 265,
         height: 165,
       });
 
@@ -993,7 +993,7 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex;
           align-items: flex-end;
           justify-content: center;
-          gap: 4px;
+          gap: 3px;
           
           margin: 0px 0 75px 85px;
           width: 100%;
@@ -1003,7 +1003,7 @@ document.addEventListener("DOMContentLoaded", () => {
           transform-origin: bottom;
 
           background-image: linear-gradient(to top, #87ffff 20%, #d83ca4 100%);
-          background-size: 100% 18px;
+          background-size: 100% 28px;
           background-repeat: no-repeat;
           background-position: bottom;
           
@@ -1015,7 +1015,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
         .mini-audio-spectrum span {
           display: block;
-          width: 4px;
+          width: 3px;
           height: 3px; /* Altura en estado quieto (mínima) */
            background: inherit;
           background-attachment: fixed;
