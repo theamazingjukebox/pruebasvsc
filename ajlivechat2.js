@@ -993,7 +993,7 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex;
           align-items: flex-end;
           justify-content: center;
-          gap: 3px;
+          gap: 4px;
           
           margin: 0px 0 75px 85px;
           width: 100%;
@@ -1001,17 +1001,27 @@ document.addEventListener("DOMContentLoaded", () => {
                       opacity 1.6s ease, 
                       height 1.6s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
+
+          background-image: linear-gradient(to top, #87ffff 20%, #d83ca4 100%);
+          background-size: 100% 18px;
+          background-repeat: no-repeat;
+          background-position: bottom;
           
+          /* Opcional: Un resplandor combinado de fondo */
+          filter: drop-shadow(0 0 4px rgba(73, 255, 246, 0.3));
           
         }
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
         .mini-audio-spectrum span {
           display: block;
-          width: 3px;
+          width: 4px;
           height: 3px; /* Altura en estado quieto (mínima) */
-          background-color: #ff87e5;
-          box-shadow: 0 0 6px #ff00c8;
+           background: inherit;
+          background-attachment: fixed;
+          
+          /* Agrega un brillo general sutil */
+          box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
           border-radius: 1px;
           margin-top: -85px;
           
