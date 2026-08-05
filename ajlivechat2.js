@@ -1024,7 +1024,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
           margin-top: -55px;
-          margin-left: 20px;
+          
           animation: bounceSpectrum 1.2s ease infinite alternate;
           animation-play-state: paused; /* Inicia pausada por defecto */
           
