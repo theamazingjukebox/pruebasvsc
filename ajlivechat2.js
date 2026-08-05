@@ -1023,7 +1023,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #ff87e5;
           box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
-          margin-top: -55px;
+          margin: -55px 0px 0px 30px;
           
           animation: bounceSpectrum 1.2s ease infinite alternate;
           animation-play-state: paused; /* Inicia pausada por defecto */
