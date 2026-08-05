@@ -893,7 +893,7 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; width: 100%; align-items: center; gap: 16px; margin-top: -20px; margin-left: -10px;
         }
         .album-art-container img {
-          width: 145px; height: 145px; border-radius: 39px;
+          width: 135px; height: 135px; border-radius: 39px;
           border: 0px solid #87ffff; /* Borde Cian Orbitron */
           box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: transparent;
@@ -997,9 +997,9 @@ document.addEventListener("DOMContentLoaded", () => {
           
           margin: 0px 0 75px 85px;
           width: 100%;
-          transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                      opacity 1.6s ease, 
-                      height 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1), 
+                      opacity 2s ease, 
+                      height 2s cubic-bezier(0.16, 1, 0.3, 1);
           transform-origin: bottom;
 
           background-image: linear-gradient(to top, #87ffff 20%, #d83ca4 100%);
@@ -1015,7 +1015,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
         .mini-audio-spectrum span {
           display: block;
-          width: 3px;
+          width: 4px;
           height: 3px; /* Altura en estado quieto (mínima) */
            background: inherit;
           background-attachment: fixed;
