@@ -1000,7 +1000,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 /* CONTENEDOR DEL ESPECTRO SONORO */
         .mini-audio-spectrum {
-          
+          display: flex;
           align-items: flex-end;
           justify-content: center;
           gap: 3px;
@@ -1017,7 +1017,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
         .mini-audio-spectrum span {
-          display: none;
+          display: block;
           width: 3px;
           height: 3px; /* Altura en estado quieto (mínima) */
           background-color: #ff87e5;
