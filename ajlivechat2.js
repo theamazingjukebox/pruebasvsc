@@ -1100,29 +1100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       
         .mini-audio-spectrum span:nth-child(24) { animation-delay: 0.4s; animation-duration: 2.4s; --max-h: 4px; }
 
-        .mini-audio-spectrum span:nth-child(-n+6) {
-          background-color: #0055ff;
-          box-shadow: 0 0 6px #0055ff, 0 0 12px rgba(0, 85, 255, 0.4);
-        }
-
-        /* Grupo 2 (Barras 13 a 24): Centro izquierdo - Cian Orbitron */
-        .mini-audio-spectrum span:nth-child(n+6):nth-child(-n+12) {
-          background-color: #87ffff;
-          box-shadow: 0 0 6px #00ffff, 0 0 12px rgba(0, 255, 255, 0.4);
-        }
-
-        /* Grupo 3 (Barras 25 a 36): Centro derecho - Rosa Neón Liked Songs */
-        .mini-audio-spectrum span:nth-child(n+13):nth-child(-n+18) {
-          background-color: #d83ca4;
-          box-shadow: 0 0 6px #ff00c8, 0 0 12px rgba(216, 60, 164, 0.4);
-        }
-
-        /* Grupo 4 (Barras 37 a 48): Extremo derecho - Morado Cyberpunk */
-        .mini-audio-spectrum span:nth-child(n+18) {
-          background-color: #9d00ff;
-          box-shadow: 0 0 6px #9d00ff, 0 0 12px rgba(157, 0, 255, 0.4);
-        }
-
 
         /* ANIMACIÓN DE SUBIDA Y BAJADA */
         @keyframes bounceSpectrum {
