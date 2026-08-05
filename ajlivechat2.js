@@ -792,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container"> 
-        <img id="mini-jukebox-animation" src="CopiadeSinttulo31-ezgif.com-optiwebp.webp" alt="Jukebox"> 
+        <img id="mini-jukebox-animation" src="CopiadeCopiadeSinttulo-ezgif.com-gif-to-webp-converter.webp" alt="Jukebox"> 
         </div>
             
             <div class="track-info">
@@ -1335,7 +1335,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const preloadJukeboxAnim = new Image(); 
-    preloadJukeboxAnim.src = 'CopiadeSinttulo31-ezgif.com-optiwebp.webp'; 
+    preloadJukeboxAnim.src = 'CopiadeCopiadeSinttulo-ezgif.com-gif-to-webp-converter.webp'; 
 
     // 2. Precarga de tu cursor personalizado (Se queda igual porque es imagen)
   const preloadJukeboxCursor = new Image();
