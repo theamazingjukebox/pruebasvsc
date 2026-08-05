@@ -1005,7 +1005,7 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: center;
           gap: 3px;
           
-          margin: 0px 0 75px 65px;
+          margin: 0px 0 75px 85px;
           width: 100%;
           transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
                       opacity 0.8s ease, 
@@ -1023,7 +1023,7 @@ document.addEventListener("DOMContentLoaded", () => {
           background-color: #ff87e5;
           box-shadow: 0 0 6px #ff00c8;
           border-radius: 1px;
-          margin: -55px 0px 0px 30px;
+          margin-top: -65px;
           
           animation: bounceSpectrum 1.2s ease infinite alternate;
           animation-play-state: paused; /* Inicia pausada por defecto */
