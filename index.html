@@ -1102,7 +1102,7 @@ background-image: url('boton-3.1.webp');
     
 
     /* Sustituyendo el texto por una imagen */
-    background-image: url('share-current-song-19-8-2026.png');
+    background-image: url('share-current-song-19-8-2026 (2).png');
     background-size: 50%; /* Ajusta la imagen al tamaño del botón */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-position: center; /* Centra la imagen dentro del botón */
@@ -2655,7 +2655,7 @@ function initYouTubePlayer(videoId) {
 // ======================
 // 🌐 ESTADO GLOBAL CHAT (ÚNICO)
 // ======================
-let isChatExpanded = true;
+let isChatExpanded = false;
 
 function setChatState(expanded) {
     const chatContainer = document.getElementById("chat");
@@ -2691,7 +2691,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔥 estado inicial limpio
     setChatState(false);
-    chatContainer.scrollTop = 0;
+    chatContainer.scrollTop = 200;
 
 });
 
