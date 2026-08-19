@@ -357,6 +357,11 @@ document.getElementById('get-the-app-link').addEventListener('click', function()
     toggleInfoBox('get-the-app-content');
 });
 
+document.getElementById('key-features-link').addEventListener('click', function() {
+    toggleInfoBox('key-features-content');
+});
+
+
 function toggleInfoBox(boxId) {
     var box = document.getElementById(boxId);
     box.classList.toggle('show');
@@ -365,7 +370,8 @@ function toggleInfoBox(boxId) {
     var allBoxes = [
         'about-us-content',
         'contact-us-content',
-        'get-the-app-content'
+        'get-the-app-content',
+        'key-features-content'
     ];
 
     // Ocultar todos los demás cuadros
