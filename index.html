@@ -1528,6 +1528,138 @@ button, a, img {
     }
 }
 
+
+/* ==========================================
+   THE AMAZING JUKEBOX
+   LIVE CHAT TICKER
+========================================== */
+
+.live-chat-ticker {
+
+    width: 330px;
+    height: 30px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    margin-left: -29px;
+    margin-top: -6px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 234, 255, 0.08),
+            rgba(216, 60, 164, 0.10),
+            rgba(0, 234, 255, 0.08)
+        );
+
+    border: 1px solid rgba(0, 234, 255, 0.30);
+
+    box-shadow:
+        0 0 8px rgba(0, 234, 255, 0.20),
+        0 0 14px rgba(216, 60, 164, 0.10);
+
+}
+
+
+/* contenido que se mueve */
+
+.live-chat-track {
+
+    display: flex;
+
+    width: max-content;
+
+    white-space: nowrap;
+
+    animation:
+        liveTickerMove 18s linear infinite;
+
+}
+
+
+/* texto */
+
+.live-chat-text {
+
+    display: inline-flex;
+    align-items: center;
+
+    padding-right: 60px;
+
+    font-family: 'Orbitron', sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 1.2px;
+
+    color: #8fffff;
+
+    text-shadow:
+        0 0 5px rgba(0, 234, 255, 0.6),
+        0 0 10px rgba(216, 60, 164, 0.25);
+
+}
+
+
+/* punto LIVE */
+
+.live-chat-text::before {
+
+    content: "●";
+
+    color: #ff3d91;
+
+    margin-right: 8px;
+
+    font-size: 10px;
+
+    text-shadow:
+        0 0 6px #ff3d91,
+        0 0 12px rgba(255, 61, 145, 0.60);
+
+    animation:
+        livePulse 1.4s ease-in-out infinite;
+
+}
+
+
+/* movimiento derecha → izquierda */
+
+@keyframes liveTickerMove {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* pulso del punto LIVE */
+
+@keyframes livePulse {
+
+    0%,
+    100% {
+        opacity: 0.45;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
     
 </style>
     
@@ -2618,6 +2750,74 @@ function waitForYTAndPlay() {
     }, 100);
 }
 
+
+/* ==========================================
+   THE AMAZING JUKEBOX
+   LIVE CHAT DATE + TIME
+========================================== */
+
+function updateLiveChatTicker() {
+
+    const tickerElements =
+        document.querySelectorAll(".live-chat-text");
+
+    if (!tickerElements.length) return;
+
+
+    const now = new Date();
+
+
+    // DD/MM/YYYY
+    const date = now.toLocaleDateString(
+        "en-GB",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+
+    // HH:MM AM/PM
+    const time = now.toLocaleTimeString(
+        "en-US",
+        {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+        }
+    );
+
+
+    const tickerText =
+        `LIVE CHAT  ·  ${date}  ·  ${time}  ·  THE AMAZING JUKEBOX  ·`;
+
+
+    tickerElements.forEach(element => {
+
+        element.textContent = tickerText;
+
+    });
+
+}
+
+
+/* iniciar */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        updateLiveChatTicker();
+
+        // actualizar cada segundo
+        setInterval(
+            updateLiveChatTicker,
+            1000
+        );
+
+    }
+);
     
 
 </script>
