@@ -2665,7 +2665,7 @@ function setChatState(expanded) {
     if (!chatContainer || !toggleIcon) return; // 🔒 seguridad
 
     isChatExpanded = expanded;
-    chatContainer.style.height = expanded ? "300px" : "300px";
+    chatContainer.style.height = expanded ? "300px" : "40px";
     toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
 }
 
@@ -2713,6 +2713,13 @@ window.addEventListener("load", () => {
             chatContainer.scrollTop = 0;
             setChatState(false);
         }, 500);
+
+        // 🔥 3. reabrir con height mayor
+        setTimeout(() => {
+            chatContainer.scrollTop = 0;
+            chatContainer.style.height = "300px"; // 👈 tu nuevo tamaño final
+            isChatExpanded = true; // mantener estado coherente
+        }, 1000);
 
         // 🔥 2. ocultar loader DESPUÉS
         setTimeout(() => {
