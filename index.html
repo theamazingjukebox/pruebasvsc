@@ -2711,7 +2711,8 @@ window.addEventListener("load", () => {
 
         setTimeout(() => {
             chatContainer.scrollTop = 0;
-            
+            setChatState(false);
+        }, 500);
 
         // 🔥 2. ocultar loader DESPUÉS
         setTimeout(() => {
