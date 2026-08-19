@@ -2655,22 +2655,7 @@ function initYouTubePlayer(videoId) {
 // ======================
 // 🌐 ESTADO GLOBAL CHAT (ÚNICO)
 // ======================
-let isChatExpanded = false;
 
-function setChatState(expanded) {
-    const chatContainer = document.getElementById("chat");
-    const toggleIcon = document.getElementById("toggle-icon");
-
-    if (!chatContainer || !toggleIcon) return; // 🔒 seguridad
-
-    isChatExpanded = expanded;
-    chatContainer.style.height = expanded ? "300px" : "40px";
-    toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
-}
-
-function updateChatState() {
-    setChatState(!isChatExpanded);
-}
 
 
 // ======================
@@ -2691,7 +2676,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔥 estado inicial limpio
     setChatState(false);
-    chatContainer.scrollTop = 200;
+    chatContainer.scrollTop = 0;
 
 });
 
