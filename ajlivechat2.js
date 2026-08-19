@@ -380,6 +380,7 @@ function closeAllInfoBoxes() {
     document.getElementById('about-us-content').classList.remove('show');
     document.getElementById('contact-us-content').classList.remove('show');
     document.getElementById('get-the-app-content').classList.remove('show');
+    document.getElementById('key-features-content').classList.remove('show');
 }
 
 
