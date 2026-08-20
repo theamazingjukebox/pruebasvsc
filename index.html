@@ -500,6 +500,30 @@ body {
         }
 
 
+#notifications-button {
+   display: block;
+  margin: 0 auto;
+
+  left: 0;
+  right: 0;
+  cursor: pointer;  
+    
+ width: 50;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition: all 0.2s ease;
+
+
+}
+    
+
+#notifications-button:active {
+            box-shadow: none;
+            transform: scale(0.93); /* Simula un botón presionado */
+        }
+
+
 
 #video-container {
     position: absolute; /* Cambia a absolute para que se ajuste dentro del contenedor */
@@ -2868,6 +2892,7 @@ document.addEventListener(
                     <li><a href="#" class="menu-item" id="contact-us-link">Contact</a></li>
                     <li><a href="#" class="menu-item" id="get-the-app-link">Get the App</a></li>
                     <li><a href="#" class="menu-item" id="key-features-link">Key Features</a></li>
+                    <li><a href="#" class="menu-item" id="enable-alerts-link">Enable Notifications</a></li>
                 </ul>
             </nav>
         </div>
@@ -2938,6 +2963,23 @@ document.addEventListener(
 <br>Our goal as developers — is to deliver an innovative, friction-free music experience where any user can discover something special every time and leave feeling uplifted.</span>
 
 <br>
+
+</p>
+
+</div>
+
+
+<div id="enable-alerts-content" class="info-box5">
+    <br>
+    <br>
+    
+    <h2></h2>
+     <p>
+  Receive the latest news from the Jukebox via Push alerts.
+
+<br>
+
+         <img id="notifications-button" src="alerts.webp" alt="" width="165" height="auto">
 
 </p>
 
