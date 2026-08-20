@@ -938,7 +938,7 @@ transparent 65%
 
 @media (min-width: 768px) {
     .info-box2 {
-        margin-top: 15%; 
+        margin-top: 21%; 
         margin-left: 47%;
         
     }
@@ -952,7 +952,7 @@ transparent 65%
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box2 {
-        margin-top: 21.9%;   
+        margin-top: 17.9%;   
         left: 37%;   
             
     }
