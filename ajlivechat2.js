@@ -361,6 +361,10 @@ document.getElementById('key-features-link').addEventListener('click', function(
     toggleInfoBox('key-features-content');
 });
 
+document.getElementById('enable-alerts-link').addEventListener('click', function() {
+    toggleInfoBox('enable-alerts-content');
+});
+
 
 function toggleInfoBox(boxId) {
     var box = document.getElementById(boxId);
@@ -371,7 +375,8 @@ function toggleInfoBox(boxId) {
         'about-us-content',
         'contact-us-content',
         'get-the-app-content',
-        'key-features-content'
+        'key-features-content',
+        'enable-alerts-content'
     ];
 
     // Ocultar todos los demás cuadros
@@ -387,6 +392,7 @@ function closeAllInfoBoxes() {
     document.getElementById('contact-us-content').classList.remove('show');
     document.getElementById('get-the-app-content').classList.remove('show');
     document.getElementById('key-features-content').classList.remove('show');
+    document.getElementById('enable-alerts-content').classList.remove('show');
 }
 
 
