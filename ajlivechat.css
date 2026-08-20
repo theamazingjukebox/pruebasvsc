@@ -1316,7 +1316,7 @@ box-shadow:
 
 @media (min-width: 768px) {
     .info-box5 {
-        margin-top: 22%;
+        margin-top: 12%;
         margin-left: 47%;
         
     }
@@ -1328,7 +1328,7 @@ box-shadow:
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box5 {
-        margin-top: 17.3%;    
+        margin-top: 7.3%;    
         left: 37%;   
             
     }
