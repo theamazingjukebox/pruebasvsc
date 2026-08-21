@@ -119,8 +119,7 @@
     list-style: none;
     text-align: center;
     padding: 12px 14px;
-    background:rgba(22,22,22,.58);
-    backdrop-filter:blur(14px);
+    background-color: rgba(18, 22, 30, 0.4); /* Fondo translúcido de terminal */
     border: 1px dashed rgba(132, 179, 172, 0.2); /* Borde punteado sutil */
     border-radius: 8px;
     margin: 7px auto;
@@ -155,7 +154,9 @@
 
 /* EL EFECTO LED: Resplandor de neón exclusivo para el círculo verde */
 #messages .chat-welcome .neon-led {
-   
+
+        
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     display: inline-block;
     
 }
