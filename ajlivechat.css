@@ -110,61 +110,9 @@
             background-color: black;
         }
 
-/* ========================================================
-   CÓDIGO DE BIENVENIDA CORREGIDO (TEXTO PLANO Y NÍTIDO)
-   ======================================================== */
 
-.chat-welcome {
-    color: rgba(220, 235, 235, 0.85); /* Un poco más de opacidad para que resalte sin brillar */
-    font-style: italic;
-    font-size: 11px;
-    line-height: 1.6;
-    text-align: center;
-    padding: 10px 14px;
-    
-    /* 🔥 EL TRUCO: Matamos cualquier rastro de brillo o resplandor en las letras */
-    text-shadow: none !important;
-    box-shadow: none !important;
-    
-    /* Un fondo translúcido muy elegante estilo bloque de terminal */
-    background-color: rgba(18, 22, 30, 0.4);
-    border-radius: 8px;
-    margin: 8px auto;
-    width: 90%;
-    border: 1px dashed rgba(132, 179, 172, 0.2);
-}
 
-.system {
-    font-family: 'Orbitron', monospace;
-    font-weight: bold;
-    color: #87ffff; /* Tu Cian Orbitron exacto para el encabezado [ AJ_SYSTEM_BOOT ] */
-    background-color: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Desactivamos el brillo aquí también */
-    text-shadow: none !important;
-    box-shadow: none !important;
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-}
 
-.system2 {
-    background-color: transparent !important;
-    color: #dffcff !important; /* Tu color claro secundario para el cuerpo del texto */
-    padding: 0px;
-    border: none !important;
-    border-radius: 0px; 
-    box-shadow: none !important;
-    
-    /* Forzamos tipografía de consola limpia sin neones */
-    font-family: monospace;
-    font-weight: normal;
-    font-size: 13px;
-    text-shadow: none !important;
-}
 
 
         #emoji-button {
@@ -1347,7 +1295,7 @@ box-shadow:
 
 @media (min-width: 768px) {
     .info-box5 {
-        margin-top: 17%;
+        margin-top: 16%;
         margin-left: 47%;
         
     }
@@ -1359,7 +1307,7 @@ box-shadow:
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     .info-box5 {
-        margin-top: 12.3%;    
+        margin-top: 11.3%;    
         left: 37%;   
             
     }
