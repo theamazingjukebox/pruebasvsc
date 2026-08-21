@@ -110,6 +110,46 @@
             background-color: black;
         }
 
+/* ========================================================
+   CÓDIGO DE BIENVENIDA OPTIMIZADO (ESTRUCTURA EXACTA)
+   ======================================================== */
+
+/* El contenedor principal de la bienvenida */
+#messages .chat-welcome {
+    list-style: none;
+    text-align: center;
+    padding: 12px 14px;
+    background-color: rgba(18, 22, 30, 0.4); /* Fondo translúcido de terminal */
+    border: 1px dashed rgba(132, 179, 172, 0.2); /* Borde punteado sutil */
+    border-radius: 8px;
+    margin: 10px auto;
+    width: 90%;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* El título principal: Cian Orbitron Puro y Nítido */
+#messages .chat-welcome .system-title {
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    color: #87ffff; /* Tu Cian Orbitron exacto */
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    text-shadow: none !important; /* Quitamos el neón para máxima nitidez */
+}
+
+/* El cuerpo del mensaje: Texto plano Monospace Claro */
+#messages .chat-welcome .system-body {
+    font-family: monospace;
+    font-weight: normal;
+    font-size: 12px;
+    color: #dffcff; /* Tu color claro secundario */
+    line-height: 1.5;
+    margin: 0;
+    text-shadow: none !important; /* Cero resplandores fastidiosos */
+}
 
 
 
