@@ -122,7 +122,7 @@
     background-color: rgba(18, 22, 30, 0.4); /* Fondo translúcido de terminal */
     border: 1px dashed rgba(132, 179, 172, 0.2); /* Borde punteado sutil */
     border-radius: 8px;
-    margin: 5px auto;
+    margin: 7px auto;
     width: 90%;
     box-shadow: none !important;
     text-shadow: none !important;
