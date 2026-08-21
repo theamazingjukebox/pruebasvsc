@@ -154,17 +154,12 @@
 
 /* EL EFECTO LED: Resplandor de neón exclusivo para el círculo verde */
 #messages .chat-welcome .neon-led {
-    color: #00ff80; /* Tono verde neón brillante */
-    text-shadow: 0 0 6px #00ff80, 0 0 15px rgba(0, 255, 128, 0.6) !important;
+   
     display: inline-block;
-    animation: ledPulse 2s infinite ease-in-out; /* Opcional: un pulso lento muy sutil */
+    
 }
 
-/* Animación opcional para que el foco respire de forma cyberpunk */
-@keyframes ledPulse {
-    0%, 100% { opacity: 0.8; text-shadow: 0 0 4px #00ff80; }
-    50% { opacity: 1; text-shadow: 0 0 10px #00ff80, 0 0 20px rgba(0, 255, 128, 0.8); }
-}
+
 
 
 
