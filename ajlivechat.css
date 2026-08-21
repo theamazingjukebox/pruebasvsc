@@ -110,17 +110,62 @@
             background-color: black;
         }
 
+/* ========================================================
+   CÓDIGO DE BIENVENIDA CORREGIDO (TEXTO PLANO Y NÍTIDO)
+   ======================================================== */
+
 .chat-welcome {
-    color: rgba(220, 235, 235, 0.65);
+    color: rgba(220, 235, 235, 0.85); /* Un poco más de opacidad para que resalte sin brillar */
     font-style: italic;
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.6;
     text-align: center;
-    padding: 8px 12px;
-    opacity: 0.85;
-    box-shadow: none;
+    padding: 10px 14px;
     
+    /* 🔥 EL TRUCO: Matamos cualquier rastro de brillo o resplandor en las letras */
+    text-shadow: none !important;
+    box-shadow: none !important;
+    
+    /* Un fondo translúcido muy elegante estilo bloque de terminal */
+    background-color: rgba(18, 22, 30, 0.4);
+    border-radius: 8px;
+    margin: 8px auto;
+    width: 90%;
+    border: 1px dashed rgba(132, 179, 172, 0.2);
 }
+
+.system {
+    font-family: 'Orbitron', monospace;
+    font-weight: bold;
+    color: #87ffff; /* Tu Cian Orbitron exacto para el encabezado [ AJ_SYSTEM_BOOT ] */
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Desactivamos el brillo aquí también */
+    text-shadow: none !important;
+    box-shadow: none !important;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+}
+
+.system2 {
+    background-color: transparent !important;
+    color: #dffcff !important; /* Tu color claro secundario para el cuerpo del texto */
+    padding: 0px;
+    border: none !important;
+    border-radius: 0px; 
+    box-shadow: none !important;
+    
+    /* Forzamos tipografía de consola limpia sin neones */
+    font-family: monospace;
+    font-weight: normal;
+    font-size: 13px;
+    text-shadow: none !important;
+}
+
 
         #emoji-button {
             margin-left: auto;
@@ -289,33 +334,7 @@
    
 }
 
-.system {
-    font-family: Orbitron;  /* Puedes cambiar la fuente según tus preferencias */
-    font-weight: bold;
-    color: rgba(220, 235, 235, 0.65);
-    background-color: transparent;
-    border: 0px solid rgba(152, 251, 152, 0);
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none;
-  }
- 
 
-  .system2 {
-    background-color: #34db9b00; /* Cambia el color de fondo aquí */
-    color: white; /* Cambia el color del texto aquí */
-    padding: 0px; /* Ajusta el espacio interno si es necesario */
-    border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
-    border-top-right-radius: 0px;
-    border: 0px solid rgba(152, 251, 152, 0);
-    border-radius: 5px; 
-    box-shadow: 0px 0px 0px rgba(255, 255, 255, 0), 0px 0px 0px rgba(255, 255, 255, 0);
-    font-family: monospace;
-    font-weight: bold;
-    font-size: 16px;
-  }
 
   #message-form {
     display: flex;
