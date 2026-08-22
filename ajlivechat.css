@@ -156,7 +156,7 @@
 #messages .chat-welcome .neon-led {
 
         
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         font-family: Orbitron; 
     display: inline-block;
     
