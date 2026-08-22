@@ -142,7 +142,7 @@
 
 /* El cuerpo del mensaje: Texto plano Monospace Claro */
 #messages .chat-welcome .system-body {
-    font-family: monospace;
+    font-family: Orbitron; 
     font-weight: normal;
     font-size: 12px;
     color: #dffcff; /* Tu color claro secundario */
