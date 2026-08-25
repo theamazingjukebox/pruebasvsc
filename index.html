@@ -1698,12 +1698,6 @@ button, a, img {
   z-index: 9995;   /* Justo por debajo de tu chat o popups principales */
 }
 
-@media (min-width: 768px) {
-    .main-folder-container {
-        height: 480px; 
-        
-    }
-}
 
 /* PESTAÑA DEL FOLDER FÍSICO */
 .main-folder-tab-trigger {
@@ -1714,6 +1708,7 @@ button, a, img {
   -webkit-backdrop-filter: blur(10px);
   border: 2px solid #d83ca4; /* Tu rosa neón exacto */
   border-right: none;
+    margin-bottom: 20px;
   border-radius: 12px 0 0 12px;
   display: flex;
   align-items: center;
@@ -1777,12 +1772,7 @@ button, a, img {
   padding: 16px;
 }
 
-@media (min-width: 768px) {
-    .main-folder-container.folder-active .main-comments-board {
-         width: 560px
-        
-    }
-}
+
 .main-folder-container.folder-active #main-tab-arrow {
   transform: rotate(180deg); /* La flecha cambia de dirección > indicando cierre */
 }
