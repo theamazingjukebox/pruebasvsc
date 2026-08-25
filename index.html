@@ -1698,6 +1698,13 @@ button, a, img {
   z-index: 9995;   /* Justo por debajo de tu chat o popups principales */
 }
 
+@media (min-width: 768px) {
+    .main-folder-container {
+        height: 480px; 
+        
+    }
+}
+
 /* PESTAÑA DEL FOLDER FÍSICO */
 .main-folder-tab-trigger {
   width: 26px;
@@ -1715,6 +1722,14 @@ button, a, img {
   box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
   transition: background-color 0.2s;
 }
+
+@media (min-width: 768px) {
+    .main-folder-tab-trigger {
+        width: 52px;
+  height: 120px;
+        
+    }
+}
 .main-folder-tab-trigger:hover {
   background-color: rgba(216, 60, 164, 0.15);
 }
@@ -1726,6 +1741,13 @@ button, a, img {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
+}
+
+@media (min-width: 768px) {
+    #main-tab-arrow {
+        font-size: 44px;
+        
+    }
 }
 
 /* PANEL TERMINAL DE COMENTARIOS */
@@ -1753,6 +1775,13 @@ button, a, img {
   width: 280px; /* Ancho de tu panel de comentarios en la pantalla principal */
   opacity: 1;
   padding: 16px;
+}
+
+@media (min-width: 768px) {
+    .main-folder-container.folder-active .main-comments-board {
+         width: 560px
+        
+    }
 }
 .main-folder-container.folder-active #main-tab-arrow {
   transform: rotate(180deg); /* La flecha cambia de dirección > indicando cierre */
