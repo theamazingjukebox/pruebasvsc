@@ -1746,6 +1746,12 @@ button, a, img {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
+  transform: scaleX(1); /* Estado inicial (<) */
+}
+
+/* Cuando el folder está activo */
+.folder-active #main-tab-arrow {
+  transform: scaleX(-1); /* Reflejo horizontal (>) */
 }
 
 @media (min-width: 768px) {
