@@ -1739,34 +1739,35 @@ button, a, img {
   background-color: rgba(216, 60, 164, 0.15);
 }
 
-/* FLECHA VECTORIAL DE ALTA PRECISIÓN (SIN TEXTO) */
+
+/* FLECHA VECTORIAL ESTILIZADA DE ALTA PRECISIÓN */
 #main-tab-arrow {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 10px;  /* Altura de la flecha */
+  height: 10px; /* Ancho de la flecha */
   
-  /* Dibujamos la flecha usando bordes puros (Cero problemas de fuentes) */
+  /* Dibujamos la forma exacta de tu flecha original (Líneas delgadas de 2px) */
   border-left: 2px solid #87ffff;
   border-bottom: 2px solid #87ffff;
   
-  /* La inclinamos inicialmente para que apunte hacia la izquierda < */
+  /* Posición inicial: Apuntando perfectamente a la izquierda ‹ */
   transform: rotate(45deg); 
   
-  /* Fijamos el centro geométrico perfecto para el giro */
+  /* 🎯 CLAVE: Centro geométrico exacto para que gire sin moverse un solo píxel */
   transform-origin: 35% 65%; 
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
   
-  /* Filtro de neón Orbitron */
-  filter: drop-shadow(0 0 4px #00ffff);
+  /* El hermoso resplandor cian Orbitron */
+  filter: drop-shadow(0 0 5px #00ffff);
   user-select: none;
 }
 
-/* ROTACIÓN EN SU PROPIO ESPACIO AL ABRIR EL FOLDER */
-/* Sumamos 180 grados exactos a la posición inicial (45 + 180 = 225) */
-/* Esto hace que apunte hacia la derecha > sin moverse un solo píxel de su altura */
+/* POSICIÓN FINAL AL ABRIR: Gira sobre su propio eje y apunta a la derecha › */
+/* Sumamos 180 grados exactos para que la transición sea simétrica e impecable */
 .main-folder-container.folder-active #main-tab-arrow {
   transform: rotate(225deg); 
 }
+
 
 
 @media (min-width: 768px) {
@@ -3312,7 +3313,7 @@ document.addEventListener(
 
   <!-- PESTAÑA DEL FOLDER FÍSICO CON LA FLECHA INTERACTIVA -->
   <div id="main-folder-tab" class="main-folder-tab-trigger">
-    <span id="main-tab-arrow">‹</span>
+    <span id="main-tab-arrow"></span>
   </div>
 
 </div>
