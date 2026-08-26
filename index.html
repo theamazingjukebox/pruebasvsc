@@ -1709,14 +1709,12 @@ button, a, img {
   border: 2px solid #d83ca4; /* Tu rosa neón exacto */
   border-right: none;
   border-radius: 12px 0 0 12px;
-  cursor: pointer;
-  box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
-  transition: background-color 0.2s;
-
-  /* 🔥 EL SEGRETO DEL CENTRADO: Flexbox fuerza alineación perfecta en X y Y */
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
+  transition: background-color 0.2s;
 }
 
 @media (min-width: 768px) {
@@ -1742,21 +1740,25 @@ button, a, img {
 
 
 #main-tab-arrow {
-  color: #87ffff; /* Tu cian Orbitron exacto */
-  font-family: 'Orbitron', monospace;
-  font-size: 22px;
+  display: inline-block;
+  width: 8px;  
+  height: 8px; 
   
-  text-shadow: 0 0 6px #00ffff;
+  /* 1. Mantenemos los bordes fijos para que la transición sea fluida */
+  border-left: 2px solid #87ffff;
+  border-bottom: 2px solid #87ffff;
+  border-top: 0px solid transparent;
+  border-right: 0px solid transparent;
+  
+  /* 2. PUNTO DE PARTIDA: Apuntando horizontalmente a la izquierda ‹ */
+  transform: rotate(45deg); 
+  
+  /* 3. EJE CENTRAL PERFECTO: Clava el centro para que no brinque ni un píxel */
+  transform-origin: center center; 
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  filter: drop-shadow(0 0 5px #00ffff);
   user-select: none;
-  
-  /* Reset tipográfico para evitar que la fuente empuje el texto hacia abajo */
-  display: block;
-  line-height: 1;
-  margin-top: -2px; /* Micro-ajuste para compensar el peso visual de la fuente */
-  
-  /* 🔥 EFECTO PREMUM: Transición de suavizado para la opacidad */
-  transition: opacity 2s ease-in-out;
-  opacity: 1; /* Inicia encendida */
 }
 
 
@@ -1805,8 +1807,7 @@ button, a, img {
 
 
 .main-folder-container.folder-active #main-tab-arrow {
-  /* Eliminamos por completo los rotate() que causaban locuras en el eje */
-  background: transparent;
+  transform: rotate(225deg) !important; 
 }
 
 
@@ -3045,26 +3046,13 @@ document.addEventListener(
     const folderTabTrigger = document.getElementById('main-folder-tab');
 
     if (folderTabTrigger && folderContainer) {
-      // Capturamos el ID exacto de tu HTML: "main-tab-arrow"
-      const tabArrow = document.getElementById('main-tab-arrow'); 
-
+      // Evento de clic para expandir o contraer la pestaña lateral
       folderTabTrigger.addEventListener('click', () => {
         isWebFolderOpen = !isWebFolderOpen;
         
-        if (tabArrow) {
-          // ⏳ Fase 1: Desvanecemos la flecha original suavemente (se vuelve invisible)
-          tabArrow.style.opacity = '0';
-          
-          setTimeout(() => {
-            // Pasado un pestañeo (150ms), cambiamos el texto en total oscuridad
-            tabArrow.innerText = isWebFolderOpen ? '›' : '‹';
-            // ⏳ Fase 2: Volvemos a encender la flecha con su nuevo estado
-            tabArrow.style.opacity = '1';
-          }, 200);
-        }
-
         if (isWebFolderOpen) {
           folderContainer.classList.add('folder-active');
+          // Al abrir, reseteamos el límite a 4 y cargamos
           currentMaxResults = 4;
           fetchWebYouTubeComments(true);
         } else {
