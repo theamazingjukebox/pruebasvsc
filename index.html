@@ -1709,12 +1709,14 @@ button, a, img {
   border: 2px solid #d83ca4; /* Tu rosa neón exacto */
   border-right: none;
   border-radius: 12px 0 0 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
   transition: background-color 0.2s;
+
+  /* 🔥 EL SEGRETO DEL CENTRADO: Flexbox fuerza alineación perfecta en X y Y */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -1740,13 +1742,21 @@ button, a, img {
 
 
 #main-tab-arrow {
-  color: #87ffff; 
+  color: #87ffff; /* Tu cian Orbitron exacto */
   font-family: 'Orbitron', monospace;
   font-size: 22px;
+  font-weight: bold;
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
-  display: inline-block;
+  
+  /* Reset tipográfico para evitar que la fuente empuje el texto hacia abajo */
+  display: block;
   line-height: 1;
+  margin-top: -2px; /* Micro-ajuste para compensar el peso visual de la fuente */
+  
+  /* 🔥 EFECTO PREMUM: Transición de suavizado para la opacidad */
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1; /* Inicia encendida */
 }
 
 
@@ -1795,7 +1805,8 @@ button, a, img {
 
 
 .main-folder-container.folder-active #main-tab-arrow {
- color: #87ffff; 
+  /* Eliminamos por completo los rotate() que causaban locuras en el eje */
+  background: transparent;
 }
 
 
