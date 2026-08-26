@@ -1740,32 +1740,41 @@ button, a, img {
 }
 
 
-/* FLECHA VECTORIAL ESTILIZADA DE ALTA PRECISIÓN */
+/* FLECHA VECTORIAL MAESTRA EN REPOSO ‹ */
 #main-tab-arrow {
   display: inline-block;
-  width: 10px;  /* Altura de la flecha */
-  height: 10px; /* Ancho de la flecha */
+  width: 9px;  
+  height: 9px; 
   
-  /* Dibujamos la forma exacta de tu flecha original (Líneas delgadas de 2px) */
+  /* Estado inicial: Esquina inferior-izquierda */
   border-left: 2px solid #87ffff;
   border-bottom: 2px solid #87ffff;
+  border-top: 0px solid transparent;
+  border-right: 0px solid transparent;
   
-  /* Posición inicial: Apuntando perfectamente a la izquierda ‹ */
+  /* Inclinación exacta para que luzca horizontal hacia la izquierda ‹ */
   transform: rotate(45deg); 
   
-  /* 🎯 CLAVE: Centro geométrico exacto para que gire sin moverse un solo píxel */
-  transform-origin: 35% 65%; 
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+  /* Centro geométrico milimétrico para evitar brincos */
+  transform-origin: center center; 
+  transition: transform 0.3s ease, border-color 0.2s;
   
-  /* El hermoso resplandor cian Orbitron */
   filter: drop-shadow(0 0 5px #00ffff);
   user-select: none;
 }
 
-/* POSICIÓN FINAL AL ABRIR: Gira sobre su propio eje y apunta a la derecha › */
-/* Sumamos 180 grados exactos para que la transición sea simétrica e impecable */
+/* ESTADO ACTIVO: TRANSICIÓN COMPLETA A LA DERECHA › */
+/* En lugar de forzar un giro tridimensional que deforma el pico, 
+   cambiamos los bordes activos al lado opuesto (superior-derecho).
+   El navegador hará un cambio de luces instantáneo super elegante. */
 .main-folder-container.folder-active #main-tab-arrow {
-  transform: rotate(180deg); 
+  border-left: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-top: 2px solid #87ffff;
+  border-right: 2px solid #87ffff;
+  
+  /* Mantenemos los mismos 45 grados para que no salte ni un solo píxel hacia arriba */
+  transform: rotate(45deg); 
 }
 
 
