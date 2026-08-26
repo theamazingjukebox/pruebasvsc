@@ -1744,10 +1744,20 @@ button, a, img {
   color: #87ffff; /* Tu cian Orbitron exacto */
   font-family: 'Orbitron', monospace;
   font-size: 22px;
-  font-weight: bold;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
+
+  /* 🔥 LAS LÍNEAS QUE ARREGLAN EL EJE DE GIRO */
+  display: inline-block;        /* Fuerza al carácter a comportarse como un bloque simétrico */
+  transform-origin: 45% 48%;    /* Ajuste milimétrico para balancear el peso visual del pico `‹` */
+  line-height: 1;               /* Resetea alturas de renglón extrañas que causaban brincos */
+}
+
+/* ESTADO DE PANEL EXPANDIDO / ABIERTO */
+.main-folder-container.folder-active #main-tab-arrow {
+  /* 🔥 Gira de forma impecable sobre el alfiler del centro, convirtiéndose en `>` */
+  transform: rotate(180deg) !important; 
 }
 
 
