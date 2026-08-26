@@ -1740,15 +1740,14 @@ button, a, img {
 
 
 #main-tab-arrow {
-  color: #87ffff; /* Tu cian Orbitron exacto */
+  color: #87ffff; 
   font-family: 'Orbitron', monospace;
   font-size: 22px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
+  display: inline-block;
+  line-height: 1;
 }
-
-
 
 
 
@@ -1796,13 +1795,9 @@ button, a, img {
 
 
 .main-folder-container.folder-active #main-tab-arrow {
-  /* 🔥 FORZAMOS EL EJE DIRECTAMENTE EN EL MOMENTO DEL GIRO */
-  transform-origin: center center !important;
-  line-height: 1 !important;
-  
-  /* Tu rotación original intacta pero blindada */
-  transform: rotate(180deg) !important; 
+ color: #87ffff; 
 }
+
 
 /* TEXTOS INTERNOS DE LA TERMINAL DE COMENTARIOS */
 .panel-terminal-header {
