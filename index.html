@@ -1708,14 +1708,15 @@ button, a, img {
   -webkit-backdrop-filter: blur(10px);
   border: 2px solid #d83ca4; /* Tu rosa neón exacto */
   border-right: none;
-    margin-bottom: 30px;
   border-radius: 12px 0 0 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
   transition: background-color 0.2s;
+
+  /* 🔥 CLAVE DE CONTENCIÓN: Forzamos un centro absoluto en los tres ejes */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -1744,20 +1745,22 @@ button, a, img {
   color: #87ffff; /* Tu cian Orbitron exacto */
   font-family: 'Orbitron', monospace;
   font-size: 22px;
+  font-weight: lighter;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
 
-  /* 🔥 LAS LÍNEAS QUE ARREGLAN EL EJE DE GIRO */
-  display: inline-block;        /* Fuerza al carácter a comportarse como un bloque simétrico */
-  transform-origin: 45% 48%;    /* Ajuste milimétrico para balancear el peso visual del pico `‹` */
-  line-height: 1;               /* Resetea alturas de renglón extrañas que causaban brincos */
-}
-
-/* ESTADO DE PANEL EXPANDIDO / ABIERTO */
-.main-folder-container.folder-active #main-tab-arrow {
-  /* 🔥 Gira de forma impecable sobre el alfiler del centro, convirtiéndose en `>` */
-  transform: rotate(180deg) !important; 
+  /* 🔥 CORRECCIÓN ABSOLUTA DE CAJA TIPOGRÁFICA */
+  display: block;
+  width: auto;
+  height: auto;
+  line-height: 1;             /* Elimina cualquier herencia de renglón alto */
+  
+  /* Forzamos al navegador a usar el centro geométrico puro */
+  transform-origin: center center !important; 
+  
+  /* Un micro-ajuste manual para compensar el hueco que Orbitron deja a la derecha de la flecha */
+  margin-left: -2px; 
 }
 
 
