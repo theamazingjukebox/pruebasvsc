@@ -3040,10 +3040,12 @@ document.addEventListener(
         
         if (isWebFolderOpen) {
           folderContainer.classList.add('folder-active');
+             if (tabArrow) tabArrow.innerText = '›'; 
           // Disparamos la carga de comentarios de inmediato si está sonando algo
           fetchWebYouTubeComments();
         } else {
           folderContainer.classList.remove('folder-active');
+            if (tabArrow) tabArrow.innerText = '‹'; 
         }
       });
     }
