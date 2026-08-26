@@ -1738,23 +1738,36 @@ button, a, img {
 .main-folder-tab-trigger:hover {
   background-color: rgba(216, 60, 164, 0.15);
 }
+
+/* FLECHA VECTORIAL DE ALTA PRECISIÓN (SIN TEXTO) */
 #main-tab-arrow {
-  color: #87ffff; /* Tu cian Orbitron exacto */
-  font-family: 'Orbitron', monospace;
-  font-size: 22px;
-  font-weight: bold;
   display: inline-block;
-   transform-origin: center center;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
+  width: 8px;
+  height: 8px;
   
-  text-shadow: 0 0 6px #00ffff;
+  /* Dibujamos la flecha usando bordes puros (Cero problemas de fuentes) */
+  border-left: 2px solid #87ffff;
+  border-bottom: 2px solid #87ffff;
+  
+  /* La inclinamos inicialmente para que apunte hacia la izquierda < */
+  transform: rotate(45deg); 
+  
+  /* Fijamos el centro geométrico perfecto para el giro */
+  transform-origin: 35% 65%; 
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+  
+  /* Filtro de neón Orbitron */
+  filter: drop-shadow(0 0 4px #00ffff);
   user-select: none;
-  line-height: 1;
 }
 
-    .main-folder-container.folder-active #main-tab-arrow {
-  transform: rotate(180deg); /* Gira como las manecillas de un reloj, manteniéndose en su misma altura */
+/* ROTACIÓN EN SU PROPIO ESPACIO AL ABRIR EL FOLDER */
+/* Sumamos 180 grados exactos a la posición inicial (45 + 180 = 225) */
+/* Esto hace que apunte hacia la derecha > sin moverse un solo píxel de su altura */
+.main-folder-container.folder-active #main-tab-arrow {
+  transform: rotate(225deg); 
 }
+
 
 @media (min-width: 768px) {
     #main-tab-arrow {
