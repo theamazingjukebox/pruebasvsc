@@ -1740,42 +1740,39 @@ button, a, img {
 }
 
 
-/* FLECHA VECTORIAL MAESTRA EN REPOSO ‹ */
+/* ========================================================
+   DISEÑO GEOMÉTRICO DEFINITIVO PARA LA FLECHA DE LA PESTAÑA
+   ======================================================== */
+
 #main-tab-arrow {
   display: inline-block;
-  width: 9px;  
-  height: 9px; 
+  width: 8px;  
+  height: 8px; 
   
-  /* Estado inicial: Esquina inferior-izquierda */
+  /* 1. Mantenemos los bordes fijos para que la transición sea fluida */
   border-left: 2px solid #87ffff;
   border-bottom: 2px solid #87ffff;
   border-top: 0px solid transparent;
   border-right: 0px solid transparent;
   
-  /* Inclinación exacta para que luzca horizontal hacia la izquierda ‹ */
+  /* 2. PUNTO DE PARTIDA: Apuntando horizontalmente a la izquierda ‹ */
   transform: rotate(45deg); 
   
-  /* Centro geométrico milimétrico para evitar brincos */
+  /* 3. EJE CENTRAL PERFECTO: Clava el centro para que no brinque ni un píxel */
   transform-origin: center center; 
-  transition: transform 0.3s ease, border-color 0.2s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   
   filter: drop-shadow(0 0 5px #00ffff);
   user-select: none;
 }
 
-/* ESTADO ACTIVO: TRANSICIÓN COMPLETA A LA DERECHA › */
-/* En lugar de forzar un giro tridimensional que deforma el pico, 
-   cambiamos los bordes activos al lado opuesto (superior-derecho).
-   El navegador hará un cambio de luces instantáneo super elegante. */
+/* ESTADO ACTIVO: GIRO MECÁNICO TOTAL HACIA LA DERECHA › */
+/* Al abrir el folder, obligamos al mismo pico a girar 180 grados exactos (45 + 180 = 225).
+   Usamos !important para romper cualquier herencia y forzar al navegador a alinearlo horizontal */
 .main-folder-container.folder-active #main-tab-arrow {
-  border-left: 0px solid transparent;
-  border-bottom: 0px solid transparent;
-  border-top: 2px solid #87ffff;
-  border-right: 2px solid #87ffff;
-  
-  /* Mantenemos los mismos 45 grados para que no salte ni un solo píxel hacia arriba */
-  transform: rotate(135deg); 
+  transform: rotate(225deg) !important; 
 }
+
 
 
 
