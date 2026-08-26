@@ -3034,18 +3034,30 @@ document.addEventListener(
     const folderTabTrigger = document.getElementById('main-folder-tab');
 
     if (folderTabTrigger && folderContainer) {
-      // Evento de clic para expandir o contraer la pestaña
+      // Capturamos el ID exacto de tu HTML: "main-tab-arrow"
+      const tabArrow = document.getElementById('main-tab-arrow'); 
+
       folderTabTrigger.addEventListener('click', () => {
         isWebFolderOpen = !isWebFolderOpen;
         
+        if (tabArrow) {
+          // ⏳ Fase 1: Desvanecemos la flecha original suavemente (se vuelve invisible)
+          tabArrow.style.opacity = '0';
+          
+          setTimeout(() => {
+            // Pasado un pestañeo (150ms), cambiamos el texto en total oscuridad
+            tabArrow.innerText = isWebFolderOpen ? '›' : '‹';
+            // ⏳ Fase 2: Volvemos a encender la flecha con su nuevo estado
+            tabArrow.style.opacity = '1';
+          }, 150);
+        }
+
         if (isWebFolderOpen) {
           folderContainer.classList.add('folder-active');
-             if (tabArrow) tabArrow.innerText = '›'; 
-          // Disparamos la carga de comentarios de inmediato si está sonando algo
-          fetchWebYouTubeComments();
+          currentMaxResults = 4;
+          fetchWebYouTubeComments(true);
         } else {
           folderContainer.classList.remove('folder-active');
-            if (tabArrow) tabArrow.innerText = '‹'; 
         }
       });
     }
