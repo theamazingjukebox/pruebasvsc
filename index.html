@@ -1720,8 +1720,8 @@ button, a, img {
 
 @media (min-width: 768px) {
     .main-folder-tab-trigger {
-        width: 52px;
-  height: 120px;
+        width: 39px;
+  height: 90px;
         
     }
 }
@@ -1743,15 +1743,17 @@ button, a, img {
   font-family: 'Orbitron', monospace;
   font-size: 22px;
   font-weight: bold;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+   transform-origin: center center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s;
+  
   text-shadow: 0 0 6px #00ffff;
   user-select: none;
-  transform: scaleX(1); /* Estado inicial (<) */
+  line-height: 1;
 }
 
-/* Cuando el folder está activo */
-.folder-active #main-tab-arrow {
-  transform: scaleX(-1); /* Reflejo horizontal (>) */
+    .main-folder-container.folder-active #main-tab-arrow {
+  transform: rotate(180deg); /* Gira como las manecillas de un reloj, manteniéndose en su misma altura */
 }
 
 @media (min-width: 768px) {
