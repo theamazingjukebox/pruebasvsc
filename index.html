@@ -1740,38 +1740,19 @@ button, a, img {
 }
 
 
-/* ========================================================
-   DISEÑO GEOMÉTRICO DEFINITIVO PARA LA FLECHA DE LA PESTAÑA
-   ======================================================== */
-
 #main-tab-arrow {
-  display: inline-block;
-  width: 16px;  
-  height: 16px; 
-  
-  /* 1. Mantenemos los bordes fijos para que la transición sea fluida */
-  border-left: 2px solid #87ffff;
-  border-bottom: 2px solid #87ffff;
-  border-top: 0px solid transparent;
-  border-right: 0px solid transparent;
-  
-  /* 2. PUNTO DE PARTIDA: Apuntando horizontalmente a la izquierda ‹ */
-  transform: rotate(45deg); 
-  
-  /* 3. EJE CENTRAL PERFECTO: Clava el centro para que no brinque ni un píxel */
-  transform-origin: center center; 
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  filter: drop-shadow(0 0 5px #00ffff);
+  color: #87ffff; /* Tu cian Orbitron exacto */
+  font-family: 'Orbitron', monospace;
+  font-size: 22px;
+  font-weight: bold;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 6px #00ffff;
   user-select: none;
+  display: inline-block;        /* Fuerza al carácter a ser un bloque simétrico */
+  transform-origin: 45% 48%;    /* Centra el alfiler del eje en el pico del carácter */
+  line-height: 1;               /* Elimina espacios invisibles que causan el brinco */
 }
 
-/* ESTADO ACTIVO: GIRO MECÁNICO TOTAL HACIA LA DERECHA › */
-/* Al abrir el folder, obligamos al mismo pico a girar 180 grados exactos (45 + 180 = 225).
-   Usamos !important para romper cualquier herencia y forzar al navegador a alinearlo horizontal */
-.main-folder-container.folder-active #main-tab-arrow {
-  transform: rotate(225deg) !important; 
-}
 
 
 
@@ -3319,7 +3300,7 @@ document.addEventListener(
 
   <!-- PESTAÑA DEL FOLDER FÍSICO CON LA FLECHA INTERACTIVA -->
   <div id="main-folder-tab" class="main-folder-tab-trigger">
-    <span id="main-tab-arrow"></span>
+    <span id="main-tab-arrow"><</span>
   </div>
 
 </div>
