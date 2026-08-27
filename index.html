@@ -1711,15 +1711,15 @@ button, a, img {
   border-radius: 12px 0 0 12px;
   cursor: pointer;
   box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
-  transition: background-color 0.2s;
-
-  /* 🔥 EL SEGRETO DEL CENTRADO: Flexbox fuerza alineación perfecta en X y Y */
+  transition:
+        background-color 0.2s,
+        transform 0.15s,
+        box-shadow 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 
-
-
+-webkit-tap-highlight-color: transparent;
 }
 
 @media (min-width: 768px) {
@@ -1730,6 +1730,15 @@ button, a, img {
     }
 }
 
+@media (hover: hover) and (pointer: fine) {
+
+    .main-folder-tab-trigger:hover {
+        background-color: rgba(216, 60, 164, 0.15);
+    }
+
+}
+    
+
 @media (min-width:768px) and (hover:hover) and (pointer:fine){
 
 .main-folder-tab-trigger {
@@ -1739,18 +1748,13 @@ button, a, img {
     }
 }
     
-.main-folder-tab-trigger:hover {
-  background-color: rgba(216, 60, 164, 0.15);
-}
 
 .main-folder-tab-trigger:active {
             box-shadow: none;
             transform: scale(0.93); /* Simula un botón presionado */
         }
 
-.main-folder-tab-trigger.no-hover:hover {
-  background-color: transparent;
-}
+
 
 
 #main-tab-arrow {
@@ -3169,17 +3173,6 @@ document.addEventListener(
   }
 })();
 
-
-const btn = document.querySelector('.main-folder-tab-trigger');
-
-btn.addEventListener('touchstart', () => {
-  btn.classList.add('no-hover'); // desactiva hover al tocar
-});
-
-btn.addEventListener('touchend', () => {
-  // lo quitas apenas termina el toque
-  setTimeout(() => btn.classList.remove('no-hover'), 150);
-});
     
 
 </script>
