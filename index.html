@@ -3171,9 +3171,14 @@ document.addEventListener(
 
 
 const btn = document.querySelector('.main-folder-tab-trigger');
-btn.addEventListener('click', () => {
-  btn.classList.add('no-hover');
-  setTimeout(() => btn.classList.remove('no-hover'), 300); // se limpia rápido
+
+btn.addEventListener('touchstart', () => {
+  btn.classList.add('no-hover'); // desactiva hover al tocar
+});
+
+btn.addEventListener('touchend', () => {
+  // lo quitas apenas termina el toque
+  setTimeout(() => btn.classList.remove('no-hover'), 150);
 });
     
 
