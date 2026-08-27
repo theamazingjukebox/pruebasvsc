@@ -1748,7 +1748,7 @@ button, a, img {
             transform: scale(0.93); /* Simula un botón presionado */
         }
 
-.main-folder-tab-trigger:focus:hover {
+.main-folder-tab-trigger.no-hover:hover {
   background-color: transparent;
 }
 
@@ -3169,6 +3169,12 @@ document.addEventListener(
   }
 })();
 
+
+const btn = document.querySelector('.main-folder-tab-trigger');
+btn.addEventListener('click', () => {
+  btn.classList.add('no-hover');
+  setTimeout(() => btn.classList.remove('no-hover'), 300); // se limpia rápido
+});
     
 
 </script>
