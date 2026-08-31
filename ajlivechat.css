@@ -38,7 +38,7 @@
     color: #ffcc00; /* Cambia el color según tus preferencias */
 }
     #chat #messages strong {
-    background-color: #34db9b; /* Cambia el color de fondo aquí */
+     /* Cambia el color de fondo aquí */
     color: white; /* Cambia el color del texto aquí */
     padding: 0px; /* Ajusta el espacio interno si es necesario */
     border-top-left-radius: 0px; /* Agrega bordes redondeados si lo deseas */
