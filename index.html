@@ -1115,7 +1115,9 @@ background-image: url('boton-3.1.webp');
     width: 100%; /* Ocupar el ancho completo */
     background-color: transparent; /* Cambia el color según tus preferencias */
     color: white;
-    border-top: 1px solid silver;
+    border-top: 1px solid; /* Define el grosor y activa el borde superior */
+  border-image-source: linear-gradient(to right, #d83ca4, #87ffff); /* Degradado de izquierda a derecha */
+  border-image-slice: 1; /* Forza al degradado a cubrir todo el grosor del borde */
     padding: 10px 0;
     cursor: pointer;
     font-weight: bold;
