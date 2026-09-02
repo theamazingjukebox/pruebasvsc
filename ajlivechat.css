@@ -54,7 +54,7 @@
     top: 85%; /* Ajusta este valor para colocar el botón verticalmente */
     left: 50%; /* Centra horizontalmente */
     transform: translate(-50%, -50%);
-    border: 3px solid #d83ca4;
+    border: 2px solid #d83ca4;
     border-radius: 15px;
     
  
@@ -148,7 +148,7 @@
     color: #dffcff; /* Tu color claro secundario */
     line-height: 1.5;
     margin: 0;
-    opacity: 0.85;    
+    opacity: 0.7;    
     text-shadow: none !important; /* Cero resplandores fastidiosos */
 }
 
