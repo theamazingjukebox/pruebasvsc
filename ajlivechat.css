@@ -128,16 +128,42 @@
     list-style: none;
     text-align: center;
     padding: 12px 14px;
-       background-color: rgba(18,22,30,.6); /* Cambia el color de fondo aquí */
-        backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    border: 1px dashed rgba(255, 251, 24, 0.329); /* Borde punteado sutil */
+    background-color: rgba(18,22,30,.6);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: 8px;
     margin: 7px auto;
     width: 90%;
     box-shadow: none !important;
     text-shadow: none !important;
+
+    /* REEMPLAZO DE BORDE: Creamos un borde dashed artificial con gradientes */
+    border: 1px solid transparent; 
+    background-image: linear-gradient(rgba(18,22,30,.6), rgba(18,22,30,.6)), 
+                      linear-gradient(90deg, rgba(255, 251, 24, 0.33) 50%, transparent 50%);
+    background-size: 100% 100%, 15px 1px; /* Tamaño del patrón dashed */
+    background-origin: padding-box, border-box;
+    background-clip: padding-box, border-box;
+    
+    transition: background-color 0.25s ease;
 }
+
+/* Al pasar el cursor, el borde dashed cobra vida y camina */
+#messages .chat-welcome:hover {
+    background-color: rgba(18, 22, 30, 0.75);
+    /* Activamos la animación de movimiento horizontal */
+    animation: moverLineas 0.6s linear infinite;
+    /* Cambiamos el color del borde en movimiento a uno más brillante */
+    background-image: linear-gradient(rgba(18,22,30,.75), rgba(18,22,30,.75)), 
+                      linear-gradient(90deg, rgba(255, 251, 24, 0.8) 50%, transparent 50%);
+}
+
+/* Animación que desplaza el gradiente para simular el movimiento */
+@keyframes moverLineas {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 0 0, 15px 0; }
+}
+
 
 /* El título principal: Cian Orbitron Puro y Nítido */
 #messages .chat-welcome .system-title {
