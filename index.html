@@ -1898,39 +1898,24 @@ button, a, img {
 
 .sidebar-action {
   position: relative;
-
   width: 80%;
-  height: auto;
-  min-height: 0;
-  padding: 5px 8px;
-  box-sizing: border-box;
-
+  /* CAMBIO: Se quita el height fijo del 20% y se usa min-height para que el recuadro sea más delgado */
+  min-height: 45px; 
+  padding: 8px 14px; /* Un poco menos de padding vertical y más horizontal */
   display: flex;
-  flex-direction: row !important;
   align-items: center;
-  gap: 7px;
-
+  justify-content: space-between; /* Distribuye el espacio entre los 3 bloques */
+  gap: 12px;
   color: #dfffff;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-
-  background:
-    linear-gradient(#101923, #101923) padding-box,
-    linear-gradient(135deg, #87ffff, #d83ca4) border-box;
-
+  background: linear-gradient(#101923, #101923) padding-box, linear-gradient(135deg, #87ffff, #d83ca4) border-box;
   border: 1px solid transparent;
-  border-radius: 10px;
-
-  box-shadow:
-    0 0 12px rgba(135, 255, 255, 0.12),
-    inset 0 0 14px rgba(216, 60, 164, 0.05);
-
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
+  border-radius: 13px;
+  box-shadow: 0 0 12px rgba(135, 255, 255, 0.12), inset 0 0 14px rgba(216, 60, 164, 0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
 }
-    
 
 .sidebar-action::before {
   content: "";
@@ -1939,23 +1924,13 @@ button, a, img {
   border-radius: inherit;
   opacity: 0;
   pointer-events: none;
-
-  background: linear-gradient(
-    135deg,
-    rgba(135, 255, 255, 0.13),
-    rgba(216, 60, 164, 0.13)
-  );
-
+  background: linear-gradient( 135deg, rgba(135, 255, 255, 0.13), rgba(216, 60, 164, 0.13) );
   transition: opacity 0.22s ease;
 }
 
 .sidebar-action:hover {
   transform: translateY(-2px);
-
-  box-shadow:
-    0 0 12px rgba(135, 255, 255, 0.35),
-    0 0 18px rgba(216, 60, 164, 0.22),
-    inset 0 0 16px rgba(135, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(135, 255, 255, 0.35), 0 0 18px rgba(216, 60, 164, 0.22), inset 0 0 16px rgba(135, 255, 255, 0.06);
 }
 
 .sidebar-action:hover::before {
@@ -1965,24 +1940,17 @@ button, a, img {
 .action-icon {
   position: relative;
   z-index: 1;
-
   width: 30px;
   height: 30px;
   flex: 0 0 30px;
-
   display: grid;
   place-items: center;
-
   color: #87ffff;
   font-size: 17px;
-
   background: rgba(5, 16, 24, 0.8);
   border: 1px solid rgba(135, 255, 255, 0.55);
   border-radius: 9px;
-
-  text-shadow:
-    0 0 5px #87ffff,
-    2px 1px 5px #d83ca4;
+  text-shadow: 0 0 5px #87ffff, 2px 1px 5px #d83ca4;
 }
 
 .action-copy {
@@ -1992,22 +1960,13 @@ button, a, img {
   min-width: 0;
   flex: 1;
   flex-direction: column;
-  line-height: 1.05;
+  line-height: 1.2; /* Un ajuste ligero para centrar mejor el texto */
 }
 
-.action-copy strong {
-  font-size: 14px;
-  font-weight: 600;
-
-  text-shadow:
-    0 0 5px rgba(135, 255, 255, 0.7),
-    2px 1px 5px rgba(216, 60, 164, 0.65);
-}
-
+/* CAMBIO: Se eliminó el "margin-top: 5px" del <small> para que no empuje el texto hacia abajo y mantenga la línea horizontal limpia */
 .action-copy small {
-  margin-top: 5px;
   color: rgba(220, 255, 255, 0.65);
-  font-size: 9px;
+  font-size: 11px; /* Subí un poco el tamaño ya que eliminamos el <strong> vacío */
   letter-spacing: 0.04em;
 }
 
@@ -2015,10 +1974,11 @@ button, a, img {
   position: relative;
   z-index: 1;
   color: #d83ca4;
-  font-size: 24px;
+  font-size: 18px; /* Reducido un poco para que no rompa la armonía de la caja delgada */
   line-height: 1;
+  display: flex;
+  align-items: center;
 }
-
 
     
 </style>
@@ -3401,8 +3361,8 @@ document.addEventListener(
 <br>
 
 
-<button class="sidebar-action" id="install-app-btn">
-  <span class="action-icon">↧</span>
+<button class="sidebar-action install-action" id="install-app-btn">
+  <span class="action-icon">⤓</span>
 
   <span class="action-copy">
     <small>Install the jukebox</small>
