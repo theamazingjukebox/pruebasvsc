@@ -1351,18 +1351,19 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-body { display: flex; align-items: center; gap: 12px; position: relative; }
       .banner-icon { 
   font-size: 22px; 
-  /* Aplicamos la animación: dura 2 segundos, es infinita y suaviza el inicio/fin */
-  animation: pulsoSombra 4s infinite ease-in-out; 
+  /* La animación corre de forma infinita y continua */
+  animation: pulsoSombraMax 2s infinite ease-in-out; 
 }
 
-/* Definición del pulso de la sombra */
-@keyframes pulsoSombra {
+/* El brillo actual se convierte en el límite máximo */
+@keyframes pulsoSombraMax {
   0%, 100% {
-    text-shadow: 0 0 3px rgba(0, 255, 255, 0.30);
+    /* Estado mínimo: el brillo se reduce a casi nada */
+    text-shadow: 0 0 4px rgba(0, 255, 255, 0.05);
   }
   50% {
-    /* En el punto medio, la sombra se expande e intensifica */
-    text-shadow: 0 0 6px rgba(0, 255, 255, 0.75), 0 0 9px rgba(0, 255, 255, 0.30);
+    /* Estado máximo: TU GLOW ORIGINAL EXACTO */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
   }
 }
       .banner-text { flex: 1; display: flex; flex-direction: column; }
