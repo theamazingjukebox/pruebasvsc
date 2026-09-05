@@ -141,7 +141,7 @@
     text-shadow: none !important;
     
     /* Transición suave para cuando quites el cursor */
-    transition: all 1s ease;
+    transition: all 0.6s ease;
     position: relative;
     overflow: hidden;
 }
@@ -155,7 +155,7 @@
     text-shadow: 1px 1px 0px rgba(0, 255, 255, 0.5), -1px -1px 0px rgba(216, 60, 164, 0.5) !important;
     
     /* 2. MICRO-PARPADEO: Simula la estática de una pantalla CRT */
-    animation: microParpadeo 1s ease-in-out infinite alternate;
+    animation: microParpadeo 0.8s ease-in-out infinite alternate;
 }
 
 /* 3. LÍNEA DE ESCANEO (SCANLINE): Un reflejo horizontal que cruza la caja una sola vez al pasar el mouse */
@@ -173,7 +173,7 @@
 
 #messages .chat-welcome:hover::after {
     opacity: 1;
-    animation: pasarEscaner 1s linear forwards;
+    animation: pasarEscaner 1.6s linear forwards;
 }
 
 /* --- ANIMACIONES --- */
