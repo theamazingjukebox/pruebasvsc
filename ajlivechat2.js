@@ -1349,7 +1349,22 @@ document.addEventListener("DOMContentLoaded", () => {
         to { transform: translateY(0); opacity: 1; }
       }
       .banner-body { display: flex; align-items: center; gap: 12px; position: relative; }
-      .banner-icon { font-size: 22px; text-shadow: 0 0 10px rgba(0,255,255,.30); }
+      .banner-icon { 
+  font-size: 22px; 
+  /* Aplicamos la animación: dura 2 segundos, es infinita y suaviza el inicio/fin */
+  animation: pulsoSombra 2s infinite ease-in-out; 
+}
+
+/* Definición del pulso de la sombra */
+@keyframes pulsoSombra {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
+  }
+  50% {
+    /* En el punto medio, la sombra se expande e intensifica */
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.75), 0 0 30px rgba(0, 255, 255, 0.30);
+  }
+}
       .banner-text { flex: 1; display: flex; flex-direction: column; }
       .banner-title { color: #87ffff; font-size: 11px; font-weight: bold; margin: 0 0 2px 0; letter-spacing: 0.5px; }
       .banner-desc { color: #dffcff; font-size: 9px; margin: 0; line-height: 1.2; font-family: sans-serif; }
