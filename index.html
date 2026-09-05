@@ -1899,16 +1899,22 @@ button, a, img {
 .sidebar-action {
   position: relative;
   width: 80%;
-  /* CAMBIO: Se quita el height fijo del 20% y se usa min-height para que el recuadro sea más delgado */
-  min-height: 45px; 
-  padding: 8px 14px; /* Un poco menos de padding vertical y más horizontal */
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Distribuye el espacio entre los 3 bloques */
+  
+  /* Control estricto de la altura del recuadro */
+  height: 46px !important; 
+  min-height: 46px !important;
+  max-height: 46px !important;
+  
+  /* Alineación horizontal absoluta */
+  display: flex !important;
+  flex-direction: row !important; /* Fuerza una fila de izquierda a derecha */
+  align-items: center !important; /* Centra verticalmente el icono, texto y flecha */
+  justify-content: space-between !important; /* Distribuye: Izquierda, Centro y Derecha */
   gap: 12px;
+  padding: 0 12px;
+
   color: #dfffff;
   font-family: inherit;
-  text-align: left;
   cursor: pointer;
   background: linear-gradient(#101923, #101923) padding-box, linear-gradient(135deg, #87ffff, #d83ca4) border-box;
   border: 1px solid transparent;
@@ -1937,12 +1943,13 @@ button, a, img {
   opacity: 1;
 }
 
+/* Icono (Tamaño original restaurado) */
 .action-icon {
   position: relative;
   z-index: 1;
   width: 30px;
   height: 30px;
-  flex: 0 0 30px;
+  flex: 0 0 30px; /* Evita que el icono se deforme o encoja */
   display: grid;
   place-items: center;
   color: #87ffff;
@@ -1953,29 +1960,33 @@ button, a, img {
   text-shadow: 0 0 5px #87ffff, 2px 1px 5px #d83ca4;
 }
 
+/* Contenedor del texto en una sola línea */
 .action-copy {
   position: relative;
   z-index: 1;
+  flex: 1; /* Ocupa todo el espacio intermedio disponible */
   display: flex;
-  min-width: 0;
-  flex: 1;
-  
-  line-height: 1.2; /* Un ajuste ligero para centrar mejor el texto */
+  align-items: center;
+  white-space: nowrap; /* CLAVE: Prohíbe terminantemente que el texto salte de línea */
 }
 
-/* CAMBIO: Se eliminó el "margin-top: 5px" del <small> para que no empuje el texto hacia abajo y mantenga la línea horizontal limpia */
+/* Texto Small (Tamaño original restaurado) */
 .action-copy small {
+  margin: 0; 
   color: rgba(220, 255, 255, 0.65);
-  font-size: 11px; /* Subí un poco el tamaño ya que eliminamos el <strong> vacío */
+  font-size: 9px; 
   letter-spacing: 0.04em;
+  line-height: 1;
 }
 
+/* Flechas (Tamaño original restaurado) */
 .action-arrow {
   position: relative;
   z-index: 1;
   color: #d83ca4;
-  font-size: 18px; /* Reducido un poco para que no rompa la armonía de la caja delgada */
+  font-size: 24px; 
   line-height: 1;
+  flex: 0 0 auto; /* Evita que las flechas se encojan */
   display: flex;
   align-items: center;
 }
@@ -3370,6 +3381,9 @@ document.addEventListener(
 
   <span class="action-arrow">››</span>
 </button>
+
+
+         
 </p>
 
 </div>
