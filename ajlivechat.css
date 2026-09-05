@@ -138,7 +138,7 @@
     margin: 7px auto;
     width: 90%;
     box-shadow: none !important;
-    text-shadow: none !important;
+  
     
     /* Transición suave para cuando quites el cursor */
     transition: all 0.3s ease;
