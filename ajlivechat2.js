@@ -1352,17 +1352,17 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-icon { 
   font-size: 22px; 
   /* Aplicamos la animación: dura 2 segundos, es infinita y suaviza el inicio/fin */
-  animation: pulsoSombra 2s infinite ease-in-out; 
+  animation: pulsoSombra 3s infinite ease-in-out; 
 }
 
 /* Definición del pulso de la sombra */
 @keyframes pulsoSombra {
   0%, 100% {
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.30);
   }
   50% {
     /* En el punto medio, la sombra se expande e intensifica */
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.75), 0 0 30px rgba(0, 255, 255, 0.30);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.75), 0 0 15px rgba(0, 255, 255, 0.30);
   }
 }
       .banner-text { flex: 1; display: flex; flex-direction: column; }
