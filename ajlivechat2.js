@@ -1352,7 +1352,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-icon { 
   font-size: 22px; 
   /* La animación corre de forma infinita y continua */
-  animation: pulsoSombraMax 4.5s infinite ease-in-out; 
+  animation: pulsoSombraMax 3.5s infinite ease-in-out; 
 }
 
 /* El brillo actual se convierte en el límite máximo */
