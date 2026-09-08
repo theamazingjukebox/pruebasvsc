@@ -3138,9 +3138,17 @@ function updateLiveChatTicker() {
         `LIVE CHAT  ·  ${date}  ·  ${time}  ·  THE AMAZING JUKEBOX  ·`;
 
 
-    tickerElements.forEach(element => {
+     tickerElements.forEach(element => {
 
         element.textContent = tickerText;
+
+        const logo = document.createElement("img");
+
+        logo.src = "icon512.png"; // cambia aquí la ruta
+        logo.className = "live-chat-logo";
+        logo.alt = "";
+
+        element.appendChild(logo);
 
     });
 
