@@ -1293,20 +1293,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // ========================================================
   // NOTIFICACIÓN INTELIGENTE DE MINI-PLAYER (ESTILO WEB)
   // ========================================================
+   // 🟢 AJUSTE 1: Disparar el banner de inmediato al cargar la página por primera vez
+  window.addEventListener('load', () => {
+    // Le damos un pequeño respiro de 1.5 segundos para que no estorbe con la pantalla de carga inicial (Preparing the jukebox)
+    setTimeout(() => {
+      showMiniPlayerBanner();
+    }, 1500);
+  });
+
+  // Tu comportamiento original intacto (reaparece si cambia de pestaña y regresa)
   document.addEventListener('visibilitychange', () => {
-    // Si el usuario cambia de pestaña y luego REGRESA a la rocola
     if (document.visibilityState === 'visible') {
-      
-      // Validamos si la música está sonando y el mini-player no está abierto
       if (!pipWindow || pipWindow.closed) {
-        const activePlayer = window.ytPlayer || ytPlayer;
-        if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
-          const state = activePlayer.getPlayerState();
-          
-          if (state === 1 || state === 3) {
-            showMiniPlayerBanner();
-          }
-        }
+        // 🔥 Quitamos la validación de si la música está en Play o Pause 
+        // para que esté disponible desde el inicio, justo como pediste.
+        showMiniPlayerBanner();
       }
     }
   });
@@ -1314,6 +1315,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function showMiniPlayerBanner() {
     // Si el banner ya existe en la pantalla, no hacemos nada
     if (document.getElementById('pip-smart-banner')) return;
+
+      
+    if (pipWindow && !pipWindow.closed) return;
 
     // Crear el contenedor del banner flotante
     const banner = document.createElement('div');
