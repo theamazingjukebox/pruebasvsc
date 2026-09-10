@@ -134,6 +134,7 @@ background-color: rgba(0, 0, 0, 0.7);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+        z-index: 7;
 }
 
 /* Efecto al pasar el cursor en PC */
