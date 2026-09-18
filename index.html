@@ -2012,6 +2012,35 @@ button, a, img {
   align-items: center;
 }
 
+
+/* ========================================================
+   GLOW PULSANTE INDEPENDIENTE PARA EL EMOJI DEL CHAT
+   ======================================================== */
+
+/* Apuntamos con precisión quirúrgica al emoji de la bocina dentro de tu nuevo botón */
+#chat #listen-button .icon-emoji {
+  display: inline-block !important;
+  /* Levantamos la línea de base para que el emoji quede perfectamente centrado en su recuadro */
+  line-height: 1;
+  vertical-align: middle;
+  
+  /* 🔥 Activamos tu nueva animación independiente de 3.5 segundos en bucle */
+  animation: chatEmojiGlow 3.5s infinite ease-in-out !important;
+}
+
+/* NUEVA ANIMACIÓN EXCLUSIVA PARA EL CHAT */
+@keyframes chatEmojiGlow {
+  0%, 100% {
+    /* Estado mínimo: El neón se apaga casi por completo */
+    text-shadow: 0 0 1px rgba(135, 255, 255, 0.1) !important;
+  }
+  50% {
+    /* Estado máximo: TU GLOW ORIGINAL EXACTO DE 5 PIXELS EN CIAN */
+    text-shadow: 0 0 5px #87ffff, 0 0 10px rgba(135, 255, 255, 0.6) !important;
+  }
+}
+
+
     
 </style>
     
@@ -3612,7 +3641,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <button class="sidebar-action share-track-action" id="listen-button" onclick="shareCurrentSong()">
   <!-- Micro-celda digital para el icono -->
   <span class="action-icon">
-    <span class="icon-emoji" style="display: inline-block; text-shadow: 0 0 10px rgba(0, 255, 255, 0.30); animation: pulsoSombraMax 3.5s infinite ease-in-out;">🔊</span>
+    <span class="icon-emoji" style="text-shadow: 0 0 5px #87ffff;">🔊</span>
   </span>
 
   <!-- Contenedor del texto en Orbitron -->
