@@ -2024,18 +2024,18 @@ button, a, img {
 
 0 0 10px rgba(0,255,255,.30);   
 
-animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetición */
+animation: pulsoSombraMax 3.5s infinite ease-in-out; 
 }
 
-@keyframes parpadeo {
-  0% {
-    opacity: 0; /* Invisible */
+/* El brillo actual se convierte en el límite máximo */
+@keyframes pulsoSombraMax {
+  0%, 100% {
+    /* Estado mínimo: el brillo se reduce a casi nada */
+    text-shadow: 0 0 4px rgba(0, 255, 255, 0.05);
   }
   50% {
-    opacity: 1; /* Visible */
-  }
-  100% {
-    opacity: 0; /* Vuelve a desaparecer */
+    /* Estado máximo: TU GLOW ORIGINAL EXACTO */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
   }
 }
 
