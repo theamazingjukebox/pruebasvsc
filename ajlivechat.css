@@ -77,8 +77,7 @@
             z-index: 5;
         }
 
-#chat::-webkit-scrollbar { width: 3px; }
-#chat::-webkit-scrollbar-thumb { background: #d83ca4; border-radius: 4px; }
+
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #chat {
@@ -110,6 +109,9 @@
             
     
         }
+
+#messages::-webkit-scrollbar { width: 3px; }
+#messages::-webkit-scrollbar-thumb { background: #d83ca4; border-radius: 4px; }
 
         #chat-input {
             position: fixed;   
