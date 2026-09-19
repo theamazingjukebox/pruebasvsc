@@ -2021,16 +2021,27 @@ button, a, img {
 #chat #listen-button .icon-emoji {
        
  display: inline-block !important;
- 
+
   vertical-align: middle;
 
-  /* 1. Definimos la base del resplandor idéntica a tu .loading-title */
-  text-shadow: 0 0 5px rgba(135, 255, 255);   
+  /* 1. Fijamos la base del resplandor en tu cian sólido oficial */
+  text-shadow: 0 0 5px #87ffff;   
 
-  /* 2. 🔥 CLAVE: Mandamos llamar a la animación de sombras de 3.5s (NO la de opacidad) */
-  animation: pulsoSombraMax 3.5s infinite ease-in-out !important; 
+  /* 2. Activamos tu nueva animación exclusiva de 3.5 segundos */
+  animation: pulsoBocinaChat 3.5s infinite ease-in-out !important; 
 }
 
+/* ANIMACIÓN GEOMÉTRICA CON LÍMITE ESTRICTO DE 5 PIXELS */
+@keyframes pulsoBocinaChat {
+  0%, 100% {
+    /* Estado mínimo: El neón se reduce a casi nada (1px de luz sutil) */
+    text-shadow: 0 0 1px #87ffff;
+  }
+  50% {
+    /* Estado máximo: TU TOPE ORIGINAL EXACTO DE 5 PIXELS EN CIAN SÓLIDO */
+    text-shadow: 0 0 5px #87ffff;
+  }
+}
 
     
 </style>
