@@ -2020,26 +2020,22 @@ button, a, img {
 /* Apuntamos con precisión quirúrgica al emoji de la bocina dentro de tu nuevo botón */
 #chat #listen-button .icon-emoji {
        
- display: inline-block !important;
+ text-shadow:
 
-  vertical-align: middle;
+0 0 10px rgba(0,255,255,.30);   
 
-  /* 1. Fijamos la base del resplandor en tu cian sólido oficial */
-  text-shadow: 0 0 5px #87ffff;   
-
-  /* 2. Activamos tu nueva animación exclusiva de 3.5 segundos */
-  animation: pulsoBocinaChat 3.5s infinite ease-in-out !important; 
+animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetición */
 }
 
-/* ANIMACIÓN GEOMÉTRICA CON LÍMITE ESTRICTO DE 5 PIXELS */
-@keyframes pulsoBocinaChat {
-  0%, 100% {
-    /* Estado mínimo: El neón se reduce a casi nada (1px de luz sutil) */
-    text-shadow: 0 0 1px #87ffff;
+@keyframes parpadeo {
+  0% {
+    opacity: 0; /* Invisible */
   }
   50% {
-    /* Estado máximo: TU TOPE ORIGINAL EXACTO DE 5 PIXELS EN CIAN SÓLIDO */
-    text-shadow: 0 0 5px #87ffff;
+    opacity: 1; /* Visible */
+  }
+  100% {
+    opacity: 0; /* Vuelve a desaparecer */
   }
 }
 
@@ -3643,7 +3639,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <button class="sidebar-action share-track-action" id="listen-button" onclick="shareCurrentSong()">
   <!-- Micro-celda digital para el icono -->
   <span class="action-icon">
-    <span class="icon-emoji">🔊</span>
+    <span class="icon-emoji" style="text-shadow: 0 0 5px #87ffff;">🔊</span>
   </span>
 
   <!-- Contenedor del texto en Orbitron -->
