@@ -2019,24 +2019,23 @@ button, a, img {
 
 /* Apuntamos con precisión quirúrgica al emoji de la bocina dentro de tu nuevo botón */
 #chat #listen-button .icon-emoji {
-  display: inline-block !important;
-  /* Levantamos la línea de base para que el emoji quede perfectamente centrado en su recuadro */
- 
-  vertical-align: middle;
-  
-  /* 🔥 Activamos tu nueva animación independiente de 3.5 segundos en bucle */
-  animation: chatEmojiGlow 3.5s infinite ease-in-out !important;
+    
+  text-shadow:
+
+0 0 10px rgba(0,255,255,.30);   
+
+animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetición */
 }
 
-/* NUEVA ANIMACIÓN EXCLUSIVA PARA EL CHAT */
-@keyframes chatEmojiGlow {
-  0%, 100% {
-    /* Estado mínimo: El neón se apaga casi por completo */
-    text-shadow: 0 0 1px rgba(135, 255, 255, 0.1) !important;
+@keyframes parpadeo {
+  0% {
+    opacity: 0; /* Invisible */
   }
   50% {
-    /* Estado máximo: TU GLOW ORIGINAL EXACTO DE 5 PIXELS EN CIAN */
-    text-shadow: 0 0 5px #87ffff, 0 0 10px rgba(135, 255, 255, 0.6) !important;
+    opacity: 1; /* Visible */
+  }
+  100% {
+    opacity: 0; /* Vuelve a desaparecer */
   }
 }
 
