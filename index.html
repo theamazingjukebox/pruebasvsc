@@ -2020,9 +2020,10 @@ button, a, img {
 /* Apuntamos con precisión quirúrgica al emoji de la bocina dentro de tu nuevo botón */
 #chat #listen-button .icon-emoji {
        
- text-shadow:
-
-0 0 10px rgba(0,255,255,.30);   
+width: 15px;      /* Dimensiones perfectas para que encaje al centro de la micro-celda */
+  height: 15px;
+  object-fit: contain;
+  display: block;
 
 animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetición */
 }
