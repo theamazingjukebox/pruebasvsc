@@ -1586,7 +1586,7 @@ box-shadow:
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #disco-background {
         /* En escritorio aumentamos ligeramente la velocidad para más dinamismo */
-        animation: strobePulse 2.8s infinite ease-in-out;
+        animation: strobePulse 5.8s infinite ease-in-out;
     }
 }
 
