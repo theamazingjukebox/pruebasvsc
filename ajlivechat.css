@@ -1566,6 +1566,9 @@ box-shadow:
 }
 
 
+/* ========================================================
+   FONDO DISCO MODE CON EFECTO ESTROBOSCÓPICO RÍTMICO
+   ======================================================== */
 #disco-background {
     position: absolute;
     top: 0;
@@ -1574,8 +1577,36 @@ box-shadow:
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background-color: #00000059; /* Fondo oscuro general */
-   
+    background-color: #000000; /* Base negra sólida */
+    
+    /* 🔥 EL EFECTO: Animación rítmica infinita que emula luces estroboscópicas traslúcidas */
+    animation: strobePulse 1.8s infinite ease-in-out;
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    #disco-background {
+        /* En escritorio aumentamos ligeramente la velocidad para más dinamismo */
+        animation: strobePulse 1.4s infinite ease-in-out;
+    }
+}
+
+/* --- FOTOGRAMAS DEL ESTROBO CYBERPUNK --- */
+@keyframes strobePulse {
+    0%, 100% {
+        /* Estado inicial/final: Tu opacidad original exacta (0.35) */
+        opacity: 0.35; 
+        filter: brightness(1);
+    }
+    33% {
+        /* Bajón rítmico: Se oscurece más la pantalla */
+        opacity: 0.65;
+        filter: brightness(0.85);
+    }
+    66% {
+        /* 🔥 EL DESTELLO: El fondo se vuelve muy transparente, dejando estallar el neón de atrás */
+        opacity: 0.15;
+        filter: brightness(1.2);
+    }
 }
 
 
