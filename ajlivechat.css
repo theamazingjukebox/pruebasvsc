@@ -1594,42 +1594,42 @@ box-shadow:
 @keyframes strobePulse {
     0%, 100% {
         /* Estado base estable (Tu opacidad original exacta 0.35) */
-        opacity: 0.40;
+        opacity: 0.45;
         filter: brightness(1);
     }
     15% {
         /* Descenso suave hacia la penumbra */
-        opacity: 0.45;
+        opacity: 0.50;
         filter: brightness(0.92);
     }
     30% {
         /* Valle de oscuridad: El fondo se vuelve denso antes del estallido */
-        opacity: 0.35;
+        opacity: 0.55;
         filter: brightness(0.85);
     }
     45% {
         /* Recuperación gradual de la luz de fondo */
-        opacity: 0.45;
+        opacity: 0.60;
         filter: brightness(0.95);
     }
     60% {
         /* Inicio del destello ascendente */
-        opacity: 0.55;
+        opacity: 0.65;
         filter: brightness(1.10);
     }
     72% {
         /* 🔥 EL CLÍMAX DEL DESTELLO: El neón rosa estalla con suavidad al máximo */
-        opacity: 0.65;
+        opacity: 0.70;
         filter: brightness(1.25);
     }
     85% {
         /* Atenuación controlada post-destello */
-        opacity: 0.55;
+        opacity: 0.60;
         filter: brightness(1.10);
     }
     93% {
         /* Regreso amortiguado al estado de reposo */
-        opacity: 0.40;
+        opacity: 0.50;
         filter: brightness(1.02);
     }
 }
