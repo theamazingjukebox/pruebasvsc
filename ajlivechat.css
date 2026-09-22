@@ -1590,22 +1590,47 @@ box-shadow:
     }
 }
 
-/* --- FOTOGRAMAS DEL ESTROBO CYBERPUNK --- */
+/* --- FOTOGRAMAS ESTROBOSCÓPICOS DE ALTA FLUIDEZ (9 ETAPAS) --- */
 @keyframes strobePulse {
     0%, 100% {
-        /* Estado inicial/final: Tu opacidad original exacta (0.35) */
-        opacity: 0.35; 
+        /* Estado base estable (Tu opacidad original exacta 0.35) */
+        opacity: 0.35;
         filter: brightness(1);
     }
-    33% {
-        /* Bajón rítmico: Se oscurece más la pantalla */
+    15% {
+        /* Descenso suave hacia la penumbra */
+        opacity: 0.50;
+        filter: brightness(0.92);
+    }
+    30% {
+        /* Valle de oscuridad: El fondo se vuelve denso antes del estallido */
         opacity: 0.65;
         filter: brightness(0.85);
     }
-    66% {
-        /* 🔥 EL DESTELLO: El fondo se vuelve muy transparente, dejando estallar el neón de atrás */
+    45% {
+        /* Recuperación gradual de la luz de fondo */
+        opacity: 0.45;
+        filter: brightness(0.95);
+    }
+    60% {
+        /* Inicio del destello ascendente */
+        opacity: 0.25;
+        filter: brightness(1.10);
+    }
+    72% {
+        /* 🔥 EL CLÍMAX DEL DESTELLO: El neón rosa estalla con suavidad al máximo */
         opacity: 0.15;
-        filter: brightness(1.2);
+        filter: brightness(1.25);
+    }
+    85% {
+        /* Atenuación controlada post-destello */
+        opacity: 0.25;
+        filter: brightness(1.10);
+    }
+    93% {
+        /* Regreso amortiguado al estado de reposo */
+        opacity: 0.30;
+        filter: brightness(1.02);
     }
 }
 
