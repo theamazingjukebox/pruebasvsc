@@ -1580,7 +1580,7 @@ box-shadow:
     
     /* 🔥 Activamos la nueva animación de 12 etapas con un tiempo más pausado (4s) 
        para dar una sensación líquida y flotante muy premium */
-    animation: auroraStrobePulse 4s infinite ease-in-out;
+    animation: auroraStrobePulse 16s infinite ease-in-out;
 }
 
 /* --- MAPA MATEMÁTICO DE 12 ETAPAS FLUIDAS ---
