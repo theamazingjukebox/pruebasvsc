@@ -1577,7 +1577,7 @@ box-shadow:
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background-color: #00000059;  /* Base negra sólida */
+    background-color: #000000; /* Base negra sólida */
     
     /* 🔥 EL EFECTO: Animación rítmica infinita que emula luces estroboscópicas traslúcidas */
     animation: strobePulse 3.6s infinite ease-in-out;
