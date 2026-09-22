@@ -1594,7 +1594,7 @@ box-shadow:
 @keyframes strobePulse {
     0%, 100% {
         /* Estado base estable (Tu opacidad original exacta 0.35) */
-        opacity: 0.50;
+        opacity: 0.45;
         filter: brightness(1);
     }
     15% {
