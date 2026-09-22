@@ -1567,7 +1567,7 @@ box-shadow:
 
 
 /* ========================================================
-   FONDO DISCO MODE CON EFECTO ESTROBOSCÓPICO RÍTMICO
+   FONDO DISCO MODE: AURORA LÍQUIDA CYBERPUNK (12 ETAPAS)
    ======================================================== */
 #disco-background {
     position: absolute;
@@ -1577,62 +1577,53 @@ box-shadow:
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background-color: #000000; /* Base negra sólida */
     
-    /* 🔥 EL EFECTO: Animación rítmica infinita que emula luces estroboscópicas traslúcidas */
-    animation: strobePulse 3.6s infinite ease-in-out;
+    /* 🔥 Activamos la nueva animación de 12 etapas con un tiempo más pausado (4s) 
+       para dar una sensación líquida y flotante muy premium */
+    animation: auroraStrobePulse 4s infinite ease-in-out;
 }
 
-@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    #disco-background {
-        /* En escritorio aumentamos ligeramente la velocidad para más dinamismo */
-        animation: strobePulse 9.8s infinite ease-in-out;
+/* --- MAPA MATEMÁTICO DE 12 ETAPAS FLUIDAS ---
+   Cada paso altera el color suavemente y la opacidad cambia con micro-saltos de max 0.05 */
+@keyframes auroraStrobePulse {
+    0% {
+        background-color: rgba(0, 234, 255, 0.20); /* Inicia en tu Cian Orbitron nítido */
+    }
+    8.33% {
+        background-color: rgba(0, 210, 255, 0.24); /* Viaje imperceptible hacia el azul */
+    }
+    16.66% {
+        background-color: rgba(50, 150, 255, 0.28); /* Se empieza a densificar la luz */
+    }
+    25% {
+        background-color: rgba(120, 90, 240, 0.32); /* Tono violeta intermedio */
+    }
+    33.33% {
+        background-color: rgba(190, 60, 200, 0.35); /* Valle de opacidad máxima en púrpura */
+    }
+    41.66% {
+        background-color: rgba(216, 60, 164, 0.31); /* Aparece tu Rosa Neón oficial */
+    }
+    50% {
+        background-color: rgba(216, 60, 164, 0.26); /* El Rosa Neón en su punto más traslúcido */
+    }
+    58.33% {
+        background-color: rgba(216, 60, 164, 0.22); /* 🔥 EL DESTELLO ROSA: Máxima transparencia */
+    }
+    66.66% {
+        background-color: rgba(180, 70, 200, 0.18); /* El color empieza a regresar al espectro frío */
+    }
+    75% {
+        background-color: rgba(100, 120, 240, 0.15); /* 🔥 EL DESTELLO CIAN: La pantalla se ilumina suave */
+    }
+    83.33% {
+        background-color: rgba(0, 200, 255, 0.17); /* Transición de retorno controlada */
+    }
+    91.66% {
+        background-color: rgba(0, 220, 255, 0.19); /* Amortiguación final antes del bucle */
     }
 }
 
-/* --- FOTOGRAMAS ESTROBOSCÓPICOS DE ALTA FLUIDEZ (9 ETAPAS) --- */
-@keyframes strobePulse {
-    0%, 100% {
-        /* Estado base estable (Tu opacidad original exacta 0.35) */
-        opacity: 0.45;
-        filter: brightness(1);
-    }
-    15% {
-        /* Descenso suave hacia la penumbra */
-        opacity: 0.55;
-        filter: brightness(0.92);
-    }
-    30% {
-        /* Valle de oscuridad: El fondo se vuelve denso antes del estallido */
-        opacity: 0.59;
-        filter: brightness(0.85);
-    }
-    45% {
-        /* Recuperación gradual de la luz de fondo */
-        opacity: 0.65;
-        filter: brightness(0.95);
-    }
-    60% {
-        /* Inicio del destello ascendente */
-        opacity: 0.67;
-        filter: brightness(1.10);
-    }
-    72% {
-        /* 🔥 EL CLÍMAX DEL DESTELLO: El neón rosa estalla con suavidad al máximo */
-        opacity: 0.75;
-        filter: brightness(1.25);
-    }
-    85% {
-        /* Atenuación controlada post-destello */
-        opacity: 0.67;
-        filter: brightness(1.10);
-    }
-    93% {
-        /* Regreso amortiguado al estado de reposo */
-        opacity: 0.55;
-        filter: brightness(1.02);
-    }
-}
 
 
 
