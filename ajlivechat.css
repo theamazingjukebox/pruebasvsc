@@ -1594,17 +1594,17 @@ box-shadow:
 @keyframes strobePulse {
     0%, 100% {
         /* Estado base estable (Tu opacidad original exacta 0.35) */
-        opacity: 0.35;
+        opacity: 0.30;
         filter: brightness(1);
     }
     15% {
         /* Descenso suave hacia la penumbra */
-        opacity: 0.60;
+        opacity: 0.45;
         filter: brightness(0.92);
     }
     30% {
         /* Valle de oscuridad: El fondo se vuelve denso antes del estallido */
-        opacity: 0.85;
+        opacity: 0.65;
         filter: brightness(0.85);
     }
     45% {
