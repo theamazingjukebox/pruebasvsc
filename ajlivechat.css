@@ -1580,13 +1580,13 @@ box-shadow:
     background-color: #000000; /* Base negra sólida */
     
     /* 🔥 EL EFECTO: Animación rítmica infinita que emula luces estroboscópicas traslúcidas */
-    animation: strobePulse 1.8s infinite ease-in-out;
+    animation: strobePulse 3.6s infinite ease-in-out;
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
     #disco-background {
         /* En escritorio aumentamos ligeramente la velocidad para más dinamismo */
-        animation: strobePulse 1.4s infinite ease-in-out;
+        animation: strobePulse 2.8s infinite ease-in-out;
     }
 }
 
