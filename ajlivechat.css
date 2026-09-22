@@ -1586,41 +1586,44 @@ box-shadow:
 /* --- MAPA MATEMÁTICO DE 12 ETAPAS FLUIDAS ---
    Cada paso altera el color suavemente y la opacidad cambia con micro-saltos de max 0.05 */
 @keyframes auroraStrobePulse {
-    0% {
-        background-color: rgba(0, 234, 255, 0.20); /* Inicia en tu Cian Orbitron nítido */
+    0%, 100% {
+        /* 🔥 EL ANCLA: El inicio y el final son exactamente idénticos en color y opacidad */
+        background-color: rgba(0, 234, 255, 0.20); 
     }
     8.33% {
-        background-color: rgba(0, 210, 255, 0.24); /* Viaje imperceptible hacia el azul */
+        background-color: rgba(0, 210, 255, 0.24); 
     }
     16.66% {
-        background-color: rgba(50, 150, 255, 0.28); /* Se empieza a densificar la luz */
+        background-color: rgba(50, 150, 255, 0.28); 
     }
     25% {
-        background-color: rgba(120, 90, 240, 0.32); /* Tono violeta intermedio */
+        background-color: rgba(120, 90, 240, 0.32); 
     }
     33.33% {
-        background-color: rgba(190, 60, 200, 0.35); /* Valle de opacidad máxima en púrpura */
+        background-color: rgba(190, 60, 200, 0.35); 
     }
     41.66% {
-        background-color: rgba(216, 60, 164, 0.31); /* Aparece tu Rosa Neón oficial */
+        background-color: rgba(216, 60, 164, 0.31); 
     }
     50% {
-        background-color: rgba(216, 60, 164, 0.26); /* El Rosa Neón en su punto más traslúcido */
+        background-color: rgba(216, 60, 164, 0.26); 
     }
     58.33% {
-        background-color: rgba(216, 60, 164, 0.22); /* 🔥 EL DESTELLO ROSA: Máxima transparencia */
+        background-color: rgba(216, 60, 164, 0.22); 
     }
     66.66% {
-        background-color: rgba(180, 70, 200, 0.18); /* El color empieza a regresar al espectro frío */
+        background-color: rgba(180, 70, 200, 0.18); 
     }
     75% {
-        background-color: rgba(100, 120, 240, 0.15); /* 🔥 EL DESTELLO CIAN: La pantalla se ilumina suave */
+        background-color: rgba(100, 120, 240, 0.15); 
     }
     83.33% {
-        background-color: rgba(0, 200, 255, 0.17); /* Transición de retorno controlada */
+        /* Desaceleración cromática hacia el cian original */
+        background-color: rgba(0, 190, 255, 0.16); 
     }
     91.66% {
-        background-color: rgba(0, 220, 255, 0.19); /* Amortiguación final antes del bucle */
+        /* 🔥 AJUSTE: El tono y la opacidad quedan a solo un pestañeo de fundirse con el 0% */
+        background-color: rgba(0, 225, 255, 0.18); 
     }
 }
 
