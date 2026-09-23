@@ -1567,7 +1567,7 @@ box-shadow:
 
 
 /* ========================================================
-   FONDO DISCO MODE: NEBULA CYBERPUNK LÍQUIDA (18 ETAPAS)
+   FONDO DISCO MODE: NEBULA CYBERPUNK LÍQUIDA (22 ETAPAS)
    ======================================================== */
 #disco-background {
     position: absolute;
@@ -1578,76 +1578,97 @@ box-shadow:
     z-index: -1;
     overflow: hidden;
     
-    /* Mantenemos tus excelentes 16s para que el viaje de 18 pasos sea ultrasuave y relajante */
-    animation: auroraStrobePulse 32s infinite ease-in-out;
+    /* Mantenedora de tus 16s para que el viaje de 22 pasos sea una seda flotante */
+    animation: auroraStrobePulse 34s infinite ease-in-out;
 }
 
-/* --- MAPA MATEMÁTICO DE 18 ETAPAS SIN SALTOS --- */
+/* --- MAPA MATEMÁTICO DE 22 ETAPAS ULTRA-FLUIDAS ---
+   Micro-saltos calibrados al milímetro para eliminar cualquier choque de contraste */
 @keyframes auroraStrobePulse {
     /* ========================================================
-       PARTE 1: EL VIAJE DEL CIAN AL PÚRPURA (5 PASOS ORIGINALES)
+       PARTE 1: EL VIAJE DEL CIAN AL PÚRPURA (ORIGINALES)
        ======================================================== */
     0%, 100% {
         background-color: rgba(0, 234, 255, 0.20); /* 🔥 EL ANCLA CIAN */
     }
-    5.55% {
-        background-color: rgba(0, 215, 255, 0.24);
+    4.54% {
+        background-color: rgba(0, 215, 255, 0.23);
     }
-    11.11% {
-        background-color: rgba(30, 170, 255, 0.28);
+    9.09% {
+        background-color: rgba(30, 170, 255, 0.26);
     }
-    16.66% {
-        background-color: rgba(70, 130, 255, 0.32);
+    13.63% {
+        background-color: rgba(70, 130, 255, 0.30);
     }
-    22.22% {
-        background-color: rgba(120, 90, 240, 0.36); /* Tono violeta intermedio */
+    18.18% {
+        background-color: rgba(120, 90, 240, 0.34); /* Tono violeta intermedio */
     }
 
     /* ========================================================
-       PARTE 2: 🔥 LOS 6 RENGLONES DE OSCURIDAD DESCENDENTE/ASCENDENTE
+       ⚠️ AMORTIGUACIÓN DE ENTRADA A LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
-    27.77% {
-        background-color: rgba(0, 0, 0, 0.20); /* Renglón 1: Inicio de penumbra sutil */
+    22.72% {
+        background-color: rgba(80, 40, 150, 0.28); /* Mezcla el púrpura apagándose */
     }
-    33.33% {
-        background-color: rgba(0, 0, 0, 0.30); /* Renglón 2: Oscuridad media */
+    27.27% {
+        background-color: rgba(40, 15, 80, 0.23);  /* Tono uva ultra-oscuro de transición */
     }
-    38.88% {
-        background-color: rgba(0, 0, 0, 0.40); /* Renglón 3: Penumbra densa */
+
+    /* ========================================================
+       PARTE 2: LOS 6 RENGLONES DE OSCURIDAD GRADUAL 
+       ======================================================== */
+    31.81% {
+        background-color: rgba(0, 0, 0, 0.20); /* Renglón 1 */
     }
-    44.44% {
-        background-color: rgba(0, 0, 0, 0.47); /* Renglón 4: 🖤 EL MÁXIMO DE OSCURIDAD SOLICITADO */
+    36.36% {
+        background-color: rgba(0, 0, 0, 0.30); /* Renglón 2 */
+    }
+    40.90% {
+        background-color: rgba(0, 0, 0, 0.40); /* Renglón 3 */
+    }
+    45.45% {
+        background-color: rgba(0, 0, 0, 0.47); /* Renglón 4: 🖤 MAXIMA PENUMBRA */
     }
     50.00% {
-        background-color: rgba(0, 0, 0, 0.35); /* Renglón 5: Alivio de sombra */
+        background-color: rgba(0, 0, 0, 0.35); /* Renglón 5 */
     }
-    55.55% {
-        background-color: rgba(0, 0, 0, 0.22); /* Renglón 6: Salida de la zona negra */
+    54.54% {
+        background-color: rgba(0, 0, 0, 0.22); /* Renglón 6 */
     }
 
     /* ========================================================
-       PARTE 3: EL VIAJE DEL ROSA NEÓN DE REGRESO AL CIAN (7 PASOS ORIGINALES)
+       ⚠️ AMORTIGUACIÓN DE SALIDA DE LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
-    61.11% {
+    59.09% {
+        background-color: rgba(90, 15, 60, 0.25);  /* Tono vino ultra-oscuro de transición */
+    }
+    63.63% {
+        background-color: rgba(150, 30, 100, 0.29); /* Mezcla el rosa despertando desde la sombra */
+    }
+
+    /* ========================================================
+       PARTE 3: EL VIAJE DEL ROSA NEÓN DE REGRESO AL CIAN
+       ======================================================== */
+    68.18% {
         background-color: rgba(216, 60, 164, 0.32); /* ¡Estalla tu Rosa Neón oficial! */
     }
-    66.66% {
+    72.72% {
         background-color: rgba(216, 60, 164, 0.26);
     }
-    72.22% {
-        background-color: rgba(216, 60, 164, 0.20); /* 🔥 EL DESTELLO ROSA: Máxima transparencia */
+    77.27% {
+        background-color: rgba(216, 60, 164, 0.20); /* 🔥 DESTELLO ROSA */
     }
-    77.77% {
-        background-color: rgba(150, 80, 210, 0.16); /* Retorno al espectro frío */
+    81.81% {
+        background-color: rgba(150, 80, 210, 0.16);
     }
-    83.33% {
-        background-color: rgba(80, 130, 240, 0.14);  /* 🔥 EL DESTELLO CIAN */
+    86.36% {
+        background-color: rgba(80, 130, 240, 0.14); /* 🔥 DESTELLO CIAN */
     }
-    88.88% {
-        background-color: rgba(0, 190, 255, 0.16);  /* Reajuste de tono */
+    90.90% {
+        background-color: rgba(0, 190, 255, 0.16);
     }
-    94.44% {
-        background-color: rgba(0, 222, 255, 0.18);  /* Amortiguación final antes del bucle */
+    95.45% {
+        background-color: rgba(0, 222, 255, 0.18); /* Amortiguación final */
     }
 }
 
