@@ -1621,11 +1621,11 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
     /* ========================================================
        ⚠️ AMORTIGUACIÓN DE ENTRADA A LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
-    22.72% {
-        background-color: rgba(150, 30, 100, 0.27); /* Mezcla el púrpura apagándose */
+      59.09% {
+        background-color: rgba(90, 15, 60, 0.25);  /* Tono vino ultra-oscuro de transición */
     }
-    27.27% {
-        background-color: rgba(150, 30, 100, 0.23);  /* Tono uva ultra-oscuro de transición */
+    63.63% {
+        background-color: rgba(150, 30, 100, 0.29); /* Mezcla el rosa despertando desde la sombra */
     }
 
     /* ========================================================
@@ -1654,10 +1654,10 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
        ⚠️ AMORTIGUACIÓN DE SALIDA DE LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
     59.09% {
-        background-color: rgba(150, 30, 100, 0.25);  /* Tono vino ultra-oscuro de transición */
+        background-color: rgba(90, 15, 60, 0.25);  /* Tono vino ultra-oscuro de transición */
     }
     63.63% {
-        background-color: rgba(150, 30, 100, 0.26); /* Mezcla el rosa despertando desde la sombra */
+        background-color: rgba(150, 30, 100, 0.29); /* Mezcla el rosa despertando desde la sombra */
     }
 
     /* ========================================================
