@@ -1609,23 +1609,23 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
         background-color: rgba(150, 30, 100, 0.21);
     }
     9.09% {
-        background-color: rgba(150, 30, 100, 0.23);
+        background-color: rgba(150, 30, 100, 0.22);
     }
     13.63% {
-        background-color: rgba(150, 30, 100, 0.25);
+        background-color: rgba(150, 30, 100, 0.23);
     }
     18.18% {
-        background-color: rgba(150, 30, 100, 0.26); /* Tono violeta intermedio */
+        background-color: rgba(150, 30, 100, 0.24); /* Tono violeta intermedio */
     }
 
     /* ========================================================
        ⚠️ AMORTIGUACIÓN DE ENTRADA A LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
       59.09% {
-        background-color: rgba(90, 15, 60, 0.25);  /* Tono vino ultra-oscuro de transición */
+        background-color: rgba(90, 15, 60, 0.24);  /* Tono vino ultra-oscuro de transición */
     }
     63.63% {
-        background-color: rgba(150, 30, 100, 0.29); /* Mezcla el rosa despertando desde la sombra */
+        background-color: rgba(150, 30, 100, 0.25); /* Mezcla el rosa despertando desde la sombra */
     }
 
     /* ========================================================
@@ -1657,34 +1657,35 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
         background-color: rgba(90, 15, 60, 0.25);  /* Tono vino ultra-oscuro de transición */
     }
     63.63% {
-        background-color: rgba(150, 30, 100, 0.29); /* Mezcla el rosa despertando desde la sombra */
+        background-color: rgba(150, 30, 100, 0.24); /* Mezcla el rosa despertando desde la sombra */
     }
 
     /* ========================================================
        PARTE 3: EL VIAJE DEL ROSA NEÓN DE REGRESO AL CIAN
        ======================================================== */
     68.18% {
-        background-color: rgba(150, 30, 100, 0.25); /* ¡Estalla tu Rosa Neón oficial! */
+        background-color: rgba(150, 30, 100, 0.24); /* ¡Estalla tu Rosa Neón oficial! */
     }
     72.72% {
-        background-color: rgba(150, 30, 100, 0.24);
+        background-color: rgba(150, 30, 100, 0.23);
     }
     77.27% {
-        background-color: rgba(150, 30, 100, 0.20); /* 🔥 DESTELLO ROSA */
+        background-color: rgba(150, 30, 100, 0.22); /* 🔥 DESTELLO ROSA */
     }
     81.81% {
-        background-color: rgba(150, 30, 100, 0.16);
+        background-color: rgba(150, 30, 100, 0.21);
     }
     86.36% {
-        background-color: rgba(150, 30, 100, 0.14); /* 🔥 DESTELLO CIAN */
+        background-color: rgba(150, 30, 100, 0.20); /* 🔥 DESTELLO CIAN */
     }
     90.90% {
-        background-color: rgba(150, 30, 100, 0.16);
+        background-color: rgba(150, 30, 100, 0.20);
     }
     95.45% {
-        background-color: rgba(150, 30, 100, 0.18); /* Amortiguación final */
+        background-color: rgba(150, 30, 100, 0.20); /* Amortiguación final */
     }
 }
+
 
 
 
