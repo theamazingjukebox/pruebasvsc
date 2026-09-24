@@ -1622,23 +1622,23 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
        ⚠️ AMORTIGUACIÓN DE ENTRADA A LA PENUMBRA (NUEVAS LÍNEAS)
        ======================================================== */
       59.09% {
-        background-color: rgba(90, 15, 60, 0.24);  /* Tono vino ultra-oscuro de transición */
+        background-color: rgba(0, 0, 0, 0.35);  /* Tono vino ultra-oscuro de transición */
     }
     63.63% {
-        background-color: rgba(150, 30, 100, 0.25); /* Mezcla el rosa despertando desde la sombra */
+        background-color: rgba(0, 0, 0, 0.37); /* Mezcla el rosa despertando desde la sombra */
     }
 
     /* ========================================================
        PARTE 2: LOS 6 RENGLONES DE OSCURIDAD GRADUAL 
        ======================================================== */
     31.81% {
-        background-color: rgba(0, 0, 0, 0.20); /* Renglón 1 */
+        background-color: rgba(0, 0, 0, 0.39); /* Renglón 1 */
     }
     36.36% {
-        background-color: rgba(0, 0, 0, 0.30); /* Renglón 2 */
+        background-color: rgba(0, 0, 0, 0.40); /* Renglón 2 */
     }
     40.90% {
-        background-color: rgba(0, 0, 0, 0.40); /* Renglón 3 */
+        background-color: rgba(0, 0, 0, 0.45); /* Renglón 3 */
     }
     45.45% {
         background-color: rgba(0, 0, 0, 0.47); /* Renglón 4: 🖤 MAXIMA PENUMBRA */
@@ -1647,7 +1647,7 @@ animation: parpadeo 1.5s infinite; /* Nombre de la animación, duración y repet
         background-color: rgba(0, 0, 0, 0.35); /* Renglón 5 */
     }
     54.54% {
-        background-color: rgba(0, 0, 0, 0.22); /* Renglón 6 */
+        background-color: rgba(0, 0, 0, 0.30); /* Renglón 6 */
     }
 
     /* ========================================================
