@@ -2043,6 +2043,107 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   }
 }
 
+
+
+/* ========================================================
+   POP-UP SMART ZOOM HINT (ESTILO VIDRIO ESMERILADO)
+   ======================================================== */
+#zoom-smart-hint {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9998; /* Justo abajo del botón switch pero arriba de la interfaz */
+  
+  /* Formato Cápsula de Cristal */
+  width: 280px;
+  padding: 14px 18px;
+  
+  /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo */
+  background: rgba(10, 16, 26, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Borde transparente sutil y esquinas redondeadas tipo PWA */
+  border: 1px solid rgba(135, 255, 255, 0.18);
+  border-radius: 16px;
+  
+  /* Sombra suave para despegarlo de los circuitos */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(135, 255, 255, 0.03);
+  
+  /* Animación de entrada ultrasuave */
+  animation: slideInZoomHint 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: block;
+}
+
+.zoom-hint-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.zoom-hint-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+}
+
+.zoom-hint-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  color: #dffcff;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+/* Estilo para resaltar las teclas + y - */
+.zoom-key {
+  color: #87ffff;
+  font-weight: bold;
+  text-shadow: 0 0 4px #00ffff;
+  background: rgba(135, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* BOTÓN DE CIERRE ESTILO TERMINAL */
+#zoom-hint-close-btn {
+  background: none;
+  border: 1px solid rgba(135, 255, 255, 0.4);
+  border-radius: 8px;
+  color: #87ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#zoom-hint-close-btn:hover {
+  background: rgba(135, 255, 255, 0.12);
+  border-color: #87ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+#zoom-hint-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* ANIMACIÓN DE ENTRADA DESDE LA DERECHA */
+@keyframes slideInZoomHint {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
     
 </style>
     
@@ -3322,6 +3423,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 })();
 
+
+// ========================================================
+// 🔍 CONTROL DE ALERTA DE ZOOM INTELIGENTE
+// ========================================================
+function closeZoomHint() {
+    const zoomHint = document.getElementById("zoom-smart-hint");
+    if (zoomHint) {
+        zoomHint.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+        zoomHint.style.opacity = "0";
+        zoomHint.style.transform = "translateY(-10px)";
+        
+        setTimeout(() => {
+            zoomHint.style.display = "none";
+        }, 300);
+    }
+}
+
     
 
 </script>
@@ -3579,8 +3697,17 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
 
-    
 
+        <!-- SUGERENCIA DE ZOOM INTELIGENTE (ESTILO CRISTAL ESMERILADO) -->
+<div id="zoom-smart-hint">
+  <div class="zoom-hint-content">
+    <span class="zoom-hint-icon">🔍</span>
+    <p class="zoom-hint-text">Adjust zoom <span class="zoom-key">+</span> or <span class="zoom-key">-</span> if needed for the ideal layout.</p>
+    <button id="zoom-hint-close-btn" onclick="closeZoomHint()">GOT IT!</button>
+  </div>
+</div>
+
+    
         
 
             <div id="emoji-container" style="display: none;">
