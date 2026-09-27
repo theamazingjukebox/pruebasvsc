@@ -2075,12 +2075,25 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   display: block;
 }
 
+
+@media (min-width: 768px) {
+    #zoom-smart-hint {
+         top: 55%;        /* Ajusta este porcentaje para subir o bajar el folder en tu pantalla */
+  right: 0; 
+    }
+}
+
+
+
+    
+
 .zoom-hint-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
+    
 
 .zoom-hint-icon {
   font-size: 18px;
