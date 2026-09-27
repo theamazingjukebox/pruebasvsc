@@ -2076,12 +2076,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 
-@media (max-width: 767px)
-    #zoom-smart-hint {
-         top: 55%;        /* Ajusta este porcentaje para subir o bajar el folder en tu pantalla */
-  left: 0; 
-    position: fixed;
-    }
+@media (pointer: coarse) and (max-width: 1024px) {
+  
+  /* 📱 TODO TU CÓDIGO PARA CELULARES VA AQUÍ ADENTRO: */
+  #zoom-smart-hint {
+   bottom: 95px;
+  left: 35px;
+  }
+
 }
 
 
