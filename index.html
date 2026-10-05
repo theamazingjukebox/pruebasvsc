@@ -2050,7 +2050,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    ======================================================== */
 #zoom-smart-hint {
   position: fixed;
-  top: 25px;
+  bottom: 18.5%;
   left: 75px;
   z-index: 9998; /* Justo abajo del botón switch pero arriba de la interfaz */
   
@@ -2167,7 +2167,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 #live-listeners-counter {
   position: fixed;
   top: 25px;   /* 🔥 Anclaje exacto solicitado */
-  left: 25px;  /* 🔥 Anclaje exacto solicitado */
+  left: 75px;  /* 🔥 Anclaje exacto solicitado */
   z-index: 9999; /* Máxima jerarquía para flotar sobre circuitos */
   
   /* Formato Micro-Cápsula de Cristal */
@@ -2218,6 +2218,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   50% { opacity: 1; filter: brightness(1.2); box-shadow: 0 0 10px #39ff14, 0 0 4px #ffffff; }
 }
 
+@media (min-width:768px) and (hover:hover) and (pointer:fine){
+  
+  #live-listeners-counter {
+   bottom: 25px;
+  left: 25px;
+      
+  }
+}
 
 
 
@@ -3571,14 +3579,6 @@ function closeZoomHint() {
 </head>    
 <body>
 
-<!-- CONTADOR DE TELEMETRÍA EN VIVO (ESTILO CRISTAL ESMERILADO) -->
-<div id="live-listeners-counter">
-  <div class="listeners-content">
-    <span class="listeners-led-ping"></span>
-    <span class="listeners-text"><span id="active-listeners-count">0</span> LISTENERS ONLINE</span>
-  </div>
-</div>
-
     
 <div id="wrapper">
     
@@ -3832,6 +3832,13 @@ function closeZoomHint() {
             </div>
         </div>
 
+<!-- CONTADOR DE TELEMETRÍA FIJO (ESTILO CRISTAL ESMERILADO DE ESQUINA) -->
+<div id="live-listeners-counter">
+  <div class="listeners-content">
+    <span class="listeners-led-ping"></span>
+    <span class="listeners-text"><span id="active-listeners-count">--</span> LISTENERS ONLINE</span>
+  </div>
+</div>
 
 
 
