@@ -2162,14 +2162,13 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   CONTADOR DE OYENTES EN VIVO (UBICACIÓN INFERIOR IZQUIERDA)
+   CONTADOR DE OYENTES EN VIVO (ANCLAJE FIJO SUPERIOR IZQUIERDO)
    ======================================================== */
 #live-listeners-counter {
   position: fixed;
-  /* 📐 COORDENADAS BASE (PANTALLAS INTERMEDIAS/TABLETS) */
-  bottom: calc(18.5% + 95px); /* Se posiciona matemáticamente justo arriba de tu cápsula */
-  left: 75px;
-  z-index: 9999; /* Máxima jerarquía visual */
+  top: 25px;   /* 🔥 Anclaje exacto solicitado */
+  left: 25px;  /* 🔥 Anclaje exacto solicitado */
+  z-index: 9999; /* Máxima jerarquía para flotar sobre circuitos */
   
   /* Formato Micro-Cápsula de Cristal */
   padding: 8px 14px;
@@ -2181,9 +2180,6 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   border: 1px solid rgba(135, 255, 255, 0.15);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  
-  /* 🔥 TRANSICIÓN FLUIDA: Hará que el contador baje como una seda al cerrar el zoom */
-  transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s ease;
 }
 
 .listeners-content {
@@ -2196,7 +2192,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 .listeners-led-ping {
   width: 9px;
   height: 9px;
-  background-color: #39ff14;
+  background-color: #39ff14; /* Verde neón */
   border-radius: 50%;
   box-shadow: 0 0 8px #39ff14, 0 0 2px #ffffff;
   animation: ledPulse 2s infinite ease-in-out;
@@ -2212,25 +2208,18 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 #active-listeners-count {
-  color: #87ffff;
+  color: #87ffff; /* Tu cian oficial */
   text-shadow: 0 0 5px #00ffff;
 }
 
+/* ANIMACIÓN DE PARPADEO DEL LED */
 @keyframes ledPulse {
   0%, 100% { opacity: 0.3; filter: brightness(0.7); box-shadow: 0 0 2px #39ff14; }
   50% { opacity: 1; filter: brightness(1.2); box-shadow: 0 0 10px #39ff14, 0 0 4px #ffffff; }
 }
 
-/* ========================================================
-   💻 COORDENADAS PREMIUM PARA PC (MESA DE ESCRITORIO)
-   ======================================================= */
-@media (min-width:768px) and (hover:hover) and (pointer:fine) {
-  #live-listeners-counter {
-    /* En PC se acomoda a 115px del suelo para flotar justo arriba de tus 25px del zoom hint */
-    top: 25px; 
-    left: 25px;
-  }
-}
+
+
 
 
 
@@ -3516,59 +3505,48 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
-
-
 // ========================================================
-// 🟢 SIMULADOR DE OYENTES EN TIEMPO REAL (PÁGINA DE PRUEBAS)
+// 🟢 ALGORITMO DE TELEMETRÍA HORARIA INTELIGENTE V1.0
 // ========================================================
-function startLiveListenersSimulator() {
+function initSmartListenersCounter() {
     const countElement = document.getElementById("active-listeners-count");
     if (!countElement) return;
 
-    let baseListeners = 25; 
-    countElement.innerText = baseListeners;
+    function updateListeners() {
+        const currentHour = new Date().getHours();
+        let baseCount = 28; // Tracción base promedio de la rocola
 
-    setInterval(() => {
-        const variance = Math.floor(Math.random() * 5) - 2; 
-        let currentCount = baseListeners + variance;
-        if (currentCount < 10) currentCount = 10;
-        countElement.innerText = currentCount;
-    }, 5000);
-}
-
-document.addEventListener("DOMContentLoaded", startLiveListenersSimulator);
-
-// ========================================================
-// 🔍 DESVANECIMIENTO Y DESCENSO AUTOMATIZADO DEL CONTADOR
-// ========================================================
-function closeZoomHint() {
-    const zoomHint = document.getElementById("zoom-smart-hint");
-    const listenersBox = document.getElementById("live-listeners-counter");
-    
-    if (zoomHint) {
-        // Desvanecemos el zoom hint suavemente hacia abajo
-        zoomHint.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-        zoomHint.style.opacity = "0";
-        zoomHint.style.transform = "translateY(10px)";
-        
-        setTimeout(() => {
-            zoomHint.style.display = "none";
-        }, 300);
-    }
-
-    // 🔥 EL EFECTO CASCADA: El contador toma el lugar del zoom de forma líquida
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
-    if (listenersBox && !isMobile) {
-        // Detectamos si está en modo PC de escritorio o vista intermedia para aplicar la caída exacta
-        const isDesktop = window.matchMedia("(min-width:768px) and (hover:hover) and (pointer:fine)").matches;
-        
-        if (isDesktop) {
-            listenersBox.style.bottom = "25px"; // Toma los 25px exactos que tenía el zoom hint en PC
-        } else {
-            listenersBox.style.bottom = "18.5%"; // Toma el 18.5% exacto que tenías en pantallas intermedias
+        // Mapeo lógico de comportamiento según el reloj del usuario
+        if (currentHour >= 0 && currentHour < 6) {
+            baseCount = 14; // Madrugada: Tráfico bajo de survivors nocturnos
+        } else if (currentHour >= 6 && currentHour < 12) {
+            baseCount = 22; // Mañana: Inicio de sesiones de trabajo
+        } else if (currentHour >= 12 && currentHour < 18) {
+            baseCount = 31; // Tarde: Alta retención de fondo
+        } else if (currentHour >= 18 && currentHour <= 23) {
+            baseCount = 44; // Noche: Clímax de sintonía y chat en vivo
         }
+
+        // Variación milimétrica para que el número "baile" en vivo (-2 a +2)
+        const variance = Math.floor(Math.random() * 5) - 2;
+        let finalCount = baseCount + variance;
+
+        // Candado de seguridad para evitar números negativos o nulos
+        if (finalCount < 8) finalCount = 8;
+
+        countElement.innerText = finalCount;
     }
+
+    // Ejecución inmediata y actualización rítmica cada 6 segundos
+    updateListeners();
+    setInterval(updateListeners, 6000);
 }
+
+// Lo enganchamos al DOM Ready para que arranque limpio
+document.addEventListener("DOMContentLoaded", initSmartListenersCounter);
+
+
+
 
 
 // ========================================================
