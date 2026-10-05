@@ -2158,6 +2158,88 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   }
 }
 
+
+
+
+/* ========================================================
+   CONTADOR DE OYENTES EN VIVO (UBICACIÓN INFERIOR IZQUIERDA)
+   ======================================================== */
+#live-listeners-counter {
+  position: fixed;
+  /* 📐 COORDENADAS BASE (PANTALLAS INTERMEDIAS/TABLETS) */
+  bottom: calc(18.5% + 95px); /* Se posiciona matemáticamente justo arriba de tu cápsula */
+  left: 75px;
+  z-index: 9999; /* Máxima jerarquía visual */
+  
+  /* Formato Micro-Cápsula de Cristal */
+  padding: 8px 14px;
+  background: rgba(10, 16, 26, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Borde transparente cian sutil */
+  border: 1px solid rgba(135, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  /* 🔥 TRANSICIÓN FLUIDA: Hará que el contador baje como una seda al cerrar el zoom */
+  transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s ease;
+}
+
+.listeners-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* MICRO-LED NEÓN VERDE PARPADEANTE */
+.listeners-led-ping {
+  width: 6px;
+  height: 6px;
+  background-color: #39ff14;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #39ff14, 0 0 2px #ffffff;
+  animation: ledPulse 2s infinite ease-in-out;
+}
+
+.listeners-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  color: #dffcff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px rgba(223, 252, 255, 0.2);
+}
+
+#active-listeners-count {
+  color: #87ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+@keyframes ledPulse {
+  0%, 100% { opacity: 0.3; filter: brightness(0.7); box-shadow: 0 0 2px #39ff14; }
+  50% { opacity: 1; filter: brightness(1.2); box-shadow: 0 0 10px #39ff14, 0 0 4px #ffffff; }
+}
+
+/* ========================================================
+   💻 COORDENADAS PREMIUM PARA PC (MESA DE ESCRITORIO)
+   ======================================================= */
+@media (min-width:768px) and (hover:hover) and (pointer:fine) {
+  #zoom-smart-hint {
+    bottom: 25px;
+    left: 25px;
+  }
+  #live-listeners-counter {
+    /* En PC se acomoda a 115px del suelo para flotar justo arriba de tus 25px del zoom hint */
+    bottom: 115px; 
+    left: 25px;
+  }
+}
+
+
+
+
+    
     
 </style>
     
@@ -3438,6 +3520,61 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
+
+
+// ========================================================
+// 🟢 SIMULADOR DE OYENTES EN TIEMPO REAL (PÁGINA DE PRUEBAS)
+// ========================================================
+function startLiveListenersSimulator() {
+    const countElement = document.getElementById("active-listeners-count");
+    if (!countElement) return;
+
+    let baseListeners = 25; 
+    countElement.innerText = baseListeners;
+
+    setInterval(() => {
+        const variance = Math.floor(Math.random() * 5) - 2; 
+        let currentCount = baseListeners + variance;
+        if (currentCount < 10) currentCount = 10;
+        countElement.innerText = currentCount;
+    }, 5000);
+}
+
+document.addEventListener("DOMContentLoaded", startLiveListenersSimulator);
+
+// ========================================================
+// 🔍 DESVANECIMIENTO Y DESCENSO AUTOMATIZADO DEL CONTADOR
+// ========================================================
+function closeZoomHint() {
+    const zoomHint = document.getElementById("zoom-smart-hint");
+    const listenersBox = document.getElementById("live-listeners-counter");
+    
+    if (zoomHint) {
+        // Desvanecemos el zoom hint suavemente hacia abajo
+        zoomHint.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+        zoomHint.style.opacity = "0";
+        zoomHint.style.transform = "translateY(10px)";
+        
+        setTimeout(() => {
+            zoomHint.style.display = "none";
+        }, 300);
+    }
+
+    // 🔥 EL EFECTO CASCADA: El contador toma el lugar del zoom de forma líquida
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+    if (listenersBox && !isMobile) {
+        // Detectamos si está en modo PC de escritorio o vista intermedia para aplicar la caída exacta
+        const isDesktop = window.matchMedia("(min-width:768px) and (hover:hover) and (pointer:fine)").matches;
+        
+        if (isDesktop) {
+            listenersBox.style.bottom = "25px"; // Toma los 25px exactos que tenía el zoom hint en PC
+        } else {
+            listenersBox.style.bottom = "18.5%"; // Toma el 18.5% exacto que tenías en pantallas intermedias
+        }
+    }
+}
+
+
 // ========================================================
 // 🔍 CONTROL DE ALERTA DE ZOOM INTELIGENTE
 // ========================================================
@@ -3710,6 +3847,16 @@ function closeZoomHint() {
                 <button class="close-button" onclick="closeLikedSongs()">Close</button>
             </div>
         </div>
+
+
+<!-- CONTADOR DE TELEMETRÍA EN VIVO (ESTILO CRISTAL ESMERILADO) -->
+<div id="live-listeners-counter">
+  <div class="listeners-content">
+    <span class="listeners-led-ping"></span>
+    <span class="listeners-text"><span id="active-listeners-count">0</span> LISTENERS ONLINE</span>
+  </div>
+</div>
+
 
 
         <!-- SUGERENCIA DE ZOOM INTELIGENTE (ESTILO CRISTAL ESMERILADO) -->
