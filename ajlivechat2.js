@@ -399,6 +399,10 @@ document.getElementById('enable-alerts-link').addEventListener('click', function
     toggleInfoBox('enable-alerts-content');
 });
 
+document.getElementById('menu-pet-link').addEventListener('click', function() {
+    toggleInfoBox('enable-alerts-content');
+});
+
 
 function toggleInfoBox(boxId) {
     var box = document.getElementById(boxId);
@@ -410,7 +414,8 @@ function toggleInfoBox(boxId) {
         'contact-us-content',
         'get-the-app-content',
         'key-features-content',
-        'enable-alerts-content'
+        'enable-alerts-content',
+        'menu-pet-content'
     ];
 
     // Ocultar todos los demás cuadros
@@ -427,6 +432,7 @@ function closeAllInfoBoxes() {
     document.getElementById('get-the-app-content').classList.remove('show');
     document.getElementById('key-features-content').classList.remove('show');
     document.getElementById('enable-alerts-content').classList.remove('show');
+    document.getElementById('menu-pet-content').classList.remove('show');
 }
 
 
