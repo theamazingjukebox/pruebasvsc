@@ -3797,21 +3797,27 @@ function initVirtualPet() {
         } catch(e) { console.error("Error leyendo bitácora V6.5"); }
     }
 
-    // 🔥 SINC: Forzamos la inyección global para tu botón de producción sidebar real
-    window.toggleVirtualPet = toggleVirtualPet;
-
-    // 🔥 HUEVO DE PASCUA: +2% de felicidad pasiva al cambiar de canción por YouTube
-    const originalFetchComments = window.fetchWebYouTubeComments;
-    window.fetchWebYouTubeComments = function(isNewTrack) {
-        if (typeof originalFetchComments === 'function') originalFetchComments(isNewTrack);
-        
-        if (isNewTrack && petState.isHatched && !petState.isSleeping) {
-            petState.happy = Math.min(100, petState.happy + 2);
-            savePetState();
-            updatePetInterface();
-            triggerVisualEmoji("❤️");
+    // 🟢 ENCHANCHE SEGURO ANTICRASH: Esperamos a que los módulos carguen en la ventana global
+    setTimeout(() => {
+        const originalFetchComments = window.fetchWebYouTubeComments;
+        if (typeof originalFetchComments === 'function') {
+            window.fetchWebYouTubeComments = function(isNewTrack) {
+                originalFetchComments(isNewTrack);
+                if (isNewTrack && petState.isHatched && !petState.isSleeping) {
+                    petState.happy = Math.min(100, petState.happy + 2);
+                    savePetState();
+                    updatePetInterface();
+                    triggerVisualEmoji("❤️");
+                }
+            };
         }
-    };
+    }, 1500); // Le da 1.5 segundos al reproductor para estabilizarse en memoria
+
+    // EL RELOJ REFRESH DEL CRISTAL LÍQUIDO
+    setInterval(() => {
+        frameTick = (frameTick + 1) % 2;
+        renderMargoDisplay();
+    }, 650);
 
     // EL RELOJ REFRESH DEL CRISTAL LÍQUIDO (Bucle rítmico cada 650ms para la respiración sutil)
     setInterval(() => {
