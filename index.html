@@ -2385,14 +2385,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   POP-UP CORE-BOT V2.0 (ESTÉTICA MATRIZ DE CRISTAL LÍQUIDO)
+   POP-UP CORE-BOT V3.0 (SISTEMA DE MÓDULO DE FIERROS)
    ======================================================== */
 #virtual-pet-popup {
   position: fixed;
   bottom: 25px;
   left: 25px;
-  width: 290px; /* Un poco más ancho para albergar la matriz */
-  background: rgba(10, 16, 26, 0.8);
+  width: 310px; /* Pantalla ensanchada para dar máxima legibilidad */
+  background: rgba(10, 16, 26, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(135, 255, 255, 0.2);
@@ -2401,7 +2401,6 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   font-family: 'Orbitron', monospace;
   z-index: 9995;
   display: none;
-  overflow: hidden;
 }
 
 .pet-terminal-header {
@@ -2414,64 +2413,99 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 .pet-title { font-size: 8px; color: #87ffff; font-weight: bold; letter-spacing: 1px; text-shadow: 0 0 4px #00ffff; }
 .pet-close-x { background: none; border: none; color: #4a4370; font-size: 11px; cursor: pointer; }
-.pet-close-x:hover { color: #d83ca4; }
 
 .pet-terminal-body { padding: 14px; }
 
-/* 🖥️ PANTALLA MATRIZ CYBER-PAISAJE */
-.pet-display {
-  background: #04070f;
-  border: 1px solid rgba(216, 60, 164, 0.3); /* Contorno rosa neón */
+/* 📺 ESCENARIO DE ANIMACIÓN REAL EXPANSIBLE */
+.pet-display-viewport {
+  background: #02040a;
+  border: 1px solid rgba(216, 60, 164, 0.3);
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   margin-bottom: 12px;
-  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.1);
 }
-#pet-matrix-screen {
-  font-family: 'Courier New', Courier, monospace; /* Forzamos ancho fijo para píxeles perfectos */
-  font-size: 12px;
-  line-height: 1.2;
-  color: #87ffff; /* Píxeles cian neón */
-  text-shadow: 0 0 6px rgba(135, 255, 255, 0.6);
-  margin: 0 0 6px 0;
-  white-space: pre;
-  text-align: left;
-  user-select: none;
+#pet-cyber-scene {
+  position: relative;
+  width: 100%;
+  height: 140px; /* 🟢 Pantalla más grande solicitada */
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.5s ease;
 }
-#pet-status-bubble { font-size: 8px; color: #dffcff; margin: 0; letter-spacing: 0.5px; text-align: center; }
 
-/* PANEL DE TELEMETRÍA (4 BARRAS) */
-.pet-stats-panel { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+/* Fondos dinámicos del paisaje según el interruptor de luz */
+.scene-day { background: #050b14; background-image: linear-gradient(180deg, #050b14 0%, #0d1a2d 100%); }
+.scene-night { background: #010205 !important; }
+
+/* 🤖 EL CONTENEDOR DEL AVATAR (RECORTE DE LA HOJA DE SPRITES) */
+#pet-avatar-sprite {
+  width: 64px;  /* Tamaño exacto del cuadro de tu personaje pixel art */
+  height: 64px;
+  /* 💡 NOTA: Reemplazarás 'sprite_corebot.png' por tu tira de imágenes real de la IA */
+  background-image: url('sprite_corebot.png'); 
+  background-repeat: no-repeat;
+  image-rendering: pixelated; /* Evita que el navegador suavice los bordes, manteniendo el pixel art puro */
+}
+
+/* ANIMACIONES NATIVAS POR PASOS (ESTILO VSCODE PETS / VIDEOPLAY) */
+.pet-anim-walk {
+  background-position: 0px 0px;
+  /* Simula una hoja con 4 fotogramas de caminata horizontales: steps(4) */
+  animation: playSpriteSteps 0.8s steps(4) infinite; 
+}
+.pet-anim-sleep {
+  background-position: 0px -64px; /* Brinca a la segunda fila de la hoja de imágenes */
+  animation: playSpriteSteps 1.2s steps(2) infinite;
+}
+
+@keyframes playSpriteSteps {
+  from { background-position-x: 0px; }
+  to { background-position-x: -256px; } /* Se desplaza a lo largo de la tira de la imagen */
+}
+
+/* PANEL DE TELEMETRÍA DE 5 BARRAS */
+.pet-stats-panel { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
 .stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: #dffcff; }
-.bar-bg { width: 110px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; margin: 0 4px; }
+.bar-bg { width: 120px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
 .bar-fill { height: 100%; width: 100%; transition: width 0.3s ease; }
+
 .energy-color { background: #87ffff; box-shadow: 0 0 4px #00ffff; }
 .clean-color { background: #d83ca4; box-shadow: 0 0 4px #d83ca4; }
-.happy-color { background: #39ff14; box-shadow: 0 0 4px #39ff14; } /* Verde neón para felicidad */
+.happy-color { background: #39ff14; box-shadow: 0 0 4px #39ff14; }
+.sleep-color { background: #ffdf00; box-shadow: 0 0 4px #ffdf00; } /* Amarillo neón para el sueño */
+
+.inline-metrics { justify-content: space-around; margin-top: 2px; font-weight: bold; }
+.neon-cyan { color: #87ffff; text-shadow: 0 0 4px #00ffff; }
+.neon-pink { color: #d83ca4; text-shadow: 0 0 4px #d83ca4; }
+
+/* SECCIÓN DEL MINIJUEGO INTERACTIVO */
+#pet-minigame-controls {
+  background: rgba(135, 255, 255, 0.05);
+  border: 1px dashed rgba(135, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 10px;
+  text-align: center;
+}
+.minigame-title { font-size: 8px; color: #87ffff; margin: 0 0 6px 0; letter-spacing: 0.5px; }
+.minigame-btns { display: flex; gap: 6px; }
+.minigame-btns button { font-size: 8px !important; padding: 4px !important; }
 
 /* GRILLA DE BOTONES MULTIPROPÓSITO */
-.pet-actions-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
+.pet-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .pet-actions-grid button {
-  background: none;
-  border: 1px solid rgba(135, 255, 255, 0.25);
-  border-radius: 6px;
-  color: #87ffff;
-  font-family: 'Orbitron', monospace;
-  font-size: 8px;
-  font-weight: bold;
-  padding: 6px 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  background: none; border: 1px solid rgba(135, 255, 255, 0.25); border-radius: 6px;
+  color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; font-weight: bold;
+  padding: 6px 4px; cursor: pointer; transition: all 0.2s ease;
 }
 .pet-actions-grid button:hover { background: rgba(135, 255, 255, 0.06); border-color: #87ffff; text-shadow: 0 0 4px #00ffff; }
-.pet-actions-grid button:active { transform: scale(0.97); }
 
-
-
+@media (pointer: coarse) and (max-width: 1024px) {
+  #virtual-pet-popup { bottom: auto; top: 65px; left: 15px; width: 280px; }
+}
 
     
     
@@ -3755,217 +3789,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==============================================================================
-// 🥚 CORE-BOT V2.0: MOTOR DE ANIMACIÓN PIXEL-ART Y TELEMETRÍA AVANZADA
+// 🥚 CORE-BOT V3.0: MOTOR DE ESTADOS EXPANDIDOS Y CONTROL DE SPRITES DIRECTO
 // ==============================================================================
 let petState = {
-    isHatched: false, age: 0, weight: 1, energy: 100, clean: 100, happy: 100,
-    isSleeping: false, isSick: false, eggClicks: 0, lastUpdate: Date.now()
-};
-
-let currentFrame = 0;
-let actionVisualTimeout = null;
-
-// MARCOS DE TEXTO (TEXT-FRAMES) PARA LOGRAR LA MOVILIDAD PIXEL-ART
-const FRAMES = {
-    egg: [
-`. . . . . . . . . . . . .
-.                       .
-.         ( 🥚 )        .
-.      TAP TO HATCH     .
-=========================`,
-`. . . . . . . . . . . . .
-.                       .
-.        (( 🥚 ))       .
-.      TAP TO HATCH     .
-=========================`
-    ],
-    walk: [
-`. . . . . . . . . . . . .
-.   *                   .
-.       o-o (•‿•)        .
-.        / \\  /\\         .
-============#============`,
-`. . . . . . . . . . . . .
-.     *                 .
-.       o-o (•‿•)        .
-.        | |  | |        .
-============#============`
-    ],
-    feed: [
-`. . . . . . . . . . . . .
-.  💾                   .
-.   \\   o-o (☉v☉)       .
-.    >   / \\  /\\        .
-=========================`
-    ],
-    icecream: [
-`. . . . . . . . . . . . .
-.  🍦                   .
-.   \\   o-o (♥‿♥)       .
-.    >   / \\  /\\        .
-=========================`
-    ],
-    clean: [
-`. . . . . . . . . . . . .
-.   🫧  🫧  🫧  🫧      .
-.       o-o (•̥__•̥)       .
-.        / \\  /\\         .
-=========================`
-    ],
-    sleep: [
-`. . . . . . . . . . . . .
-.   z Z Z               .
-.       o-o (-﹏-)       .
-.        / \\  /\\         .
-==============#==========`
-    ],
-    sick: [
-`. . . . . . . . . . . . .
-.   ☣️                  .
-.       o-o (✖╭╮✖)       .
-.        / \\  /\\         .
-=========================`
-    ]
+    isHatched: true, age: 0, weight: 1, energy: 100, clean: 100, happy: 100, sleep: 100,
+    isSleeping: false, isSick: false, lastUpdate: Date.now()
 };
 
 function initVirtualPet() {
-    const saved = localStorage.getItem('jukebox_pet_v2_data');
+    const saved = localStorage.getItem('jukebox_pet_v3_data');
     if (saved) {
         try {
             petState = JSON.parse(saved);
             aplicarDesgastePorTiempo();
-        } catch(e) { console.error("Error cargando bitácora V2"); }
+        } catch(e) { console.error("Error cargando bitácora V3"); }
     }
 
-    // Configurar el click directo en la matriz para reventar el huevo
-    const screenEl = document.getElementById("pet-matrix-screen");
-    if (screenEl) { screenEl.addEventListener('click', crackEgg); }
-
-    // 🔥 ENTRADA MOTOR: El Huevo de Pascua del cambio de canción (+2% felicidad)
-    // Sobrescribimos o inyectamos la lógica dentro de tu ventana global de comentarios
+    // 🔥 HUEVO DE PASCUA: Sincronización automática con los cambios de canción por YouTube
     const originalFetchComments = window.fetchWebYouTubeComments;
     window.fetchWebYouTubeComments = function(isNewTrack) {
         if (typeof originalFetchComments === 'function') originalFetchComments(isNewTrack);
         
         if (isNewTrack && petState.isHatched && !petState.isSleeping) {
-            petState.happy = Math.min(100, petState.happy + 2); // 👈 +2% de felicidad por track [5]
+            petState.happy = Math.min(100, petState.happy + 2); // 👈 +2% de felicidad automática
             savePetState();
             updatePetInterface();
-            console.log("🎵 Tamagotchi: +2% de felicidad por sintonía humana.");
+            console.log("🎵 Tamagotchi: +2% de felicidad por sintonía de track.");
         }
     };
 
-    // BUCLE PRINCIPAL DE ANIMACIÓN: Cambia de cuadro cada 600ms para darle la movilidad táctil
+    // BUCLE DE DESGASTE TEMPORAL EN VIVO: Pierde estadísticas cada 30 segundos reales
     setInterval(() => {
-        currentFrame = (currentFrame + 1) % 2;
-        if (!actionVisualTimeout) renderScreen();
-    }, 600);
-
-    // BUCLE DE DESGASTE BIOLÓGICO: Cada 30 segundos pierde un 1% de estadísticas en vivo
-    setInterval(() => {
-        if (!petState.isSleeping && petState.isHatched) {
-            petState.energy = Math.max(0, petState.energy - 1);
-            petState.clean = Math.max(0, petState.clean - 1);
-            petState.happy = Math.max(0, petState.happy - 1);
+        if (petState.isHatched) {
+            if (petState.isSleeping) {
+                // Si la luz está apagada, la barra de sueño se recupera y no gasta energía
+                petState.sleep = Math.min(100, petState.sleep + 3);
+            } else {
+                // Si está despierto, todas las barras disminuyen gradualmente
+                petState.energy = Math.max(0, petState.energy - 1);
+                petState.clean = Math.max(0, petState.clean - 1);
+                petState.happy = Math.max(0, petState.happy - 1);
+                petState.sleep = Math.max(0, petState.sleep - 1);
+            }
             
-            // Si la limpieza baja de 20%, se enferma por virus de código
             if (petState.clean < 20) petState.isSick = true;
-            
-            // Cada vez que el reloj cumple un ciclo largo, sube de edad
-            if (Math.random() < 0.02) petState.age += 1; 
+            if (Math.random() < 0.01) petState.age += 1;
 
             savePetState();
             updatePetInterface();
         }
     }, 30000);
 
-    // AUDITORÍA HORARIA AUTOMÁTICA (SUEÑO CIRCADIANO NATAL)
-    setInterval(checkCircadianRhythm, 10000);
-
     updatePetInterface();
-}
-
-function crackEgg() {
-    if (petState.isHatched) return;
-    petState.eggClicks++;
-    
-    if (petState.eggClicks >= 5) {
-        petState.isHatched = true;
-        petState.energy = 100; petState.clean = 100; petState.happy = 100;
-        document.getElementById("pet-status-bubble").innerText = "CORE BORN! CHANNELS ACTIVE.";
-    } else {
-        document.getElementById("pet-status-bubble").innerText = `CRACKING SURFACE... [${petState.eggClicks}/5]`;
-    }
-    savePetState();
-    updatePetInterface();
-}
-
-function renderScreen(overrideAnimation = null) {
-    const screenEl = document.getElementById("pet-matrix-screen");
-    if (!screenEl) return;
-
-    if (overrideAnimation) {
-        screenEl.innerText = FRAMES[overrideAnimation][0];
-        return;
-    }
-
-    if (!petState.isHatched) {
-        screenEl.innerText = FRAMES.egg[currentFrame];
-    } else if (petState.isSleeping) {
-        screenEl.innerText = FRAMES.sleep[currentFrame];
-    } else if (petState.isSick) {
-        screenEl.innerText = FRAMES.sick[currentFrame];
-    } else {
-        screenEl.innerText = FRAMES.walk[currentFrame]; // Camina de forma infinita en su cyber-paisaje
-    }
 }
 
 function updatePetInterface() {
     const bEnergy = document.getElementById("bar-energy");
     const bClean = document.getElementById("bar-clean");
     const bHappy = document.getElementById("bar-happy");
+    const bSleep = document.getElementById("bar-sleep");
+    const sceneEl = document.getElementById("pet-cyber-scene");
+    const spriteEl = document.getElementById("pet-avatar-sprite");
     const statusEl = document.getElementById("pet-status-bubble");
 
-    if (bEnergy) { bEnergy.style.width = petState.energy + "%"; document.getElementById("txt-energy").innerText = petState.energy + "%"; }
-    if (bClean) { bClean.style.width = petState.clean + "%"; document.getElementById("txt-clean").innerText = petState.clean + "%"; }
-    if (bHappy) { bHappy.style.width = petState.happy + "%"; document.getElementById("txt-happy").innerText = petState.happy + "%"; }
+    if (bEnergy) bEnergy.style.width = petState.energy + "%";
+    if (bClean) bClean.style.width = petState.clean + "%";
+    if (bHappy) bHappy.style.width = petState.happy + "%";
+    if (bSleep) bSleep.style.width = petState.sleep + "%";
     
-    if (document.getElementById("txt-age")) document.getElementById("txt-age").innerText = petState.age;
-    if (document.getElementById("txt-weight")) document.getElementById("txt-weight").innerText = petState.weight;
+    // Sincronizar textos numéricos en el DOM
+    document.getElementById("txt-energy").innerText = petState.energy + "%";
+    document.getElementById("txt-clean").innerText = petState.clean + "%";
+    document.getElementById("txt-happy").innerText = petState.happy + "%";
+    document.getElementById("txt-sleep").innerText = petState.sleep + "%";
+    document.getElementById("txt-age").innerText = petState.age;
+    document.getElementById("txt-weight").innerText = petState.weight;
 
-    if (!petState.isHatched) {
-        statusEl.innerText = "EGG INCUBATOR LOCK. TAP THE MATRIX TO INITIALIZE.";
-    } else if (petState.isSick) {
-        statusEl.innerText = "SYSTEM CRITICAL: VIRUS INFECTED. FLUSH WATER.";
-        statusEl.style.color = "#d83ca4";
-    } else if (petState.isSleeping) {
-        statusEl.innerText = "SYSTEM IN REPOSE. CYBER-BATTERY CHARGING.";
-        statusEl.style.color = "#87ffff";
-    } else {
-        statusEl.innerText = "CORE OPERATIONAL. LIFE SIGNALS OPTIMIZED.";
-        statusEl.style.color = "#dffcff";
+    // 🎭 INTERRUPTOR DE ANIMACIÓN POR CLASES CSS
+    if (sceneEl && spriteEl) {
+        if (petState.isSleeping) {
+            sceneEl.className = "scene-night";
+            spriteEl.className = "pet-anim-sleep";
+            statusEl.innerText = "LIGHTS OUT. SYSTEM IN COOLDOWN MODE.";
+            statusEl.style.color = "#87ffff";
+        } else {
+            sceneEl.className = "scene-day";
+            spriteEl.className = "pet-anim-walk";
+            statusEl.innerText = petState.isSick ? "VIRUS DETECTED. FLUSH SYSTEM CHANNELS." : "LIFE SIGNALS NORMAL. READY TO OPERATE.";
+            statusEl.style.color = petState.isSick ? "#d83ca4" : "#dffcff";
+        }
     }
-    renderScreen();
 }
 
 function interactWithPet(action) {
-    if (!petState.isHatched) return;
     if (petState.isSleeping && action !== 'sleep') return;
-
-    if (actionVisualTimeout) clearTimeout(actionVisualTimeout);
 
     if (action === 'feed') {
         petState.energy = Math.min(100, petState.energy + 20);
         petState.weight += 1;
-        renderScreen('feed');
-    } else if (action === 'icecream') {
-        petState.happy = Math.min(100, petState.happy + 25);
-        petState.weight += 2; // El helado lo engorda más rápido (look original de Bandai)
-        renderScreen('icecream');
+        document.getElementById("pet-status-bubble").innerText = "INJECTING CORE DATA PACKETS...";
     } else if (action === 'clean') {
         petState.clean = Math.min(100, petState.clean + 30);
-        if (petState.clean > 50) petState.isSick = false;
-        renderScreen('clean');
+        if (petState.clean > 40) petState.isSick = false;
+        document.getElementById("pet-status-bubble").innerText = "FLUSHING WATER DECONTAMINATION...";
+    } else if (action === 'play') {
+        // Despliega u oculta el sub-panel táctil del minijuego de lados
+        const gamePanel = document.getElementById("pet-minigame-controls");
+        if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
+        return;
     } else if (action === 'sleep') {
         petState.isSleeping = !petState.isSleeping;
     }
@@ -3973,43 +3904,50 @@ function interactWithPet(action) {
     petState.lastUpdate = Date.now();
     savePetState();
     updatePetInterface();
-
-    // Congela el cuadro de la acción por 1.5 segundos para que el usuario disfrute la animación (comiendo/bañándose)
-    if (action !== 'sleep') {
-        actionVisualTimeout = setTimeout(() => {
-            actionVisualTimeout = null;
-            renderScreen();
-        }, 1500);
-    }
 }
 
-function checkCircadianRhythm() {
-    // Sincronización con las políticas de la hora de México de tu servidor actual
-    const currentHour = new Date().getHours();
-    
-    // De 11:00 PM a 6:00 AM el robot apaga sus sistemas automáticamente por ciclo natural
-    if ((currentHour >= 23 || currentHour < 6) && !petState.isSleeping && petState.isHatched) {
-        petState.isSleeping = true;
-        savePetState();
-        updatePetInterface();
+// 🎮 LÓGICA DEL MINIJUEGO INTERACTIVO: ADIVINA EL LADO
+function playMinigameTurn(userChoice) {
+    const sides = ['left', 'right'];
+    const botChoice = sides[Math.floor(Math.random() * 2)];
+    const statusEl = document.getElementById("pet-status-bubble");
+    const gamePanel = document.getElementById("pet-minigame-controls");
+
+    if (userChoice === botChoice) {
+        petState.happy = Math.min(100, petState.happy + 25);
+        statusEl.innerText = `[ SUCCESS ] YOU MATCHED! CORE-BOT LOOKED ${botChoice.toUpperCase()}.`;
+        statusEl.style.color = "#39ff14";
+    } else {
+        statusEl.innerText = `[ MISMATCH ] CORE-BOT LOOKED ${botChoice.toUpperCase()}. TRY AGAIN.`;
+        statusEl.style.color = "#d83ca4";
     }
+
+    if (gamePanel) gamePanel.style.display = "none"; // Oculta el panel tras jugar
+    petState.lastUpdate = Date.now();
+    savePetState();
+    updatePetInterface();
 }
 
 function aplicarDesgastePorTiempo() {
     const ahora = Date.now();
     const transcurrido = (ahora - petState.lastUpdate) / (1000 * 60 * 60); // Horas pasadas
-    if (transcurrido > 0 && petState.isHatched && !petState.isSleeping) {
-        const puntos = Math.floor(transcurrido * 5);
-        petState.energy = Math.max(0, petState.energy - puntos);
-        petState.clean = Math.max(0, petState.clean - puntos);
-        petState.happy = Math.max(0, petState.happy - puntos);
+    if (transcurrido > 0) {
+        const puntos = Math.floor(transcurrido * 4);
+        if (petState.isSleeping) {
+            petState.sleep = Math.min(100, petState.sleep + (puntos * 2));
+        } else {
+            petState.energy = Math.max(0, petState.energy - puntos);
+            petState.clean = Math.max(0, petState.clean - puntos);
+            petState.happy = Math.max(0, petState.happy - puntos);
+            petState.sleep = Math.max(0, petState.sleep - puntos);
+        }
         if (petState.clean < 20) petState.isSick = true;
         petState.lastUpdate = ahora;
         savePetState();
     }
 }
 
-function savePetState() { localStorage.setItem('jukebox_pet_v2_data', JSON.stringify(petState)); }
+function savePetState() { localStorage.setItem('jukebox_pet_v3_data', JSON.stringify(petState)); }
 
 function toggleVirtualPet() {
     const pop = document.getElementById("virtual-pet-popup");
@@ -4532,57 +4470,68 @@ function closeZoomHint() {
  
 
 <!-- ========================================================
-     POP-UP DE LA MASCOTA VIRTUAL: CORE-BOT V2.0 (EVOLUCIÓN COMPLETA)
+     POP-UP DE LA MASCOTA VIRTUAL: CORE-BOT V3.0 (EDICIÓN PIXEL-ART)
      ======================================================== -->
 <div id="virtual-pet-popup">
   <div class="pet-terminal-header">
-    <span class="pet-title">[ DIGITAL LIFE LOG: CORE-BOT V2.0 ]</span>
+    <span class="pet-title">[ DIGITAL LIFE LOG: CORE-BOT ]</span>
     <button class="pet-close-x" onclick="toggleVirtualPet()">✕</button>
   </div>
   
   <div class="pet-terminal-body">
-    <!-- CYBER-PAISAJE PIXEL ART RETRO -->
-    <div class="pet-display">
-      <!-- El escenario, el suelo y el personaje animado por JavaScript -->
-      <pre id="pet-matrix-screen">
-. . . . . . . . . . . . .
-.                       .
-.      (🥚) PREPARING... .
-.                       .
-=========================
-      </pre>
-      <p id="pet-status-bubble">CORE OFFLINE. SECURE CONNECTION.</p>
+    <!-- 📺 PANTALLA EXPANSIBLE CYBER-PAISAJE (MÁS GRANDE) -->
+    <div class="pet-display-viewport">
+      <!-- El fondo neón y la ventana del personaje animado por CSS -->
+      <div id="pet-cyber-scene" class="scene-day">
+        <!-- El contenedor del personaje leerá la hoja de sprites real en su fondo -->
+        <div id="pet-avatar-sprite" class="pet-anim-walk"></div>
+      </div>
+      <p id="pet-status-bubble">CORE RE-BOOTED. SPRITE ENGINE RUNNING.</p>
     </div>
 
-    <!-- PANEL DE TELEMETRÍA DE HARDWARE VIRTUAL (4 BARRAS) -->
+    <!-- PANEL DE TELEMETRÍA DE HARDWARE VIRTUAL (5 BARRAS) -->
     <div class="pet-stats-panel">
       <div class="stat-row">
-        <span>DATA / ENERGY:</span>
+        <span>DATA/ENERGY:</span>
         <div class="bar-bg"><div id="bar-energy" class="bar-fill energy-color"></div></div>
         <span id="txt-energy">100%</span>
       </div>
       <div class="stat-row">
-        <span>CIRCUIT / CLEAN:</span>
+        <span>CIRCUIT/CLEAN:</span>
         <div class="bar-bg"><div id="bar-clean" class="bar-fill clean-color"></div></div>
         <span id="txt-clean">100%</span>
       </div>
       <div class="stat-row">
-        <span>HAPPINESS / LOGS:</span>
+        <span>LOGS/HAPPINESS:</span>
         <div class="bar-bg"><div id="bar-happy" class="bar-fill happy-color"></div></div>
         <span id="txt-happy">100%</span>
       </div>
       <div class="stat-row">
-        <span>AGE: <span id="txt-age" style="color:#87ffff;">0</span> YR</span>
-        <span>WEIGHT: <span id="txt-weight" style="color:#d83ca4;">1</span> GB</span>
+        <span>REST/SLEEP:</span>
+        <div class="bar-bg"><div id="bar-sleep" class="bar-fill sleep-color"></div></div>
+        <span id="txt-sleep">100%</span>
+      </div>
+      <div class="stat-row inline-metrics">
+        <span>AGE: <span id="txt-age" class="neon-cyan">0</span> YR</span>
+        <span>WEIGHT: <span id="txt-weight" class="neon-pink">1</span> GB</span>
       </div>
     </div>
 
     <!-- BOTONERA DE COMANDOS TÁCTILES MÓDULO COMPLETOS -->
     <div class="pet-actions-grid">
       <button onclick="interactWithPet('feed')">[ 💾 FEED DATA ]</button>
-      <button onclick="interactWithPet('icecream')">[ 🍦 GIVE ICECREAM ]</button>
       <button onclick="interactWithPet('clean')">[ 🧼 FLUSH WATER ]</button>
-      <button onclick="interactWithPet('sleep')">[ 💤 LIGHTS OFF/ON ]</button>
+      <button onclick="interactWithPet('play')">[ 🎮 GUESS SIDE ]</button>
+      <button onclick="interactWithPet('sleep')">[ 💤 LIGHTS OUT ]</button>
+    </div>
+
+    <!-- SUB-PANEL DINÁMICO OCULTO PARA EL MINIJUEGO INTERACTIVO -->
+    <div id="pet-minigame-controls" style="display:none;">
+      <p class="minigame-title">WHERE WILL CORE-BOT LOOK?</p>
+      <div class="minigame-btns">
+        <button onclick="playMinigameTurn('left')">[ ‹ LEFT ]</button>
+        <button onclick="playMinigameTurn('right')">[ RIGHT › ]</button>
+      </div>
     </div>
   </div>
 </div>
