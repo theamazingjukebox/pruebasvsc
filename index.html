@@ -2411,40 +2411,76 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   position: relative;
   width: 100%;
   height: 145px;
-  background: rgba(5, 8, 15, 0.6);
-  border: 1px solid rgba(135, 255, 255, 0.25); /* Borde nítido */
+  /* El secreto: Quitamos el fondo opaco y lo dejamos 100% integrado al cristal */
+  background: transparent; 
   border-radius: 12px;
   padding: 8px;
   margin-bottom: 12px;
-  box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.1);
 }
 
 .t-screen-inner {
   position: relative;
-  width: 100%; height: 100%;
-  background: #e3e6c9; /* Color de fondo LCD original verdoso de Studio Lye */
-  border-radius: 6px;
+  width: 100%; 
+  height: 100%;
+  /* 🔥 ELIMINADO EL BLANCO: Ahora el fondo es transparente y deja ver tus circuitos */
+  background: transparent !important; 
+  border: none !important; /* Eliminamos el marco viejo de Studio Lye */
   overflow: hidden;
-  border: 1px solid #4f4f34;
 }
 
-/* GRIETAS DE CRISTAL LÍQUIDO */
-.t-crack { position: absolute; background: rgba(232, 75, 48, 0.3); border-radius: 3px; z-index: 2; }
-.t-crack--top { width: 50px; height: 2px; top: 12px; left: -10px; transform: rotate(14deg); }
-.t-crack--right { width: 2px; height: 50px; right: 10px; top: 25px; transform: rotate(45deg); }
+/* ❌ ELIMINADAS LAS GRIETAS: Borramos las líneas inyectadas que estorbaban el diseño */
+.t-crack { display: none !important; }
 
-/* 🤖 MARGO INTERACTIVA (ESTÁTICA EN EL CENTRO CON RESPIRACIÓN) */
+/* 🤖 MARGO ADORABLE Y CENTRADA (CON ALTURA Y MOTOR DE PÍXEL CIAN) */
 .margo-avatar {
   position: absolute;
-  bottom: 22px; 
-  left: calc(50% - 28px); /* 🟢 CENTRADA ABSOLUTA: 50% menos la mitad de su ancho (56px / 2 = 28px) */
-  width: 4px; height: 4px; /* Tamaño del bloque de píxel */
+  bottom: 25px; /* Altura perfecta sobre el panel */
+  left: calc(50% - 28px); /* Centrado horizontal absoluto */
+  width: 4px; 
+  height: 4px;
   image-rendering: pixelated;
   transition: transform 0.2s ease;
 }
 
-#matrix-emoji-overlay { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
-.matrix-item-emoji { position: absolute; font-size: 14px; filter: grayscale(1) contrast(2.5); }
+
+/* ========================================================
+   🧬 EL SECRETO DEL CIAN BRILLANTE: FILTRO DE COLOR (MATRIX-GLOW)
+   ======================================================== */
+#margo-core {
+  /* 🔥 TRUCO MAESTRO: La sombra original es negra (#0f0f0f). Con este filtro de matriz, 
+     el navegador transforma los píxeles negros en tu cian oficial de forma gratuita, 
+     inyectándole un resplandor holográfico espectacular que baila con tu música. */
+  filter: invert(74%) sepia(52%) saturate(417%) hue-rotate(125deg) brightness(103%) contrast(101%) drop-shadow(0 0 6px #00ffff);
+  
+  /* Animación nativa de respiración sutil y parpadeo de 1996 */
+  animation: margoBreath 1.3s ease-in-out infinite alternate;
+}
+
+/* 🔄 MOTOR DE RESPIRACIÓN ADORABLE: Sube y baja 3px simulando el latido físico */
+@keyframes margoBreath {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    transform: translateY(-3px) scaleY(0.96); /* Micro-contracción fotorrealista */
+  }
+}
+
+/* CAPA DE INYECCIÓN DE EMOJIS PIXELADOS (Alineados al nuevo estilo) */
+#matrix-emoji-overlay { 
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  top: 0; 
+  left: 0; 
+  pointer-events: none; 
+}
+.matrix-item-emoji { 
+  position: absolute; 
+  font-size: 14px; 
+  /* Los emojis ahora flotan con un resplandor cian a juego */
+  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6)); 
+}
 
 /* TELEMETRÍA Y BARRAS DE ESTADO */
 .pet-stats-panel { width: 100%; display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
