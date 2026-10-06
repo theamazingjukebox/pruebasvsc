@@ -2385,7 +2385,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   PANTALLA DE MATRIZ DE BITS PURA (LCD CYBERPUNK 16x24)
+   PANTALLA DE MATRIZ DE BITS V5.0 (LCD CYBERPUNK 16x24)
    ======================================================== */
 #virtual-pet-popup {
   position: fixed;
@@ -2404,62 +2404,40 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 .pet-terminal-body { padding: 14px; }
-
-/* 🖥️ EL VIEWPORT DE LA MATRIZ */
 .pet-matrix-viewport {
-  background: #03060a;
-  border: 2px solid rgba(135, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.15);
-  display: flex;
-  justify-content: center;
+  background: #03060a; border: 2px solid rgba(135, 255, 255, 0.2);
+  border-radius: 10px; padding: 12px; margin-bottom: 12px;
+  box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.15); display: flex; justify-content: center;
 }
 
-/* LA REJILLA MATEMÁTICA REAL */
 #pixel-grid-container {
-  display: grid;
-  grid-template-rows: repeat(16, 8px);    /* 16 Filas de alto */
-  grid-template-columns: repeat(24, 10px); /* 24 Columnas de ancho */
-  gap: 1px; /* Simula la separación física de los bloques del cristal líquido */
-  background: #020305;
+  display: grid; grid-template-rows: repeat(16, 8px); grid-template-columns: repeat(24, 10px);
+  gap: 1px; background: #020305;
 }
 
-/* 🟢 EL ESTADO DE CADA PÍXEL INDIVIDUAL */
-.px {
-  width: 100%;
-  height: 100%;
-  border-radius: 1px;
-  transition: background-color 0.05s ease;
-}
-.px-off {
-  background-color: rgba(135, 255, 255, 0.02); /* Píxel apagado traslúcido sutil */
-}
-.px-on {
-  background-color: #87ffff; /* Píxel encendido: Tu cian oficial */
-  box-shadow: 0 0 4px #00ffff;
-}
+.px { width: 100%; height: 100%; border-radius: 1px; transition: background-color 0.05s ease; }
+.px-off { background-color: rgba(135, 255, 255, 0.02); }
+.px-on { background-color: #87ffff; box-shadow: 0 0 4px #00ffff; }
 
-/* 🧼 EL ESTADO DE REPOSO (MODO NOCHE) */
-.matrix-sleep .px-on {
-  background-color: #4a4370 !important; /* Píxeles atenuados en la oscuridad */
-  box-shadow: none !important;
-}
+.matrix-sleep .px-on { background-color: #4a4370 !important; box-shadow: none !important; }
+.px-emoji { display: flex; justify-content: center; align-items: center; font-size: 11px; line-height: 1; image-rendering: pixelated; filter: contrast(1.8) brightness(1.1) drop-shadow(0 0 2px rgba(0,255,255,0.4)); }
 
-/* 🍦 FILTRO PARA PIXELAR LOS EMOJIS DEL SISTEMA OPERATIVO */
-.px-emoji {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 11px;
-  line-height: 1;
-  /* El secreto industrial para "romper" el emoji moderno en pixeles de 1996 */
-  image-rendering: pixelated;
-  filter: contrast(1.8) brightness(1.1) drop-shadow(0 0 2px rgba(0,255,255,0.4));
+/* MENÚ DESPLEGABLE TÁCTIL CYBERPUNK */
+.pet-cyber-select {
+  background: rgba(5, 8, 15, 0.8);
+  border: 1px solid rgba(135, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #87ffff;
+  font-family: 'Orbitron', monospace;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 6px;
+  outline: none;
+  cursor: pointer;
 }
+.pet-cyber-select option { background: #0c121c; color: #dffcff; }
 
-/* PANELES DE BARRAS DE ESTADÍSTICAS */
+/* PANEL DE ESTADÍSTICAS */
 .pet-stats-panel { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
 .stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: #dffcff; }
 .bar-bg { width: 120px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
@@ -2470,8 +2448,10 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 .happy-color { background: #39ff14; box-shadow: 0 0 4px #39ff14; }
 .sleep-color { background: #ffdf00; box-shadow: 0 0 4px #ffdf00; }
 .inline-metrics { justify-content: space-around; margin-top: 2px; font-weight: bold; }
+.neon-cyan { color: #87ffff; text-shadow: 0 0 4px #00ffff; }
+.neon-pink { color: #d83ca4; text-shadow: 0 0 4px #d83ca4; }
 
-/* GRILLA DE BOTONES */
+/* GRILLA DE ACCIONES */
 .pet-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .pet-actions-grid button {
   background: none; border: 1px solid rgba(135, 255, 255, 0.25); border-radius: 6px;
@@ -3771,99 +3751,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==============================================================================
-// 📟 CORE-BOT V4.0: MOTOR DE CONFIGURACIÓN POR MATRIZ DE BITS PURA (16x24 GRID)
+// 📟 CORE-BOT V5.0: MOTOR BINARIO DE EVOLUCIÓN CRONOLÓGICA Y CYBER-DIETA DIARIA
 // ==============================================================================
 let petState = {
-    age: 0, weight: 1, energy: 100, clean: 100, happy: 100, sleep: 100,
+    isHatched: false, eggClicks: 0, age: 0, weight: 1, 
+    energy: 100, clean: 100, happy: 100, sleep: 100,
     isSleeping: false, isSick: false, lastUpdate: Date.now()
 };
 
-// COORDENADAS ESPACIALES DE TRACCIÓN EN VIVO
-let robotX = 8; 
-let robotY = 9; // El robot vive asentado sobre la fila 9
-let walkDirection = 1; // 1 = Derecha, -1 = Izquierda
-let animationTick = 0;
-
-// MAPA DE OBJETOS ACTIVOS EN LA PANTALLA (EMOJIS)
+let robotX = 8; let robotY = 9; 
+let walkDirection = 1; let animationTick = 0;
 let activeItem = { type: null, x: 0, y: 0, emoji: "", timer: 0 };
 
-// 🧬 LAS MATRICES BINARIAS DEL ROBOT (6 FILAS DE ALTO X 7 COLUMNAS DE ANCHO)
-// Cuadro A (Patitas abiertas)
-const BITMAP_WALK_A = [,
- ,
- ,
- ,
- ,
-    [1,0,0,0,0,0,1]
-];
-// Cuadro B (Patitas cerradas)
-const BITMAP_WALK_B = [,
- ,
- ,
- ,
- ,
-    [0,1,0,0,0,1,0]
-];
-// Rostro Durmiendo (Ojos cerrados - -)
-const BITMAP_SLEEP = [,
- ,
- ,
- ,
- ,
-    [0,1,1,0,1,1,0]
-];
+// 🧬 MATRICES BINARIAS REALES EVOLUTIVAS SEPARADAS POR DÍAS (EDADES)
+// ETAPA 1: EL BEBÉ NANO-PULSE (DÍA 0 A 1 - 3x3 PÍXELES)
+const BITMAP_BABY_A = [[0,1,0],[1,1,1],[0,1,0]];
+const BITMAP_BABY_B = [[1,0,1],[0,1,0],[1,0,1]];
+
+// ETAPA 2: EL JOVEN MEGA-DRIVE (DÍA 2 A 4 - 6x7 PÍXELES - TU DISEÑO ACTUAL)
+const BITMAP_YOUTH_A = [[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,1,0,1,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[0,1,0,0,0,1,0]];
+const BITMAP_YOUTH_B = [[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,1,0,1,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[1,0,0,0,0,0,1]];
+
+// ETAPA 3: EL ADULTO MATRIX-TITAN (DÍA 5 EN ADELANTE - 10x8 PÍXELES GIGANTE)
+const BITMAP_ADULT_A = [[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,0,0,1,1,1],[1,1,0,1,1,0,1,1],[1,1,1,1,1,1,1,1],[0,1,1,0,0,1,1,0],[0,1,1,1,1,1,1,0],[0,1,0,0,0,0,1,0]];
+const BITMAP_ADULT_B = [[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,0,0,1,1,1],[1,1,0,1,1,0,1,1],[1,1,1,1,1,1,1,1],[0,1,1,0,0,1,1,0],[0,1,1,1,1,1,1,0],[1,1,0,0,0,0,1,1]];
+
+// CRISTAL LÍQUIDO CONGELADO PARA MODO SUEÑO
+const BITMAP_SLEEP_YOUTH = [[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[0,1,0,0,0,1,0]];
+const BITMAP_SLEEP_ADULT = [[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,0,0,0,0,1,1],[1,1,0,0,0,0,1,1],[1,1,1,1,1,1,1,1],[0,1,1,0,0,1,1,0],[0,1,1,1,1,1,1,0],[0,1,0,0,0,0,1,0]];
 
 function initVirtualPet() {
-    const saved = localStorage.getItem('jukebox_pet_v4_data');
+    const saved = localStorage.getItem('jukebox_pet_v5_data');
     if (saved) {
         try {
             petState = JSON.parse(saved);
             aplicarDesgastePorTiempo();
-        } catch(e) { console.error("Error leyendo matriz de bits guardada"); }
+        } catch(e) { console.error("Error leyendo matriz V5"); }
     }
 
-    // Construimos la cuadrícula de celdas divs físicas en el DOM una sola vez
     buildMatrixDOM();
 
-    // 🔥 HUEVO DE PASCUA: Ganancia de felicidad pasiva al cambiar de canción por YouTube
+    // Sincronización con el disparador de tu botón real de producción "menu-pet-btn"
+    const realBtn = document.getElementById("menu-pet-btn");
+    if (realBtn) {
+        realBtn.setAttribute("onclick", "toggleVirtualPet()");
+    }
+
+    // 🔥 HUEVO DE PASCUA: +2% de felicidad pasiva al cambiar de canción por YouTube
     const originalFetchComments = window.fetchWebYouTubeComments;
     window.fetchWebYouTubeComments = function(isNewTrack) {
         if (typeof originalFetchComments === 'function') originalFetchComments(isNewTrack);
         
-        if (isNewTrack && !petState.isSleeping) {
-            petState.happy = Math.min(100, petState.happy + 2); // 👈 +2% de felicidad automatizada
+        if (isNewTrack && petState.isHatched && !petState.isSleeping) {
+            petState.happy = Math.min(100, petState.happy + 2);
             savePetState();
             updatePetInterface();
-            // Disparamos un corazón pixelado flotando arriba del robot como premio visual
-            triggerEmojiItem("❤️", robotX + 2, 4);
+            triggerEmojiItem("❤️", robotX + 2, 3);
         }
     };
 
-    // EL RELOJ REFRESH DE LA MATRIZ (Cada 450ms redibuja los bits y avanza el paso)
+    // MOTOR DE REFRESH DE LA REJILLA LCD (Avanza cada 450ms)
     setInterval(() => {
-        if (!petState.isSleeping) {
+        if (petState.isHatched && !petState.isSleeping) {
             animationTick = (animationTick + 1) % 2;
             avanzarPosicionRobot();
         }
         actualizarCronometroObjetos();
         renderMatrix();
-    }, 4500);
+    }, 450);
 
-    // BUCLE DE DESGASTE TEMPORAL: Consume 1% cada 30 segundos
+    // DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
     setInterval(() => {
-        if (petState.isSleeping) {
-            petState.sleep = Math.min(100, petState.sleep + 3);
-        } else {
-            petState.energy = Math.max(0, petState.energy - 1);
-            petState.clean = Math.max(0, petState.clean - 1);
-            petState.happy = Math.max(0, petState.happy - 1);
-            petState.sleep = Math.max(0, petState.sleep - 1);
+        if (petState.isHatched) {
+            if (petState.isSleeping) {
+                petState.sleep = Math.min(100, petState.sleep + 4);
+            } else {
+                petState.energy = Math.max(0, petState.energy - 1);
+                petState.clean = Math.max(0, petState.clean - 1);
+                petState.happy = Math.max(0, petState.happy - 1);
+                petState.sleep = Math.max(0, petState.sleep - 1);
+            }
+            if (petState.clean < 20) petState.isSick = true;
+            
+            // Incremento cronológico: Cada ciclo largo aleatorio simula cumplir años
+            if (Math.random() < 0.01) petState.age += 1;
+
+            savePetState();
+            updatePetInterface();
         }
-        if (petState.clean < 20) petState.isSick = true;
-        if (Math.random() < 0.01) petState.age += 1;
-        
-        savePetState();
-        updatePetInterface();
     }, 30000);
 
     updatePetInterface();
@@ -3873,200 +3848,206 @@ function buildMatrixDOM() {
     const gridContainer = document.getElementById("pixel-grid-container");
     if (!gridContainer) return;
     gridContainer.innerHTML = "";
-
-    // Inyectamos las 16x24 = 384 celdas físicas ordenadas por ID de coordenada
     for (let r = 0; r < 16; r++) {
         for (let c = 0; c < 24; c++) {
             const cell = document.createElement("div");
-            cell.id = `px-${r}-${c}`;
-            cell.className = "px px-off";
+            cell.id = `px-${r}-${c}`; cell.className = "px px-off";
             gridContainer.appendChild(cell);
         }
     }
 }
 
 function avanzarPosicionRobot() {
-    // Física de caminata horizontal con rebote automático en las paredes del bloque
     robotX += walkDirection;
-    
-    // Si llega al borde derecho (24 - 7 columnas del robot = 17), rebota a la izquierda
-    if (robotX >= 17) {
-        robotX = 17;
-        walkDirection = -1;
-    }
-    // Si llega al borde izquierdo, rebota a la derecha
-    if (robotX <= 0) {
-        robotX = 0;
-        walkDirection = 1;
-    }
+    let maxColLimit = 17; // Ancho límite para el joven (24 - 7 = 17)
+    if (petState.age < 2) maxColLimit = 21; // Bebé (24 - 3 = 21)
+    if (petState.age >= 5) maxColLimit = 16; // Adulto (24 - 8 = 16)
+
+    if (robotX >= maxColLimit) { robotX = maxColLimit; walkDirection = -1; }
+    if (robotX <= 0) { robotX = 0; walkDirection = 1; }
 }
 
-function triggerEmojiItem(emoji, x, y) {
-    activeItem.type = "emoji";
-    activeItem.x = x;
-    activeItem.y = y;
-    activeItem.emoji = emoji;
-    activeItem.timer = 4; // Se mantendrá visible durante 4 ciclos de la pantalla
-}
-
-function actualizarCronometroObjetos() {
-    if (activeItem.timer > 0) {
-        activeItem.timer--;
-        if (activeItem.timer === 0) activeItem.type = null; // Borra el emoji al vencer el tiempo
-    }
-}
-
-// 🖥️ EL MOTOR DE PROYECCIÓN BINARIA (RENDERIZADO LÍNEA POR LÍNEA)
+// MATRIX READ Y MIGRACIÓN: SELECCIÓN DE MATRICES POR EDAD CRONOLÓGICA
 function renderMatrix() {
-    // 1. Limpiamos toda la pantalla apagando los píxeles previos
     for (let r = 0; r < 16; r++) {
         for (let c = 0; c < 24; c++) {
             const cell = document.getElementById(`px-${r}-${c}`);
-            if (cell) {
-                cell.className = "px px-off";
-                cell.innerText = ""; // Limpia emojis previos
-            }
+            if (cell) { cell.className = "px px-off"; cell.innerText = ""; }
         }
     }
 
-    // 2. Aplicamos el interruptor de modo noche al contenedor base
     const gridContainer = document.getElementById("pixel-grid-container");
     if (gridContainer) {
         if (petState.isSleeping) gridContainer.classList.add("matrix-sleep");
         else gridContainer.classList.remove("matrix-sleep");
     }
 
-    // 3. SELECCIÓN DE MATRIZ SEGÚN EL ESTADO DE VIDA
-    let currentBitmap = (animationTick === 0) ? BITMAP_WALK_A : BITMAP_WALK_B;
-    if (petState.isSleeping) currentBitmap = BITMAP_SLEEP;
-
-    // 4. ENCENDIDO DE LOS PÍXELES DEL ROBOT SEGÚN SUS COORDENADAS (Y, X)
-    for (let h = 0; r = h < 6; h++) {
-        for (let w = 0; w < 7; w++) {
-            if (currentBitmap[h][w] === 1) {
-                const targetRow = robotY + h;
-                let targetCol = robotX + w;
-                
-                // Si el robot camina a la izquierda, invertimos horizontalmente el renderizado de la matriz de bits
-                if (walkDirection === -1 && !petState.isSleeping) {
-                    targetCol = robotX + (6 - w);
+    // 🥚 RENDERIZADO DEL HUEVO ANTES DE NACER
+    if (!petState.isHatched) {
+        const eggRow = 6; const eggCol = 10;
+        const eggMap = [[0,1,0],[1,1,1],[1,1,1],[0,1,0]];
+        for (let h=0; h<4; h++) {
+            for (let w=0; w<3; w++) {
+                if (eggMap[h][w] === 1) {
+                    const el = document.getElementById(`px-${eggRow+h}-${eggCol+w}`);
+                    if (el) el.className = "px px-on";
                 }
+            }
+        }
+        // Activamos detector de clic sobre la pantalla para que el usuario eclosione el huevo
+        const elGrid = document.getElementById("pixel-grid-container");
+        elGrid.style.cursor = "pointer";
+        elGrid.onclick = crackEgg;
+    } else {
+        // DETECCIÓN DINÁMICA DE DIMENSIONES SEGÚN LA ETAPA EVOLUTIVA
+        let currentBitmap = BITMAP_YOUTH_A;
+        let bHeight = 6; let bWidth = 7;
+        
+        if (petState.age < 2) {
+            // Etapa 1: Bebé Nano-Pulse
+            currentBitmap = (animationTick === 0) ? BITMAP_BABY_A : BITMAP_BABY_B;
+            bHeight = 3; bWidth = 3;
+            robotY = 12; // Asentado en el suelo
+        } else if (petState.age >= 2 && petState.age < 5) {
+            // Etapa 2: Joven Mega-Drive
+            currentBitmap = petState.isSleeping ? BITMAP_SLEEP_YOUTH : ((animationTick === 0) ? BITMAP_YOUTH_A : BITMAP_YOUTH_B);
+            bHeight = 6; bWidth = 7;
+            robotY = 9;
+        } else {
+            // Etapa 3: Adulto Matrix-Titan
+            currentBitmap = petState.isSleeping ? BITMAP_SLEEP_ADULT : ((animationTick === 0) ? BITMAP_ADULT_A : BITMAP_ADULT_B);
+            bHeight = 8; bWidth = 8;
+            robotY = 7;
+        }
 
-                const pixelCell = document.getElementById(`px-${targetRow}-${targetCol}`);
-                if (pixelCell) pixelCell.className = "px px-on";
+        // Proyectamos los píxeles encendidos del robot
+        for (let h = 0; h < bHeight; h++) {
+            for (let w = 0; w < bWidth; w++) {
+                if (currentBitmap[h][w] === 1) {
+                    const tRow = robotY + h;
+                    let tCol = robotX + w;
+                    if (walkDirection === -1 && !petState.isSleeping && petState.age >= 2) {
+                        tCol = robotX + ((bWidth - 1) - w); // Espejeo de bits nativo
+                    }
+                    const px = document.getElementById(`px-${tRow}-${tCol}`);
+                    if (px) px.className = "px px-on";
+                }
             }
         }
     }
 
-    // 5. INYECCIÓN DEL EMOJI PIXELADO EN SUS COORDENADAS COORDENADAS (Y, X)
+    // Proyección del emoji pixelado activo (Comida / Acciones)
     if (activeItem.type === "emoji") {
         const itemCell = document.getElementById(`px-${activeItem.y}-${activeItem.x}`);
-        if (itemCell) {
-            itemCell.className = "px px-emoji";
-            itemCell.innerText = activeItem.emoji;
-        }
+        if (itemCell) { itemCell.className = "px px-emoji"; itemCell.innerText = activeItem.emoji; }
     }
 }
 
-function updatePetInterface() {
-    if (document.getElementById("bar-energy")) document.getElementById("bar-energy").style.width = petState.energy + "%";
-    if (document.getElementById("bar-clean")) document.getElementById("bar-clean").style.width = petState.clean + "%";
-    if (document.getElementById("bar-happy")) document.getElementById("bar-happy").style.width = petState.happy + "%";
-    if (document.getElementById("bar-sleep")) document.getElementById("bar-sleep").style.width = petState.sleep + "%";
-    
-    document.getElementById("txt-energy").innerText = petState.energy + "%";
-    document.getElementById("txt-clean").innerText = petState.clean + "%";
-    document.getElementById("txt-happy").innerText = petState.happy + "%";
-    document.getElementById("txt-sleep").innerText = petState.sleep + "%";
-    document.getElementById("txt-age").innerText = petState.age;
-    document.getElementById("txt-weight").innerText = petState.weight;
-
-    const statusEl = document.getElementById("pet-status-bubble");
-    if (petState.isSleeping) {
-        statusEl.innerText = "MATRIX DIMMED. ENERGY COOLDOWN CHANNELS RUNNING.";
-        statusEl.style.color = "#87ffff";
+function crackEgg() {
+    if (petState.isHatched) return;
+    petState.eggClicks++;
+    if (petState.eggClicks >= 5) {
+        petState.isHatched = true;
+        document.getElementById("pixel-grid-container").style.cursor = "default";
+        updatePetInterface();
     } else {
-        statusEl.innerText = petState.isSick ? "ALERT: VIRUS INJECTED. CIRCUITS DEGRADED." : "BITSTREAM STABLE. ROBOT ACTIVE.";
-        statusEl.style.color = petState.isSick ? "#d83ca4" : "#dffcff";
+        document.getElementById("pet-status-bubble").innerText = `CRACKING SHELL... [${petState.eggClicks}/5]`;
     }
 }
 
+// LÓGICA DE LA DIETA DIGITAL MULTIVARIABLE POR EMOJIS
+function executeFeeding() {
+    if (!petState.isHatched || petState.isSleeping) return;
+    const selector = document.getElementById("pet-food-selector");
+    const food = selector.value;
+    
+    if (food === "data") {
+        petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
+        triggerEmojiItem("💾", (walkDirection === 1) ? Math.min(23, robotX + 8) : Math.max(0, robotX - 2), robotY + 2);
+    } else if (food === "icecream") {
+        petState.happy = Math.min(100, petState.happy + 35);
+        petState.clean = Math.max(0, petState.clean - 5); // El helado ensucia los circuitos
+        petState.weight += 2;
+        triggerEmojiItem("🍦", (walkDirection === 1) ? Math.min(23, robotX + 8) : Math.max(0, robotX - 2), robotY + 2);
+    } else if (food === "voltage") {
+        petState.energy = Math.min(100, petState.energy + 40);
+        petState.sleep = Math.max(0, petState.sleep - 15); // La cafeína virtual quita el sueño
+        triggerEmojiItem("⚡", (walkDirection === 1) ? Math.min(23, robotX + 8) : Math.max(0, robotX - 2), robotY + 2);
+    } else if (food === "burger") {
+        petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
+triggerEmojiItem("🍔", (walkDirection === 1) ? Math.min(23, robotX + 8) : Math.max(0, robotX - 2), robotY + 2);
+}
+savePetState(); updatePetInterface(); renderMatrix();
+}
 function interactWithPet(action) {
-    if (petState.isSleeping && action !== 'sleep') return;
-
-    if (action === 'feed') {
-        petState.energy = Math.min(100, petState.energy + 20);
-        petState.weight += 1;
-        // Inyectamos un emoji de helado pixelado justo en frente de donde va caminando el robot
-        const targetFoodX = (walkDirection === 1) ? Math.min(23, robotX + 8) : Math.max(0, robotX - 2);
-        triggerEmojiItem("🍦", targetFoodX, robotY + 2);
-    } else if (action === 'clean') {
-        petState.clean = Math.min(100, petState.clean + 30);
-        if (petState.clean > 40) petState.isSick = false;
-        triggerEmojiItem("🧼", robotX + 3, robotY - 2); // Lanza el jabón arriba de su cabeza
-    } else if (action === 'play') {
-        const gamePanel = document.getElementById("pet-minigame-controls");
-        if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
-        return;
-    } else if (action === 'sleep') {
-        petState.isSleeping = !petState.isSleeping;
-    }
-
-    petState.lastUpdate = Date.now();
-    savePetState();
-    updatePetInterface();
-    renderMatrix();
+if (!petState.isHatched) return;
+if (petState.isSleeping && action !== 'sleep') return;
+if (action === 'clean') {
+petState.clean = Math.min(100, petState.clean + 30);
+if (petState.clean > 40) petState.isSick = false;
+triggerEmojiItem("🧼", robotX + 2, robotY - 2);
+} else if (action === 'play') {
+const gamePanel = document.getElementById("pet-minigame-controls");
+if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
+return;
+} else if (action === 'sleep') {
+petState.isSleeping = !petState.isSleeping;
 }
-
+savePetState(); updatePetInterface(); renderMatrix();
+}
 function playMinigameTurn(userChoice) {
-    const sides = ['left', 'right'];
-    const botChoice = sides[Math.floor(Math.random() * 2)];
-    const statusEl = document.getElementById("pet-status-bubble");
-    const gamePanel = document.getElementById("pet-minigame-controls");
-
-    if (userChoice === botChoice) {
-        petState.happy = Math.min(100, petState.happy + 25);
-        statusEl.innerText = `[ MATCH ] CORE-BOT LOOKED ${botChoice.toUpperCase()}.`;
-        statusEl.style.color = "#39ff14";
-triggerEmojiItem("❤️", robotX + 3, robotY - 2); // Lanza un corazón de victoria
+const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
+if (userChoice === botChoice) {
+petState.happy = Math.min(100, petState.happy + 25);
+document.getElementById("pet-status-bubble").innerText = [ MATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.;
+triggerEmojiItem("❤️", robotX + 2, robotY - 2);
 } else {
-statusEl.innerText = [ MISMATCH ] CORE-BOT LOOKED ${botChoice.toUpperCase()}.;
-statusEl.style.color = "#d83ca4";
-triggerEmojiItem("💢", robotX + 3, robotY - 2); // Lanza un símbolo de molestia pixelado
+document.getElementById("pet-status-bubble").innerText = [ MISMATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.;
+triggerEmojiItem("💢", robotX + 2, robotY - 2);
 }
-if (gamePanel) gamePanel.style.display = "none";
-petState.lastUpdate = Date.now();
-savePetState();
-updatePetInterface();
-renderMatrix();
+document.getElementById("pet-minigame-controls").style.display = "none";
+savePetState(); updatePetInterface(); renderMatrix();
+}
+function triggerEmojiItem(emoji, x, y) { activeItem.type = "emoji"; activeItem.x = x; activeItem.y = y; activeItem.emoji = emoji; activeItem.timer = 4; }
+function actualizarCronometroObjetos() { if (activeItem.timer > 0) { activeItem.timer--; if (activeItem.timer === 0) activeItem.type = null; } }
+function updatePetInterface() {
+if (document.getElementById("bar-energy")) document.getElementById("bar-energy").style.width = petState.energy + "%";
+if (document.getElementById("bar-clean")) document.getElementById("bar-clean").style.width = petState.clean + "%";
+if (document.getElementById("bar-happy")) document.getElementById("bar-happy").style.width = petState.happy + "%";
+if (document.getElementById("bar-sleep")) document.getElementById("bar-sleep").style.width = petState.sleep + "%";
+document.getElementById("txt-energy").innerText = petState.energy + "%";
+document.getElementById("txt-clean").innerText = petState.clean + "%";
+document.getElementById("txt-happy").innerText = petState.happy + "%";
+document.getElementById("txt-sleep").innerText = petState.sleep + "%";
+document.getElementById("txt-age").innerText = petState.age;
+document.getElementById("txt-weight").innerText = petState.weight;
+// Sincronizar etiqueta de la etapa de crecimiento en el encabezado
+const stageEl = document.getElementById("txt-evolution-stage");
+if (stageEl) {
+if (!petState.isHatched) stageEl.innerText = "EGG";
+else if (petState.age < 2) stageEl.innerText = "NANO-PULSE (BABY)";
+else if (petState.age >= 2 && petState.age < 5) stageEl.innerText = "MEGA-DRIVE (YOUTH)";
+else stageEl.innerText = "MATRIX-TITAN (ADULT)";
+}
 }
 function aplicarDesgastePorTiempo() {
-const ahora = Date.now();
-const transcurrido = (ahora - petState.lastUpdate) / (1000 * 60 * 60);
-if (transcurrido > 0) {
+const ahora = Date.now(); const transcurrido = (ahora - petState.lastUpdate) / (1000 * 60 * 60);
+if (transcurrido > 0 && petState.isHatched) {
 const puntos = Math.floor(transcurrido * 4);
-if (petState.isSleeping) {
-petState.sleep = Math.min(100, petState.sleep + (puntos * 2));
-} else {
-petState.energy = Math.max(0, petState.energy - puntos);
-petState.clean = Math.max(0, petState.clean - puntos);
-petState.happy = Math.max(0, petState.happy - puntos);
-petState.sleep = Math.max(0, petState.sleep - puntos);
+if (petState.isSleeping) { petState.sleep = Math.min(100, petState.sleep + (puntos * 2)); }
+else {
+petState.energy = Math.max(0, petState.energy - puntos); petState.clean = Math.max(0, petState.clean - puntos);
+petState.happy = Math.max(0, petState.happy - puntos); petState.sleep = Math.max(0, petState.sleep - puntos);
 }
 if (petState.clean < 20) petState.isSick = true;
-petState.lastUpdate = ahora;
-savePetState();
+petState.lastUpdate = ahora; savePetState();
 }
 }
-function savePetState() { localStorage.setItem('jukebox_pet_v4_data', JSON.stringify(petState)); }
+function savePetState() { localStorage.setItem('jukebox_pet_v5_data', JSON.stringify(petState)); }
 function toggleVirtualPet() {
-const pop = document.getElementById("virtual-pet-popup");
-if (!pop) return;
+const pop = document.getElementById("virtual-pet-popup"); if (!pop) return;
 pop.style.display = (pop.style.display === "block") ? "none" : "block";
-if (pop.style.display === "block") {
-updatePetInterface();
-renderMatrix();
-}
+if (pop.style.display === "block") { updatePetInterface(); renderMatrix(); }
 }
 document.addEventListener("DOMContentLoaded", initVirtualPet);
 
@@ -4581,23 +4562,22 @@ function closeZoomHint() {
  
 
 <!-- ========================================================
-     POP-UP CORE-BOT V4.0: THE BIT-MATRIX EDITION (1996 PURIST)
+     POP-UP CORE-BOT V5.0: THE MUTATION & CYBER-DIET ENGINE
      ======================================================== -->
 <div id="virtual-pet-popup">
   <div class="pet-terminal-header">
-    <span class="pet-title">[ 📟 BIT-MATRIX MONITOR: CORE-BOT ]</span>
+    <span class="pet-title">[ 📟 BIT-MATRIX V5.0: <span id="txt-evolution-stage">EGG</span> ]</span>
     <button class="pet-close-x" onclick="toggleVirtualPet()">✕</button>
   </div>
   
   <div class="pet-terminal-body">
-    <!-- 🖥️ LA MATRIZ DE PÍXELES EN VIVO -->
+    <!-- 🖥️ PANTALLA DE CRISTAL LÍQUIDO 16x24 -->
     <div class="pet-matrix-viewport">
-      <!-- Aquí adentro se dibujará la rejilla de 16x24 por JavaScript -->
       <div id="pixel-grid-container"></div>
     </div>
     <p id="pet-status-bubble">READY FOR BITSTREAM TRANSMISSION.</p>
 
-    <!-- TELEMETRÍA DE HARDWARE VIRTUAL (4 BARRAS) -->
+    <!-- TELEMETRÍA DE HARDWARE VIRTUAL (4 BARRAS + MÉTRICAS) -->
     <div class="pet-stats-panel">
       <div class="stat-row">
         <span>DATA / ENERGY:</span>
@@ -4625,12 +4605,20 @@ function closeZoomHint() {
       </div>
     </div>
 
-    <!-- BOTONERA DE COMANDOS TÁCTILES MÓDULO COMPLETOS -->
+    <!-- 🍏 MENÚ DE NUTRICIÓN DIGITAL Y COMANDOS AVANZADOS -->
     <div class="pet-actions-grid">
-      <button onclick="interactWithPet('feed')">[ 🍦 FEED HELADO ]</button>
+      <!-- Selector de alimentos pixelados -->
+      <select id="pet-food-selector" class="pet-cyber-select">
+        <option value="data">💾 FEED DATA (+20% NRG)</option>
+        <option value="icecream">🍦 GIVE ICECREAM (+35% HPY)</option>
+        <option value="voltage">⚡ JOLT VOLTAGE (+40% NRG)</option>
+        <option value="burger">🍔 CYBER-BURGER (+50% NRG)</option>
+      </select>
+      <button onclick="executeFeeding()">[ RUN FEED ]</button>
+      
       <button onclick="interactWithPet('clean')">[ 🧼 FLUSH WATER ]</button>
       <button onclick="interactWithPet('play')">[ 🎮 GUESS SIDE ]</button>
-      <button onclick="interactWithPet('sleep')">[ 💤 LIGHTS OUT ]</button>
+      <button onclick="interactWithPet('sleep')" style="grid-column: span 2;">[ 💤 LIGHTS OUT / ON ]</button>
     </div>
 
     <!-- SUB-PANEL DINÁMICO OCULTO PARA EL MINIJUEGO INTERACTIVO -->
@@ -4643,7 +4631,6 @@ function closeZoomHint() {
     </div>
   </div>
 </div>
-
 
 
 
