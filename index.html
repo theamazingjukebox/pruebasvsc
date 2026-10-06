@@ -3934,10 +3934,10 @@ const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random(
 lookDirection = (botChoice === 'left') ? -1 : 1;
 if (userChoice === botChoice) {
 petState.happy = Math.min(100, petState.happy + 25);
-document.getElementById("pet-status-bubble").innerText = [ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("❤️");
 } else {
-document.getElementById("pet-status-bubble").innerText = [ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("💢");
 }
 // Regresa la mirada al centro un segundo después del juego
