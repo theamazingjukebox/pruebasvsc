@@ -3999,10 +3999,10 @@ function playMinigameTurn(userChoice) {
 const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
 if (userChoice === botChoice) {
 petState.happy = Math.min(100, petState.happy + 25);
-document.getElementById("pet-status-bubble").innerText = [ MATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.`;
 triggerEmojiItem("❤️", robotX + 2, robotY - 2);
 } else {
-document.getElementById("pet-status-bubble").innerText = [ MISMATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] ROBOT LOOKED ${botChoice.toUpperCase()}.`;
 triggerEmojiItem("💢", robotX + 2, robotY - 2);
 }
 document.getElementById("pet-minigame-controls").style.display = "none";
