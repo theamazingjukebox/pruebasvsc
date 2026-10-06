@@ -3516,9 +3516,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// ======================
-// 🎬 WINDOW LOAD (visual + loader + chat animación)
-// ======================
+// ========================================================
+// 🎬 WINDOW LOAD (VISUAL + LOADER + CHAT ANIMACIÓN)
+// ========================================================
 window.addEventListener("load", () => {
 
     const loader = document.getElementById("loading-screen");
@@ -3526,32 +3526,42 @@ window.addEventListener("load", () => {
 
     requestAnimationFrame(() => {
 
-        // 🔥 1. tu comportamiento original (abrir → cerrar)
+        // 1. Comportamiento original (abrir → cerrar)
         setChatState(true);
 
         setTimeout(() => {
-            chatContainer.scrollTop = 0;
+            if (chatContainer) chatContainer.scrollTop = 0;
             setChatState(false);
         }, 500);
 
-        // 🔥 3. reabrir con height mayor
+        // 2. Reabrir con height mayor
         setTimeout(() => {
-            chatContainer.scrollTop = 0;
-            chatContainer.style.height = "310px"; // 👈 tu nuevo tamaño final
-            isChatExpanded = true; // mantener estado coherente
+            if (chatContainer) {
+                chatContainer.scrollTop = 0;
+                chatContainer.style.height = "310px";
+            }
+            isChatExpanded = true; 
         }, 1000);
 
-        // 🔥 2. ocultar loader DESPUÉS
+        // 🟢 INYECCIÓN MAESTRA: Encendemos los latidos del Tamagotchi 
+        // justo cuando el loader se va, evitando cualquier cortocircuito lógico.
         setTimeout(() => {
-            loader.style.opacity = "0";
+            if (typeof initVirtualPet === 'function') {
+                initVirtualPet();
+                console.log("📟 Jukebox OS: Sub-módulo holográfico de Margo encendido en la sombra.");
+            }
+        }, 1200);
 
-            setTimeout(() => {
-                loader.style.display = "none";
-            }, 300);
-
+        // 3. Ocultar loader final
+        setTimeout(() => {
+            if (loader) {
+                loader.style.opacity = "0";
+                setTimeout(() => { loader.style.display = "none"; }, 300);
+            }
         }, 550);
     });
 });
+
 
 
 function waitForYTAndPlay() {
