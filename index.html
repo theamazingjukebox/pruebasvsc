@@ -2434,12 +2434,11 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* 🤖 MARGO ADORABLE Y CENTRADA (CON ALTURA Y MOTOR DE PÍXEL CIAN) */
 .margo-avatar {
   position: absolute;
-  bottom: 25px; /* Altura perfecta sobre el panel */
-  left: calc(50% - 28px); /* Centrado horizontal absoluto */
+  bottom: 42px; /* 📐 Ajustado de 25px a 42px para que flote a la altura ideal de caminata */
   width: 4px; 
   height: 4px;
   image-rendering: pixelated;
-  transition: transform 0.2s ease;
+  transition: transform 0.15s ease, left 0.5s linear; /* Suaviza el desplazamiento X */
 }
 
 
@@ -3821,21 +3820,17 @@ let petState = {
 let frameTick = 0;
 let lookDirection = 1; // 1 = Centro/Derecha, -1 = Izquierda (Activado por minijuego)
 
-// 🧬 MAPA ARQUEOLÓGICO DE SOMBRAS VECTORIALES VECTORIALES RE-ORGANIZADAS
-const SHADOW_EGG   = "20px 12px #0f0f0f, 24px 12px #0f0f0f, 28px 12px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #0f0f0f, 32px 16px #0f0f0f, 16px 20px #0f0f0f, 20px 20px #0f0f0f, 24px 20px #0f0f0f, 28px 20px #0f0f0f, 32px 20px #0f0f0f, 20px 24px #0f0f0f, 24px 24px #0f0f0f, 28px 24px #0f0f0f";
-const SHADOW_SLEEP = "20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #0f0f0f, 16px 20px #0f0f0f, 32px 20px #0f0f0f, 4px 24px #0f0f0f, 8px 24px #0f0f0f, 12px 24px #0f0f0f, 20px 24px #0f0f0f, 36px 24px #0f0f0f, 44px 24px #0f0f0f, 0px 28px #0f0f0f, 48px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #0f0f0f, 12px 32px #0f0f0f, 48px 32px #0f0f0f, 0px 36px #0f0f0f, 48px 36px #0f0f0f";
+// ==============================================================================
+// 🧬 MOTOR DE CUERPO COMPLETO V7.0: VECTOR DE SOMBRAS DE ALTA FIDELIDAD
+// ==============================================================================
+// 🐣 PERSONAJE 1: CUERPO COMPLETO ADORABLE CON ANTENA (CUADRO A)
+const SHADOW_MARGO_FRAME_A = "16px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 20px 4px #0f0f0f, 8px 8px #0f0f0f, 24px 8px #0f0f0f, 4px 12px #0f0f0f, 12px 12px #0f0f0f, 20px 12px #0f0f0f, 28px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 20px 16px #0f0f0f, 28px 16px #0f0f0f, 4px 20px #0f0f0f, 28px 20px #0f0f0f, 4px 24px #0f0f0f, 12px 24px #0f0f0f, 16px 24px #0f0f0f, 20px 24px #0f0f0f, 28px 24px #0f0f0f, 8px 28px #0f0f0f, 24px 28px #0f0f0f, 8px 32px #0f0f0f, 24px 32px #0f0f0f, 8px 36px #0f0f0f, 24px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #0f0f0f, 8px 44px #0f0f0f, 24px 44px #0f0f0f, 4px 48px #0f0f0f, 28px 48px #0f0f0f, 4px 52px #0f0f0f, 12px 52px #0f0f0f, 20px 52px #0f0f0f, 28px 52px #0f0f0f, 8px 56px #0f0f0f, 24px 56px #0f0f0f";
 
-// 🟢 ETAPA 1: MARGO ORIGINAL RESPIRANDO (DÍA 0 A 1)
-const SHADOW_MARGO_FRAME_A = "20px 0 #0f0f0f, 24px 0 #0f0f0f, 28px 0 #0f0f0f, 32px 0 #0f0f0f, 36px 0 #0f0f0f, 16px 4px #0f0f0f, 40px 4px #0f0f0f, 4px 8px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #0f0f0f, 20px 8px #0f0f0f, 36px 8px #0f0f0f, 44px 8px #0f0f0f, 0px 12px #0f0f0f, 48px 12px #0f0f0f, 4px 16px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #0f0f0f, 48px 16px #0f0f0f, 0px 20px #0f0f0f, 48px 20px #0f0f0f, 4px 24px #0f0f0f, 8px 24px #0f0f0f, 12px 24px #0f0f0f, 48px 24px #0f0f0f, 12px 28px #0f0f0f, 32px 28px #0f0f0f, 40px 28px #0f0f0f, 52px 28px #0f0f0f, 12px 32px #0f0f0f, 32px 32px #0f0f0f, 40px 32px #0f0f0f, 52px 32px #0f0f0f, 12px 36px #0f0f0f, 36px 36px #0f0f0f, 52px 36px #0f0f0f, 16px 40px #0f0f0f, 48px 40px #0f0f0f, 20px 44px #0f0f0f, 28px 44px #0f0f0f, 32px 44px #0f0f0f, 36px 44px #0f0f0f, 44px 44px #0f0f0f, 20px 48px #0f0f0f, 28px 48px #0f0f0f, 36px 48px #0f0f0f, 44px 48px #0f0f0f, 24px 52px #0f0f0f, 40px 52px #0f0f0f";
-const SHADOW_MARGO_FRAME_B = "20px 4px #0f0f0f, 24px 4px #0f0f0f, 28px 4px #0f0f0f, 32px 4px #0f0f0f, 36px 4px #0f0f0f, 16px 8px #0f0f0f, 40px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #0f0f0f, 20px 12px #0f0f0f, 36px 12px #0f0f0f, 44px 12px #0f0f0f, 0px 16px #0f0f0f, 48px 16px #0f0f0f, 4px 20px #0f0f0f, 8px 20px #0f0f0f, 12px 20px #0f0f0f, 48px 20px #0f0f0f, 0px 24px #0f0f0f, 48px 24px #0f0f0f, 12px 28px #0f0f0f, 32px 28px #0f0f0f, 40px 28px #0f0f0f, 52px 28px #0f0f0f, 12px 32px #0f0f0f, 32px 32px #0f0f0f, 40px 32px #0f0f0f, 52px 32px #0f0f0f, 12px 36px #0f0f0f, 36px 36px #0f0f0f, 52px 36px #0f0f0f, 16px 40px #0f0f0f, 48px 40px #0f0f0f, 20px 44px #0f0f0f, 28px 44px #0f0f0f, 32px 44px #0f0f0f, 36px 44px #0f0f0f, 44px 44px #0f0f0f, 24px 48px #0f0f0f, 40px 48px #0f0f0f";
+// 🐣 PERSONAJE 1: MOVIMIENTO ORGÁNICO DE PASO DE PATITAS Y ANTENA (CUADRO B)
+const SHADOW_MARGO_FRAME_B = "20px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 20px 4px #0f0f0f, 8px 8px #0f0f0f, 24px 8px #0f0f0f, 4px 12px #0f0f0f, 12px 12px #0f0f0f, 20px 12px #0f0f0f, 28px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 20px 16px #0f0f0f, 28px 16px #0f0f0f, 4px 20px #0f0f0f, 28px 20px #0f0f0f, 4px 24px #0f0f0f, 12px 24px #0f0f0f, 16px 24px #0f0f0f, 20px 24px #0f0f0f, 28px 24px #0f0f0f, 8px 28px #0f0f0f, 24px 28px #0f0f0f, 8px 32px #0f0f0f, 24px 32px #0f0f0f, 8px 36px #0f0f0f, 24px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #0f0f0f, 8px 44px #0f0f0f, 24px 44px #0f0f0f, 4px 48px #0f0f0f, 28px 48px #0f0f0f, 4px 52px #0f0f0f, 12px 52px #0f0f0f, 20px 52px #0f0f0f, 28px 52px #0f0f0f, 12px 56px #0f0f0f, 20px 56px #0f0f0f";
 
-// 🐱 ETAPA 2: EL GATITO NEO-NEKO COMPILADO (DÍA 2 A 4 - PARPADEO + CORAZÓN INTEGRADO)
-const SHADOW_CAT_A = "12px 0 #0f0f0f, 44px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 40px 4px #0f0f0f, 44px 4px #0f0f0f, 12px 8px #0f0f0f, 20px 8px #0f0f0f, 36px 8px #0f0f0f, 44px 8px #0f0f0f, 12px 12px #0f0f0f, 24px 12px #0f0f0f, 32px 12px #0f0f0f, 44px 12px #0f0f0f, 12px 16px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #0f0f0f, 32px 16px #0f0f0f, 36px 16px #0f0f0f, 40px 16px #0f0f0f, 44px 16px #0f0f0f, 8px 20px #0f0f0f, 20px 20px #0f0f0f, 36px 20px #0f0f0f, 48px 20px #0f0f0f, 8px 24px #0f0f0f, 28px 24px #0f0f0f, 48px 24px #0f0f0f, 12px 28px #0f0f0f, 24px 28px #0f0f0f, 32px 28px #0f0f0f, 44px 28px #0f0f0f, 16px 32px #0f0f0f, 40px 32px #0f0f0f, 20px 36px #0f0f0f, 24px 36px #0f0f0f, 28px 36px #0f0f0f, 32px 36px #0f0f0f, 36px 36px #0f0f0f, 16px 40px #0f0f0f, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 44px 44px #0f0f0f, 12px 48px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f, 44px 48px #0f0f0f";
-const SHADOW_CAT_B = "12px 0 #0f0f0f, 44px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 40px 4px #0f0f0f, 44px 4px #0f0f0f, 12px 8px #0f0f0f, 20px 8px #0f0f0f, 36px 8px #0f0f0f, 44px 8px #0f0f0f, 12px 12px #0f0f0f, 44px 12px #0f0f0f, 12px 16px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #0f0f0f, 32px 16px #0f0f0f, 36px 16px #0f0f0f, 40px 16px #0f0f0f, 44px 16px #0f0f0f, 8px 20px #0f0f0f, 48px 20px #0f0f0f, 8px 24px #0f0f0f, 24px 24px #0f0f0f, 28px 24px #0f0f0f, 48px 24px #0f0f0f, 12px 28px #0f0f0f, 44px 28px #0f0f0f, 16px 32px #0f0f0f, 40px 32px #0f0f0f, 20px 36px #0f0f0f, 36px 36px #0f0f0f, 16px 40px #0f0f0f, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 44px 44px #0f0f0f, 12px 48px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f, 44px 48px #0f0f0f";
-
-// 🐻 ETAPA 3: EL OSITO CYBER-BEAR (DÍA 5 EN ADELANTE - MÁS ANCHO Y ROBUSTO)
-const SHADOW_BEAR_A = "8px 0 #0f0f0f, 12px 0 #0f0f0f, 40px 0 #0f0f0f, 44px 0 #0f0f0f, 4px 4px #0f0f0f, 16px 4px #0f0f0f, 36px 4px #0f0f0f, 48px 4px #0f0f0f, 4px 8px #0f0f0f, 48px 8px #0f0f0f, 4px 12px #0f0f0f, 16px 12px #0f0f0f, 36px 12px #0f0f0f, 48px 12px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #0f0f0f, 32px 16px #0f0f0f, 40px 16px #0f0f0f, 44px 16px #0f0f0f, 12px 20px #0f0f0f, 40px 20px #0f0f0f, 16px 24px #0f0f0f, 24px 24px #0f0f0f, 28px 24px #0f0f0f, 36px 24px #0f0f0f, 16px 28px #0f0f0f, 36px 28px #0f0f0f, 12px 32px #0f0f0f, 40px 32px #0f0f0f, 8px 36px #0f0f0f, 44px 36px #0f0f0f, 8px 40px #0f0f0f, 44px 40px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #0f0f0f, 36px 44px #0f0f0f, 40px 44px #0f0f0f";
-const SHADOW_BEAR_B = "8px 4px #0f0f0f, 12px 4px #0f0f0f, 40px 4px #0f0f0f, 44px 4px #0f0f0f, 4px 8px #0f0f0f, 16px 8px #0f0f0f, 36px 8px #0f0f0f, 48px 8px #0f0f0f, 4px 12px #0f0f0f, 48px 12px #0f0f0f, 4px 16px #0f0f0f, 16px 16px #0f0f0f, 36px 16px #0f0f0f, 48px 16px #0f0f0f, 8px 20px #0f0f0f, 12px 20px #0f0f0f, 20px 20px #0f0f0f, 24px 20px #0f0f0f, 28px 20px #0f0f0f, 32px 20px #0f0f0f, 40px 20px #0f0f0f, 44px 20px #0f0f0f, 12px 24px #0f0f0f, 40px 24px #0f0f0f, 16px 28px #0f0f0f, 36px 28px #0f0f0f, 12px 32px #0f0f0f, 40px 32px #0f0f0f, 8px 36px #0f0f0f, 44px 36px #0f0f0f, 8px 40px #0f0f0f, 44px 40px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #0f0f0f, 36px 44px #0f0f0f, 40px 44px #0f0f0f";
+// Forzamos a que el sistema reconozca que ya nació desde el primer milisegundo
+petState.isHatched = true;
 
 function initVirtualPet() {
     const saved = localStorage.getItem('jukebox_pet_v65_data');
@@ -3862,18 +3857,21 @@ function initVirtualPet() {
         }
     }, 1500); // Le da 1.5 segundos al reproductor para estabilizarse en memoria
 
-    // EL RELOJ REFRESH DEL CRISTAL LÍQUIDO
-    setInterval(() => {
+  setInterval(() => {
         frameTick = (frameTick + 1) % 2;
+        
+        if (petState.isHatched && !petState.isSleeping) {
+            // Avanza de 4 en 4 píxeles espaciales logrando un desplazamiento suave
+            margoX += (walkDir * 4);
+            
+            // Delimitadores de la pantalla de cristal para que rebote con total elegancia
+            if (margoX >= 210) { margoX = 210; walkDir = -1; }
+            if (margoX <= 10) { margoX = 10; walkDir = 1; }
+        }
         renderMargoDisplay();
-    }, 650);
+    }, 500);
 
-    // EL RELOJ REFRESH DEL CRISTAL LÍQUIDO (Bucle rítmico cada 650ms para la respiración sutil)
-    setInterval(() => {
-        frameTick = (frameTick + 1) % 2;
-        renderMargoDisplay();
-    }, 650);
-
+    
     // DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
     setInterval(() => {
         if (petState.isHatched) {
@@ -3919,28 +3917,25 @@ function renderMargoDisplay() {
     const margoEl = document.getElementById("margo-core");
     if (!margoEl) return;
 
-    // Aplicamos el volteo horizontal solo si el minijuego lo solicita
-    margoEl.style.transform = (lookDirection === -1 && !petState.isSleeping) ? "scaleX(-1)" : "scaleX(1)";
+    // Asentamos la posición dinámica de la caminata en vivo por todo el cristal
+    margoEl.style.left = margoX + "px";
 
-    // 🎭 SELECCIÓN DE MATRICES POR EDAD Y MUTACIÓN (MECÁNICA ADORABLE)
-    if (!petState.isHatched) {
-        margoEl.style.boxShadow = SHADOW_EGG;
-    } else if (petState.isSleeping) {
-        margoEl.style.boxShadow = SHADOW_SLEEP;
+    // Espejeo de mirada nativa en el eje horizontal según hacia dónde camina
+    if (walkDir === -1 && !petState.isSleeping) {
+        margoEl.style.transform = "scaleX(-1)";
     } else {
-        if (petState.age < 2) {
-            // Etapa 1: Margo Bebé Original (Respiración entre cuadro A y B)
-            margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
+        margoEl.style.transform = "scaleX(1)";
+    }
 
-            } else if (petState.age >= 2 && petState.age < 5) {
-// Etapa 2: Mutación a Gatito Pixelado (Día 2 a 4)
-margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_CAT_A : SHADOW_CAT_B;
-} else {
-// Etapa 3: Mutación a Osito Cyber-Bear (Día 5 en adelante)
-margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_BEAR_A : SHADOW_BEAR_B;
+    if (petState.isSleeping) {
+        margoEl.style.boxShadow = SHADOW_SLEEP;
+        margoEl.style.left = "110px"; // Centrado absoluto fijo de noche
+    } else {
+        // Alterna entre los dos cuadros reales de cuerpo completo logrando el latido físico
+        margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
+    }
 }
-}
-}
+    
 function executeFeeding() {
 if (!petState.isHatched || petState.isSleeping) return;
 const selector = document.getElementById("pet-food-selector");
