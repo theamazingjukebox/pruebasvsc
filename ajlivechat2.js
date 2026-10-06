@@ -400,7 +400,7 @@ document.getElementById('enable-alerts-link').addEventListener('click', function
 });
 
 document.getElementById('menu-pet-link').addEventListener('click', function() {
-    toggleInfoBox('enable-alerts-content');
+    toggleInfoBox('menu-pet-content');
 });
 
 
