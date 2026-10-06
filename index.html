@@ -2384,6 +2384,136 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 
+/* ========================================================
+   POP-UP CORE-BOT VIRTUAL PET (GLASSMORPHISM ORBITRON)
+   ======================================================== */
+#virtual-pet-popup {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 260px;
+  background: rgba(10, 16, 26, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(135, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 255, 0.1);
+  font-family: 'Orbitron', monospace;
+  z-index: 9995;
+  display: none; /* Inicia oculto, se activa desde el menú */
+  overflow: hidden;
+}
+
+/* CABECERA DE LA MICRO-TERMINAL */
+.pet-terminal-header {
+  background: rgba(135, 255, 255, 0.08);
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(135, 255, 255, 0.15);
+}
+.pet-title {
+  font-size: 8px;
+  color: #87ffff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px #00ffff;
+}
+.pet-close-x {
+  background: none; border: none; color: #4a4370;
+  font-size: 11px; cursor: pointer; transition: color 0.2s;
+}
+.pet-close-x:hover { color: #d83ca4; }
+
+/* PANTALLA CRISTAL LÍQUIDO INCUBADORA */
+.pet-terminal-body { padding: 14px; }
+.pet-display {
+  background: rgba(5, 8, 15, 0.6);
+  border: 1px solid rgba(135, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px 10px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+#pet-ascii-face {
+  font-size: 24px;
+  color: #87ffff;
+  margin: 0 0 8px 0;
+  text-shadow: 0 0 10px #00ffff;
+  display: block;
+}
+#pet-status-bubble {
+  font-size: 8px;
+  color: #dffcff;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* PANELES DE ESTADÍSTICAS (MÉDULA INTEGRADA) */
+.pet-stats-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #dffcff;
+}
+.bar-bg {
+  width: 100px;
+  height: 6px;
+  background: rgba(135, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 8px;
+}
+.bar-fill {
+  height: 100%;
+  width: 100%; /* Inicia al 100% */
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.energy-color { background: #87ffff; box-shadow: 0 0 6px #00ffff; }
+.clean-color { background: #d83ca4; box-shadow: 0 0 6px #d83ca4; }
+
+/* BOTONERA TÁCTIL DE LA MINI PWA */
+.pet-actions {
+  display: flex;
+  gap: 8px;
+}
+.pet-actions button {
+  flex: 1;
+  background: none;
+  border: 1px solid rgba(135, 255, 255, 0.3);
+  border-radius: 6px;
+  color: #87ffff;
+  font-family: 'Orbitron', monospace;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.pet-actions button:hover {
+  background: rgba(135, 255, 255, 0.08);
+  border-color: #87ffff;
+  text-shadow: 0 0 4px #00ffff;
+}
+.pet-actions button:active { transform: scale(0.96); }
+
+/* ADAPTACIÓN EXCLUSIVA PARA MÓVILES CELULARES */
+@media (pointer: coarse) and (max-width: 1024px) {
+  #virtual-pet-popup {
+    bottom: auto;
+    top: 65px; /* Evita chocar con tu contador superior izquierdo de móviles */
+    left: 15px;
+    width: 230px;
+  }
+}
 
 
     
@@ -3667,6 +3797,128 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
+// ========================================================
+// 🥚 MOTOR DE MASCOTA VIRTUAL PERSISTENTE (CORE-BOT V1.0)
+// ========================================================
+let petState = {
+    energy: 100,
+    clean: 100,
+    lastUpdate: Date.now()
+};
+
+function initVirtualPet() {
+    // 1. CARGA DE MEMORIA: Intentamos leer si el usuario ya tenía una mascota guardada
+    const savedState = localStorage.getItem('jukebox_pet_data');
+    if (savedState) {
+        try {
+            petState = JSON.parse(savedState);
+            aplicarDesgastePorTiempo(); // Calcula cuánta vida perdió mientras la web estuvo cerrada
+        } catch(e) {
+            console.error("Error leyendo bitácora del Tamagotchi");
+        }
+    }
+    
+    updatePetVisuals();
+    
+    // Bucle de desgaste en vivo: Consume 1% de estadísticas cada 45 segundos mientras escucha música
+    setInterval(() => {
+        petState.energy = Math.max(0, petState.energy - 1);
+        petState.clean = Math.max(0, petState.clean - 1);
+        petState.lastUpdate = Date.now();
+        savePetState();
+        updatePetVisuals();
+    }, 45000);
+}
+
+// CALCULA EL TIEMPO TRANSCURRIDO DESDE LA ÚLTIMA VISITA
+function aplicarDesgastePorTiempo() {
+    const ahora = Date.now();
+    const tiempoPasado = ahora - petState.lastUpdate; // Milisegundos transcurridos
+    const horasPasadas = tiempoPasado / (1000 * 60 * 60); // Conversión a horas
+
+    if (horasPasadas > 0) {
+        // El robot gasta un 4% de energía y circuitos por cada hora que la web estuvo cerrada
+        const desgaste = Math.floor(horasPasadas * 4);
+        petState.energy = Math.max(0, petState.energy - desgaste);
+        petState.clean = Math.max(0, petState.clean - desgaste);
+        petState.lastUpdate = ahora;
+        savePetState();
+    }
+}
+
+// ACTUALIZA LA INTERFAZ CON ROSTROS ASCII SEGÚN SUS ESTADÍSTICAS
+function updatePetVisuals() {
+    const faceEl = document.getElementById("pet-ascii-face");
+    const statusEl = document.getElementById("pet-status-bubble");
+    const barEnergy = document.getElementById("bar-energy");
+    const barClean = document.getElementById("bar-clean");
+    
+    if (!faceEl || !statusEl) return;
+
+    // Actualizamos las barritas de neón visuales en el DOM
+    if (barEnergy) { barEnergy.style.width = petState.energy + "%"; document.getElementById("txt-energy").innerText = petState.energy + "%"; }
+    if (barClean) { barClean.style.width = petState.clean + "%"; document.getElementById("txt-clean").innerText = petState.clean + "%"; }
+
+    // 🎭 REACCIONES DE ROSTRO DINÁMICAS (LÓGICA TAMAGOTCHI)
+    if (petState.energy <= 0 && petState.clean <= 0) {
+        faceEl.innerText = " (✖╭╮✖) ";
+        statusEl.innerText = "CRITICAL FAILURE. REBOOT REQUIRED.";
+        statusEl.style.color = "#d83ca4";
+    } else if (petState.energy < 30) {
+        faceEl.innerText = " (◣_◢) ";
+        statusEl.innerText = "LOW DATA BATTERY. FEED ME!";
+        statusEl.style.color = "#ff52c5";
+    } else if (petState.clean < 30) {
+        faceEl.innerText = " (•̥__•̥) ";
+        statusEl.innerText = "CIRCUITS CLOGGED. NEED CLEANING.";
+    } else if (petState.energy > 80 && petState.clean > 80) {
+        faceEl.innerText = " (•‿•) "; // Rostro feliz original de tus maquetas
+        statusEl.innerText = "SYSTEM OPTIMIZED. GROOVING CLEAN.";
+        statusEl.style.color = "#dffcff";
+    } else {
+        faceEl.innerText = " (☉_☉) ";
+        statusEl.innerText = "CORE OPERATIONAL. KEEP MONITORING.";
+    }
+}
+
+// ACCIONES DE LOS CLICS DE CUIDADO
+function interactWithPet(action) {
+    if (petState.energy <= 0 && petState.clean <= 0) {
+        // Si el robot murió por completo, cualquier botón actúa como una reanimación de circuitos
+        petState.energy = 50;
+        petState.clean = 50;
+    } else {
+        if (action === 'feed') petState.energy = Math.min(100, petState.energy + 25);
+        if (action === 'clean') petState.clean = Math.min(100, petState.clean + 25);
+    }
+    
+    petState.lastUpdate = Date.now();
+    savePetState();
+    updatePetVisuals();
+}
+
+function savePetState() {
+    localStorage.setItem('jukebox_pet_data', JSON.stringify(petState));
+}
+
+// FUNCIÓN APERTURA / CIERRE PARA TU BOTÓN DEL MENÚ
+function toggleVirtualPet() {
+    const petPopup = document.getElementById("virtual-pet-popup");
+    if (!petPopup) return;
+    
+    if (petPopup.style.display === "block") {
+        petPopup.style.display = "none";
+    } else {
+        petPopup.style.display = "block";
+        updatePetVisuals(); // Refresca los datos en el acto al abrir
+    }
+}
+
+// Iniciamos el motor cuando la página esté lista
+document.addEventListener("DOMContentLoaded", initVirtualPet);
+
+
+
 
 
 // ==============================================================================
@@ -4134,6 +4386,52 @@ function closeZoomHint() {
     </div>
   </div>
 </div>
+
+
+
+        <!-- COLOCAR ESTE BOTÓN DENTRO DE TU MENÚ EXISTENTE (ABAJO DE ENABLE ALERTS) -->
+<button id="menu-pet-trigger" class="menu-item-btn" onclick="toggleVirtualPet()">🕹️ THE JUKEBOX VIRTUAL PET</button>
+
+
+<!-- ========================================================
+     POP-UP DE LA MASCOTA VIRTUAL: CORE-BOT V1.0 (PROTOTIPO WEB)
+     ======================================================== -->
+<div id="virtual-pet-popup">
+  <div class="pet-terminal-header">
+    <span class="pet-title">[ DIGITAL LIFE LOG: CORE-BOT ]</span>
+    <button class="pet-close-x" onclick="toggleVirtualPet()">✕</button>
+  </div>
+  
+  <div class="pet-terminal-body">
+    <!-- PANTALLA DE EVOLUCIÓN COMPACTA -->
+    <div class="pet-display">
+      <!-- El rostro ASCII del robot cambiará dinámicamente por JS -->
+      <pre id="pet-ascii-face"> (•‿•) </pre>
+      <p id="pet-status-bubble">SYSTEM ACTIVE. FEED ME DATA.</p>
+    </div>
+
+    <!-- BARRAS DE ESTADÍSTICAS DE HARDWARE VIRTUAL -->
+    <div class="pet-stats-panel">
+      <div class="stat-row">
+        <span>DATA/ENERGY:</span>
+        <div class="bar-bg"><div id="bar-energy" class="bar-fill energy-color"></div></div>
+        <span id="txt-energy">100%</span>
+      </div>
+      <div class="stat-row">
+        <span>CIRCUIT/CLEAN:</span>
+        <div class="bar-bg"><div id="bar-clean" class="bar-fill clean-color"></div></div>
+        <span id="txt-clean">100%</span>
+      </div>
+    </div>
+
+    <!-- BOTONERA TÁCTIL DE INTERACCIÓN -->
+    <div class="pet-actions">
+      <button onclick="interactWithPet('feed')">[ FEED DATA ]</button>
+      <button onclick="interactWithPet('clean')">[ CLEAN CIRCUITS ]</button>
+    </div>
+  </div>
+</div>
+
 
 
 
