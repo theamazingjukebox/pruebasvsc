@@ -3925,11 +3925,13 @@ triggerVisualEmoji("🍔");
 savePetState(); updatePetInterface();
 }
 function triggerVisualEmoji(emoji) {
-const overlay = document.getElementById("matrix-emoji-overlay");
-if (!overlay) return;
-// Inyectamos el emoji flotando elegantemente en el costado derecho de la pantalla
-overlay.innerHTML = <span class="matrix-item-emoji" style="left:75px; top:40px;">${emoji}</span>;
-setTimeout(() => { overlay.innerHTML = ""; }, 1500);
+    const overlay = document.getElementById("matrix-emoji-overlay");
+    if (!overlay) return;
+    
+    // Al poner las comillas invertidas, el navegador entiende el HTML y procesa la variable \${emoji} sin crasheos
+    overlay.innerHTML = `<span class="matrix-item-emoji" style="left:75px; top:40px;">${emoji}</span>`;
+    
+    setTimeout(() => { overlay.innerHTML = ""; }, 1500);
 }
 function interactWithPet(action) {
 if (!petState.isHatched) return;
