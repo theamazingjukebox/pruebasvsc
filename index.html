@@ -2436,12 +2436,12 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    ======================================================== */
 .margo-avatar {
   position: absolute;
-  bottom: 52px; /* Alineación perfecta sobre la barra de control */
-  left: calc(50% - 22px); /* 📐 Ajuste matemático exacto para centrar el cuerpo de 44px */
-  width: 4px;   /* Tamaño del bloque unitario de sombra */
+  bottom: 22px; 
+  left: 0; /* 📐 CLAVE: Coordenada de origen fija para evitar desfases */
+  width: 4px;   
   height: 4px;
   image-rendering: pixelated;
-  /* Mantiene los giros horizontales líquidos del huevo original */
+  /* El suavizado de left en 0.5s simula la inercia líquida del huevo amarillo */
   transition: transform 0.15s ease, left 0.5s linear; 
 }
 
@@ -3808,38 +3808,50 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
+
+
+
 // ==============================================================================
-// 📟 MOTOR DE CAMINATA NATURAL A COLOR FLUIDO - "POLLITO FIJO" V7.2
+// 📟 MOTOR DE EVOLUCIÓN COMPLETO CON CONTROL DE MÁXIMOS MARGENES V8.0
 // ==============================================================================
 let petState = {
-    isHatched: true, eggClicks: 0, age: 0, weight: 1, 
+    isHatched: false, eggClicks: 0, age: 0, weight: 1, 
     energy: 100, clean: 100, happy: 100, sleep: 100,
     isSleeping: false, isSick: false, lastUpdate: Date.now()
 };
 
 let frameTick = 0;
-let margoX = 20; 
-let walkDir = 1; // 🟢 DECLARADA: Evita el quiebre de inercia de caminata
+let margoX = 40; // Nace centrado en el huevo
+let walkDir = 1; 
 let lookDirection = 1; 
 
 // ==============================================================================
-// 🐣 MOTOR PIXEL-ART HIGH-FIDELITY: POLLITO ADORABLE CON VOLUMEN 3D (V7.5)
+// 🎨 REPOSITORIO DE MATRICES A COLOR REAL DE ALTA FIDELIDAD (3D SHADING LOOK)
 // ==============================================================================
-// Cuadro A: Pollito estático/respirando con brillo en los ojos y sombreado ocre
-const SHADOW_MARGO_FRAME_A = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #dd963b, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #dd963b, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #fdd432, 24px 32px #fdd432, 28px 32px #fdd432, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #0f0f0f, 24px 40px #e84b30, 28px 40px #0f0f0f, 16px 44px #0f0f0f, 24px 44px #0f0f0f";
+// 🥚 EL HUEVO HISTÓRICO ORIGINAL DE CRISTAL LÍQUIDO CON DETALLES DE RELIEVE
+const SHADOW_EGG = "24px 8px #0f0f0f, 28px 8px #0f0f0f, 20px 12px #0f0f0f, 24px 12px #e3e6c9, 28px 12px #ffffff, 32px 12px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #e3e6c9, 24px 16px #e3e6c9, 28px 16px #e3e6c9, 32px 16px #4f4f34, 36px 16 #0f0f0f, 16px 20px #0f0f0f, 20px 20px #e3e6c9, 24px 20px #e3e6c9, 28px 20px #e3e6c9, 32px 20px #e3e6c9, 36px 20 #0f0f0f, 20px 24px #0f0f0f, 24px 24px #4f4f34, 28px 24px #4f4f34, 32px 24px #0f0f0f, 24px 28px #0f0f0f, 28px 28px #0f0f0f";
 
-// Cuadro B: El mismo pollito moviendo sutilmente el ala y alternando la inercia de las patitas
-const SHADOW_MARGO_FRAME_B = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #fdd432, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #fdd432, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #dd963b, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #dd963b, 24px 32px #fdd432, 28px 32px #dd963b, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #e84b30, 24px 40px #0f0f0f, 12px 44px #0f0f0f, 24px 44px #0f0f0f";
-
-// Modo sueño refinado
+// 💤 MODO SUEÑO REFINADO A COLOR
 const SHADOW_SLEEP = "16px 4px #0f0f0f, 20px 4px #0f0f0f, 24px 4px #0f0f0f, 12px 8px #0f0f0f, 28px 8px #0f0f0f, 8px 12px #0f0f0f, 32px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 24px 16px #0f0f0f, 36px 16px #0f0f0f, 0px 20px #0f0f0f, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 16px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 12px 28px #fdd432, 16px 28px #fdd432, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #0f0f0f, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #0f0f0f, 24px 36px #0f0f0f, 28px 36px #0f0f0f, 32px 36px #0f0f0f";
 
-function initVirtualPet() {
+// 🐣 ETAPA 1: TU POLLITO EXQUISITO DE CUERPO COMPLETO (DÍA 0 A 1)
+const SHADOW_MARGO_FRAME_A = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #dd963b, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #dd963b, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #fdd432, 24px 32px #fdd432, 28px 32px #fdd432, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #0f0f0f, 24px 40px #e84b30, 28px 40px #0f0f0f, 16px 44px #0f0f0f, 24px 44px #0f0f0f";
+const SHADOW_MARGO_FRAME_B = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #fdd432, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #fdd432, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #dd963b, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #dd963b, 24px 32px #fdd432, 28px 32px #dd963b, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #e84b30, 24px 40px #0f0f0f, 12px 44px #0f0f0f, 24px 44px #0f0f0f";
 
+// 🐱 ETAPA 2: ADOLESCENTE PREMIUM "NEO-NEKO" A COLOR (DÍA 2 A 4)
+// Con orejas rosa neón, sombreado de pelaje ocre, ojos expresivos con brillo blanco y lazo rojo
+const SHADOW_CAT_A = "12px 0 #0f0f0f, 44px 0 #0f0f0f, 8px 4px #0f0f0f, 12px 4px #d83ca4, 16px 4px #0f0f0f, 40px 4px #0f0f0f, 44px 4px #d83ca4, 48px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #d83ca4, 16px 8px #fdd432, 20px 8px #0f0f0f, 36px 8px #0f0f0f, 40px 8px #d83ca4, 44px 8px #fdd432, 48px 8px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #fdd432, 24px 12px #0f0f0f, 32px 12px #0f0f0f, 36px 12px #fdd432, 40px 12px #fdd432, 44px 12px #fdd432, 48px 12px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #ffffff, 28px 16px #fdd432, 32px 16px #0f0f0f, 36px 16px #ffffff, 40px 16px #fdd432, 44px 16px #fdd432, 48px 16px #0f0f0f, 4px 20px #0f0f0f, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #fdd432, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #fdd432, 44px 20px #fdd432, 48px 20px #fdd432, 52px 20px #0f0f0f, 4px 21px #0f0f0f, 8px 24px #fdd432, 12px 24px #fdd432, 20px 24px #0f0f0f, 24px 24px #0f0f0f, 28px 24px #fdd432, 32px 24px #0f0f0f, 36px 24px #0f0f0f, 44px 24px #fdd432, 48px 24px #fdd432, 52px 24px #0f0f0f, 8px 28px #0f0f0f, 12px 28px #dd963b, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #fdd432, 40px 28px #fdd432, 44px 28px #dd963b, 48px 28px #0f0f0f, 12px 32px #0f0f0f, 16px 32px #dd963b, 20px 32px #e84b30, 24px 32px #0f0f0f, 28px 32px #e84b30, 32px 32px #0f0f0f, 36px 32px #e84b30, 40px 32px #dd963b, 44px 32px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #dd963b, 24px 36px #e84b30, 28px 36px #e84b30, 32px 36px #e84b30, 36px 36px #dd963b, 40px 36px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #dd963b, 24px 40px #dd963b, 28px 40px #dd963b, 32px 40px #dd963b, 36px 40px #dd963b, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #dd963b, 40px 44px #dd963b, 44px 44px #0f0f0f, 12px 48px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f, 44px 48px #0f0f0f";
+const SHADOW_CAT_B = "12px 4px #0f0f0f, 44px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #d83ca4, 16px 8px #0f0f0f, 40px 8px #0f0f0f, 44px 8px #d83ca4, 48px 8px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #d83ca4, 16px 12px #fdd432, 20px 12px #0f0f0f, 36px 12px #0f0f0f, 40px 12px #d83ca4, 44px 12px #fdd432, 48px 12px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #fdd432, 24px 16px #0f0f0f, 32px 16px #0f0f0f, 36px 16px #fdd432, 40px 16px #fdd432, 44px 16px #fdd432, 48px 16px #0f0f0f, 8px 20px #0f0f0f, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #0f0f0f, 24px 20px #ffffff, 28px 20px #fdd432, 32px 20px #0f0f0f, 36px 20px #ffffff, 40px 20px #fdd432, 44px 20px #fdd432, 48px 20px #0f0f0f, 4px 24px #0f0f0f, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #fdd432, 44px 24px #fdd432, 48px 24px #fdd432, 52px 24px #0f0f0f, 8px 28px #0f0f0f, 12px 28px #dd963b, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #fdd432, 40px 28px #fdd432, 44px 28px #dd963b, 48px 28px #0f0f0f, 12px 32px #0f0f0f, 16px 32px #dd963b, 20px 32px #e84b30, 24px 32px #0f0f0f, 28px 32px #e84b30, 32px 32px #0f0f0f, 36px 32px #e84b30, 40px 32px #dd963b, 44px 32px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #dd963b, 24px 36px #e84b30, 28px 36px #e84b30, 32px 36px #e84b30, 36px 36px #dd963b, 40px 36px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #dd963b, 24px 40px #dd963b, 28px 40px #dd963b, 32px 40px #dd963b, 36px 40px #dd963b, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 20px 44px #dd963b, 36px 44px #dd963b, 44px 44px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f";
+
+function initVirtualPet() {
     const saved = localStorage.getItem('jukebox_pet_v65_data');
     if (saved) {
         try {
-            petState = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            // 🟢 FIJO REINICIO: Si venía con 3 años de caché, forzamos a que empiece limpio en 0
+            petState = parsed;
+            if (petState.age > 0) { petState.age = 0; petState.isHatched = false; petState.eggClicks = 0; }
+            aplicarDesgastePorTiempo();
         } catch(e) { console.error("Error leyendo bitácora V6.5"); }
     }
 
@@ -3847,135 +3859,150 @@ function initVirtualPet() {
 
     // 🔥 HUEVO DE PASCUA: +2% de felicidad pasiva al cambiar de canción por YouTube
     setTimeout(() => {
-        const originalFetchComments = window.fetchWebYouTubeComments;
-        if (typeof originalFetchComments === 'function') {
-            window.fetchWebYouTubeComments = function(isNewTrack) {
-                originalFetchComments(isNewTrack);
-                if (isNewTrack && petState.isHatched && !petState.isSleeping) {
-                    petState.happy = Math.min(100, petState.happy + 2);
-                    savePetState();
-                    updatePetInterface();
-                    triggerVisualEmoji("❤️");
-                }
-            };
-        }
-    }, 1500);
-
-    // 🔄 MOTOR DE CAMINATA NATURAL RESTAURADO: Avanza de 4 en 4 píxeles espaciales (500ms por ciclo)
-    setInterval(() => {
-        frameTick = (frameTick + 1) % 2;
-        
-        if (petState.isHatched && !petState.isSleeping) {
-            margoX += (walkDir * 4);
-            
-            // Delimitadores de la pantalla de cristal para que rebote de forma impecable
-            if (margoX >= 220) { margoX = 220; walkDir = -1; }
-            if (margoX <= 5) { margoX = 5; walkDir = 1; }
-        }
-        renderMargoDisplay();
-    }, 500);
-
-    // DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
-    setInterval(() => {
-        if (petState.isHatched) {
-            if (petState.isSleeping) {
-                petState.sleep = Math.min(100, petState.sleep + 3);
-            } else {
-                petState.energy = Math.max(0, petState.energy - 1);
-                petState.clean = Math.max(0, petState.clean - 1);
-                petState.happy = Math.max(0, petState.happy - 1);
-                petState.sleep = Math.max(0, petState.sleep - 1);
-            }
-            if (petState.clean < 20) petState.isSick = true;
-            
-            // 🟢 FIJO: Eliminamos la mutación cronológica aleatoria vieja para que nunca cambie de personaje
-            savePetState();
-            updatePetInterface();
-        }
-    }, 30000);
-
-    updatePetInterface();
+const originalFetchComments = window.fetchWebYouTubeComments;
+if (typeof originalFetchComments === 'function') {
+window.fetchWebYouTubeComments = function(isNewTrack) {
+originalFetchComments(isNewTrack);
+if (isNewTrack && petState.isHatched && !petState.isSleeping) {
+petState.happy = Math.min(100, petState.happy + 2);
+savePetState();
+updatePetInterface();
+triggerVisualEmoji("❤️");
 }
-
+};
+}
+}, 1500);
+// 🔄 REBOTE BLINDADO DE 1996: Mapeo matemático milimétrico para evitar fugas del margen (500ms)
+setInterval(() => {
+frameTick = (frameTick + 1) % 2;
+if (petState.isHatched && !petState.isSleeping) {
+margoX += (walkDir * 4);
+// 📐 CANDADOS BI-LATERALES ABSOLUTOS: Impiden que el cuerpo de 44px toque las paredes invisibles del DOM
+if (margoX >= 180) { margoX = 180; walkDir = -1; } // Freno derecho nítido
+if (margoX <= 15) { margoX = 15; walkDir = 1; }   // Freno izquierdo nítido
+}
+renderMargoDisplay();
+}, 500);
+// DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
+setInterval(() => {
+if (petState.isHatched) {
+if (petState.isSleeping) {
+petState.sleep = Math.min(100, petState.sleep + 3);
+} else {
+petState.energy = Math.max(0, petState.energy - 1);
+petState.clean = Math.max(0, petState.clean - 1);
+petState.happy = Math.max(0, petState.happy - 1);
+petState.sleep = Math.max(0, petState.sleep - 1);
+}
+if (petState.clean < 20) petState.isSick = true;
+// El crecimiento natural por tiempo ahora está controlado en un flujo estable de un año real
+savePetState();
+updatePetInterface();
+}
+}, 30000);
+const displayEl = document.getElementById("t-matrix-display");
+if (displayEl) displayEl.onclick = crackMargoEgg;
+updatePetInterface();
+}
+function crackMargoEgg() {
+if (petState.isHatched) return;
+petState.eggClicks++;
+if (petState.eggClicks >= 5) {
+petState.isHatched = true;
+petState.age = 0; // Nace teniendo exactamente 0 años
+document.getElementById("pet-status-bubble").innerText = "CORE OPEN! SIGNALS ALIGNED.";
+updatePetInterface();
+} else {
+// 🥚 TEXTO INTERACTIVO DE GUÍA EXCLUSIVO PARA EL USUARIO
+document.getElementById("pet-status-bubble").innerText = TOUCH EGG 3 TIMES TO PLOP... [${petState.eggClicks}/5];
+}
+}
 function renderMargoDisplay() {
-    const margoEl = document.getElementById("margo-core");
-    if (!margoEl) return;
-
-    // Control de la caminata en vivo
-    margoEl.style.left = margoX + "px";
-
-    // Espejeo de mirada nativa en el eje horizontal según el sentido
-    if (walkDir === -1 && !petState.isSleeping) {
-        margoEl.style.transform = "scaleX(-1)";
-    } else {
-        margoEl.style.transform = "scaleX(1)";
-    }
-
-    if (petState.isSleeping) {
-        margoEl.style.boxShadow = SHADOW_SLEEP;
-        margoEl.style.left = "115px"; // Centrado fijo de noche
-    } else {
-        // Alternancia rítmica de cuadros de caminata de cuerpo completo
-        margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
-    }
+const margoEl = document.getElementById("margo-core");
+if (!margoEl) return;
+// Asentamos la posición controlada de la caminata en vivo sin salidas de margen
+margoEl.style.left = margoX + "px";
+if (walkDir === -1 && !petState.isSleeping) {
+margoEl.style.transform = "scaleX(-1)";
+} else {
+margoEl.style.transform = "scaleX(1)";
 }
-
+if (!petState.isHatched) {
+margoEl.style.boxShadow = SHADOW_EGG;
+margoEl.style.left = "42px"; // Huevo centrado en el nido de reposo
+} else if (petState.isSleeping) {
+margoEl.style.boxShadow = SHADOW_SLEEP;
+margoEl.style.left = "38px";
+} else {
+// 🎭 INTERRUPTOR BIOLÓGICO: Selecciona Pollito o el nuevo Gatito según la edad (Fuerza de Volt)
+if (petState.age < 2) {
+margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
+} else {
+// Día 2 (Edad >= 2): MUTACIÓN COMPLETA ADORABLE AL GATITO "NEO-NEKO" EN VIVO
+margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_CAT_A : SHADOW_CAT_B;
+}
+}
+}
+// 🔋 MÓDULO DE NUTRICIÓN ADICIONAL CON EL ATAJO SECRETO DE SOBRE-VOLTAJE
 function executeFeeding() {
-    if (!petState.isHatched || petState.isSleeping) return;
-    const selector = document.getElementById("pet-food-selector");
-    const food = selector.value;
-    if (food === "data") {
-        petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
-        triggerVisualEmoji("💾");
-    } else if (food === "icecream") {
-        petState.happy = Math.min(100, petState.happy + 35); petState.clean = Math.max(0, petState.clean - 5); petState.weight += 2;
-        triggerVisualEmoji("🍦");
-    } else if (food === "voltage") {
-        petState.energy = Math.min(100, petState.energy + 40); petState.sleep = Math.max(0, petState.sleep - 15);
-        triggerVisualEmoji("⚡");
-    } else if (food === "burger") {
-        petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
-        triggerVisualEmoji("🍔");
-    }
-    savePetState(); updatePetInterface();
+if (!petState.isHatched || petState.isSleeping) return;
+const selector = document.getElementById("pet-food-selector");
+const food = selector.value;
+if (food === "data") {
+petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
+triggerVisualEmoji("💾");
+} else if (food === "icecream") {
+petState.happy = Math.min(100, petState.happy + 35); petState.clean = Math.max(0, petState.clean - 5); petState.weight += 2;
+triggerVisualEmoji("🍦");
+} else if (food === "voltage") {
+// 🔥 FUNCIÓN TRUCO DE PRUEBAS AUTOMATIZADA SOLICITADA:
+// Al inyectar el JOLT VOLTAGE, la cafeína virtual altera las variables e induce
+// una ganancia biológica inmediata forzando la EDAD a 2 años para detonar la evolución al Neko.
+petState.energy = Math.min(100, petState.energy + 40);
+petState.sleep = Math.max(0, petState.sleep - 15);
+if (petState.age < 2) {
+petState.age = 2; // Brinca automáticamente al Día 2
+document.getElementById("pet-status-bubble").innerText = "⚡ VOLTAGE OVERLOAD! MUTATION TRIGGERED.";
 }
-
+triggerVisualEmoji("⚡");
+} else if (food === "burger") {
+petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
+triggerVisualEmoji("🍔");
+}
+savePetState(); updatePetInterface(); renderMargoDisplay();
+}
 function triggerVisualEmoji(emoji) {
-    const overlay = document.getElementById("matrix-emoji-overlay");
-    if (!overlay) return;
-    overlay.innerHTML = `<span class="matrix-item-emoji" style="left:${margoX + 28}px; top:40px;">${emoji}</span>`;
-    setTimeout(() => { overlay.innerHTML = ""; }, 1500);
+const overlay = document.getElementById("matrix-emoji-overlay");
+if (!overlay) return;
+overlay.innerHTML = `<span class="matrix-item-emoji" style="left:${margoX + 28}px; top:40px;">${emoji}</span>`;
+setTimeout(() => { overlay.innerHTML = ""; }, 1500);
 }
-
 function interactWithPet(action) {
-    if (!petState.isHatched) return;
-    if (petState.isSleeping && action !== 'sleep') return;
-    if (action === 'clean') {
-        petState.clean = Math.min(100, petState.clean + 30);
-        if (petState.clean > 40) petState.isSick = false;
-        triggerVisualEmoji("🧼");
-    } else if (action === 'play') {
-        const gamePanel = document.getElementById("pet-minigame-controls");
-        if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
-        return;
-    } else if (action === 'sleep') {
-        petState.isSleeping = !petState.isSleeping;
-    }
-    savePetState(); updatePetInterface();
+if (!petState.isHatched) return;
+if (petState.isSleeping && action !== 'sleep') return;
+if (action === 'clean') {
+petState.clean = Math.min(100, petState.clean + 30);
+if (petState.clean > 40) petState.isSick = false;
+triggerVisualEmoji("🧼");
+} else if (action === 'play') {
+const gamePanel = document.getElementById("pet-minigame-controls");
+if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
+return;
+} else if (action === 'sleep') {
+petState.isSleeping = !petState.isSleeping;
 }
-
+savePetState(); updatePetInterface();
+}
 function playMinigameTurn(userChoice) {
-    const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
-    lookDirection = (botChoice === 'left') ? -1 : 1;
-    if (userChoice === botChoice) {
-        petState.happy = Math.min(100, petState.happy + 25);
+const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
+if (userChoice === botChoice) {
+petState.happy = Math.min(100, petState.happy + 25);
 document.getElementById("pet-status-bubble").innerText = `[ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("❤️");
 } else {
 document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("💢");
 }
-setTimeout(() => { lookDirection = 1; renderMargoDisplay(); }, 1200);
 document.getElementById("pet-minigame-controls").style.display = "none";
 savePetState(); updatePetInterface();
 }
@@ -3992,8 +4019,9 @@ document.getElementById("txt-age").innerText = petState.age;
 document.getElementById("txt-weight").innerText = petState.weight;
 const stageEl = document.getElementById("txt-evolution-stage");
 if (stageEl) {
-// 🟢 FIXED: Forzamos la etiqueta fija para que siempre diga "THE JUKEBOX PET"
-stageEl.innerText = "THE JUKEBOX PET";
+if (!petState.isHatched) stageEl.innerText = "EGG CORE";
+else if (petState.age < 2) stageEl.innerText = "3D-CHICK (BABY)";
+else stageEl.innerText = "NEO-NEKO (YOUTH CAT)";
 }
 }
 function aplicarDesgastePorTiempo() {
@@ -4010,41 +4038,16 @@ petState.lastUpdate = ahora; savePetState();
 }
 }
 function savePetState() { localStorage.setItem('jukebox_pet_v65_data', JSON.stringify(petState)); }
-
-// ==============================================================================
-// 🟢 REPARACIÓN DE INVOCACIÓN GLOBAL: DISPARADOR SINCRONIZADO DE POP-UP
-// ==============================================================================
 function toggleVirtualPet() {
-    const pop = document.getElementById("virtual-pet-popup");
-    if (!pop) {
-        console.error("🚨 Error: Contenedor 'virtual-pet-popup' no encontrado en el DOM.");
-        return;
-    }
-    
-    // Cambia el estado de visibilidad del cuadro de cristal de forma líquida
-    if (pop.style.display === "block") {
-        pop.style.display = "none";
-    } else {
-        pop.style.display = "block";
-        // Actualiza el DOM y fuerza los latidos de las sombras al abrirse
-        updatePetInterface();
-        renderMargoDisplay();
-    }
+const pop = document.getElementById("virtual-pet-popup"); if (!pop) return;
+pop.style.display = (pop.style.display === "block") ? "none" : "block";
+if (pop.style.display === "block") { updatePetInterface(); renderMargoDisplay(); }
 }
 
-// 🟢 VINCULACIÓN AL INSTANTE EN LA VENTANA GLOBAL DE PRODUCCIÓN
-window.toggleVirtualPet = toggleVirtualPet;
 
-// Forzamos la inyección del evento de clic a tus dos botones del menú real HTML
-document.addEventListener("DOMContentLoaded", () => {
-    const btnSidebar = document.getElementById("menu-pet-btn");
-    const linkMenu = document.getElementById("menu-pet-link");
+
+
     
-    if (btnSidebar) btnSidebar.setAttribute("onclick", "toggleVirtualPet()");
-    if (linkMenu) linkMenu.setAttribute("onclick", "toggleVirtualPet()");
-});
-
-
 
     
 
