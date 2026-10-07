@@ -2449,13 +2449,9 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    🧬 EL SECRETO DEL CIAN BRILLANTE: FILTRO DE COLOR (MATRIX-GLOW)
    ======================================================== */
 #margo-core {
-  /* 🔥 TRUCO MAESTRO: La sombra original es negra (#0f0f0f). Con este filtro de matriz, 
-     el navegador transforma los píxeles negros en tu cian oficial de forma gratuita, 
-     inyectándole un resplandor holográfico espectacular que baila con tu música. */
-  filter: invert(74%) sepia(52%) saturate(417%) hue-rotate(125deg) brightness(103%) contrast(101%) drop-shadow(0 0 6px #00ffff);
-  
-  /* Animación nativa de respiración sutil y parpadeo de 1996 */
-  animation: margoBreath 1.3s ease-in-out infinite alternate;
+  /* 🟢 ELIMINADO EL FILTER INVERT CIAN VIEJO: Al quitarlo, el navegador 
+     desbloquea los verdaderos colores del pollito (#fdd432 y #e84b30) impresos en el JS */
+  filter: drop-shadow(0 0 4px rgba(253, 212, 50, 0.35));
 }
 
 /* 🔄 MOTOR DE RESPIRACIÓN ADORABLE: Sube y baja 3px simulando el latido físico */
@@ -3812,27 +3808,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==============================================================================
-// 📟 MOTOR DE RESPIRACIÓN ESTÁTICA Y MUTACIÓN DE BISET MAPS (MARGO V6.5)
+// 📟 MOTOR DE CAMINATA NATURAL A COLOR FLUIDO - "POLLITO FIJO" V7.2
 // ==============================================================================
 let petState = {
-    isHatched: false, eggClicks: 0, age: 0, weight: 1, 
+    isHatched: true, eggClicks: 0, age: 0, weight: 1, 
     energy: 100, clean: 100, happy: 100, sleep: 100,
     isSleeping: false, isSick: false, lastUpdate: Date.now()
 };
 
 let frameTick = 0;
-let lookDirection = 1; // 1 = Centro/Derecha, -1 = Izquierda (Activado por minijuego)
+let margoX = 20; 
+let walkDir = 1; 
+let lookDirection = 1; 
 
 // ==============================================================================
-// 🐣 PIXEL-SHADOW ARRAYS CORREGIDOS (ALINEACIÓN DE COORDENADAS V7.1)
+// 🎨 MATRICES VECTORIALES A COLOR REAL (AMARILLO RETRO & DETALLES NEGROS)
 // ==============================================================================
-// Cuadro A (Antenita recta y patitas de pasarela)
-const SHADOW_MARGO_FRAME_A = "12px 0 #0f0f0f, 16px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #0f0f0f, 16px 8px #0f0f0f, 20px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #0f0f0f, 20px 12px #0f0f0f, 24px 12px #0f0f0f, 0px 16px #0f0f0f, 28px 16px #0f0f0f, 0px 20px #0f0f0f, 28px 20px #0f0f0f, 0px 24px #0f0f0f, 28px 24px #0f0f0f, 0px 28px #0f0f0f, 28px 28px #0f0f0f, 4px 32px #0f0f0f, 24px 32px #0f0f0f, 4px 36px #0f0f0f, 24px 36px #0f0f0f, 8px 40px #0f0f0f, 20px 40px #0f0f0f, 8px 44px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #0f0f0f, 20px 44px #0f0f0f, 4px 48px #0f0f0f, 24px 48px #0f0f0f, 4px 52px #0f0f0f, 12px 52px #0f0f0f, 16px 52px #0f0f0f, 24px 52px #0f0f0f, 4px 56px #0f0f0f, 8px 56px #0f0f0f, 20px 56px #0f0f0f, 24px 56px #0f0f0f";
+// 🐣 CUADRO A: El Pollito de cuerpo completo en posición fija de pasarela
+const SHADOW_MARGO_FRAME_A = "12px 0 #0f0f0f, 16px 0 #0f0f0f, 12px 4px #fdd432, 16px 4px #fdd432, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #fdd432, 16px 12px #0f0f0f, 20px 12px #fdd432, 24px 12px #0f0f0f, 28px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #e84b30, 20px 16px #fdd432, 24px 16px #fdd432, 28px 16px #fdd432, 32px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #fdd432, 32px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #fdd432, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #fdd432, 8px 28px #fdd432, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #fdd432, 12px 32px #fdd432, 16px 32px #fdd432, 20px 32px #fdd432, 24px 32px #fdd432, 28px 32px #0f0f0f, 4px 36px #0f0f0f, 8px 36px #fdd432, 12px 36px #fdd432, 16px 36px #fdd432, 20px 36px #fdd432, 24px 36px #fdd432, 28px 36px #0f0f0f, 8px 40px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #0f0f0f, 24px 40px #0f0f0f, 4px 44px #0f0f0f, 8px 44px #e84b30, 12px 44px #e84b30, 16px 44px #0f0f0f, 20px 44px #e84b30, 24px 44px #e84b30, 28px 44px #0f0f0f, 4px 48px #0f0f0f, 8px 48px #0f0f0f, 24px 48px #0f0f0f, 28px 48px #0f0f0f";
 
-// Cuadro B (Antenita inclinada y movimiento de paso alterno)
-const SHADOW_MARGO_FRAME_B = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #0f0f0f, 16px 8px #0f0f0f, 20px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #0f0f0f, 20px 12px #0f0f0f, 24px 12px #0f0f0f, 0px 16px #0f0f0f, 28px 16px #0f0f0f, 0px 20px #0f0f0f, 28px 20px #0f0f0f, 0px 24px #0f0f0f, 28px 24px #0f0f0f, 0px 28px #0f0f0f, 28px 28px #0f0f0f, 4px 32px #0f0f0f, 24px 32px #0f0f0f, 4px 36px #0f0f0f, 24px 36px #0f0f0f, 8px 40px #0f0f0f, 20px 40px #0f0f0f, 8px 44px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #0f0f0f, 20px 44px #0f0f0f, 4px 48px #0f0f0f, 24px 48px #0f0f0f, 4px 52px #0f0f0f, 12px 52px #0f0f0f, 16px 52px #0f0f0f, 24px 52px #0f0f0f, 8px 56px #0f0f0f, 12px 56px #0f0f0f, 16px 56px #0f0f0f, 20px 56px #0f0f0f";
+// 🐣 CUADRO B: Movimiento alterno de patitas para la animación de caminata
+const SHADOW_MARGO_FRAME_B = "12px 0 #0f0f0f, 16px 0 #0f0f0f, 12px 4px #fdd432, 16px 4px #fdd432, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #fdd432, 16px 12px #0f0f0f, 20px 12px #fdd432, 24px 12px #0f0f0f, 28px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #e84b30, 20px 16px #fdd432, 24px 16px #fdd432, 28px 16px #fdd432, 32px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #fdd432, 32px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #fdd432, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #fdd432, 8px 28px #fdd432, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #fdd432, 12px 32px #fdd432, 16px 32px #fdd432, 20px 32px #fdd432, 24px 32px #fdd432, 28px 32px #0f0f0f, 4px 36px #0f0f0f, 8px 36px #fdd432, 12px 36px #fdd432, 16px 36px #fdd432, 20px 36px #fdd432, 24px 36px #fdd432, 28px 36px #0f0f0f, 8px 40px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #0f0f0f, 24px 40px #0f0f0f, 4px 44px #0f0f0f, 12px 44px #e84b30, 16px 44px #0f0f0f, 20px 44px #e84b30, 28px 44px #0f0f0f, 12px 48px #0f0f0f, 20px 48px #0f0f0f";
 
-// Forzamos a que el sistema reconozca que ya nació desde el primer milisegundo
+// 💤 MODO SUEÑO DE NOCHE COMPILADO
+const SHADOW_SLEEP = "12px 8px #0f0f0f, 16px 8px #0f0f0f, 8px 12px #0f0f0f, 20px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 0px 20px #0f0f0f, 8px 20px #0f0f0f, 24px 20px #0f0f0f, 0px 24px #0f0f0f, 12px 24px #fdd432, 24px 24px #0f0f0f, 0px 28px #0f0f0f, 8px 28px #fdd432, 12px 28px #fdd432, 24px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #fdd432, 12px 32px #fdd432, 16px 32px #fdd432, 20px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #0f0f0f, 16px 36px #0f0f0f";
+
+// Forzamos el estado de nacimiento directo desde el inicio
 petState.isHatched = true;
 
 function initVirtualPet() {
@@ -3840,11 +3841,12 @@ function initVirtualPet() {
     if (saved) {
         try {
             petState = JSON.parse(saved);
-            aplicarDesgastePorTiempo();
         } catch(e) { console.error("Error leyendo bitácora V6.5"); }
     }
 
-    // 🟢 ENCHANCHE SEGURO ANTICRASH: Esperamos a que los módulos carguen en la ventana global
+    window.toggleVirtualPet = toggleVirtualPet;
+
+    // 🔥 HUEVO DE PASCUA: +2% de felicidad pasiva al cambiar de canción por YouTube
     setTimeout(() => {
         const originalFetchComments = window.fetchWebYouTubeComments;
         if (typeof originalFetchComments === 'function') {
@@ -3858,28 +3860,26 @@ function initVirtualPet() {
                 }
             };
         }
-    }, 1500); // Le da 1.5 segundos al reproductor para estabilizarse en memoria
+    }, 1500);
 
-  setInterval(() => {
+    // 🔄 MOTOR DE CAMINATA NATURAL RESTAURADO: Avanza de 4 en 4 píxeles espaciales (500ms por ciclo)
+    setInterval(() => {
         frameTick = (frameTick + 1) % 2;
         
         if (petState.isHatched && !petState.isSleeping) {
-            // Avanza de 4 en 4 píxeles espaciales logrando un desplazamiento suave
             margoX += (walkDir * 4);
             
-            // Delimitadores de la pantalla de cristal para que rebote con total elegancia
-            if (margoX >= 210) { margoX = 210; walkDir = -1; }
-            if (margoX <= 10) { margoX = 10; walkDir = 1; }
+            // Delimitadores de la pantalla de cristal para que rebote de forma impecable
+            if (margoX >= 220) { margoX = 220; walkDir = -1; }
+            if (margoX <= 5) { margoX = 5; walkDir = 1; }
         }
         renderMargoDisplay();
     }, 500);
 
-    
     // DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
     setInterval(() => {
         if (petState.isHatched) {
             if (petState.isSleeping) {
-                // Modo luces apagadas: recupera sueño, no gasta energía
                 petState.sleep = Math.min(100, petState.sleep + 3);
             } else {
                 petState.energy = Math.max(0, petState.energy - 1);
@@ -3889,41 +3889,23 @@ function initVirtualPet() {
             }
             if (petState.clean < 20) petState.isSick = true;
             
-            // Simulación cronológica acelerada para pruebas locales de mutación
-            if (Math.random() < 0.02) petState.age += 1;
-
+            // 🟢 FIJO: Eliminamos la mutación cronológica aleatoria vieja para que nunca cambie de personaje
             savePetState();
             updatePetInterface();
         }
     }, 30000);
 
-    const displayEl = document.getElementById("t-matrix-display");
-    if (displayEl) displayEl.onclick = crackMargoEgg;
-
     updatePetInterface();
 }
 
-function crackMargoEgg() {
-    if (petState.isHatched) return;
-    petState.eggClicks++;
-    if (petState.eggClicks >= 5) {
-        petState.isHatched = true;
-        document.getElementById("pet-status-bubble").innerText = "CORE OPEN! SIGNAL DETECTED.";
-        updatePetInterface();
-    } else {
-        document.getElementById("pet-status-bubble").innerText = `CRACKING DIGITAL SHELL... [${petState.eggClicks}/5]`;
-    }
-}
-
-// 🟢 EL MOTOR DE RENDIMIENTO ESTÁTICO (RESPIRACIÓN Y ESPEJEO DEL MINIJUEGO)
 function renderMargoDisplay() {
     const margoEl = document.getElementById("margo-core");
     if (!margoEl) return;
 
-    // Asentamos la posición dinámica de la caminata en vivo por todo el cristal
+    // Control de la caminata en vivo
     margoEl.style.left = margoX + "px";
 
-    // Espejeo de mirada nativa en el eje horizontal según hacia dónde camina
+    // Espejeo de mirada nativa en el eje horizontal según el sentido
     if (walkDir === -1 && !petState.isSleeping) {
         margoEl.style.transform = "scaleX(-1)";
     } else {
@@ -3932,70 +3914,68 @@ function renderMargoDisplay() {
 
     if (petState.isSleeping) {
         margoEl.style.boxShadow = SHADOW_SLEEP;
-        margoEl.style.left = "110px"; // Centrado absoluto fijo de noche
+        margoEl.style.left = "115px"; // Centrado fijo de noche
     } else {
-        // Alterna entre los dos cuadros reales de cuerpo completo logrando el latido físico
+        // Alternancia rítmica de cuadros de caminata de cuerpo completo
         margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
     }
 }
-    
+
 function executeFeeding() {
-if (!petState.isHatched || petState.isSleeping) return;
-const selector = document.getElementById("pet-food-selector");
-const food = selector.value;
-if (food === "data") {
-petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
-triggerVisualEmoji("💾");
-} else if (food === "icecream") {
-petState.happy = Math.min(100, petState.happy + 35); petState.clean = Math.max(0, petState.clean - 5); petState.weight += 2;
-triggerVisualEmoji("🍦");
-} else if (food === "voltage") {
-petState.energy = Math.min(100, petState.energy + 40); petState.sleep = Math.max(0, petState.sleep - 15);
-triggerVisualEmoji("⚡");
-} else if (food === "burger") {
-petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
-triggerVisualEmoji("🍔");
+    if (!petState.isHatched || petState.isSleeping) return;
+    const selector = document.getElementById("pet-food-selector");
+    const food = selector.value;
+    if (food === "data") {
+        petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
+        triggerVisualEmoji("💾");
+    } else if (food === "icecream") {
+        petState.happy = Math.min(100, petState.happy + 35); petState.clean = Math.max(0, petState.clean - 5); petState.weight += 2;
+        triggerVisualEmoji("🍦");
+    } else if (food === "voltage") {
+        petState.energy = Math.min(100, petState.energy + 40); petState.sleep = Math.max(0, petState.sleep - 15);
+        triggerVisualEmoji("⚡");
+    } else if (food === "burger") {
+        petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
+        triggerVisualEmoji("🍔");
+    }
+    savePetState(); updatePetInterface();
 }
-savePetState(); updatePetInterface();
-}
+
 function triggerVisualEmoji(emoji) {
     const overlay = document.getElementById("matrix-emoji-overlay");
     if (!overlay) return;
-    
-    // Al poner las comillas invertidas, el navegador entiende el HTML y procesa la variable \${emoji} sin crasheos
-    overlay.innerHTML = `<span class="matrix-item-emoji" style="left:75px; top:40px;">${emoji}</span>`;
-    
+    overlay.innerHTML = `<span class="matrix-item-emoji" style="left:${margoX + 28}px; top:40px;">${emoji}</span>`;
     setTimeout(() => { overlay.innerHTML = ""; }, 1500);
 }
+
 function interactWithPet(action) {
-if (!petState.isHatched) return;
-if (petState.isSleeping && action !== 'sleep') return;
-if (action === 'clean') {
-petState.clean = Math.min(100, petState.clean + 30);
-if (petState.clean > 40) petState.isSick = false;
-triggerVisualEmoji("🧼");
-} else if (action === 'play') {
-const gamePanel = document.getElementById("pet-minigame-controls");
-if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
-return;
-} else if (action === 'sleep') {
-petState.isSleeping = !petState.isSleeping;
+    if (!petState.isHatched) return;
+    if (petState.isSleeping && action !== 'sleep') return;
+    if (action === 'clean') {
+        petState.clean = Math.min(100, petState.clean + 30);
+        if (petState.clean > 40) petState.isSick = false;
+        triggerVisualEmoji("🧼");
+    } else if (action === 'play') {
+        const gamePanel = document.getElementById("pet-minigame-controls");
+        if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
+        return;
+    } else if (action === 'sleep') {
+        petState.isSleeping = !petState.isSleeping;
+    }
+    savePetState(); updatePetInterface();
 }
-savePetState(); updatePetInterface();
-}
+
 function playMinigameTurn(userChoice) {
-const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
-// El robot voltea físicamente al lado que eligió la IA para simular la mirada táctil
-lookDirection = (botChoice === 'left') ? -1 : 1;
-if (userChoice === botChoice) {
-petState.happy = Math.min(100, petState.happy + 25);
-document.getElementById("pet-status-bubble").innerText = `[ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
+    const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
+    lookDirection = (botChoice === 'left') ? -1 : 1;
+    if (userChoice === botChoice) {
+        petState.happy = Math.min(100, petState.happy + 25);
+document.getElementById("pet-status-bubble").innerText = [ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
 triggerVisualEmoji("❤️");
 } else {
-document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
+document.getElementById("pet-status-bubble").innerText = [ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
 triggerVisualEmoji("💢");
 }
-// Regresa la mirada al centro un segundo después del juego
 setTimeout(() => { lookDirection = 1; renderMargoDisplay(); }, 1200);
 document.getElementById("pet-minigame-controls").style.display = "none";
 savePetState(); updatePetInterface();
@@ -4013,10 +3993,8 @@ document.getElementById("txt-age").innerText = petState.age;
 document.getElementById("txt-weight").innerText = petState.weight;
 const stageEl = document.getElementById("txt-evolution-stage");
 if (stageEl) {
-if (!petState.isHatched) stageEl.innerText = "EGG";
-else if (petState.age < 2) stageEl.innerText = "MARGO (BABY ROBOT)";
-else if (petState.age >= 2 && petState.age < 5) stageEl.innerText = "NEO-NEKO (YOUTH CAT)";
-else stageEl.innerText = "CYBER-BEAR (ADULT)";
+// 🟢 FIXED: Forzamos la etiqueta fija para que siempre diga "THE JUKEBOX PET"
+stageEl.innerText = "THE JUKEBOX PET";
 }
 }
 function aplicarDesgastePorTiempo() {
@@ -4033,11 +4011,6 @@ petState.lastUpdate = ahora; savePetState();
 }
 }
 function savePetState() { localStorage.setItem('jukebox_pet_v65_data', JSON.stringify(petState)); }
-function toggleVirtualPet() {
-const pop = document.getElementById("virtual-pet-popup"); if (!pop) return;
-pop.style.display = (pop.style.display === "block") ? "none" : "block";
-if (pop.style.display === "block") { updatePetInterface(); renderMargoDisplay(); }
-}
 
 
     
