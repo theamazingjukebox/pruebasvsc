@@ -3970,10 +3970,10 @@ function playMinigameTurn(userChoice) {
     lookDirection = (botChoice === 'left') ? -1 : 1;
     if (userChoice === botChoice) {
         petState.happy = Math.min(100, petState.happy + 25);
-document.getElementById("pet-status-bubble").innerText = [ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("❤️");
 } else {
-document.getElementById("pet-status-bubble").innerText = [ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.;
+document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
 triggerVisualEmoji("💢");
 }
 setTimeout(() => { lookDirection = 1; renderMargoDisplay(); }, 1200);
