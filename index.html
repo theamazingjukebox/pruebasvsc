@@ -3818,7 +3818,7 @@ let petState = {
 
 let frameTick = 0;
 let margoX = 20; 
-let walkDir = 1; 
+let walkDir = 1; // 🟢 DECLARADA: Evita el quiebre de inercia de caminata
 let lookDirection = 1; 
 
 // ==============================================================================
@@ -3833,10 +3833,8 @@ const SHADOW_MARGO_FRAME_B = "12px 0 #0f0f0f, 16px 0 #0f0f0f, 12px 4px #fdd432, 
 // 💤 MODO SUEÑO DE NOCHE COMPILADO
 const SHADOW_SLEEP = "12px 8px #0f0f0f, 16px 8px #0f0f0f, 8px 12px #0f0f0f, 20px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 0px 20px #0f0f0f, 8px 20px #0f0f0f, 24px 20px #0f0f0f, 0px 24px #0f0f0f, 12px 24px #fdd432, 24px 24px #0f0f0f, 0px 28px #0f0f0f, 8px 28px #fdd432, 12px 28px #fdd432, 24px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #fdd432, 12px 32px #fdd432, 16px 32px #fdd432, 20px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #0f0f0f, 16px 36px #0f0f0f";
 
-// Forzamos el estado de nacimiento directo desde el inicio
-petState.isHatched = true;
-
 function initVirtualPet() {
+
     const saved = localStorage.getItem('jukebox_pet_v65_data');
     if (saved) {
         try {
@@ -4011,6 +4009,40 @@ petState.lastUpdate = ahora; savePetState();
 }
 }
 function savePetState() { localStorage.setItem('jukebox_pet_v65_data', JSON.stringify(petState)); }
+
+// ==============================================================================
+// 🟢 REPARACIÓN DE INVOCACIÓN GLOBAL: DISPARADOR SINCRONIZADO DE POP-UP
+// ==============================================================================
+function toggleVirtualPet() {
+    const pop = document.getElementById("virtual-pet-popup");
+    if (!pop) {
+        console.error("🚨 Error: Contenedor 'virtual-pet-popup' no encontrado en el DOM.");
+        return;
+    }
+    
+    // Cambia el estado de visibilidad del cuadro de cristal de forma líquida
+    if (pop.style.display === "block") {
+        pop.style.display = "none";
+    } else {
+        pop.style.display = "block";
+        // Actualiza el DOM y fuerza los latidos de las sombras al abrirse
+        updatePetInterface();
+        renderMargoDisplay();
+    }
+}
+
+// 🟢 VINCULACIÓN AL INSTANTE EN LA VENTANA GLOBAL DE PRODUCCIÓN
+window.toggleVirtualPet = toggleVirtualPet;
+
+// Forzamos la inyección del evento de clic a tus dos botones del menú real HTML
+document.addEventListener("DOMContentLoaded", () => {
+    const btnSidebar = document.getElementById("menu-pet-btn");
+    const linkMenu = document.getElementById("menu-pet-link");
+    
+    if (btnSidebar) btnSidebar.setAttribute("onclick", "toggleVirtualPet()");
+    if (linkMenu) linkMenu.setAttribute("onclick", "toggleVirtualPet()");
+});
+
 
 
     
