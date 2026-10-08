@@ -42,16 +42,7 @@
   overflow: hidden;
 }
 
-/* ========================================================
-   🪐 FONDO GLOBAL CÓSMICO DE LA PÁGINA (ESTILO COMPLETO)
-   ======================================================== */
-body {
-  background-image: url('fondo2.webp'); /* Cambia el nombre de la imagen */
-        background-color:#000;
-        background-size: cover;
-        position: relative;
-  
-}
+
 
 
 
