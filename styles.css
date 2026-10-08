@@ -40,6 +40,7 @@
   font-family: 'Orbitron', monospace;
   z-index: 9995;
   overflow: hidden;
+   display: none; /* Nace invisible en la carga inicial de la web */
 }
 
 
