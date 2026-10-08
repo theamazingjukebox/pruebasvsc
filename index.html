@@ -13,6 +13,7 @@
 <title>The Amazing Jukebox</title>
 <link rel="icon" type="image/png" href=".svg">
 <link rel="stylesheet" type="text/css" href="./ajlivechat.css">
+<link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
@@ -2382,141 +2383,6 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   border-radius: 2px;
 }
 
-
-
-/* ========================================================
-   POP-UP FLOTANTE DE CRISTAL INTERACTIVO DE MARGO V6.5
-   ======================================================== */
-#virtual-pet-popup {
-  position: fixed;
-  bottom: 25px;
-  left: 25px;
-  width: 320px;
-  /* Fondo oscuro translúcido con desenfoque de fondo idéntico al sitio */
-  background: rgba(10, 16, 26, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(135, 255, 255, 0.2);
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 255, 255, 0.1);
-  font-family: 'Orbitron', monospace;
-  z-index: 9995;
-  display: none;
-}
-
-.pet-terminal-body { padding: 14px; display: flex; flex-direction: column; align-items: center; }
-
-/* 📺 LA PANTALLA LCD QUE FLOTA EN EL VIDRIO (CON ENCUADRE CIAN NEÓN) */
-.t-screen-hologram {
-  position: relative;
-  width: 100%;
-  height: 145px;
-  /* El secreto: Quitamos el fondo opaco y lo dejamos 100% integrado al cristal */
-  background: transparent; 
-  border-radius: 12px;
-  padding: 8px;
-  margin-bottom: 12px;
-}
-
-.t-screen-inner {
-  position: relative;
-  width: 100%; 
-  height: 100%;
-  /* 🔥 ELIMINADO EL BLANCO: Ahora el fondo es transparente y deja ver tus circuitos */
-  background: transparent !important; 
-  border: none !important; /* Eliminamos el marco viejo de Studio Lye */
-  overflow: hidden;
-}
-
-/* ❌ ELIMINADAS LAS GRIETAS: Borramos las líneas inyectadas que estorbaban el diseño */
-.t-crack { display: none !important; }
-
-/* ========================================================
-   🤖 AJUSTE DE COORDENADAS: ENCUADRE DE CUERPO COMPLETO V7.1
-   ======================================================== */
-.margo-avatar {
-  position: absolute;
-  bottom: 52px; 
-  left: 0; /* 📐 CLAVE: Coordenada de origen fija para evitar desfases */
-  width: 4px;   
-  height: 4px;
-  image-rendering: pixelated;
-  /* El suavizado de left en 0.5s simula la inercia líquida del huevo amarillo */
-  transition: transform 0.15s ease, left 0.5s linear; 
-}
-
-
-/* ========================================================
-   🧬 EL SECRETO DEL CIAN BRILLANTE: FILTRO DE COLOR (MATRIX-GLOW)
-   ======================================================== */
-#margo-core {
-  /* 🟢 ELIMINADO EL FILTER INVERT CIAN VIEJO: Al quitarlo, el navegador 
-     desbloquea los verdaderos colores del pollito (#fdd432 y #e84b30) impresos en el JS */
-  filter: drop-shadow(0 0 4px rgba(253, 212, 50, 0.35));
-}
-
-/* 🔄 MOTOR DE RESPIRACIÓN ADORABLE: Sube y baja 3px simulando el latido físico */
-@keyframes margoBreath {
-  0% {
-    transform: translateY(0) scaleY(1);
-  }
-  100% {
-    transform: translateY(-3px) scaleY(0.96); /* Micro-contracción fotorrealista */
-  }
-}
-
-/* CAPA DE INYECCIÓN DE EMOJIS PIXELADOS (Alineados al nuevo estilo) */
-#matrix-emoji-overlay { 
-  position: absolute; 
-  width: 100%; 
-  height: 100%; 
-  top: 0; 
-  left: 0; 
-  pointer-events: none; 
-}
-.matrix-item-emoji { 
-  position: absolute; 
-  font-size: 14px; 
-  /* Los emojis ahora flotan con un resplandor cian a juego */
-  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.6)); 
-}
-
-/* TELEMETRÍA Y BARRAS DE ESTADO */
-.pet-stats-panel { width: 100%; display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
-.stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: #dffcff; }
-.bar-bg { width: 120px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
-.bar-fill { height: 100%; width: 100%; transition: width 0.3s ease; }
-
-.energy-color { background: #87ffff; box-shadow: 0 0 4px #00ffff; }
-.clean-color { background: #d83ca4; box-shadow: 0 0 4px #d83ca4; }
-.happy-color { background: #39ff14; box-shadow: 0 0 4px #39ff14; }
-.sleep-color { background: #ffdf00; box-shadow: 0 0 4px #ffdf00; }
-.inline-metrics { justify-content: space-around; margin-top: 2px; font-weight: bold; }
-.neon-cyan { color: #87ffff; text-shadow: 0 0 4px #00ffff; }
-.neon-pink { color: #d83ca4; text-shadow: 0 0 4px #d83ca4; }
-
-/* GRILLA DE COMANDOS TÁCTILES */
-.pet-cyber-select {
-  background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(135, 255, 255, 0.3);
-  border-radius: 6px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 6px; cursor: pointer;
-}
-.pet-cyber-select option { background: #0c121c; color: #dffcff; }
-.pet-actions-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.pet-actions-grid button {
-  background: none; border: 1px solid rgba(135, 255, 255, 0.25); border-radius: 6px;
-  color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; font-weight: bold; padding: 6px 4px; cursor: pointer;
-}
-.pet-actions-grid button:hover { background: rgba(135, 255, 255, 0.06); border-color: #87ffff; text-shadow: 0 0 4px #00ffff; }
-
-#pet-minigame-controls { background: rgba(135, 255, 255, 0.05); border: 1px dashed rgba(135, 255, 255, 0.2); border-radius: 8px; padding: 8px; margin-top: 10px; text-align: center; width: 100%; }
-.minigame-title { font-size: 8px; color: #87ffff; margin: 0 0 6px 0; }
-.minigame-btns { display: flex; gap: 6px; }
-.minigame-btns button { font-size: 8px !important; padding: 4px !important; }
-
-
-@media (pointer: coarse) and (max-width: 1024px) {
-  #virtual-pet-popup { bottom: auto; top: 65px; left: 15px; width: 280px; }
-}
     
     
 </style>
@@ -3808,247 +3674,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
-
-
-
-// ==============================================================================
-// 📟 MOTOR DE EVOLUCIÓN COMPLETO CON CONTROL DE MÁXIMOS MARGENES V8.0
-// ==============================================================================
-let petState = {
-    isHatched: false, eggClicks: 0, age: 0, weight: 1, 
-    energy: 100, clean: 100, happy: 100, sleep: 100,
-    isSleeping: false, isSick: false, lastUpdate: Date.now()
-};
-
-let frameTick = 0;
-let margoX = 40; // Nace centrado en el huevo
-let walkDir = 1; 
-let lookDirection = 1; 
-
-// ==============================================================================
-// 🎨 REPOSITORIO DE MATRICES A COLOR REAL DE ALTA FIDELIDAD (3D SHADING LOOK)
-// ==============================================================================
-// 🥚 EL HUEVO HISTÓRICO ORIGINAL DE CRISTAL LÍQUIDO CON DETALLES DE RELIEVE
-const SHADOW_EGG = "24px 8px #0f0f0f, 28px 8px #0f0f0f, 20px 12px #0f0f0f, 24px 12px #e3e6c9, 28px 12px #ffffff, 32px 12px #0f0f0f, 16px 16px #0f0f0f, 20px 16px #e3e6c9, 24px 16px #e3e6c9, 28px 16px #e3e6c9, 32px 16px #4f4f34, 36px 16 #0f0f0f, 16px 20px #0f0f0f, 20px 20px #e3e6c9, 24px 20px #e3e6c9, 28px 20px #e3e6c9, 32px 20px #e3e6c9, 36px 20 #0f0f0f, 20px 24px #0f0f0f, 24px 24px #4f4f34, 28px 24px #4f4f34, 32px 24px #0f0f0f, 24px 28px #0f0f0f, 28px 28px #0f0f0f";
-
-// 💤 MODO SUEÑO REFINADO A COLOR
-const SHADOW_SLEEP = "16px 4px #0f0f0f, 20px 4px #0f0f0f, 24px 4px #0f0f0f, 12px 8px #0f0f0f, 28px 8px #0f0f0f, 8px 12px #0f0f0f, 32px 12px #0f0f0f, 4px 16px #0f0f0f, 12px 16px #0f0f0f, 24px 16px #0f0f0f, 36px 16px #0f0f0f, 0px 20px #0f0f0f, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 16px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 12px 28px #fdd432, 16px 28px #fdd432, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #0f0f0f, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #0f0f0f, 24px 36px #0f0f0f, 28px 36px #0f0f0f, 32px 36px #0f0f0f";
-
-// 🐣 ETAPA 1: TU POLLITO EXQUISITO DE CUERPO COMPLETO (DÍA 0 A 1)
-const SHADOW_MARGO_FRAME_A = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #dd963b, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #dd963b, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #fdd432, 24px 32px #fdd432, 28px 32px #fdd432, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #0f0f0f, 24px 40px #e84b30, 28px 40px #0f0f0f, 16px 44px #0f0f0f, 24px 44px #0f0f0f";
-const SHADOW_MARGO_FRAME_B = "16px 0 #0f0f0f, 20px 0 #0f0f0f, 24px 0 #0f0f0f, 12px 4px #0f0f0f, 16px 4px #fdd432, 20px 4px #fdd432, 24px 4px #fdd432, 28px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #fdd432, 16px 8px #fdd432, 20px 8px #fdd432, 24px 8px #fdd432, 28px 8px #fdd432, 32px 8px #0f0f0f, 4px 12px #0f0f0f, 8px 12px #fdd432, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #0f0f0f, 24px 12px #ffffff, 28px 12px #fdd432, 32px 12px #fdd432, 36px 12px #0f0f0f, 0px 16px #0f0f0f, 4px 16px #fdd432, 8px 16px #fdd432, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #0f0f0f, 28px 16px #e84b30, 32px 16px #e84b30, 36px 16px #fdd432, 40px 16px #0f0f0f, 0px 20px #0f0f0f, 4px 20px #fdd432, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #e84b30, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #0f0f0f, 0px 24px #0f0f0f, 4px 24px #fdd432, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #0f0f0f, 0px 28px #0f0f0f, 4px 28px #dd963b, 8px 28px #fdd432, 12px 28px #fdd432, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #dd963b, 36px 28px #dd963b, 40px 28px #0f0f0f, 4px 32px #0f0f0f, 8px 32px #dd963b, 12px 32px #dd963b, 16px 32px #dd963b, 20px 32px #dd963b, 24px 32px #fdd432, 28px 32px #dd963b, 32px 32px #dd963b, 36px 32px #0f0f0f, 8px 36px #0f0f0f, 12px 36px #dd963b, 16px 36px #dd963b, 20px 36px #dd963b, 24px 36px #dd963b, 28px 36px #0f0f0f, 12px 40px #0f0f0f, 16px 40px #e84b30, 20px 40px #e84b30, 24px 40px #0f0f0f, 12px 44px #0f0f0f, 24px 44px #0f0f0f";
-
-// 🐱 ETAPA 2: ADOLESCENTE PREMIUM "NEO-NEKO" A COLOR (DÍA 2 A 4)
-// Con orejas rosa neón, sombreado de pelaje ocre, ojos expresivos con brillo blanco y lazo rojo
-const SHADOW_CAT_A = "12px 0 #0f0f0f, 44px 0 #0f0f0f, 8px 4px #0f0f0f, 12px 4px #d83ca4, 16px 4px #0f0f0f, 40px 4px #0f0f0f, 44px 4px #d83ca4, 48px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #d83ca4, 16px 8px #fdd432, 20px 8px #0f0f0f, 36px 8px #0f0f0f, 40px 8px #d83ca4, 44px 8px #fdd432, 48px 8px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #fdd432, 16px 12px #fdd432, 20px 12px #fdd432, 24px 12px #0f0f0f, 32px 12px #0f0f0f, 36px 12px #fdd432, 40px 12px #fdd432, 44px 12px #fdd432, 48px 12px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #0f0f0f, 24px 16px #ffffff, 28px 16px #fdd432, 32px 16px #0f0f0f, 36px 16px #ffffff, 40px 16px #fdd432, 44px 16px #fdd432, 48px 16px #0f0f0f, 4px 20px #0f0f0f, 8px 20px #fdd432, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #fdd432, 24px 20px #fdd432, 28px 20px #fdd432, 32px 20px #fdd432, 36px 20px #fdd432, 40px 20px #fdd432, 44px 20px #fdd432, 48px 20px #fdd432, 52px 20px #0f0f0f, 4px 21px #0f0f0f, 8px 24px #fdd432, 12px 24px #fdd432, 20px 24px #0f0f0f, 24px 24px #0f0f0f, 28px 24px #fdd432, 32px 24px #0f0f0f, 36px 24px #0f0f0f, 44px 24px #fdd432, 48px 24px #fdd432, 52px 24px #0f0f0f, 8px 28px #0f0f0f, 12px 28px #dd963b, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #fdd432, 40px 28px #fdd432, 44px 28px #dd963b, 48px 28px #0f0f0f, 12px 32px #0f0f0f, 16px 32px #dd963b, 20px 32px #e84b30, 24px 32px #0f0f0f, 28px 32px #e84b30, 32px 32px #0f0f0f, 36px 32px #e84b30, 40px 32px #dd963b, 44px 32px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #dd963b, 24px 36px #e84b30, 28px 36px #e84b30, 32px 36px #e84b30, 36px 36px #dd963b, 40px 36px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #dd963b, 24px 40px #dd963b, 28px 40px #dd963b, 32px 40px #dd963b, 36px 40px #dd963b, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 16px 44px #dd963b, 40px 44px #dd963b, 44px 44px #0f0f0f, 12px 48px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f, 44px 48px #0f0f0f";
-const SHADOW_CAT_B = "12px 4px #0f0f0f, 44px 4px #0f0f0f, 8px 8px #0f0f0f, 12px 8px #d83ca4, 16px 8px #0f0f0f, 40px 8px #0f0f0f, 44px 8px #d83ca4, 48px 8px #0f0f0f, 8px 12px #0f0f0f, 12px 12px #d83ca4, 16px 12px #fdd432, 20px 12px #0f0f0f, 36px 12px #0f0f0f, 40px 12px #d83ca4, 44px 12px #fdd432, 48px 12px #0f0f0f, 8px 16px #0f0f0f, 12px 16px #fdd432, 16px 16px #fdd432, 20px 16px #fdd432, 24px 16px #0f0f0f, 32px 16px #0f0f0f, 36px 16px #fdd432, 40px 16px #fdd432, 44px 16px #fdd432, 48px 16px #0f0f0f, 8px 20px #0f0f0f, 12px 20px #fdd432, 16px 20px #fdd432, 20px 20px #0f0f0f, 24px 20px #ffffff, 28px 20px #fdd432, 32px 20px #0f0f0f, 36px 20px #ffffff, 40px 20px #fdd432, 44px 20px #fdd432, 48px 20px #0f0f0f, 4px 24px #0f0f0f, 8px 24px #fdd432, 12px 24px #fdd432, 16px 24px #fdd432, 20px 24px #fdd432, 24px 24px #fdd432, 28px 24px #fdd432, 32px 24px #fdd432, 36px 24px #fdd432, 40px 24px #fdd432, 44px 24px #fdd432, 48px 24px #fdd432, 52px 24px #0f0f0f, 8px 28px #0f0f0f, 12px 28px #dd963b, 16px 28px #fdd432, 20px 28px #fdd432, 24px 28px #fdd432, 28px 28px #fdd432, 32px 28px #fdd432, 36px 28px #fdd432, 40px 28px #fdd432, 44px 28px #dd963b, 48px 28px #0f0f0f, 12px 32px #0f0f0f, 16px 32px #dd963b, 20px 32px #e84b30, 24px 32px #0f0f0f, 28px 32px #e84b30, 32px 32px #0f0f0f, 36px 32px #e84b30, 40px 32px #dd963b, 44px 32px #0f0f0f, 16px 36px #0f0f0f, 20px 36px #dd963b, 24px 36px #e84b30, 28px 36px #e84b30, 32px 36px #e84b30, 36px 36px #dd963b, 40px 36px #0f0f0f, 16px 40px #0f0f0f, 20px 40px #dd963b, 24px 40px #dd963b, 28px 40px #dd963b, 32px 40px #dd963b, 36px 40px #dd963b, 40px 40px #0f0f0f, 12px 44px #0f0f0f, 20px 44px #dd963b, 36px 44px #dd963b, 44px 44px #0f0f0f, 16px 48px #0f0f0f, 40px 48px #0f0f0f";
-
-function initVirtualPet() {
-    const saved = localStorage.getItem('jukebox_pet_v65_data');
-    if (saved) {
-        try {
-            const parsed = JSON.parse(saved);
-            // 🟢 FIJO REINICIO: Si venía con 3 años de caché, forzamos a que empiece limpio en 0
-            petState = parsed;
-            if (petState.age > 0) { petState.age = 0; petState.isHatched = false; petState.eggClicks = 0; }
-            aplicarDesgastePorTiempo();
-        } catch(e) { console.error("Error leyendo bitácora V6.5"); }
-    }
-
-    window.toggleVirtualPet = toggleVirtualPet;
-
-    // 🔥 HUEVO DE PASCUA: +2% de felicidad pasiva al cambiar de canción por YouTube
-    setTimeout(() => {
-const originalFetchComments = window.fetchWebYouTubeComments;
-if (typeof originalFetchComments === 'function') {
-window.fetchWebYouTubeComments = function(isNewTrack) {
-originalFetchComments(isNewTrack);
-if (isNewTrack && petState.isHatched && !petState.isSleeping) {
-petState.happy = Math.min(100, petState.happy + 2);
-savePetState();
-updatePetInterface();
-triggerVisualEmoji("❤️");
-}
-};
-}
-}, 1500);
-// 🔄 REBOTE BLINDADO DE 1996: Mapeo matemático milimétrico para evitar fugas del margen (500ms)
-setInterval(() => {
-frameTick = (frameTick + 1) % 2;
-if (petState.isHatched && !petState.isSleeping) {
-margoX += (walkDir * 4);
-// 📐 CANDADOS BI-LATERALES ABSOLUTOS: Impiden que el cuerpo de 44px toque las paredes invisibles del DOM
-if (margoX >= 180) { margoX = 180; walkDir = -1; } // Freno derecho nítido
-if (margoX <= 15) { margoX = 15; walkDir = 1; }   // Freno izquierdo nítido
-}
-renderMargoDisplay();
-}, 500);
-// DEGRADACIÓN DE SIGNOS VITALES: Cada 30 segundos
-setInterval(() => {
-if (petState.isHatched) {
-if (petState.isSleeping) {
-petState.sleep = Math.min(100, petState.sleep + 3);
-} else {
-petState.energy = Math.max(0, petState.energy - 1);
-petState.clean = Math.max(0, petState.clean - 1);
-petState.happy = Math.max(0, petState.happy - 1);
-petState.sleep = Math.max(0, petState.sleep - 1);
-}
-if (petState.clean < 20) petState.isSick = true;
-// El crecimiento natural por tiempo ahora está controlado en un flujo estable de un año real
-savePetState();
-updatePetInterface();
-}
-}, 30000);
-const displayEl = document.getElementById("t-matrix-display");
-if (displayEl) displayEl.onclick = crackMargoEgg;
-updatePetInterface();
-}
-function crackMargoEgg() {
-if (petState.isHatched) return;
-petState.eggClicks++;
-if (petState.eggClicks >= 5) {
-petState.isHatched = true;
-petState.age = 0; // Nace teniendo exactamente 0 años
-document.getElementById("pet-status-bubble").innerText = "CORE OPEN! SIGNALS ALIGNED.";
-updatePetInterface();
-} else {
-// 🥚 TEXTO INTERACTIVO DE GUÍA EXCLUSIVO PARA EL USUARIO
-document.getElementById("pet-status-bubble").innerText = `TOUCH EGG 3 TIMES TO PLOP... [${petState.eggClicks}/5]`;
-}
-}
-function renderMargoDisplay() {
-const margoEl = document.getElementById("margo-core");
-if (!margoEl) return;
-// Asentamos la posición controlada de la caminata en vivo sin salidas de margen
-margoEl.style.left = margoX + "px";
-if (walkDir === -1 && !petState.isSleeping) {
-margoEl.style.transform = "scaleX(-1)";
-} else {
-margoEl.style.transform = "scaleX(1)";
-}
-if (!petState.isHatched) {
-margoEl.style.boxShadow = SHADOW_EGG;
-margoEl.style.left = "42px"; // Huevo centrado en el nido de reposo
-} else if (petState.isSleeping) {
-margoEl.style.boxShadow = SHADOW_SLEEP;
-margoEl.style.left = "38px";
-} else {
-// 🎭 INTERRUPTOR BIOLÓGICO: Selecciona Pollito o el nuevo Gatito según la edad (Fuerza de Volt)
-if (petState.age < 2) {
-margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
-} else {
-// Día 2 (Edad >= 2): MUTACIÓN COMPLETA ADORABLE AL GATITO "NEO-NEKO" EN VIVO
-margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_CAT_A : SHADOW_CAT_B;
-}
-}
-}
-// 🔋 MÓDULO DE NUTRICIÓN ADICIONAL CON EL ATAJO SECRETO DE SOBRE-VOLTAJE
-function executeFeeding() {
-if (!petState.isHatched || petState.isSleeping) return;
-const selector = document.getElementById("pet-food-selector");
-const food = selector.value;
-if (food === "data") {
-petState.energy = Math.min(100, petState.energy + 20); petState.weight += 1;
-triggerVisualEmoji("💾");
-} else if (food === "icecream") {
-petState.happy = Math.min(100, petState.happy + 35); petState.clean = Math.max(0, petState.clean - 5); petState.weight += 2;
-triggerVisualEmoji("🍦");
-} else if (food === "voltage") {
-// 🔥 FUNCIÓN TRUCO DE PRUEBAS AUTOMATIZADA SOLICITADA:
-// Al inyectar el JOLT VOLTAGE, la cafeína virtual altera las variables e induce
-// una ganancia biológica inmediata forzando la EDAD a 2 años para detonar la evolución al Neko.
-petState.energy = Math.min(100, petState.energy + 40);
-petState.sleep = Math.max(0, petState.sleep - 15);
-if (petState.age < 2) {
-petState.age = 2; // Brinca automáticamente al Día 2
-document.getElementById("pet-status-bubble").innerText = "⚡ VOLTAGE OVERLOAD! MUTATION TRIGGERED.";
-}
-triggerVisualEmoji("⚡");
-} else if (food === "burger") {
-petState.energy = Math.min(100, petState.energy + 50); petState.weight += 4;
-triggerVisualEmoji("🍔");
-}
-savePetState(); updatePetInterface(); renderMargoDisplay();
-}
-function triggerVisualEmoji(emoji) {
-const overlay = document.getElementById("matrix-emoji-overlay");
-if (!overlay) return;
-overlay.innerHTML = `<span class="matrix-item-emoji" style="left:${margoX + 28}px; top:40px;">${emoji}</span>`;
-setTimeout(() => { overlay.innerHTML = ""; }, 1500);
-}
-function interactWithPet(action) {
-if (!petState.isHatched) return;
-if (petState.isSleeping && action !== 'sleep') return;
-if (action === 'clean') {
-petState.clean = Math.min(100, petState.clean + 30);
-if (petState.clean > 40) petState.isSick = false;
-triggerVisualEmoji("🧼");
-} else if (action === 'play') {
-const gamePanel = document.getElementById("pet-minigame-controls");
-if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
-return;
-} else if (action === 'sleep') {
-petState.isSleeping = !petState.isSleeping;
-}
-savePetState(); updatePetInterface();
-}
-function playMinigameTurn(userChoice) {
-const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
-if (userChoice === botChoice) {
-petState.happy = Math.min(100, petState.happy + 25);
-document.getElementById("pet-status-bubble").innerText = `[ MATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
-triggerVisualEmoji("❤️");
-} else {
-document.getElementById("pet-status-bubble").innerText = `[ MISMATCH ] MARGO LOOKED ${botChoice.toUpperCase()}.`;
-triggerVisualEmoji("💢");
-}
-document.getElementById("pet-minigame-controls").style.display = "none";
-savePetState(); updatePetInterface();
-}
-function updatePetInterface() {
-if (document.getElementById("bar-energy")) document.getElementById("bar-energy").style.width = petState.energy + "%";
-if (document.getElementById("bar-clean")) document.getElementById("bar-clean").style.width = petState.clean + "%";
-if (document.getElementById("bar-happy")) document.getElementById("bar-happy").style.width = petState.happy + "%";
-if (document.getElementById("bar-sleep")) document.getElementById("bar-sleep").style.width = petState.sleep + "%";
-document.getElementById("txt-energy").innerText = petState.energy + "%";
-document.getElementById("txt-clean").innerText = petState.clean + "%";
-document.getElementById("txt-happy").innerText = petState.happy + "%";
-document.getElementById("txt-sleep").innerText = petState.sleep + "%";
-document.getElementById("txt-age").innerText = petState.age;
-document.getElementById("txt-weight").innerText = petState.weight;
-const stageEl = document.getElementById("txt-evolution-stage");
-if (stageEl) {
-if (!petState.isHatched) stageEl.innerText = "EGG CORE";
-else if (petState.age < 2) stageEl.innerText = "3D-CHICK (BABY)";
-else stageEl.innerText = "NEO-NEKO (YOUTH CAT)";
-}
-}
-function aplicarDesgastePorTiempo() {
-const ahora = Date.now(); const transcurrido = (ahora - petState.lastUpdate) / (1000 * 60 * 60);
-if (transcurrido > 0 && petState.isHatched) {
-const puntos = Math.floor(transcurrido * 4);
-if (petState.isSleeping) { petState.sleep = Math.min(100, petState.sleep + (puntos * 2)); }
-else {
-petState.energy = Math.max(0, petState.energy - puntos); petState.clean = Math.max(0, petState.clean - puntos);
-petState.happy = Math.max(0, petState.happy - puntos); petState.sleep = Math.max(0, petState.sleep - puntos);
-}
-if (petState.clean < 20) petState.isSick = true;
-petState.lastUpdate = ahora; savePetState();
-}
-}
-function savePetState() { localStorage.setItem('jukebox_pet_v65_data', JSON.stringify(petState)); }
-function toggleVirtualPet() {
-const pop = document.getElementById("virtual-pet-popup"); if (!pop) return;
-pop.style.display = (pop.style.display === "block") ? "none" : "block";
-if (pop.style.display === "block") { updatePetInterface(); renderMargoDisplay(); }
-}
-
-
-
-
-    
-
     
 
 // ==============================================================================
@@ -4561,84 +4186,100 @@ function closeZoomHint() {
 
 
 
-<!-- ========================================================
-     POP-UP MÓDULO HOLOGRÁFICO: MARGO EXPERIMENT V6.5
-     ======================================================== -->
-<div id="virtual-pet-popup">
-  <div class="pet-terminal-header">
-    <span class="pet-title">[ 📟 HOLOGRAPHIC MONITOR: <span id="txt-evolution-stage">EGG</span> ]</span>
-    <button class="pet-close-x" onclick="toggleVirtualPet()">✕</button>
-  </div>
-  
-  <div class="pet-terminal-body">
-    
-    <!-- 📺 PANTALLA CRISTAL ESMERILADO FLOTANTE (SIN CARCASA DE HUEVO) -->
-    <div class="t-screen-hologram">
-      <div class="t-screen-inner" id="t-matrix-display">
-        <div class="t-crack t-crack--top"></div>
-        <div class="t-crack t-crack--right"></div>
-        
-        <!-- EL PERSONAJE CENTRADO (DIBUJADO POR MATRIZ DE SOMBRAS) -->
-        <div class="margo-avatar" id="margo-core"></div>
-        
-        <!-- CAPA DE INYECCIÓN DE MENU EMOJIS PIXELADOS -->
-        <div id="matrix-emoji-overlay"></div>
-      </div>
-    </div>
-
-    <!-- TELEMETRÍA DE HARDWARE VIRTUAL (4 BARRAS DE ESTADO) -->
-    <div class="pet-stats-panel">
-      <div class="stat-row">
-        <span>DATA / ENERGY:</span>
-        <div class="bar-bg"><div id="bar-energy" class="bar-fill energy-color"></div></div>
-        <span id="txt-energy">100%</span>
-      </div>
-      <div class="stat-row">
-        <span>CIRCUIT / CLEAN:</span>
-        <div class="bar-bg"><div id="bar-clean" class="bar-fill clean-color"></div></div>
-        <span id="txt-clean">100%</span>
-      </div>
-      <div class="stat-row">
-        <span>LOGS / HAPPY:</span>
-        <div class="bar-bg"><div id="bar-happy" class="bar-fill happy-color"></div></div>
-        <span id="txt-happy">100%</span>
-      </div>
-      <div class="stat-row">
-        <span>REST / SLEEP:</span>
-        <div class="bar-bg"><div id="bar-sleep" class="bar-fill sleep-color"></div></div>
-        <span id="txt-sleep">100%</span>
-      </div>
-      <div class="stat-row inline-metrics">
-        <span>AGE: <span id="txt-age" class="neon-cyan">0</span> YR</span>
-        <span>WEIGHT: <span id="txt-weight" class="neon-pink">1</span> GB</span>
-      </div>
-    </div>
-
-    <!-- MENU DE NUTRICIÓN DIGITAL CYBER-DIET -->
-    <div class="pet-actions-grid">
-      <select id="pet-food-selector" class="pet-cyber-select">
-        <option value="data">💾 FEED DATA (+20%)</option>
-        <option value="icecream">🍦 GIVE ICECREAM (+35%)</option>
-        <option value="voltage">⚡ JOLT VOLTAGE (+40%)</option>
-        <option value="burger">🍔 CYBER-BURGER (+50%)</option>
-      </select>
-      <button onclick="executeFeeding()">[ RUN FEED ]</button>
-      <button onclick="interactWithPet('clean')">[ 🧼 FLUSH WATER ]</button>
-      <button onclick="interactWithPet('play')">[ 🎮 GUESS SIDE ]</button>
-      <button onclick="interactWithPet('sleep')" style="grid-column: span 2;">[ 💤 LIGHTS OUT / ON ]</button>
-    </div>
-
-    <!-- CONTROL TÁCTIL OCULTO DEL MINIJUEGO -->
-    <div id="pet-minigame-controls" style="display:none;">
-      <p class="minigame-title">WHERE WILL MARGO LOOK?</p>
-      <div class="minigame-btns">
-        <button onclick="playMinigameTurn('left')">[ ‹ LEFT ]</button>
-        <button onclick="playMinigameTurn('right')">[ RIGHT › ]</button>
-      </div>
-    </div>
-
-  </div>
+  <!-- POP-UP MÓDULO HOLOGRÁFICO: MARGO PURIST RE-BOOT V9.5 -->
+  <div id="virtual-pet-popup" style="display: block;">
+    <!-- 🏷️ LOGOTIPO INDEPENDIENTE PREMIUM V16.5 (REEMPLAZO DE HEADER DE TEXTO) -->
+<div class="pet-logo-container">
+    <!-- Reemplaza "tu-logo-margo.png" por la ruta exacta de tu archivo de imagen real -->
+    <img src="header7.png" alt="Margo Cyber Pet" class="pet-brand-logo">
 </div>
+
+
+    
+    
+    <div class="pet-terminal-body">
+      <!-- 📺 PANTALLA CRISTAL ESMERILADO FLOTANTE -->
+      <div class="t-screen-hologram">
+        <div class="t-screen-inner" id="t-matrix-display">
+          <!-- 🪐 EL LIENZO DEL PAISAJE TRASERO INDEPENDIENTE -->
+          <div id="matrix-scenery-back"></div>
+          <!-- 🤖 EL LIENZO DEL PERSONAJE CENTRAL -->
+          <div class="margo-avatar" id="margo-core"></div>
+          <!-- CAPA DE INYECCIÓN DE MENU EMOJIS PIXELADOS -->
+          <div id="matrix-emoji-overlay"></div>
+          <!-- 📼 CAPA FÍSICA INDEPENDIENTE: El lienzo texturizado de estática VCR de Studio Lye -->
+<div id="vcr-fuzz-layer"></div>
+<!-- 🤖 PERFIL LATERAL 3D AISLADO: Bloque independiente de fuga tridimensional -->
+<div class="pet-side-profile">
+    <!-- Slot de expansión metálico para cartuchos de memoria modular -->
+    <div class="cyber-expansion-slot"></div>
+</div>
+
+<!-- 🤖 PERFIL LATERAL 3D AISLADO: Bloque independiente de fuga tridimensional -->
+<div class="pet-side-profile2">
+    <!-- Slot de expansión metálico para cartuchos de memoria modular -->
+    <div class="cyber-expansion-slot2"></div>
+</div>
+        </div>
+      </div>
+
+
+        <!-- 🟢 INYECCIÓN MAESTRA: El párrafo de telemetría de texto que el script busca obligatoriamente -->
+      <p id="pet-status-bubble" style="font-size: 9px; color: #87ffff; text-align: center; text-shadow: 0 0 10px rgba(250, 250, 250, 0.925); margin-right: 5px; margin-bottom: 10px;   min-height: 12px;">READY FOR BITSTREAM...</p>
+
+      <!-- TELEMETRÍA DE HARDWARE VIRTUAL -->
+      <div class="pet-stats-panel">
+        <div class="stat-row">
+          <span>DATA / ENERGY:&nbsp&nbsp</span>
+          <div class="bar-bg"><div id="bar-energy" class="bar-fill energy-color"></div></div>
+          <span id="txt-energy">100%</span>
+        </div>
+        <div class="stat-row">
+          <span>CIRCUIT / CLEAN:</span>
+          <div class="bar-bg"><div id="bar-clean" class="bar-fill clean-color"></div></div>
+          <span id="txt-clean">100%</span>
+        </div>
+        <div class="stat-row">
+          <span>LOGS / HAPPY:&nbsp&nbsp&nbsp</span>
+          <div class="bar-bg"><div id="bar-happy" class="bar-fill happy-color"></div></div>
+          <span id="txt-happy">100%</span>
+        </div>
+        <div class="stat-row">
+          <span>REST / SLEEP:&nbsp&nbsp&nbsp</span>
+          <div class="bar-bg"><div id="bar-sleep" class="bar-fill sleep-color"></div></div>
+          <span id="txt-sleep">100%</span>
+        </div>
+        <div class="stat-row inline-metrics">
+          <span>AGE: <span id="txt-age" class="neon-cyan">0</span> YR</span>
+          <span>WEIGHT: <span id="txt-weight" class="neon-pink">1</span> GB</span>
+          <div id="vcr-fuzz-layer2"></div>
+        </div>
+      </div>
+
+      <!-- MENU DE NUTRICIÓN DIGITAL -->
+      <div class="pet-actions-grid">
+        <select id="pet-food-selector" class="pet-cyber-select">
+          <option value="data">💾 FEED DATA (+5% NRG)</option>
+          <option value="icecream">🍦 GIVE ICECREAM (+15% HPY)</option>
+          <option value="voltage">⚡ JOLT VOLTAGE (+8GB)</option>
+          <option value="burger">🍔 CYBER-BURGER (+10% NRG)</option>
+        </select>
+        <button onclick="executeFeeding()">[ RUN FEED ]</button>
+        <button onclick="interactWithPet('clean')">[ 🚿 FLUSH WATER ]</button>
+        <button onclick="interactWithPet('play')">[ 🎮 GUESS SIDE ]</button>
+        <button onclick="interactWithPet('sleep')" style="grid-column: span 2;">[ 💤 LIGHTS OUT / ON ]</button>
+      </div>
+
+      <div id="pet-minigame-controls" style="display:none;">
+        <p class="minigame-title">WHERE WILL MARGO LOOK?</p>
+        <div class="minigame-btns">
+          <button onclick="playMinigameTurn('left')">[ ‹ LEFT ]</button>
+          <button onclick="playMinigameTurn('right')">[ RIGHT › ]</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
@@ -4846,6 +4487,7 @@ function closeZoomHint() {
     
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+<script src="pet-engine.js"></script>
 <script src="ajlivechat2.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
