@@ -1,0 +1,584 @@
+/* ========================================================
+   POP-UP FLOTANTE DE CRISTAL INTERACTIVO DE MARGO V9.0
+   ======================================================== */
+#virtual-pet-popup {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 320px;
+
+   height: max-content !important;
+  max-height: -webkit-max-content !important; /* Compatibilidad Safari/Chrome viejo */
+  max-height: max-content !important;
+  min-height: max-content !important;
+   /* 🪡 LA SOLUCIÓN MAESTRA: Capa 1: Tu color magenta base de fábrica. 
+     Capa 2: Un degradado lineal sutil que simula iluminación cenital.
+     Capa 3: Un patrón digital de micro-grano que rompe el color plano por completo. */
+  background-color: #6b1f47 !important; /* Mantiene tu tono de base */
+  background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
+    radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+  
+  /* Tamaño del grano retro industrial: 4px x 4px */
+  background-size: 100% 100%, 4px 4px, 4px 4px;
+  background-position: 0 0, 0 0, 2px 2px;
+
+  /* 📐 RELIEVE 3D EN LOS BORDES: Genera un biselado fotorrealista.
+     Inyecta un borde superior iluminado de 2px y una sombra inferior pesada de fundición. */
+  box-shadow: 
+    inset 2px 2px 0px rgba(255, 255, 255, 0.15), 
+    inset -2px -2px 0px rgba(0, 0, 0, 0.4),
+    0px 10px 30px rgba(0, 0, 0, 0.6) !important;
+
+  border: 2px solid #3d0c24 !important; /* Marco rígido de inyección de molde */
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+ 
+  font-family: 'Orbitron', monospace;
+  z-index: 9995;
+  overflow: hidden;
+}
+
+/* ========================================================
+   🪐 FONDO GLOBAL CÓSMICO DE LA PÁGINA (ESTILO COMPLETO)
+   ======================================================== */
+body {
+  background-image: url('fondo2.webp'); /* Cambia el nombre de la imagen */
+        background-color:#000;
+        background-size: cover;
+        position: relative;
+  
+}
+
+
+
+
+.pet-terminal-body { padding: 14px; display: flex; flex-direction: column; align-items: center; }
+
+.t-screen-hologram {
+  position: relative;
+  width: 93%;
+  right: 5px;
+  height: 180px; /* 🟢 CORREGIDO: Ampliado de 145px a 180px para dar aire a las sombras de la cerca */
+  background: rgba(82, 196, 139, 0.6);
+  border: 1px solid rgba(135, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 8px;
+  margin-bottom: 12px;
+  box-shadow: 
+    inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
+    inset 2px 2px 3px rgba(0, 0, 0, 0.5),
+    1px 1px 0px rgba(255, 255, 255, 0.1) !important;
+
+}
+
+.t-screen-inner {
+  position: relative;
+  width: 100%; 
+  height: 100%;
+  border: 1 px;
+  border-radius: 35px;
+  border-color: #d83ca4;
+  overflow: visible !important; 
+  
+  /* 🟢 TRANSICIÓN OPTICA: Suaviza el cambio de color del cielo y pasto 
+     durante 0.8 segundos con una curva de desaceleración de gama alta */
+  transition: background 0.8s ease-in-out !important;
+}
+
+/* 🪐 EL PROYECTOR DEL ESCENARIO DE FONDO INDEPENDIENTE */
+#matrix-scenery-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
+/* 🤖 EL AVATAR DEL POLLITO DE CUERPO COMPLETO ORIGINAL FIJO EN SU EJE */
+.margo-avatar {
+  position: absolute;
+  bottom: 55px; /* Lo asienta perfecto al nivel del suelo de la cerca */
+  left: calc(50% + 22px); /* Centrado absoluto inicial */
+  width: 4px;   
+  height: 4px;
+  image-rendering: pixelated;
+  z-index: 5; /* Pasa al frente del escenario */
+  transition: transform 0.15s ease, left 0.5s linear; 
+  display: block !important; /* Fuerza la visibilidad del bloque */
+}
+
+/* ========================================================
+   🏷️ PROYECTOR Y CALIBRACIÓN DEL LOGOTIPO PNG DE MARCA V16.5
+   ======================================================== */
+.pet-logo-container {
+  display: flex !important;
+  justify-content: center !important; /* Centra el logotipo horizontalmente en la carcasa */
+  align-items: center !important;
+  width: 90% !important;
+  box-sizing: border-box !important;
+  
+  /* 📐 COORDENADAS DE MARGENES: Controla el espacio alrededor del logo.
+     15px de separación con la pantalla de arriba y 10px con las barras de abajo.
+     Modifica estos números a tu gusto para subir o bajar el logo en la máquina */
+  margin-top: 0px !important;
+  margin-bottom: -10px !important; 
+  padding: 0 0px !important; /* Margen interno de seguridad a los lados */
+}
+
+.pet-brand-logo {
+  /* 📐 ESCALADOR DE TAMAÑO: Controla qué tan grande o chico se verá el logo PNG.
+     Ajusta este porcentaje (ej. 70%, 85%, 120px) para estirar o encoger la imagen */
+  max-width: 90% !important; 
+  height: auto !important; /* Mantiene la proporción original de la imagen para que no se deforme */
+  
+  /* Evita que el ratón o los clics rápidos lo seleccionen como si fuera texto de oficina */
+  pointer-events: none; 
+  user-select: none;
+  
+  /* 🟢 EL CINCEL RETRO PIXEL: Si tu logo PNG es Pixel-Art, este candado óptico 
+     desactiva el suavizado del navegador, manteniendo los bordes del logo súper afilados */
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  
+  /* Micro-filtro opcional que le da una ligera sombra suave para integrarlo a la carcasa */
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.45));
+}
+
+
+#margo-core {
+  filter: drop-shadow(0 0 4px rgba(253, 212, 50, 0.35));
+}
+
+#matrix-emoji-overlay { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 10; }
+/* ========================================================
+   📟 ZONA 3: PROYECTOR DE PIXELS COMPILADOS PARA EMOJIS
+   ======================================================== */
+.matrix-item-emoji {
+  position: absolute;
+  font-size: 22px; /* Escalado retro */
+  
+  /* 🟢 EL CINCEL RETRO: Filtro de aliasing nativo que desactiva el suavizado 
+     de curvas del navegador, forzando a los emojis a verse más dentados y pixelados */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+
+   /* 🟢 LA SOLUCIÓN MAESTRA: Apaga el anillo de enfoque azul 
+     del navegador al 100% incluso si el elemento recibe clics directos */
+  outline: none !important;
+  box-shadow: none !important; /* Candado extra por si el navegador inyecta sombra */
+  
+    /* 🟢 BLOQUEO DE SELECCIÓN: Evita que el usuario pueda resaltar o 
+     seleccionar el emoji azul como si fuera texto de oficina al dar clics rápidos */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
+  
+  
+  /* Micro-sombra neón cian característica de tu terminal Jukebox */
+  filter: drop-shadow(0 0 2px rgba(135, 255, 255, 0.75));
+  
+  /* Pequeña animación flotante sutil para que no se vea estático */
+  animation: emojiFloat 1.5s ease-out forwards;
+}
+
+
+/* 🟢 CANDADO GLOBAL DE INTERFAZ: Aplicamos el mismo freno a las imágenes y textos 
+   dentro de la pantalla para que nada genere destellos azules al cliquear */
+#t-matrix-display, #margo-core, #matrix-emoji-overlay, .matrix-item-emoji * {
+  outline: none !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important; /* Apaga el destello naranja/azul en móviles */
+}
+
+@keyframes emojiFloat {
+  0% { transform: translateY(0) scale(0.8); opacity: 1; }
+  100% { transform: translateY(-12px) scale(1.1); opacity: 0.8; }
+}
+
+/* TELEMETRÍA Y BARRAS DE ESTADO */
+.pet-stats-panel {   border-radius: 10px; background: rgba(12, 216, 172, 0.308); border: 2px solid rgba(39, 38, 38, 0.925); width: 90%; display: flex; flex-direction: column; gap: 5px;   box-sizing: border-box ;   padding: 12px 16px;
+ margin-bottom: 12px; margin-right: 5px;
+box-shadow: 
+    inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
+    inset 2px 2px 3px rgba(0, 0, 0, 0.5),
+    1px 1px 0px rgba(255, 255, 255, 0.1) !important;
+
+
+
+
+ animation:
+
+        panelPulse 3.5s ease-in-out infinite;
+
+}
+
+
+@keyframes panelPulse{
+
+0%{
+
+box-shadow:
+
+0 14px 45px rgba(0,0,0,.45),
+
+0 0 14px rgba(73,255,246,.10),
+
+0 0 24px rgba(57,184,255,.08);
+
+border-color:
+
+rgba(73,255,246,.14);
+
+}
+
+50%{
+
+box-shadow:
+
+0 14px 50px rgba(0,0,0,.48),
+
+0 0 20px rgba(73,255,246,.18),
+
+0 0 34px rgba(57,184,255,.16),
+
+0 0 46px rgba(141,118,255,.10);
+
+border-color:
+
+rgba(73,255,246,.24);
+
+}
+
+100%{
+
+box-shadow:
+
+0 14px 45px rgba(0,0,0,.45),
+
+0 0 14px rgba(73,255,246,.10),
+
+0 0 24px rgba(57,184,255,.08);
+
+border-color:
+
+rgba(73,255,246,.14);
+
+}
+
+}
+.stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 9px; color: #dffcff; }
+.bar-bg { width: 120px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; width: 100%; transition: width 0.3s ease; }
+
+.energy-color { background: #87ffff; box-shadow: 0 0 4px #00ffff; }
+.clean-color { background: #d83ca4; box-shadow: 0 0 4px #d83ca4; }
+.happy-color { background: #39ff14; box-shadow: 0 0 4px #39ff14; }
+.sleep-color { background: #ffdf00; box-shadow: 0 0 4px #ffdf00; }
+.inline-metrics { justify-content: space-around; margin-top: 2px; font-weight: bold; }
+.neon-cyan { color: #87ffff; text-shadow: 0 0 4px #00ffff; }
+.neon-pink { color: #d83ca4; text-shadow: 0 0 4px #d83ca4; }
+
+/* GRILLA DE COMANDOS TÁCTILES */
+.pet-cyber-select {
+  background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(135, 255, 255, 0.3);
+  border-radius: 6px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 6px; cursor: pointer;
+  width: 100%; grid-column: span 2; margin-bottom: 4px; 
+}
+.pet-cyber-select option { background: #0c121c; color: #dffcff; }
+.pet-actions-grid { width: 100%; margin-right: 5px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pet-actions-grid button {
+  background: #0c121c; border: 1px solid rgba(135, 255, 255, 0.25); border-radius: 6px;
+  color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; font-weight: bold; padding: 6px 4px; cursor: pointer;
+  position: relative;
+  cursor: pointer;
+  right: 0px;
+  /* 🪡 TEXTURA DE MOLDE: Base gris oscuro tecnológico con micro-grano mate */
+  background-color: #3a3a42 !important; 
+  background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 0);
+  background-size: 100% 100%, 3px 3px;
+  
+  /* 📐 EFECTO BISELADO DE FÁBRICA: Borde superior iluminado y base oscura */
+  border: 1px solid #1a1a1e !important;
+  border-radius: 6px !important; /* Esquinas redondeadas de fundición */
+  
+  /* Sombra exterior para despegarlos de la carcasa magenta y bisel interno */
+  box-shadow: 
+    0px 2px 0px #1c1c20, /* El "grosor" físico o muesca del botón */
+    inset 1px 1px 0px rgba(255, 255, 255, 0.15),
+    0px 4px 8px rgba(0, 0, 0, 0.4) !important;
+    
+  /* Suavizado sutil para que el rebote de la pulsación sea una delicia visual */
+  transition: transform 0.05s ease, box-shadow 0.05s ease !important;
+  
+  /* Candado contra el anillo azul del navegador que ya pulimos antes */
+  outline: none !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.pet-actions-grid button:active { /* 🚨 Usa exactamente el mismo nombre de clase que arriba */
+  /* Reducimos el grosor físico a cero y desplazamos el botón 3px hacia abajo */
+  box-shadow: 
+    0px 0px 0px #1c1c20, 
+    inset 1px 1px 2px rgba(0, 0, 0, 0.6),
+    0px 1px 2px rgba(0, 0, 0, 0.2) !important;
+    
+  transform: translateY(3px) !important; /* 🟢 El botón se hunde físicamente */
+}
+.pet-actions-grid button:hover { background: rgba(41, 116, 94, 0.699); border-color: #87ffff; text-shadow: 0 0 4px #00ffff; }
+
+#pet-minigame-controls { background: rgba(135, 255, 255, 0.05); border: 1px dashed rgba(135, 255, 255, 0.2); border-radius: 8px; padding: 8px; margin-top: 10px; text-align: center; width: 100%; }
+.minigame-title { font-size: 8px; color: #87ffff; margin: 0 0 6px 0; }
+.minigame-btns { display: flex; gap: 6px; }
+.minigame-btns button { font-size: 8px !important; padding: 4px !important; }
+
+@media (pointer: coarse) and (max-width: 1024px) {
+  #virtual-pet-popup { bottom: auto; top: 65px; left: 15px; width: 280px; }
+}
+
+
+/* ========================================================
+   📼 LIENZO INDEPENDIENTE: EFECTO CRT / VCR FUZZ PREMIUM V13.5
+   ======================================================== */
+#vcr-fuzz-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 101.5%;
+  border-radius: 35px;
+  height: 101%;
+  z-index: 999999999999; /* Forzamos a que flote por encima de Margo, la popó y el escenario */
+  pointer-events: none; /* Candado crucial: Hace la lona invisible al ratón para que no bloquee tus clics */
+  
+    background-color: rgba(162, 23, 255, 0.35) !important;
+  /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 4px, 4px 100%; /* Tamaño retro del pixelado magnético */
+  
+  /* Opacidad al 5%: El punto fino exacto para que se note el grano sin quemar la vista */
+  opacity: 0.35; 
+  
+  /* Activamos el bucle eterno de estática analógica rápida */
+  animation: vcrFuzzStaticLive 0.1s infinite;
+}
+
+/* 🟢 LA MATRIZ DE MOVIMIENTO: Desplaza la lona texturizada de forma aleatoria 
+   en cada microsegundo, emulando el parpadeo magnético real de una cinta VHS */
+@keyframes vcrFuzzStaticLive {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, 0.5px); }
+  50% { transform: translate(-0.5px, 1px); }
+  75% { transform: translate(1px, -0.5px); }
+  100% { transform: translate(-1px, 0px); }
+}
+
+
+/* ========================================================
+   📼 LIENZO INDEPENDIENTE: EFECTO CRT / VCR FUZZ PREMIUM V13.5
+   ======================================================== */
+#vcr-fuzz-layer2 {
+  position: absolute;
+  bottom: 150px;
+  left: 10;
+  width: 82%;
+  border-radius: 10px;
+  height: 18%;
+  z-index: 999999999999; /* Forzamos a que flote por encima de Margo, la popó y el escenario */
+  pointer-events: none; /* Candado crucial: Hace la lona invisible al ratón para que no bloquee tus clics */
+  
+    background-color: rgba(12, 216, 172, 0.089) !important;
+  /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 8px, 8px 100%; /* Tamaño retro del pixelado magnético */
+  
+  /* Opacidad al 5%: El punto fino exacto para que se note el grano sin quemar la vista */
+  opacity: 0.75; 
+  
+  /* Activamos el bucle eterno de estática analógica rápida */
+  animation: vcrFuzzStaticLive 0.1s infinite;
+}
+
+/* 🟢 LA MATRIZ DE MOVIMIENTO: Desplaza la lona texturizada de forma aleatoria 
+   en cada microsegundo, emulando el parpadeo magnético real de una cinta VHS */
+@keyframes vcrFuzzStaticLive {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, 0.5px); }
+  50% { transform: translate(-0.5px, 1px); }
+  75% { transform: translate(1px, -0.5px); }
+  100% { transform: translate(-1px, 0px); }
+}
+
+
+.inline-metrics {
+  background: rgba(5, 8, 15, 0.658); border: 1px solid rgba(135, 255, 255, 0.3);
+  border-radius: 66px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px; cursor: pointer;
+  width: 93%; grid-column: span 1; margin-bottom: 0px; 
+}
+
+
+#pet-status-bubble {
+  
+  background: rgba(66, 134, 81, 0.562); border: 1px solid rgba(135, 255, 255, 0.3);
+  border-radius: 36px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px; cursor: pointer;
+  width: 93%; grid-column: span 2; margin-bottom: 0px; 
+box-shadow: 
+    inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
+    inset 2px 2px 3px rgba(255, 255, 255, 0.863),
+    1px 1px 0px rgba(255, 255, 255, 0.1) !important;
+
+}
+
+/* ========================================================
+   📟 CARCASA PRINCIPAL LIBERADA (ANTI-RECORTES)
+   ======================================================== */
+.virtual-pet-container { /* 🚨 Pon aquí el nombre de tu clase magenta principal */
+  position: relative;
+  background-color: #6b1f47 !important;
+  
+  /* 🟢 LA LLAVE MAESTRA: Cambiamos 'hidden' por 'visible'. 
+     Esto desactiva la guillotina del navegador y permite que el perfil 3D 
+     salga del recuadro hacia la izquierda de forma 100% visible */
+  overflow: visible !important; 
+  
+  /* Mantienes tus background-image y box-shadow diurnos idénticos abajo... */
+  background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
+    radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+  background-size: 100% 100%, 4px 4px, 4px 4px;
+  background-position: 0 0, 0 0, 2px 2px;
+  box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.15), inset -2px -2px 0px rgba(0, 0, 0, 0.4), 0px 10px 30px rgba(0, 0, 0, 0.6) !important;
+  border: 2px solid #3d0c24 !important;
+}
+
+/* ========================================================
+   📐 PERFIL LATERAL 3D COMPLETO REUBICADO A LA IZQUIERDA V16.0
+   ======================================================== */
+.pet-side-profile {
+  position: absolute;
+  top: 0 !important;
+  bottom: 30 !important;
+  height: 150% !important;
+  width: 210px; /* El grosor físico del canto de la máquina */
+  
+  /* 🟢 COORDENADA DE ESCAPE IZQUIERDO: Lo desANCLAMOS de la derecha 
+     y obligamos a que se cuelgue exactamente del borde exterior izquierdo */
+  left: 107.5% !important;
+  right: auto !important; 
+  
+  /* 🟢 INVERSIÓN DE FUGA ISOMÉTRICA COMPLETA: 
+     Al estar a la izquierda, sesgamos el bloque a 15 grados positivos.
+     Esto genera la caída de perspectiva perfecta hacia el centro de la máquina,
+     soldándose milimétricamente con el chasis magenta principal */
+  transform: skewY(15deg) translateY(-3px) !important;
+  transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
+  
+  /* Plástico magenta en penumbra texturizado */
+  background-color: #3d0f26;
+  background-image: 
+    linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 100% 100%, 4px 4px;
+  
+  /* Biselado exterior izquierdo de fundición */
+  border-left: 2px solid #220514 !important;
+  border-top: 2px solid #220514 !important;
+  border-radius: 8px 0 0 8px !important; /* Redondeado en las esquinas izquierdas */
+  
+  box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.5) !important;
+  z-index: -1; 
+}
+
+/* ========================================================
+   📟 CARCASA PRINCIPAL LIBERADA (ANTI-RECORTES)
+   ======================================================== */
+.virtual-pet-container2 { /* 🚨 Pon aquí el nombre de tu clase magenta principal */
+  position: relative;
+  background-color: #6b1f47 !important;
+  
+  /* 🟢 LA LLAVE MAESTRA: Cambiamos 'hidden' por 'visible'. 
+     Esto desactiva la guillotina del navegador y permite que el perfil 3D 
+     salga del recuadro hacia la izquierda de forma 100% visible */
+  overflow: visible !important; 
+  
+  /* Mantienes tus background-image y box-shadow diurnos idénticos abajo... */
+  background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.15) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
+    radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+  background-size: 100% 100%, 4px 4px, 4px 4px;
+  background-position: 0 0, 0 0, 2px 2px;
+  box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.15), inset -2px -2px 0px rgba(0, 0, 0, 0.4), 0px 10px 30px rgba(0, 0, 0, 0.6) !important;
+  border: 2px solid #3d0c24 !important;
+}
+
+/* ========================================================
+   📐 PERFIL LATERAL 3D COMPLETO REUBICADO A LA IZQUIERDA V16.0
+   ======================================================== */
+.pet-side-profile2 {
+  position: absolute;
+  top: 210px !important;
+  
+  bottom: 0 !important;
+  height: 250% !important;
+  width: 10px; /* El grosor físico del canto de la máquina */
+  
+  /* 🟢 COORDENADA DE ESCAPE IZQUIERDO: Lo desANCLAMOS de la derecha 
+     y obligamos a que se cuelgue exactamente del borde exterior izquierdo */
+  left: 107.5% !important;
+  right: auto !important; 
+  
+  /* 🟢 INVERSIÓN DE FUGA ISOMÉTRICA COMPLETA: 
+     Al estar a la izquierda, sesgamos el bloque a 15 grados positivos.
+     Esto genera la caída de perspectiva perfecta hacia el centro de la máquina,
+     soldándose milimétricamente con el chasis magenta principal */
+  transform: skewY(15deg) translateY(-3px) !important;
+  transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
+  
+  /* Plástico magenta en penumbra texturizado */
+  background-color: #3d0f26 !important;
+  background-image: 
+    linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 100% 100%, 4px 4px;
+  
+  /* Biselado exterior izquierdo de fundición */
+  border-left: 2px solid #220514 !important;
+  border-top: 2px solid #220514 !important;
+  border-radius: 8px 0 0 8px !important; /* Redondeado en las esquinas izquierdas */
+  
+  box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.5) !important;
+  z-index: 9999999999; 
+}
+
+/* 🔌 SLOT DE EXPANSIÓN METÁLICO CENTRADO EN EL PERFIL IZQUIERDO */
+.cyber-expansion-slot {
+  position: absolute;
+  top: 55% !important;
+  transform: translateY(-50%) !important;
+  left: 5px;
+  width: 82px;
+  height: 75px; 
+  
+  background: #2a2a2e !important;
+  border-radius: 2px !important;
+  border: 1px solid #141416 !important;
+  
+  box-shadow: 
+    inset 2px 2px 4px #000000,
+    1px 1px 0px rgba(255, 255, 255, 0.08) !important;
+}
+
+
+
