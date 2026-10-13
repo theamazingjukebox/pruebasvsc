@@ -1085,19 +1085,6 @@ function closeArcadeMenuAndRestoreFarm() {
 }
 
 
-
-// ==============================================================================
-// 🟢 CLEAN ARCHITECTURE: PUENTE SANITARIO DE CIERRE UNIFICADO V34.0
-// ==============================================================================
-function closeArcadeMenuAndRestoreFarm() {
-    // 🟢 LA REGLA REDONDA AUTOMÁTICA: Si el usuario termina un juego y da flecha abajo o botón B,
-    // invocamos al interruptor maestro 'play'. Al estar la cúpula activa, el switch ejecutará 
-    // el borrado de capas ciego de la Zona 1, cerrando el Pad y restaurando la granja de inmediato.
-    interactWithPet('play'); 
-}
-
-
-
 // ==============================================================================
 // 🖥️ MOTOR DE MOVIMIENTO Y SCALED REAL AUTOMATIZADO V20.0 (SISTEMA DE ANCLAJE)
 // Reactiva el arrastre fluido por la pantalla y el encogimiento simétrico real.
