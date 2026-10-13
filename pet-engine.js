@@ -943,159 +943,16 @@ function aplicarDesgastePorTiempo() {
         petState.lastUpdate = ahora; savePetState();
     }
 }
-
-
-// ==============================================================================
-// 🔌 DYNAMIC HARDWARE INJECTOR: RENDERIZADO EN CALIENTE SOBRE LA MARCHA V36.5
-// ==============================================================================
+// 🟢 ANCLAJE DE ALCANCE MAESTRO: Declaración al fondo absoluto para la consola F12
 function toggleVirtualPet() {
-    var anchor = document.getElementById("cyberpet-hardware-anchor");
-    if (!anchor) return;
-
-    var pop = document.getElementById("virtual-pet-popup");
-
-    // 🟢 ACCIÓN 1: SI LA CONSOLA NO EXISTE EN LA PÁGINA, LA FABRICAMOS AL VUELO
-    if (!pop) {
-        console.log("🔌 COMPONENT MOUNTED: Fabricando chasis CyberPet en la RAM local...");
-
-        // Inyectamos de forma síncrona el bloque depurado idéntico a tu chasis ideal
-        anchor.innerHTML =
-            '<div id="virtual-pet-popup" style="display: block;">' +
-            '<div class="pet-logo-container">' +
-            '<img src="Copia de Copia de Sin título (35).png" alt="Margo Cyber Pet" class="pet-brand-logo">' +
-            '</div>' +
-            '<div class="pet-terminal-body">' +
-            '<div class="t-screen-hologram">' +
-            '<div class="t-screen-inner" id="t-matrix-display">' +
-            '<div id="matrix-scenery-back"></div>' +
-            '<div id="gotchi-arcade-menu-layer" class="arcade-layer-hidden"></div>' +
-
-            '<!-- CARTUCHO: JUKEBOX HOCKEY -->' +
-            '<div id="gotchi-hockey-cartridge" class="hockey-layer-hidden">' +
-            '<div id="hockey-stage-welcome" class="hockey-sub-stage">' +
-            '<img src="JHTS3.png" alt="Jukebox Hockey Splash Cover" class="hockey-splash-cover-img">' +
-            '<p class="hockey-pulse-text">PRESS BUTTON [A] TO START</p>' +
-            '</div>' +
-            '<div id="hockey-stage-hero-select" class="hockey-sub-stage hockey-sub-hidden">' +
-            '<p class="hockey-step-title">CHOOSE YOUR AVATAR</p>' +
-            '<div class="hockey-hero-select-row-giant">' +
-            '<div id="hero-opt-H" class="hero-avatar-pick-giant hero-selected"><div class="giant-pixel-avatar">🦸‍♀️</div><span>SHARON</span></div>' +
-            '<div id="hero-opt-M" class="hero-avatar-pick-giant"><div class="giant-pixel-avatar">🦸‍♂️</div><span>RICK</span></div>' +
-            '</div>' +
-            '<p class="hockey-guide-tag">▲/▼ TO SWITCH | [A] TO SELECT</p>' +
-            '</div>' +
-            '<div id="hockey-stage-register" class="hockey-sub-stage hockey-sub-hidden">' +
-            '<p class="hockey-step-title">ENTER YOUR PILOT TAG</p>' +
-            '<div class="hockey-name-letter-box-giant">' +
-            '<span id="name-char-0" class="char-active-giant">A</span>' +
-            '<span id="name-char-1">A</span>' +
-            '<span id="name-char-2">A</span>' +
-            '<span id="name-char-3">A</span>' +
-            '<span id="name-char-4">A</span>' +
-            '</div>' +
-            '<p class="hockey-guide-tag" style="margin-top: 10px;">▲/▼ TO CHANGE LETTER | [A] TO CONFIRM</p>' +
-            '</div>' +
-            '<div id="hockey-stage-instructions" class="hockey-sub-stage hockey-sub-hidden">' +
-            '<p class="hockey-step-title" style="color: #ffdf00 !important; text-shadow: 0 0 6px #ffdf00;">GAMEPLAY</p>' +
-            '<div class="hockey-instr-text-card">' +
-            '<p>🎯 GET THE HIGHEST SCORE POSSIBLE.</p>' +
-            '<p>🌎 MAKE IT TO THE GLOBAL LEADERBOARD.</p>' +
-            '<p>💖 YOU ONLY HAVE 7 LIVES TO SURVIVE.</p>' +
-            '<p>🔋 EVERY GAME BOOST 250GB TO CYBER-PET.</p>' +
-            '<p>💻 USE KEYBOARD ARROWS ON PC.</p>' +
-            '</div>' +
-            '</div>' +
-            '<div id="hockey-stage-gameplay" class="hockey-sub-stage hockey-sub-hidden">' +
-            '<div class="hockey-scoreboard-premium">' +
-            '<div class="player-hud-box"><div class="hud-avatar-frame" id="hud-user-frame-type">🦸‍♀️</div><span id="hud-txt-name" class="hud-label-text">AAA</span></div>' +
-            '<div class="score-pills-premium"><span id="hud-score">0000</span><span class="hud-vs-text">VS</span><span id="hud-lives">♥♥♥♥♥♥♥</span></div>' +
-            '<div class="player-hud-box"><div class="hud-avatar-frame margo-frame-color">🐤</div><span class="hud-label-text">CHIP⚡</span></div>' +
-            '</div>' +
-            '<div id="hockey-table-canvas">' +
-            '<div id="hockey-paddle-user" class="hockey-paddle"></div>' +
-            '<div id="hockey-puck" class="hockey-puck-disc"></div>' +
-            '<div id="hockey-paddle-margo" class="hockey-paddle"></div>' +
-            '</div>' +
-            '</div>' +
-            '<div id="hockey-stage-leaderboard" class="hockey-sub-stage hockey-sub-hidden">' +
-            '<p class="hockey-step-title">🏆 TOP 7 LEADERS GLOBAL 🏆</p>' +
-            '<div id="hockey-records-list-container" class="hockey-records-wrapper"></div>' +
-            '<div class="hockey-endgame-options-row">' +
-            '<p class="hockey-endgame-btn-label">▲ PLAY AGAIN</p>' +
-            '<p class="hockey-endgame-btn-label">▼ BACK TO FARM</p>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '<div class="margo-avatar" id="margo-core"></div>' +
-            '<div id="matrix-emoji-overlay"></div>' +
-            '<div id="gotchi-disco-ball" class="disco-hidden"></div>' +
-            '<div id="gotchi-victory-screen" class="victory-hidden">' +
-            '<div class="victory-trophy-emoji">🏆👑</div>' +
-            '<p class="victory-main-title">CONGRATULATIONS!</p>' +
-            '<p class="victory-sub-text">YOU HAVE BECOME A TRUE JUKEBOX MASTER.</p>' +
-            '<p class="victory-lore-text">BALANCE HAS BEEN RESTORED AND OUR KINGDOM IS SAFE NOW.</p>' +
-            '<img src="icon512.png" alt="The Amazing Jukebox Champion" class="victory-brand-badge">' +
-            '</div>' +
-            '<div id="vcr-fuzz-layer"></div>' +
-            '<div class="pet-side-profile"><div class="cyber-expansion-slot"></div></div>' +
-            '<div class="pet-side-profile2"><div class="cyber-expansion-slot2"></div></div>' +
-            '<div id="gotchi-disco-strobe" class="disco-hidden"></div>' +
-            '<div id="vcr-fuzz-layer2"></div>' +
-            '</div>' +
-            '</div>' +
-            '<p id="pet-status-bubble">READY FOR BITSTREAM...</p>' +
-            '<div class="cyber-hardware-led" title="System Status: Online"></div>' +
-            '<div class="pet-stats-panel">' +
-            '<div class="stat-row"><span>DATA / ENERGY:&nbsp&nbsp</span><div class="bar-bg"><div id="bar-energy" class="bar-fill energy-color"></div></div><span id="txt-energy">100%</span></div>' +
-            '<div class="stat-row"><span>CIRCUIT / CLEAN:</span><div class="bar-bg"><div id="bar-clean" class="bar-fill clean-color"></div></div><span id="txt-clean">100%</span></div>' +
-            '<div class="stat-row"><span>LOGS / HAPPY:&nbsp&nbsp&nbsp</span><div class="bar-bg"><div id="bar-happy" class="bar-fill happy-color"></div></div><span id="txt-happy">100%</span></div>' +
-            '<div class="stat-row"><span>REST / SLEEP:&nbsp&nbsp&nbsp</span><div class="bar-bg"><div id="bar-sleep" class="bar-fill sleep-color"></div></div><span id="txt-sleep">100%</span></div>' +
-            '<div class="stat-row inline-metrics"><span>AGE: <span id="txt-age" class="neon-cyan">0</span> YR</span><span>WEIGHT: <span id="txt-weight" class="neon-pink">0</span> GB</span><span>MANNA: <span id="txt-manna" class="neon-purple">0</span></span></div>' +
-            '</div>' +
-            '<div class="pet-actions-grid">' +
-            '<select id="pet-food-selector" class="pet-cyber-select">' +
-            '<option value="data">💾 FEED DATA (+5% NRG)</option>' +
-            '<option value="icecream">🍦 GIVE ICECREAM (+15% HPY)</option>' +
-            '<option value="voltage">⚡ JOLT VOLTAGE (+8 GB)</option>' +
-            '<option value="song">🔮 SONG (+9 MANNA)</option>' +
-            '<option value="burger">🍔 CYBER-BURGER (+10% NRG)</option>' +
-            '</select>' +
-            '<button onclick="executeFeeding()">[ RUN FEED ]</button>' +
-            '<button onclick="interactWithPet(\'clean\')">[ 🚿 FLUSH WATER ]</button>' +
-            '<button onclick="interactWithPet(\'play\')">[ 🎮 MINI GAMES ]</button>' +
-            '<button onclick="interactWithPet(\'sleep\')" style="grid-column: span 2; margin-top: 20px;">[ 💤 LIGHTS OUT / ON ]</button>' +
-            '</div>' +
-            '<div class="gotchi-drag-indicator-cross">+</div>' +
-            '<button onclick="toggleVirtualPet()" class="gotchi-pure-css-close-btn" title="Close Module">X</button>' +
-            '<div id="pet-minigame-controls" class="disco-hidden">' +
-            '<div class="arcade-logo-header-wrapper"><img src="arcade-zone-10-10-2026.png" alt="Arcade Zone Title" class="arcade-pixel-title-img"></div>' +
-            '<div class="arcade-pad-layout">' +
-            '▲▼' +
-            '' +
-            'AB' +
-            '' +
-            '' +
-            '' +
-            '';
-        // Re-mapeamos instantáneamente los gatillos de inicio de la interfaz de la CPU
-        updatePetInterface();
-        renderMargoDisplay();
-        // Reconectamos el arrastre elástico para que puedas mover la ventana por tu monitor
-        if (typeof makeGotchiWindowDraggableAndResizable === "function") {
-            makeGotchiWindowDraggableAndResizable();
-        }
-        return;
-    }
-    // 🟢 ACCIÓN 2: SI YA EXISTE, ACTÚA COMO UN INTERRUPTOR DE VISIBILIDAD MATE (TOGGLE)
-    // Simplemente alterna el display entre "block" y "none" de forma limpia sin tocar el HTML base
+    const pop = document.getElementById("virtual-pet-popup"); if (!pop) return;
     pop.style.display = (pop.style.display === "block") ? "none" : "block";
-    if (pop.style.display === "block") {
-        updatePetInterface();
-        renderMargoDisplay();
-    }
+    if (pop.style.display === "block") { updatePetInterface(); renderMargoDisplay(); }
 }
 window.toggleVirtualPet = toggleVirtualPet;
-
+window.onload = function () {
+    initVirtualPet();
+};
 
 // ==============================================================================
 // 🚀 ARCADE ENGINE V2.0: MODO COMBATE ESPACIAL INTERESTELAR (PURA INGENIERÍA)
