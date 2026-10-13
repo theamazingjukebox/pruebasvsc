@@ -3911,71 +3911,6 @@ function closeZoomHint() {
 }
 
     
-
-// 🖥️ MOTOR DE ARRASTRE FLUIDO MULTI-VENTANA INTEGRADO (ANTI-CONGELAMIENTOS V37.5)
-function hacerIframeInteractivoYDraggable() {
-    var iframe = document.getElementById("virtual-pet-floating-window");
-    if (!iframe) return;
-
-    // Escuchamos las directrices de datos que envía el pet-engine desde el cristal aislado
-    window.addEventListener("message", function(e) {
-        if (e.data.type === "UFO_DRAG_START") {
-            isGotchiDragging = true;
-            // Capturamos el punto exacto de tracción donde tu mano sujetó el plástico magenta
-            gotchiStartX = e.data.clientX;
-            gotchiStartY = e.data.clientY;
-        }
-        
-        if (e.data.type === "UFO_RESIZE_START") {
-            isGotchiResizing = true;
-            gotchiStartX = e.data.clientX;
-            gotchiStartY = e.data.clientY;
-            gotchiStartScale = window.gotchiCurrentZoom;
-        }
-
-        // 📡 RESPUESTA ELECTROMAGNÉTICA EN CALIENTE (EL FIN DEL FIXED TRABADO):
-        // En cuanto el mouse se desplaza dentro del cristal de Margo, calculamos el diferencial 
-        // de píxeles y desplazamos la caja externa del iframe usando estilos dinámicos directos, 
-        // logrando que la ventana ruede con una suavidad líquida perfecta por todo tu monitor.
-        if (e.data.type === "UFO_DRAGGING" && isGotchiDragging) {
-            var currentLeft = iframe.offsetLeft;
-            var currentTop = iframe.offsetTop;
-            
-            // Calculamos el empuje horizontal y vertical sobre la marcha
-            var deltaX = e.data.screenX - gotchiStartX;
-            var deltaY = e.data.screenY - gotchiStartY;
-            
-            // Reseteamos las coordenadas iniciales para la próxima vuelta del bucle recursivo
-            gotchiStartX = e.data.screenX;
-            gotchiStartY = e.data.screenY;
-            
-            // Inyectamos de forma síncrona los nuevos píxeles liberando las guías
-            iframe.style.setProperty("bottom", "auto", "important");
-            iframe.style.setProperty("left", (currentLeft + deltaX) + "px", "important");
-            iframe.style.setProperty("top", (currentTop + deltaY) + "px", "important");
-        }
-
-        if (e.data.type === "UFO_RES_MOVING" && isGotchiResizing) {
-            var deltaX = e.data.clientX - gotchiStartX;
-            var newZoom = gotchiStartScale + (deltaX / 300);
-            newZoom = Math.max(0.45, Math.min(1.40, newZoom)); 
-            window.gotchiCurrentZoom = newZoom;
-            iframe.style.setProperty("transform", "scale(" + newZoom + ")", "important");
-        }
-        
-        if (e.data.type === "UFO_DRAG_END") {
-            isGotchiDragging = false;
-            isGotchiResizing = false;
-        }
-    });
-
-    window.addEventListener("mouseup", function() {
-        isGotchiDragging = false;
-        isGotchiResizing = false;
-    });
-}
-document.addEventListener("DOMContentLoaded", hacerIframeInteractivoYDraggable);
-
     
 
 </script>
@@ -4456,13 +4391,18 @@ if ('serviceWorker' in navigator) {
 </script>
 
 
-  <!-- ============================================================================== -->
-  <!-- 🕹️ VINCULACIÓN EN RED: VENTANA FLOTANTE CYBERPET PREMIUM (V37.0) -->
-  <!-- ============================================================================== -->
-  <!-- Nace apagado al 100% y con transform-origin en el centro superior para que 
-       cuando el usuario lo encoja, se reduzca de forma simétrica sin desarmar los botones. -->
- <iframe src="petlab.html" id="virtual-pet-floating-window" class="gotchi-iframe-base"></iframe>
-
+  <iframe src="petlab.html" id="virtual-pet-floating-window" style="
+      position: fixed !important;
+      bottom: 25px !important;
+      left: 25px !important;
+      width: 335px !important;   
+      height: 550px !important;  
+      border: none !important;
+      background: transparent !important;
+      z-index: 9996 !important;  
+      display: none; /* Inicia apagado hasta que el usuario dé el click en el menú */
+      overflow: visible !important;
+  "></iframe>
 
 </body>
 </html>
