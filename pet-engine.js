@@ -1087,36 +1087,53 @@ function closeArcadeMenuAndRestoreFarm() {
 
 
 // ==============================================================================
-// 🛸 RETRANSMISOR DE INERCIA: ENVÍO DE COORDENADAS COAXIAL V37.0
+// 🛸 RETRANSMISOR DE INERCIA: ENVÍO DE COORDENADAS COAXIAL V37.2 (REPARADO)
 // ==============================================================================
 function makeGotchiWindowDraggableAndResizable() {
     var container = document.getElementById("virtual-pet-popup");
     if (!container) return;
 
-    // Capturamos el nodo del tirador de la esquina inferior
     var resizeHandle = container.querySelector("div[style*='cursor: se-resize']");
     if (!resizeHandle) {
-        // Si el div del tirador no se ha creado por código, lo sembramos limpio
         resizeHandle = document.createElement("div");
         resizeHandle.style.cssText = "position:absolute; bottom:3px; right:4px; width:14px; height:14px; cursor:se-resize; z-index:99999999;";
         container.appendChild(resizeHandle);
     }
 
-    // 📡 TRANSMISOR 1: Al dar clic en el tirador, mandamos la alerta hacia la Jukebox principal
+    // 📡 TRANSMISORES EN CALIENTE: Envían ráfagas de movimiento hacia afuera del cristal
+    container.addEventListener("mousedown", function(e) {
+        if (e.target === container || e.target.classList.contains("pet-logo-container") || e.target.tagName === "IMG" || e.target.classList.contains("pet-terminal-body") || e.target.classList.contains("pet-stats-panel")) {
+            window.parent.postMessage({ type: "UFO_DRAG_START", clientX: e.clientX, clientY: e.clientY }, "*");
+            window.isGotchiMouseActive = true; // Candado de empuje interno
+            e.preventDefault();
+        }
+    });
+
     resizeHandle.addEventListener("mousedown", function(e) {
         window.parent.postMessage({ type: "UFO_RESIZE_START", clientX: e.clientX, clientY: e.clientY }, "*");
+        window.isGotchiResizeActive = true;
         e.stopPropagation();
         e.preventDefault();
     });
 
-    // 📡 TRANSMISOR 2: Al dar clic en el plástico magenta, mandamos la inercia del arrastre
-    container.addEventListener("mousedown", function(e) {
-        if (e.target === container || e.target.classList.contains("pet-logo-container") || e.target.tagName === "IMG" || e.target.classList.contains("pet-terminal-body") || e.target.classList.contains("pet-stats-panel")) {
-            window.parent.postMessage({ type: "UFO_DRAG_START", clientX: e.clientX, clientY: e.clientY }, "*");
-            e.preventDefault();
+    // 🏎️ EL EMBALAJE DE FRAMES CONTINUOS: Envía la posición del cursor a la Jukebox en tiempo real
+    window.addEventListener("mousemove", function(e) {
+        if (window.isGotchiMouseActive) {
+            window.parent.postMessage({ type: "UFO_DRAGGING", screenX: e.screenX, screenY: e.screenY }, "*");
+        }
+        if (window.isGotchiResizeActive) {
+            window.parent.postMessage({ type: "UFO_RES_MOVING", clientX: e.clientX, clientY: e.clientY }, "*");
         }
     });
+
+    window.addEventListener("mouseup", function() {
+        window.isGotchiMouseActive = false;
+        window.isGotchiResizeActive = false;
+        // Le avisamos al padre que el canal del ratón se cerró en paz
+        window.parent.postMessage({ type: "UFO_DRAG_END" }, "*");
+    });
 }
+
 
 
 // ==============================================================================
