@@ -1690,4 +1690,25 @@ text-decoration: double;
     0 0 35px rgba(255, 0, 85, 0.95) !important;
 }
 
+/* ========================================================
+   🕹️ HARDWARE COMPONENT: CHASIS FLOTANTE DRAGGABLE V37.5
+   ======================================================== */
+.gotchi-iframe-base {
+  position: fixed !important;
+  bottom: 25px;
+  left: 25px;
+  width: 320px !important;   
+  height: 540px !important;  
+  border: none !important;
+  background: transparent !important;
+  z-index: 9996 !important;  
+  display: none; /* Nace apagado hasta que el usuario dé el botonazo en el menú */
+  transform-origin: top center !important;
+  transform: scale(1);
+  overflow: visible !important;
+  
+  /* 🟢 EL TOQUE PREMUM DE ESTILO: Forzamos tu espectacular cursor retro de flechas en cruz 
+     cada vez que el usuario pase el mouse por los bordes de la moldura de Margo */
+  cursor: move !important;
+}
 
