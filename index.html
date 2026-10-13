@@ -2382,6 +2382,31 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   border-radius: 2px;
 }
 
+
+
+/* ========================================================
+   🕹️ HARDWARE PORTAL: CAJA DE ESCALADO MIMÉTICO V39.0
+   ======================================================== */
+.gotchi-wrapper-base {
+  position: fixed !important;
+  bottom: 25px;
+  left: 25px;
+  
+  /* Dimensiones de oro iniciales de tu carcasa de pruebas local */
+  width: 320px;   
+  height: 540px;  
+  z-index: 9996 !important;  
+  background: transparent !important;
+  display: block; /* O 'none' si usas tu botón switch del menú */
+  
+  /* 🟢 EL ARRASTRE Y RESIZE NATIVO: Activamos el tirador elástico de la esquina 
+     y forzamos el cursor de movimiento en cruz al tocar los bordes del plástico. */
+  resize: both !important;
+  overflow: visible !important;
+  cursor: move !important;
+}
+
+
     
     
 </style>
@@ -3910,7 +3935,46 @@ function closeZoomHint() {
     }
 }
 
-    
+
+// ==============================================================================
+// 🖥️ MOTOR DE ARRASTRE NATIVO EXTRACORPÓREO DE PORTAL CYBERPET V39.0
+// ==============================================================================
+(function() {
+    var isDragging = false;
+    var startX, startY;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var portal = document.getElementById("gotchi-hardware-portal");
+        if (!portal) return;
+
+        // Activamos el arrastre únicamente al cliquear los bordes de la caja exterior
+        portal.addEventListener("mousedown", function(e) {
+            // Si el usuario da click justo en la esquina inferior derecha para hacer resize, 
+            // el arrastre se apaga momentáneamente para no entorpecer los hilos del tamaño
+            if (e.offsetX > portal.clientWidth - 20 && e.offsetY > portal.clientHeight - 20) {
+                return; 
+            }
+            
+            isDragging = true;
+            startX = e.clientX - portal.offsetLeft;
+            startY = e.clientY - portal.offsetTop;
+            e.preventDefault();
+        });
+
+        window.addEventListener("mousemove", function(e) {
+            if (isDragging) {
+                portal.style.bottom = "auto"; // Libera las amarras
+                portal.style.left = (e.clientX - startX) + "px";
+                portal.style.top = (e.clientY - startY) + "px";
+            }
+        });
+
+        window.addEventListener("mouseup", function() {
+            isDragging = false;
+        });
+    });
+})();
+
     
 
 </script>
@@ -4391,23 +4455,14 @@ if ('serviceWorker' in navigator) {
 </script>
 
 
-<!-- ============================================================================== -->
-  <!-- 🕹️ FUSIÓN PURA: VENTANA FLOTANTE JUKEBOX CYBERPET (STUDIO LYE V36.9) -->
   <!-- ============================================================================== -->
-  <!-- Colocamos el Iframe como una capa flotante fija en la esquina inferior izquierda.
-       Al apuntar directamente a tu 'petlab.html', el Gotchi nacerá hermoso con su tamaño real 
-       del 100% de fábrica, libre de desfases y sin congelar jamás los hilos del chat. -->
-  <iframe src="petlab.html" id="virtual-pet-floating-window" style="
-      position: fixed !important;
-      bottom: 25px !important;
-      left: 25px !important;
-      width: 340px !important;   /* Ampliado un poco para dar aire a los perfiles 3D */
-      height: 600px !important;  /* Altura perfecta para que quepa el Pad de 80px */
-      border: none !important;
-      background: transparent !important;
-          
-      z-index: 9996 !important;  /* Flota por encima de los logos traseros */
-      overflow: visible !important;
-  "></iframe>
+  <!-- 🕹️ PORTAL MAESTRO: CONTENEDOR ANCLA RESIZABLE CYBERPET (V39.0) -->
+  <!-- ============================================================================== -->
+  <!-- Este contenedor exterior flota sobre la música y activa los tiradores de escala,
+       permitiéndote estirar y mover la ventana con total tracción de píxeles. -->
+  <div id="gotchi-hardware-portal" class="gotchi-wrapper-base">
+      <iframe src="petlab.html" id="virtual-pet-floating-window" style="width: 100%; height: 100%; border: none; background: transparent; overflow: visible;"></iframe>
+  </div>
+
 </body>
 </html>
