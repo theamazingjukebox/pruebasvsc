@@ -3912,41 +3912,18 @@ function closeZoomHint() {
 
     
 
-// ==============================================================================
-// 🔋 INTERRUPTOR UNIVERSAL Y TRACCIÓN DE CRISTAL FLOTANTE REPARADO V37.2
-// ==============================================================================
-window.gotchiCurrentZoom = 1; 
-var isGotchiDragging = false;
-var isGotchiResizing = false;
-var gotchiStartX = 0;
-var gotchiStartY = 0;
-var gotchiStartScale = 1;
-
-function toggleVirtualPet() {
-    var iframe = document.getElementById("virtual-pet-floating-window");
-    if (!iframe) return;
-
-    if (iframe.style.display === "none" || iframe.style.display === "") {
-        iframe.style.display = "block";
-        console.log("🕹️ CYBERPET ONLINE: Cristal esmerilado acoplado a la Jukebox.");
-    } else {
-        iframe.style.display = "none";
-    }
-}
-window.toggleVirtualPet = toggleVirtualPet;
-
-// 🖥️ MOTOR DE ARRASTRE FLUIDO MULTI-VENTANA INTEGRADO (ANTI-CONGELAMIENTOS)
+// 🖥️ MOTOR DE ARRASTRE FLUIDO MULTI-VENTANA INTEGRADO (ANTI-CONGELAMIENTOS V37.5)
 function hacerIframeInteractivoYDraggable() {
     var iframe = document.getElementById("virtual-pet-floating-window");
     if (!iframe) return;
 
-    // Escuchamos de forma permanente los pulsos que envía el pet-engine desde el cristal aislado
+    // Escuchamos las directrices de datos que envía el pet-engine desde el cristal aislado
     window.addEventListener("message", function(e) {
         if (e.data.type === "UFO_DRAG_START") {
             isGotchiDragging = true;
-            // Calculamos la coordenada inicial sumando la posición real del iframe en tu monitor
-            gotchiStartX = e.data.clientX + iframe.offsetLeft;
-            gotchiStartY = e.data.clientY + iframe.offsetTop;
+            // Capturamos el punto exacto de tracción donde tu mano sujetó el plástico magenta
+            gotchiStartX = e.data.clientX;
+            gotchiStartY = e.data.clientY;
         }
         
         if (e.data.type === "UFO_RESIZE_START") {
@@ -3956,13 +3933,26 @@ function hacerIframeInteractivoYDraggable() {
             gotchiStartScale = window.gotchiCurrentZoom;
         }
 
-        // 📡 RECEPTOR EN CALIENTE SOBRE LA MARCHA:
-        // En cuanto el mouse se mueve dentro del Gotchi, este pulso actualiza la posición 
-        // de la ventana flotante en la Jukebox al milisegundo, eliminando el estado fixed trabado.
+        // 📡 RESPUESTA ELECTROMAGNÉTICA EN CALIENTE (EL FIN DEL FIXED TRABADO):
+        // En cuanto el mouse se desplaza dentro del cristal de Margo, calculamos el diferencial 
+        // de píxeles y desplazamos la caja externa del iframe usando estilos dinámicos directos, 
+        // logrando que la ventana ruede con una suavidad líquida perfecta por todo tu monitor.
         if (e.data.type === "UFO_DRAGGING" && isGotchiDragging) {
-            iframe.style.left = (e.data.screenX - gotchiStartX) + "px";
-            iframe.style.top = (e.data.screenY - gotchiStartY) + "px";
-            iframe.style.bottom = "auto"; 
+            var currentLeft = iframe.offsetLeft;
+            var currentTop = iframe.offsetTop;
+            
+            // Calculamos el empuje horizontal y vertical sobre la marcha
+            var deltaX = e.data.screenX - gotchiStartX;
+            var deltaY = e.data.screenY - gotchiStartY;
+            
+            // Reseteamos las coordenadas iniciales para la próxima vuelta del bucle recursivo
+            gotchiStartX = e.data.screenX;
+            gotchiStartY = e.data.screenY;
+            
+            // Inyectamos de forma síncrona los nuevos píxeles liberando las guías
+            iframe.style.setProperty("bottom", "auto", "important");
+            iframe.style.setProperty("left", (currentLeft + deltaX) + "px", "important");
+            iframe.style.setProperty("top", (currentTop + deltaY) + "px", "important");
         }
 
         if (e.data.type === "UFO_RES_MOVING" && isGotchiResizing) {
@@ -3970,11 +3960,15 @@ function hacerIframeInteractivoYDraggable() {
             var newZoom = gotchiStartScale + (deltaX / 300);
             newZoom = Math.max(0.45, Math.min(1.40, newZoom)); 
             window.gotchiCurrentZoom = newZoom;
-            iframe.style.transform = "scale(" + newZoom + ")";
+            iframe.style.setProperty("transform", "scale(" + newZoom + ")", "important");
+        }
+        
+        if (e.data.type === "UFO_DRAG_END") {
+            isGotchiDragging = false;
+            isGotchiResizing = false;
         }
     });
 
-    // Escuchadores de seguridad para soltar la máquina en la lona externa
     window.addEventListener("mouseup", function() {
         isGotchiDragging = false;
         isGotchiResizing = false;
@@ -4467,20 +4461,8 @@ if ('serviceWorker' in navigator) {
   <!-- ============================================================================== -->
   <!-- Nace apagado al 100% y con transform-origin en el centro superior para que 
        cuando el usuario lo encoja, se reduzca de forma simétrica sin desarmar los botones. -->
-  <iframe src="petlab.html" id="virtual-pet-floating-window" style="
-      position: fixed !important;
-      bottom: 25px !important;
-      left: 25px !important;
-      width: 320px !important;   
-      height: 540px !important;  
-      border: none !important;
-      background: transparent !important;
-      z-index: 9996 !important;  
-      display: none; /* Inicia apagado hasta que el usuario dé el botonazo */
-      transform-origin: top center !important;
-      transform: scale(1);
-      overflow: visible !important;
-  "></iframe>
+ <iframe src="petlab.html" id="virtual-pet-floating-window" class="gotchi-iframe-base"></iframe>
+
 
 </body>
 </html>
