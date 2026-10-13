@@ -5,12 +5,15 @@
   position: fixed;
   bottom: 25px;
   left: 25px;
-  width: 320px;
+   width: 320px !important;
+  height: max-content;
 
-   height: max-content !important;
-  max-height: -webkit-max-content !important; /* Compatibilidad Safari/Chrome viejo */
-  max-height: max-content !important;
-  min-height: max-content !important;
+  /* 🟢 CORRECCIÓN VISUAL DE ORIGEN: Seteamos el anclaje en el centro superior.
+     Esto obliga al Jukebox-Gotchi a nacer en su TAMAÑO REAL DEL 100% DE FÁBRICA,
+     permitiendo que se encoja o se agrante de forma simétrica hacia los lados y abajo */
+  transform-origin: top center !important;
+  transform: scale(1); /* Fuerza el inicio a escala real */
+ 
    /* 🪡 LA SOLUCIÓN MAESTRA: Capa 1: Tu color magenta base de fábrica. 
      Capa 2: Un degradado lineal sutil que simula iluminación cenital.
      Capa 3: Un patrón digital de micro-grano que rompe el color plano por completo. */
@@ -39,16 +42,29 @@
  
   font-family: 'Orbitron', monospace;
   z-index: 9995;
-  overflow: hidden;
-   display: none; /* Nace invisible en la carga inicial de la web */
+transition: height 2.3s ease;
+    overflow: visible !important; 
+}
+
+/* ========================================================
+   🪐 FONDO GLOBAL CÓSMICO DE LA PÁGINA (ESTILO COMPLETO)
+   ======================================================== */
+body {
+  background-image: url('fondo2.webp'); /* Cambia el nombre de la imagen */
+        background-color:#000;
+        background-size: cover;
+        position: relative;
+  
 }
 
 
 
 
+.pet-terminal-body { padding: 14px; display: flex; flex-direction: column; 
+  
+  align-items: center; 
 
-
-.pet-terminal-body { padding: 14px; display: flex; flex-direction: column; align-items: center; }
+}
 
 .t-screen-hologram {
   position: relative;
@@ -197,7 +213,7 @@
 
 /* TELEMETRÍA Y BARRAS DE ESTADO */
 .pet-stats-panel {   border-radius: 10px; background: rgba(12, 216, 172, 0.308); border: 2px solid rgba(39, 38, 38, 0.925); width: 90%; display: flex; flex-direction: column; gap: 5px;   box-sizing: border-box ;   padding: 12px 16px;
- margin-bottom: 12px; margin-right: 5px;
+ margin-bottom: 12px; margin-right: 5px;  
 box-shadow: 
     inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
     inset 2px 2px 3px rgba(0, 0, 0, 0.5),
@@ -266,7 +282,9 @@ rgba(73,255,246,.14);
 }
 
 }
-.stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 9px; color: #dffcff; }
+.stat-row { display: flex; align-items: center; justify-content: space-between; font-size: 9px; color: #dffcff; pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important; }
 .bar-bg { width: 120px; height: 5px; background: rgba(135, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
 .bar-fill { height: 100%; width: 100%; transition: width 0.3s ease; }
 
@@ -277,21 +295,37 @@ rgba(73,255,246,.14);
 .inline-metrics { justify-content: space-around; margin-top: 2px; font-weight: bold; }
 .neon-cyan { color: #87ffff; text-shadow: 0 0 4px #00ffff; }
 .neon-pink { color: #d83ca4; text-shadow: 0 0 4px #d83ca4; }
+.neon-purple { color: #733cd8; text-shadow: 0 0 4px #733cd8; }
 
 /* GRILLA DE COMANDOS TÁCTILES */
 .pet-cyber-select {
   background: rgba(5, 8, 15, 0.8); border: 1px solid rgba(135, 255, 255, 0.3);
   border-radius: 6px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 6px; cursor: pointer;
   width: 100%; grid-column: span 2; margin-bottom: 4px; 
+    outline: none !important;  
+    /* 🟢 BLOQUEO DE SELECCIÓN: Evita que el usuario pueda resaltar o 
+     seleccionar el emoji azul como si fuera texto de oficina al dar clics rápidos */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
 }
 .pet-cyber-select option { background: #0c121c; color: #dffcff; }
-.pet-actions-grid { width: 100%; margin-right: 5px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pet-actions-grid { width: 100%; margin-right: 5px; margin-bottom: 0px;   outline: none !important;  
+    /* 🟢 BLOQUEO DE SELECCIÓN: Evita que el usuario pueda resaltar o 
+     seleccionar el emoji azul como si fuera texto de oficina al dar clics rápidos */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .pet-actions-grid button {
   background: #0c121c; border: 1px solid rgba(135, 255, 255, 0.25); border-radius: 6px;
   color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; font-weight: bold; padding: 6px 4px; cursor: pointer;
   position: relative;
   cursor: pointer;
   right: 0px;
+
   /* 🪡 TEXTURA DE MOLDE: Base gris oscuro tecnológico con micro-grano mate */
   background-color: #3a3a42 !important; 
   background-image: 
@@ -311,6 +345,7 @@ rgba(73,255,246,.14);
     
   /* Suavizado sutil para que el rebote de la pulsación sea una delicia visual */
   transition: transform 0.05s ease, box-shadow 0.05s ease !important;
+  z-index: 2;
   
   /* Candado contra el anillo azul del navegador que ya pulimos antes */
   outline: none !important;
@@ -328,10 +363,7 @@ rgba(73,255,246,.14);
 }
 .pet-actions-grid button:hover { background: rgba(41, 116, 94, 0.699); border-color: #87ffff; text-shadow: 0 0 4px #00ffff; }
 
-#pet-minigame-controls { background: rgba(135, 255, 255, 0.05); border: 1px dashed rgba(135, 255, 255, 0.2); border-radius: 8px; padding: 8px; margin-top: 10px; text-align: center; width: 100%; }
-.minigame-title { font-size: 8px; color: #87ffff; margin: 0 0 6px 0; }
-.minigame-btns { display: flex; gap: 6px; }
-.minigame-btns button { font-size: 8px !important; padding: 4px !important; }
+
 
 @media (pointer: coarse) and (max-width: 1024px) {
   #virtual-pet-popup { bottom: auto; top: 65px; left: 15px; width: 280px; }
@@ -375,16 +407,19 @@ rgba(73,255,246,.14);
 }
 
 
+
+
 /* ========================================================
    📼 LIENZO INDEPENDIENTE: EFECTO CRT / VCR FUZZ PREMIUM V13.5
    ======================================================== */
 #vcr-fuzz-layer2 {
-  position: absolute;
-  bottom: 150px;
-  left: 10;
-  width: 82%;
+    position: absolute !important;
+   top: 306px !important; 
+  left: 28px;
+  width: 257px !important;
+  height: 102px !important;
   border-radius: 10px;
-  height: 18%;
+  
   z-index: 999999999999; /* Forzamos a que flote por encima de Margo, la popó y el escenario */
   pointer-events: none; /* Candado crucial: Hace la lona invisible al ratón para que no bloquee tus clics */
   
@@ -393,7 +428,7 @@ rgba(73,255,246,.14);
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
               linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
   background-size: 100% 8px, 8px 100%; /* Tamaño retro del pixelado magnético */
-  
+  display: flex;
   /* Opacidad al 5%: El punto fino exacto para que se note el grano sin quemar la vista */
   opacity: 0.75; 
   
@@ -414,16 +449,21 @@ rgba(73,255,246,.14);
 
 .inline-metrics {
   background: rgba(5, 8, 15, 0.658); border: 1px solid rgba(135, 255, 255, 0.3);
-  border-radius: 66px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px; cursor: pointer;
-  width: 93%; grid-column: span 1; margin-bottom: 0px; 
+  border-radius: 66px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px; pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  width: 96%; grid-column: span 1; margin-bottom: 0px; 
 }
 
 
 #pet-status-bubble {
   
   background: rgba(66, 134, 81, 0.562); border: 1px solid rgba(135, 255, 255, 0.3);
-  border-radius: 36px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px; cursor: pointer;
+  border-radius: 36px; color: #87ffff; font-family: 'Orbitron', monospace; font-size: 8px; padding: 4px;
   width: 93%; grid-column: span 2; margin-bottom: 0px; 
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
 box-shadow: 
     inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
     inset 2px 2px 3px rgba(255, 255, 255, 0.863),
@@ -459,21 +499,20 @@ box-shadow:
    ======================================================== */
 .pet-side-profile {
   position: absolute;
-  top: 0 !important;
-  bottom: 30 !important;
-  height: 150% !important;
-  width: 210px; /* El grosor físico del canto de la máquina */
+  top: -45px !important;
+  height: 532px !important;
+  width: 11px; /* El grosor físico del canto de la máquina */
   
   /* 🟢 COORDENADA DE ESCAPE IZQUIERDO: Lo desANCLAMOS de la derecha 
      y obligamos a que se cuelgue exactamente del borde exterior izquierdo */
-  left: 107.5% !important;
+  left: 106.5% !important;
   right: auto !important; 
   
   /* 🟢 INVERSIÓN DE FUGA ISOMÉTRICA COMPLETA: 
      Al estar a la izquierda, sesgamos el bloque a 15 grados positivos.
      Esto genera la caída de perspectiva perfecta hacia el centro de la máquina,
      soldándose milimétricamente con el chasis magenta principal */
-  transform: skewY(15deg) translateY(-3px) !important;
+  transform: skewY(25deg) translateY(-13px) !important;
   transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
   
   /* Plástico magenta en penumbra texturizado */
@@ -520,22 +559,22 @@ box-shadow:
    ======================================================== */
 .pet-side-profile2 {
   position: absolute;
-  top: 210px !important;
+  top: 475px !important;
   
   bottom: 0 !important;
-  height: 250% !important;
-  width: 10px; /* El grosor físico del canto de la máquina */
+  height: 315px !important;
+  width: 7px; /* El grosor físico del canto de la máquina */
   
   /* 🟢 COORDENADA DE ESCAPE IZQUIERDO: Lo desANCLAMOS de la derecha 
      y obligamos a que se cuelgue exactamente del borde exterior izquierdo */
-  left: 107.5% !important;
+  left: 107.7% !important;
   right: auto !important; 
   
   /* 🟢 INVERSIÓN DE FUGA ISOMÉTRICA COMPLETA: 
      Al estar a la izquierda, sesgamos el bloque a 15 grados positivos.
      Esto genera la caída de perspectiva perfecta hacia el centro de la máquina,
      soldándose milimétricamente con el chasis magenta principal */
-  transform: skewY(15deg) translateY(-3px) !important;
+  transform: skewY(-45deg) translateY(0px) !important;
   transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
   
   /* Plástico magenta en penumbra texturizado */
@@ -544,23 +583,23 @@ box-shadow:
     linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
     radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
   background-size: 100% 100%, 4px 4px;
-  
+  rotate: 90deg;
   /* Biselado exterior izquierdo de fundición */
   border-left: 2px solid #220514 !important;
   border-top: 2px solid #220514 !important;
   border-radius: 8px 0 0 8px !important; /* Redondeado en las esquinas izquierdas */
-  
+
   box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.5) !important;
-  z-index: 9999999999; 
+  z-index: 1; 
 }
 
 /* 🔌 SLOT DE EXPANSIÓN METÁLICO CENTRADO EN EL PERFIL IZQUIERDO */
 .cyber-expansion-slot {
   position: absolute;
-  top: 55% !important;
+  top: 32% !important;
   transform: translateY(-50%) !important;
-  left: 5px;
-  width: 82px;
+  left: 1px;
+  width: 7px;
   height: 75px; 
   
   background: #2a2a2e !important;
@@ -572,5 +611,1083 @@ box-shadow:
     1px 1px 0px rgba(255, 255, 255, 0.08) !important;
 }
 
+
+
+/* ========================================================
+   🖥️ BOTÓN MULTI-VENTANA INTEGRADO: ESTILO HARDWARE RETRO
+   ======================================================== */
+.gotchi-pip-btn {
+  /* Le damos un color azul cian neón translúcido sutil al texto 
+     para que se note que es una función de expansión de hardware avanzada */
+  color: #87ffff !important;
+  font-weight: bold !important;
+  display: none;
+  /* Margen superior por si quieres separarlo ligeramente de la fila de arriba */
+  margin-top: 5px !important;
+  width: 100% !important; /* Ocupa el ancho completo simétrico del panel */
+}
+
+/* Micro-resplandor neón característico cuando pasas el mouse por encima */
+.gotchi-pip-btn:hover {
+  filter: brightness(1.2) drop-shadow(0 0 3px rgba(135, 255, 255, 0.4)) !important;
+}
+
+
+/* ❌ LA LETRA + EN ALTO RELIEVE CROMÁTICO INDUSTRIAL */
+.gotchi-drag-indicator-cross {
+  position: absolute !important;
+  
+  /* 📐 UBICACIÓN LIBRE: Se cuelga en el hombro derecho de la máquina magenta.
+     Modifica estos dos valores (top / right) a tu antojo para encuadrarlo a tu gusto */
+  top: 29px !important;
+  right: 22px !important;
+  
+  /* Formato físico: Un micro-botón de goma cuadrado/circular integrado */
+  width: 16px !important;
+  height: 16px !important;
+  background-color: transparent !important; /* Magenta ultra oscuro de penumbra */
+  border-radius: 4px !important; /* Esquinas de fundición de molde */
+  border: 0px solid #793b55 !important;
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  
+  /* Estética de la letra X */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 23px !important;
+  font-weight: bolder;
+  color: #4b1235 !important; /* Tinte quemado para la letra */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  z-index: 999999 !important;
+  text-shadow: #dffcff;
+text-decoration: double;
+  /* 🟢 TU PROPIEDAD EXACTA DE ALTO RELIEVE COPIADA MILIMÉTRICAMENTE:
+     El brillo blanco superior e izquierdo fuerza el volumen 3D al instante,
+     haciendo que la X parezca una pieza física real brotando del plástico. */
+
+ 
+  outline: none !important;
+}
+
+/* 🔘 MECANISMO INTERACTIVO DE PRESIÓN TÁCTIL */
+
+
+
+
+
+
+/* ❌ LA LETRA X EN ALTO RELIEVE CROMÁTICO INDUSTRIAL */
+.gotchi-pure-css-close-btn {
+  position: absolute !important;
+  
+  /* 📐 UBICACIÓN LIBRE: Se cuelga en el hombro derecho de la máquina magenta.
+     Modifica estos dos valores (top / right) a tu antojo para encuadrarlo a tu gusto */
+  top: 9px !important;
+  right: 22px !important;
+  
+  /* Formato físico: Un micro-botón de goma cuadrado/circular integrado */
+  width: 16px !important;
+  height: 16px !important;
+  background-color: #583b4d !important; /* Magenta ultra oscuro de penumbra */
+  border-radius: 4px !important; /* Esquinas de fundición de molde */
+  border: 1px solid #793b55 !important;
+  cursor: pointer !important;
+  
+  /* Estética de la letra X */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 9px !important;
+  font-weight: bolder;
+  color: #4b1235 !important; /* Tinte quemado para la letra */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  z-index: 999999 !important;
+  text-shadow: #dffcff;
+text-decoration: double;
+  /* 🟢 TU PROPIEDAD EXACTA DE ALTO RELIEVE COPIADA MILIMÉTRICAMENTE:
+     El brillo blanco superior e izquierdo fuerza el volumen 3D al instante,
+     haciendo que la X parezca una pieza física real brotando del plástico. */
+  box-shadow: 
+    inset -2px -2px 0px rgba(255, 255, 255, 0.2), 
+    inset 2px 2px 3px rgba(255, 255, 255, 0.863),
+    1px 1px 0px rgba(255, 255, 255, 0.1) !important;
+    
+  transition: all 0.05s ease !important;
+  outline: none !important;
+}
+
+/* 🔘 MECANISMO INTERACTIVO DE PRESIÓN TÁCTIL */
+.gotchi-pure-css-close-btn:active {
+  color: #8b8788 !important; /* Micro-destello rojo de cortocircuito al apagar */
+  
+  /* Al presionarlo, invertimos el bisel del relieve para que se hunda en el molde */
+  box-shadow: 
+    inset 2px 2px 3px rgba(0, 0, 0, 0.85),
+    0px 1px 1px rgba(255, 255, 255, 0.05) !important;
+    
+  transform: translateY(1px) !important; /* El botón se hunde físicamente */
+}
+
+.gotchi-pure-css-close-btn:hover {
+  filter: brightness(1.15) !important;
+}
+
+
+/* ========================================================
+   🪩 EASTER EGG V24.5: ACABADO PLATEADO Y PANTALLA ESTROBOSCÓPICA
+   ======================================================== */
+#gotchi-disco-ball {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  z-index: 9999; /* Flota en el cielo por delante de las nubes */
+  
+  /* 🟢 CORRECCIÓN DE OPACIDAD: Base gris acero cromada fotorrealista 
+     que bloquea el paso de la luz, tapando por completo las nubes y el cielo */
+  background-color: #abb2b9 !important; 
+  background-image: 
+    radial-gradient(circle, #87ffff 20%, transparent 20%),
+    radial-gradient(circle, #d83ca4 20%, transparent 20%),
+    linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.3) 100%);
+  background-size: 6px 6px, 6px 6px, 100% 100%;
+  background-position: 0 0, 3px 3px, 0 0;
+  
+  border: 1.5px solid #ffffff !important;
+  box-shadow: 0 0 14px #d83ca4, inset 1px 1px 3px #ffffff !important;
+  animation: discoSpin 1.3s linear infinite, discoPulse 1.2s ease-in-out infinite alternate;
+}
+
+/* 🟢 PANTALLA DE REFLECTORES NEÓN (OVERLAY DE PISTA DE BAILE) */
+#gotchi-disco-strobe {
+  position: absolute;
+  top: 60px !important; 
+  left: 17px;
+  width: 276px !important;
+  height: 183px !important;
+  z-index: 9999; /* Baña el pasto, la cerca y el escenario de luces, pero queda atrás de Margo */
+  pointer-events: none;
+  border-radius: 35px; /* Sigue la curva de tu pantalla rosa esmerilada */
+  
+  /* Opacidad sutil al 4% para dar el destello de antro cyberpunk de forma fina y elegante */
+  opacity: .4; 
+  animation: discoStrobeLights 1.8s steps(4) infinite; /* Cambios de color estilo ráfaga de bits */
+}
+
+/* Estados de encendido/apagado sincronizados por clase */
+.disco-hidden { display: none !important; }
+.disco-active { display: block !important; }
+
+/* 🟢 LAS MATRICES DE ANIMACIÓN CROMÁTICA */
+@keyframes discoSpin {
+  0% { background-position: 0 0, 3px 3px, 0 0; }
+  100% { background-position: 24px 0, 27px 3px, 0 0; }
+}
+
+@keyframes discoPulse {
+  0% { filter: drop-shadow(0 0 3px #87ffff) brightness(1); }
+  100% { filter: drop-shadow(0 0 14px #d83ca4) brightness(1.3); }
+}
+
+/* Ráfaga de luces estroboscópicas alternando entre cian neón, violeta y rosa cyberpunk */
+@keyframes discoStrobeLights {
+  0% { background-color: #db2294; }
+  25% { background-color: #733cd8; }
+  50% { background-color: #d83ca4; }
+  75% { background-color: #581286; }
+  100% { background-color: #c526b0; }
+}
+
+
+
+/* ========================================================
+   🏆 ENDGAME PROTOCOL: PANTALLA DE VICTORIA CYBERPUNK V27.0
+   ======================================================== */
+#gotchi-victory-screen {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: radial-gradient(circle, #1a041a 0%, #03010a 100%) !important;
+  border-radius: 35px; /* Sigue la curva perfecta de tu pantalla esmerilada */
+  z-index: 99999 !important; /* Pasa por delante de las vacas, Margo y las popós */
+  display: none !important;
+     /* 🟢 LA SOLUCIÓN MAESTRA: Apaga el anillo de enfoque azul 
+     del navegador al 100% incluso si el elemento recibe clics directos */
+  outline: none !important;  
+    /* 🟢 BLOQUEO DE SELECCIÓN: Evita que el usuario pueda resaltar o 
+     seleccionar el emoji azul como si fuera texto de oficina al dar clics rápidos */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 15px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  border: 2px solid #ffdf00 !important; /* Marco dorado de campeonato */
+  box-shadow: inset 0 0 20px rgba(255, 223, 0, 0.4), 0 0 15px #ffdf00 !important;
+}
+
+.victory-hidden { display: none !important; }
+.victory-active { display: flex !important; animation: victoryFlash 1s ease-out forwards; }
+
+.victory-trophy-emoji {
+   margin-top: 20px !important;
+  font-size: 28px !important;
+  filter: drop-shadow(0 0 6px #ffdf00);
+  animation: trophyFloat 2s ease-in-out infinite alternate;
+}
+
+.victory-main-title {
+  color: #ffdf00 !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  margin: 6px 0 2px 0 !important;
+  text-shadow: 0 0 8px #ffdf00;
+  letter-spacing: 1px;
+}
+
+.victory-sub-text {
+  color: #87ffff !important;
+  font-size: 8px !important;
+  font-weight: bold !important;
+  margin: 0 0 8px 0 !important;
+  text-shadow: 0 0 4px #00ffff;
+}
+
+.victory-lore-text {
+  color: #ffffff !important;
+  font-size: 7px !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  opacity: 0.85;
+}
+
+@keyframes victoryFlash {
+  0% { opacity: 0; filter: brightness(2); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+@keyframes trophyFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+
+/* ========================================================
+   🏆 MEDALLA DE VICTORIA: ESCALADO DEL LOGO BADGE V27.5
+   ======================================================== */
+.victory-brand-badge {
+  max-width: 65px !important; /* Tamaño pequeño, fino y discreto para la base */
+  height: auto !important;
+  top: 10px;
+  margin-top: -5px !important;
+  user-select: none;
+  pointer-events: none; /* El mouse lo atraviesa de forma invisible */
+  filter: drop-shadow(0 0 4px rgba(135, 255, 255, 0.45)); /* Micro-resplandor cyberpunk */
+}
+
+/* Modificamos sutilmente el padding interno del contenedor para que encaje hermoso en el cristal */
+#gotchi-victory-screen {
+  padding: 5px 10px !important; /* Reducimos el colchón para dar espacio al logo badge */
+}
+
+
+/* ========================================================
+   🕹️ HARDWARE ARCADE ZONE UNIFICADO: COMPACTADO A 80PX V28.5
+   ======================================================== */
+
+/* 1. EL CAJÓN DESLIZANTE CONGELADO EN TU MEDIDA IDEAL DE 80PX */
+#pet-minigame-controls {
+  display: block !important; 
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(135, 255, 255, 0);
+  border: 0px dashed rgba(135, 255, 255, 0.2);
+  box-sizing: border-box !important;
+   background-image: url("camo.png");
+  /* Estado inicial comprimido e invisible al arrancar */
+  max-height: 0px !important;
+  opacity: 0 !important;
+  overflow: hidden !important; 
+  padding: 0px 8px !important; /* El colchón inicia en cero absoluto */
+  
+  /* Curva de desaceleración elástica premium de Studio Lye */
+  transition: max-height 2.5s cubic-bezier(0.25, 1, 0.5, 1), 
+              opacity 0.3s ease-in-out, 
+              padding 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 🟢 CAPA ACTIVA: Se despliega de forma ultra-suave y rígida clavándose en 80px */
+#pet-minigame-controls.active-pad {
+  max-height: 80px !important; /* 🚨 FIJADO A TU GUSTO IDEAL DE 80PX */
+  opacity: 1 !important;
+  padding: 6px 12px !important; /* Compactamos el colchón interno hacia arriba */
+  margin-top: 6px !important;
+  margin-bottom: 2px !important;
+}
+
+.arcade-zone-title {
+  font-size: 8px !important;
+  font-weight: 900 !important;
+  color: #ffdf00 !important;
+  text-shadow: 0 0 4px rgba(255, 223, 0, 0.5) !important;
+  margin: 0 0 4px 0 !important; /* Reducido al mínimo para empujar los botones hacia arriba */
+  letter-spacing: 1px;
+}
+
+/* GRID COMPACTO DE ALTA FIDELIDAD */
+.arcade-pad-layout {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 0 20px !important; /* Margen de seguridad a los lados */
+  box-sizing: border-box !important;
+}
+
+/* 🧭 CRUCETA VERTICAL EN ROMBO SUBIDA */
+.arcade-dpad-column {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-top: -26px !important; /* 🟢 TRUCO DE TRACCIÓN: Sujeta y sube el rombo entero hacia el título */
+  /*rotate: 90deg;*/
+}
+
+.dpad-spacer {
+  height: 5px !important; /* Reducimos la separación para que el rombo sea compacto */
+}
+
+/* BOTONES DE FLECHAS DE GOMA EN ALTO RELIEVE */
+.arcade-rubber-btn {
+  width: 36px !important;
+  height: 30px !important; /* Reducido para encajar en el cajón de 80px */
+  background-color: #2b0c1e !important;
+  color: #87ffff !important;
+  font-size: 9px !important;
+  font-weight: bold !important;
+  border: 1px solid #14010a !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+
+  box-shadow: 
+    inset -1px -1px 0px rgba(255, 255, 255, 0.15), 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+    0px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.05s ease !important;
+}
+
+/* 🔘 BOTONES DE ACCIÓN CIRCULARES SUBIDOS (LADO DERECHO) */
+.arcade-action-row {
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: -5px !important; /* 🟢 Sube los botones A y B alineándolos con la cruceta */
+}
+
+.arcade-action-btn {
+  width: 42px !important; /* Compactados proporcionalmente */
+  height: 42px !important;
+  font-family: 'Orbitron', monospace !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  border: 1px solid #14010a !important;
+  border-radius: 50% !important;
+  outline: none !important;
+  
+  
+    /* 🟢 BLOQUEO DE SELECCIÓN: Evita que el usuario pueda resaltar o 
+     seleccionar el emoji azul como si fuera texto de oficina al dar clics rápidos */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  
+  box-shadow: 
+    inset -1px -1px 0px rgba(255, 255, 255, 0.15), 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+    0px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.05s ease !important;
+}
+
+.btn-primary-a { background-color: #d83ca4 !important; color: #ffffff !important; }
+.btn-secondary-b { background-color: #3a3a42 !important; color: #87ffff !important; }
+
+/* REBOTE MECÁNICO DE PULSACIÓN (ACTIVE) */
+.arcade-rubber-btn:active, .arcade-action-btn:active {
+  box-shadow: 
+    inset 1px 1px 3px #000000,
+    0px 1px 1px rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(1px) !important; /* Hundimiento sutil adaptado a la miniatura */
+}
+
+.arcade-rubber-btn:hover, .arcade-action-btn:hover { filter: brightness(1.2) !important; }
+
+
+/* ========================================================
+   🕹️ ARREGLO DE HARDWARE "ARCADE ZONE": GRÁFICOS INTEGRADOS
+   ======================================================== */
+
+/* 1. Contenedor y escalado del logotipo pixelado verde superior */
+.arcade-logo-header-wrapper {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: -2px !important; /* Lo pega sutilmente al borde superior del cajón */
+  margin-bottom: 2px !important;
+}
+
+.arcade-pixel-title-img {
+  max-width: 110px !important; /* Medida fina para que no asfixie las esquinas */
+  height: auto !important;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* 2. El Caza de Combate Central (Columna Divisoria de Hardware) */
+.arcade-center-jet-divider {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 45px !important; /* Espacio rígido horizontal que separa el rombo de los botones */
+  height: 45px !important;
+  margin-top: -6px !important; /* Sube el avión para centrarlo simétricamente con el D-Pad */
+  user-select: none;
+  pointer-events: none;
+}
+
+.arcade-jet-sprite-img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  
+  /* 🟢 ELcandado ÓPTICO RETRO: Obliga al navegador a renderizar el caza 
+     con un filo de píxeles súper afilado y afilado, calcando el look de cartucho */
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  
+  filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.6));
+}
+
+/* Re-calibramos sutilmente los espacios laterales para que la trinidad calce perfecta */
+.arcade-pad-layout {
+  padding: 0 10px !important; /* Más aire horizontal en los extremos de la carcasa */
+}
+
+
+/* ========================================================
+   🕹️ CRISTAL RETRO: OPACIDAD TOTAL ANTI-FILTRACIONES V34.9 (CORREGIDO)
+   ======================================================== */
+#gotchi-arcade-menu-layer {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  
+  /* 🟢 EL ESCUDO DE CARBÓN: Forzamos un negro espacial denso y 100% opaco.
+     Esto actúa como un muro ciego impenetrable por software, bloqueando por completo 
+     el paso de la luz e impidiendo que el pasto o Margo se trasluzcan en tu monitor. */
+  background-color: #05020c !important; 
+  background-image: none !important; /* Desactiva transparencias heredadas de la granja */
+  
+  border-radius: 35px; /* Sigue la curva de tu pantalla rosa esmerilada */
+  
+  /* 🟢 JERARQUÍA REVOLUCIONARIA: Colocamos un z-index masivo por encima de Margo, 
+     las vacas y la cerca. El menú salta al frente absoluto en el microsegundo exacto de la apertura. */
+  z-index: 999999 !important; 
+  
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  padding-top: 15px !important;
+  font-family: 'Orbitron', monospace !important;
+
+  /* Estado base invisible al arrancar en el huevo */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  
+  /* Transición cinemática de desvanecimiento suave de 0.4s */
+  transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+              visibility 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 🟢 CAPA TOTALMENTE ACTIVA (FIESTA ARCADE VISIBLE AL 100%)
+   Forzamos a que el navegador web mantenga la opacidad rígida y sólida en cada reapertura. */
+#gotchi-arcade-menu-layer.arcade-layer-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+}
+
+
+/* ESTILOS DE FUENTES INTERNAS DEL CRISTAL REORDENADOS */
+.menu-arcade-header {
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  color: #ffdf00 !important;
+  text-shadow: 0 0 6px #ffdf00;
+  margin: 0 0 8px 0 !important;
+  letter-spacing: 1px;
+}
+
+.menu-game-row {
+  font-size: 10px !important;
+  font-weight: bold !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  margin: 5px 0 !important;
+  width: 80% !important;
+  text-align: left !important;
+  padding-left: 25px !important;
+  transition: color 0.2s ease !important; /* Suaviza el cambio de renglón neón */
+}
+
+.menu-game-row.selected-row {
+  color: #87ffff !important;
+  text-shadow: 0 0 5px #00ffff;
+  font-weight: 900 !important;
+}
+
+
+/* ========================================================
+   🏑 MESA DE COMBATE: JUKEBOX HOCKEY HARDWARE VISUAL V30.0
+   ======================================================== */
+#gotchi-hockey-cartridge {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #030107 !important; /* Fondo negro de tablero arcade */
+  border-radius: 35px;
+  z-index: 5 !important; /* Corre por encima de la granja y del menú de selección */
+  box-sizing: border-box !important;
+  padding: 12px !important;
+  font-family: 'Orbitron', monospace !important;
+  
+  /* Fundido elástico suave de entrada y salida */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* ========================================================
+   🏑 EMPUJE DE PANTALLA ARCADE ACTIVA (AL FRENTE DEL CRISTAL)
+   ======================================================== */
+.hockey-layer-hidden { 
+  display: none !important; 
+}
+
+.hockey-layer-active { 
+  display: flex !important; /* Cambiado a flex para centrar los títulos neón */
+  opacity: 1 !important; 
+  visibility: visible !important; 
+  z-index: 99999 !important; /* 🟢 Fuerza a la mesa de Hockey a saltar al frente absoluto */
+}
+
+/* CAPAS INTERNAS DE LAS PANTALLAS (SUB-STAGES) */
+.hockey-sub-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Candados rígidos de ocultación para que el JS controle los fotogramas */
+.hockey-sub-hidden { 
+  display: none !important; 
+}
+
+.hockey-sub-visible {
+  display: flex !important;
+}
+
+/* 📺 PANTALLA A: NEÓN DE BIENVENIDA */
+.hockey-title-neon {
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  color: #39ff14 !important; /* Verde pasto neón arcade */
+  text-shadow: 0 0 8px #39ff14, 0 0 15px rgba(57, 255, 20, 0.5) !important;
+  letter-spacing: 1px;
+  margin: 20px 0 5px 0 !important;
+}
+.hockey-pulse-text {
+  font-size: 9px !important;
+  color: #ffffff !important;
+  opacity: 0.8;
+  top: 25px;
+  animation: hockeyTextPulse 0.8s ease-in-out infinite alternate;
+}
+
+/* 👤 PANTALLA B: REGISTRO DE HEROE Y TAG */
+.hockey-step-title {
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  color: #ffdf00 !important;
+  margin: 4px 0 !important;
+}
+.hockey-hero-select-row {
+  display: flex !important;
+  gap: 15px !important;
+  margin: 4px 0 !important;
+}
+.hero-avatar-pick {
+  font-size: 13px !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  padding: 3px 6px !important;
+  border-radius: 4px;
+  border: 1px dashed transparent;
+}
+.hero-avatar-pick.hero-selected {
+  color: #87ffff !important;
+  border-color: #87ffff;
+  text-shadow: 0 0 4px #00ffff;
+  background: rgba(135, 255, 255, 0.05);
+}
+.hockey-name-letter-box {
+  display: flex !important;
+  gap: 8px !important;
+  margin: 6px 0 !important;
+}
+.hockey-name-letter-box span {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  color: rgba(255, 255, 255, 0.2) !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  width: 16px;
+  text-align: center;
+}
+.hockey-name-letter-box span.char-active {
+  color: #d83ca4 !important;
+  border-color: #d83ca4;
+  text-shadow: 0 0 4px #d83ca4;
+}
+.hockey-guide-tag { font-size: 10px !important; color: #ffffff; opacity: 0.5; }
+
+/* 🏑 PANTALLA C: EL CAMPO DE GAMEPLAY (TABLE HOCKEY) */
+.hockey-scoreboard {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 95% !important;
+  height: 25px !important;
+  border-bottom: 1px solid rgba(135, 255, 255, 0.15);
+  margin-bottom: 5px !important;
+}
+.player-hud { display: flex !important; align-items: center !important; gap: 4px !important; font-size: 7px !important; color: #ffffff; }
+.hud-avatar { font-size: 12px !important; }
+.score-pills { display: flex !important; flex-direction: column !important; align-items: center !important; }
+#hud-score { font-size: 12px !important; color: #ffdf00 !important; font-weight: 900; }
+#hud-lives { font-size: 11px !important; color: #ff0055 !important; letter-spacing: 0.5px; margin-top: 1px; }
+.hud-vs { font-size: 5px !important; opacity: 0.4; }
+
+/* 🚨 LA MESA DE AIRE COMPACTA (CANVAS DEL TABLERO) */
+#hockey-table-canvas {
+  position: relative !important;
+  width: 95% !important;
+  height: 110px !important; /* Se ajusta hermoso dentro de tus 180px de display totales */
+  background-color: #08040f !important;
+  border: 1.5px solid #2b0c1e !important;
+  border-radius: 6px;
+  overflow: hidden !important;
+  
+  /* Porterías laterales estilo Hockey de Mesa grabadas en los biseles */
+  background-image: 
+    linear-gradient(to right, rgba(135, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(135, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, transparent 35%, #ff0055 35%, #ff0055 65%, transparent 65%), /* Portería izquierda */
+    linear-gradient(to bottom, transparent 35%, #00ffff 35%, #00ffff 65%, transparent 65%); /* Portería derecha */
+  background-size: 12px 12px, 12px 12px, 2px 100%, 2px 100%;
+  background-position: center, center, left, right;
+}
+
+/* 🏑 ELEMENTOS MÓVILES DEL TABLERO (RAQUETAS Y DISCOS) */
+.hockey-paddle {
+  position: absolute !important;
+  width: 6px !important;
+  height: 22px !important;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(255,255,255,0.4) !important;
+}
+#hockey-paddle-user {
+  left: 8px !important;
+  top: 44px; /* Centrado vertical inicial */
+  background-color: #ff0055 !important; /* Rojo neón del Hero */
+  border: 1px solid #ffffff !important;
+}
+#hockey-paddle-margo {
+  right: 8px !important;
+  top: 44px;
+  background-color: #00ffff !important; /* Cian neón de Margo */
+  border: 1px solid #ffffff !important;
+}
+.hockey-puck-disc {
+  position: absolute !important;
+  width: 8px !important;
+  height: 8px !important;
+  background-color: #ffdf00 !important; /* Disco de bronce dorado */
+  border-radius: 50% !important;
+  left: 130px; /* Saque medio de la cancha */
+  top: 51px;
+  box-shadow: 0 0 8px #ffdf00 !important;
+}
+
+@keyframes hockeyTextPulse {
+  0% { opacity: 0.3; text-shadow: 0 0 2px rgba(255,255,255,0.2); }
+  100% { opacity: 1; text-shadow: 0 0 6px rgba(255,255,255,0.8); }
+}
+
+/* ========================================================
+   🏑 AJUSTE DE HARDWARE JUKEBOX HOCKEY IMPRESO V31.0
+   ======================================================== */
+.hockey-sub-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Candados rígidos de ocultación corregidos */
+.hockey-sub-hidden { 
+  display: none !important; 
+}
+
+.hockey-sub-visible {
+  display: flex !important;
+}
+
+/* Forzamos que las letras Orbitron del menú de registro no flasheen */
+.hockey-hero-select-row {
+  display: flex !important;
+  gap: 10px !important;
+  margin: 2px 0 !important;
+}
+
+.hero-avatar-pick {
+  font-size: 7px !important;
+  color: rgba(255, 255, 255, 0.25) !important;
+  padding: 2px 5px !important;
+  border-radius: 4px;
+  border: 1px dashed transparent;
+  transition: all 0.15s ease !important;
+}
+
+.hero-avatar-pick.hero-selected {
+  color: #39ff14 !important; /* Brillo verde arcade de selección */
+  border-color: #39ff14;
+  text-shadow: 0 0 4px #39ff14;
+  background: rgba(57, 255, 20, 0.08) !important;
+}
+
+/* ========================================================
+   🏑 CORES JUKEBOX HOCKEY V32.0: ERGONOMÍA DE MARCOS GIGANTES
+   ======================================================== */
+
+/* 1. SELECCIÓN DE HÉROES GIGANTES (PANTALLA B1) */
+.hockey-hero-select-row-giant {
+  display: flex !important;
+  gap: 20px !important;
+  margin: 8px 0 !important;
+}
+.hero-avatar-pick-giant {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  width: 65px !important;
+  transition: all 0.1s ease-in-out !important;
+}
+.hero-avatar-pick-giant span {
+  font-size: 9px !important;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+.giant-pixel-avatar {
+  font-size: 34px !important; /* Avatar del héroe súper gigante y visible */
+  filter: grayscale(100%);
+  opacity: 0.4;
+}
+/* Estilo activo premium cuando pasas la cruceta vertical */
+.hero-avatar-pick-giant.hero-selected {
+  border-color: #39ff14 !important;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3), inset 0 0 6px rgba(57, 255, 20, 0.2) !important;
+  background: rgba(57, 255, 20, 0.05) !important;
+}
+.hero-avatar-pick-giant.hero-selected .giant-pixel-avatar {
+  filter: grayscale(0%) !important;
+  opacity: 1 !important;
+  transform: scale(1.1);
+}
+.hero-avatar-pick-giant.hero-selected span {
+  color: #39ff14 !important;
+  text-shadow: 0 0 4px #39ff14;
+}
+
+/* 2. INGRESO DE LETRAS GIGANTES (PANTALLA B2) */
+.hockey-name-letter-box-giant {
+  display: flex !important;
+  gap: 12px !important;
+  margin-top: 10px !important;
+}
+.hockey-name-letter-box-giant span {
+  font-size: 20px !important; /* Letras masivas de 20px nítidas */
+  font-weight: 900 !important;
+  color: rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.15);
+  width: 24px;
+  text-align: center;
+}
+.hockey-name-letter-box-giant span.char-active-giant {
+  color: #d83ca4 !important;
+  border-color: #d83ca4;
+  text-shadow: 0 0 6px #d83ca4;
+  animation: hockeyTextPulse 0.4s ease-in-out infinite alternate;
+}
+
+/* 3. MARCADOR HUD PREMIUM DE AVATARES GIGANTES EN GAMEPLAY (PANTALLA C) */
+.hockey-scoreboard-premium {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 98% !important;
+  height: 32px !important; /* Ampliado para dar soporte a los recuadros */
+  border-bottom: 1.5px solid rgba(135, 255, 255, 0.15);
+  margin-bottom: 4px !important;
+  padding-bottom: 2px !important;
+}
+.player-hud-box {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+.hud-avatar-frame {
+  width: 35px !important;
+  height: 35px !important;
+  border: 1px solid #ff0055 !important; /* Recuadro del héroe estilo Chrono Trigger */
+  background: rgba(255, 0, 85, 0.1) !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 20px !important;
+  box-shadow: inset 0 0 4px #ff0055;
+}
+.hud-avatar-frame.margo-frame-color {
+  border-color: #00ffff !important;
+  background: rgba(0, 255, 255, 0.1) !important;
+  box-shadow: inset 0 0 4px #00ffff;
+}
+.hud-label-text {
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+
+.score-pills-premium {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.hud-vs-text {
+  font-size: 5px !important;
+  font-weight: bold;
+  opacity: 0.3;
+  margin-top: -1px;
+}
+
+
+
+/* ========================================================
+   🏆 INTERFAZ DE RECORDS DE HOCKEY: TABLA TOP 7 DEFINITIVA V32.5
+   ======================================================== */
+.hockey-records-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 90% !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(135, 255, 255, 0.15) !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  box-sizing: border-box !important;
+  margin: 4px 0 !important;
+}
+
+.hockey-record-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 9px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin: 2px 0 !important;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-bottom: 1px;
+}
+
+/* El campeón número 1 brilla en oro neón espectacular */
+.hockey-record-row.rank-first {
+  color: #ffdf00 !important;
+  text-shadow: 0 0 4px #ffdf00;
+  font-weight: 900 !important;
+}
+
+.hockey-endgame-options-row {
+  display: flex !important;
+  gap: 20px !important;
+  margin-top: 6px !important;
+}
+
+.hockey-endgame-btn-label {
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  color: #87ffff !important;
+  text-shadow: 0 0 4px #00ffff;
+  animation: hockeyTextPulse 0.8s ease-in-out infinite alternate;
+}
+
+/* ========================================================
+   🏑 AJUSTE GRÁFICO PORTADA: JUKEBOX HOCKEY COVER ART V32.9
+   ======================================================== */
+.hockey-splash-cover-img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 1 !important; /* Se tiende al fondo absoluto del cartucho de hockey */
+  border-radius: 35px; /* Sigue la curva de tu pantalla rosa esmerilada */
+  
+  /* Evita el suavizado borroso del navegador, manteniendo el pixel art súper afilado */
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  
+  filter: brightness(0.9) contrast(1.1); /* Realza el blanco y negro arcade */
+}
+
+/* Forzamos a que tu texto que pulsa flote por encima de la portada en capa de ventaja */
+#hockey-stage-welcome .hockey-pulse-text {
+  position: relative !important;
+  z-index: 2 !important; /* Salta al frente de la imagen de las gradas */
+  margin-top: 110px !important; /* 📐 Te lo ubico abajo provisionalmente para que lo ajustes a tu gusto */
+}
+
+/* ========================================================
+   📋 INTERFAZ DE CRISTAL: TARJETA DE GUÍA ARCADE V32.0
+   ======================================================== */
+.hockey-instr-text-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(135, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  box-sizing: border-box !important;
+}
+
+.hockey-instr-text-card p {
+  font-size: 9px !important;
+  line-height: 1.4 !important;
+  color: #ffffff !important;
+  margin: 3px 0 !important;
+  font-weight: bold;
+}
+
+/* ========================================================
+   #️⃣ POSICIÓN IDEAL: LED DE CRISTAL EN ALTO RELIEVE V39.0
+   ======================================================== */
+.cyber-hardware-led {
+  position: absolute !important;
+  top: 14px !important;
+  right: 50px !important; 
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid #f1f1f5 !important; 
+  z-index: 99999999 !important; 
+  pointer-events: none;
+
+  /* 🟢 TRANSICIÓN ELÁSTICA DE GAS: Simula el encendido progresivo de un filamento real.
+     Ajusta este 0.3s a 0.5s si quieres que el desvanecimiento del brillo sea más largo. */
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out !important;
+
+  /* Estado 1: Apagado */
+  background-color: #123d02 !important; 
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.8),
+    0px 2px 4px rgba(0, 0, 0, 0.75) !important;
+}
+
+
+/* 🟢 ESTADO 2: ENCENDIDO (ESTALLIDO NEÓN CHAT ACTIVADO)
+   Esta clase forzará al navegador a pintar el resplandor real en tu monitor */
+.cyber-hardware-led.led-on {
+  background-color: #14ff9d !important;
+  filter: brightness(.89) !important;
+  box-shadow: 
+    inset 1px 1px 2px #ffffff,
+    0 0 5px #ffffff,
+    0 0 10px #14ffa5,
+    0 0 20px #14ffa5,
+    0 0 32px rgba(20, 255, 165, 0.9) !important;
+}
+
+/* 🔴 ESTADO 3: ENCENDIDO DE CRISIS (ESTALLIDO ROJO ESTROBOSCÓPICO DE EMERGENCIA - NUEVO V37.0)
+   Esta clase forzará al cristal del bulbo a teñirse de un tono rojo alarma denso,
+   proyectando un halo de advertencia masivo sobre la moldura de tu PC local. */
+.cyber-hardware-led.led-danger-on {
+  background-color: #ff0055 !important; /* Rojo neón de peligro / Calavera */
+  filter: brightness(1) !important;
+  box-shadow: 
+    inset 1px 1px 2px #ffffff,
+    0 0 5px #ffffff,
+    0 0 10px #ff0055,
+    0 0 22px #ff0055,
+    0 0 35px rgba(255, 0, 85, 0.95) !important;
+}
 
 
