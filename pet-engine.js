@@ -1162,10 +1162,7 @@ function makeGotchiWindowDraggableAndResizable() {
             container.style.transform = `scale(${newZoom})`;
         }
 
-        if (isDragging) {
-            container.style.position = "fixed";
-            container.style.margin = "0"; 
-
+     
             
     });
 
