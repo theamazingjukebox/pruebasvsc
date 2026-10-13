@@ -2,11 +2,34 @@
 // 📟 MOTOR JUKEBOX PET V9.6: EDICIÓN LABORAL COMPLETA AISLADA (pet-engine.js)
 // ==============================================================================
 let petState = {
-    isHatched: false, eggClicks: 0, age: 0, weight: 1,
+    isHatched: false, eggClicks: 0, age: 0, weight: 0, manna:0,
     energy: 100, clean: 100, happy: 100, sleep: 100,
-    isSleeping: false, isSick: false, lastUpdate: Date.now()
+    isSleeping: false, isSick: false, lastUpdate: Date.now(),
+    discoUnlocked: false,
+    consecutiveDataCount: 0,
+    isGameFinished: false // 🟢 NUEVO: Interruptor rígido de Fin de Juego
+    
 };
 
+
+// ==============================================================================
+// 🕹️ CATALOGO DE CARTUCHOS ARCADE ZONE V29.0
+// ==============================================================================
+let arcadeGamesList = [
+    { id: "guess", name: "🏒 AIR HOCKEY" },
+    { id: "jet", name: "🚀 STAR JET PRO" },
+    { id: "combat", name: "🛸 SPACE COMBAT" }
+];
+let currentSelectedGameIndex = 0; // Apunta al primer juego por defecto
+let isArcadeMenuDisplayActive = false; // Controla si la pantalla muestra el menú o la granja
+// 🟢 LA LLAVE MAESTRA ABSOLUTA: Controla la cúpula de pausa de todo el universo virtual.
+// Si está en true (el cajón de 80px está abajo), ¡el Tamagotchi se congela al milisegundo!
+let isArcadeZoneActive = false; 
+
+// 🟢 NUEVO CANDADO DE RENDER: Bandera de control para congelar emojis premium
+let isEmojiDisplayLocked = false;
+// 🟢 NUEVO: Recordatorio lógico en la RAM para encolar la popó durante la graduación
+let poopWaitingInQueue = false;
 let frameTick = 0;
 let margoX = 110; // Centrado inicial frente a la cerca de madera
 let walkDir = 1;
@@ -71,25 +94,87 @@ const SCENE_NIGHT_FARM_B = "60px 8px #ffffff, 64px 8px #ffffff, 68px 8px #ffffff
 
 
 function initVirtualPet() {
+
+      var firebaseConfig = {
+    apiKey: "AIzaSyD69EJwLEA2zQpGeUXK2XHRg69Ca-fTpzc",
+    authDomain: "the-amazing-jukebox.firebaseapp.com",
+    databaseURL: "https://the-amazing-jukebox-default-rtdb.firebaseio.com",
+    projectId: "the-amazing-jukebox",
+    storageBucket: "the-amazing-jukebox.appspot.com",
+    messagingSenderId: "778454163688",
+    appId: "1:778454163688:web:f7198448fb38dee2cb695d",
+    measurementId: "G-G2E58RL3ZG"
+  };
+
+    // Levantamos el puente con Google si las librerías de la Zona 1 ya están despiertas
+    if (window.firebase && !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        window.db = firebase.database(); // Declaramos la variable global en la RAM de tu PC
+        console.log("✅ CLOUD INTERFACE: CONEXIÓN EN VIVO LOGRADA DESDE LIVE SERVER LOCAL.");
+    }
+
+    
+     // 🚨 BOTÓN DE AUTODESTRUCCIÓN TEMPORAL: Fuerza al navegador a borrar los datos viejos corruptos
+    localStorage.clear(); 
     // Inicialización nativa directa aislada al 100% libre de cuotas externas
     petState.isHatched = false;
     petState.eggClicks = 0;
     petState.age = 0;
     petState.isSleeping = false;
+    petState.isGameFinished = false; // Candado absoluto de inicio
+    
     // EL RELOJ REFRESH EN VIVO (Cada 500ms redibuja y avanza los fotogramas)
     setInterval(() => {
+
+         // 🛑 ESCUDO PASIVO DE LA CÚPULA ARCADE:
+        // Si la zona arcade está activa, este candado congela de forma rígida el andar 
+        // de Margo y las nubes de la granja, pero SIN alterar ni re-escribir tus lonas,
+        // garantizando que tus iniciales y tus juegos corran estables en segundo plano.
+        if (isArcadeZoneActive === true) {
+            return; // Parada de emergencia limpia del bucle ordinario de la granja
+        }
+
         frameTick = (frameTick + 1) % 2;
-         if (petState.isHatched) {
-            // ⏰ CRONÓMETRO DE PRECISIÓN SÍNCRO: Revisa el reloj de tu PC al milisegundo
+                                   if (petState.isHatched) {
+            // 🛑 ESCUDO DE PARADA ABSOLUTA: Si el juego ya está ganado, congelamos el hilo
+            if (petState.isGameFinished === true) {
+                triggerEndgameProtocol();
+                return;
+            }
+
             const ahora = Date.now();
             const transcurridoMilisegundos = ahora - petState.lastUpdate;
 
-            // Cada 2 minutos reales de oficina (120,000 ms), Margo cumple de inmediato 1 Año de edad
-            if (transcurridoMilisegundos >= 25000) {
+            // Reloj síncrono base por tiempo de la oficina
+            if (transcurridoMilisegundos >= 1800000) {
                 petState.age += 1;
                 petState.lastUpdate = ahora;
-                updatePetInterface(); // Pinta la nueva edad en el HTML al instante
+                updatePetInterface();
             }
+
+            // 🟢 EL BOOST CUÁNTICO ADITIVO DE GIGABYTES (CORREGIDO):
+            // Si el peso de Margo rompe los 1,000 GB de voltaje, calculamos de forma directa los bloques 
+            // de 500 GB excedentes. Al usar "+= añosExtraPorGB", el script RESPETA la edad biológica 
+            // que ya tenías (ej. 4 años) y le SUMA la bonificación del voltaje al instante en la RAM.
+            if (petState.weight >= 1000) {
+                // Creamos una bandera interna temporal para que solo sume el año en el milisegundo del rebase
+                if (window.lastProcessedWeightBlock === undefined) window.lastProcessedWeightBlock = 1000;
+                
+                if (petState.weight >= window.lastProcessedWeightBlock) {
+                    petState.age += 1; // Suma 1 año extra aditivo a lo que ya tenías
+                    window.lastProcessedWeightBlock += 500; // Recalibra el siguiente umbral a los 1500, 2000, etc.
+                    updatePetInterface();
+                }
+            }
+
+            // 🏆 DETECTOR DE FIN DE JUEGO ADAPTADO A TUS 9 AÑOS DE VELOCIDAD
+            if (petState.age >= 39) {
+                petState.isGameFinished = true;
+                triggerEndgameProtocol();
+                return;
+            }
+
+
 
             // 🟢 LÓGICA EN TIEMPO REAL: Evaluamos edad y peso 2 veces por segundo
             checkEvolutionRules();
@@ -105,24 +190,14 @@ function initVirtualPet() {
             }
 
             if (!petState.isSleeping) {
-                margoX += (walkDir * 4);
+                margoX += (walkDir * 2.5); 
                 let maxCol = (petState.age < 1) ? 200 : 165;
                 if (margoX >= maxCol) { margoX = maxCol; walkDir = -1; }
                 if (margoX <= 60) { margoX = 60; walkDir = 1; }
             }
         }
 
-            // ⌨️ ESCUCHADOR DE TECLADO PC EN TIEMPO REAL (ARCADE DETECTOR)
-    window.addEventListener("keydown", (e) => {
-        if (!petState.isHatched || !window.isArcadeModeActive) return;
         
-        // Evitamos que las flechas y el Tab muevan la página web de la oficina hacia abajo
-        if (["ArrowUp", "ArrowDown", "Tab", " "].includes(e.key)) e.preventDefault();
-        
-        if (e.key === "ArrowUp") moveArcadePlayer(-12);   // Sube el avión en el cielo
-        if (e.key === "ArrowDown") moveArcadePlayer(12);  // Baja el avión al pasto
-        if (e.key === "Tab" || e.key === " ") fireArcadeLaser(); // 🚀 ¡FUEGO EN LA MATRIZ!
-    });
 
 
 
@@ -134,6 +209,12 @@ function initVirtualPet() {
     // ==============================================================================
     // DEGRADACIÓN DE SIGNOS VITALES LOCAL Y EVENTOS ALEATORIOS (Cada 30s)
     setInterval(() => {
+
+        // 🛑 CÚPULA DE PAUSA MAESTRA (SANITARIA Y SIGNOS VITALES):
+        // Mientras estés metido en la zona recreativa, las barras se congelan 
+        // y los dados de la popó se apagan al 100% en background de forma automática.
+        if (isArcadeZoneActive === true) return; 
+
         if (petState.isHatched) {
             
 
@@ -142,32 +223,41 @@ function initVirtualPet() {
             // Desgaste de signos vitales
             if (petState.isSleeping) {
                 let poopPenalty = hasPoop ? 8 : 0;
-                petState.sleep = Math.min(100, petState.sleep + 3);
+                petState.sleep = Math.min(100, petState.sleep + 33);
                 petState.clean = Math.max(0, petState.clean - poopPenalty);
+                // 🟢 RE-PINTADO NOCTURNO AUTOMÁTICO:
+                // Cada 30 segundos que transcurran de noche, obligamos al motor a redibujar 
+                // las barras en la pantalla, permitiendo que veas avanzar el progreso en vivo.
+                updatePetInterface();
             } else {
                 let poopPenalty = hasPoop ? 8 : 1;
                 petState.energy = Math.max(0, petState.energy - 1);
                 petState.clean = Math.max(0, petState.clean - poopPenalty);
                 petState.happy = Math.max(0, petState.happy - 1);
                 petState.sleep = Math.max(0, petState.sleep - 1);
-                                // 💩 PROBABILIDAD DE EVENTO ALEATORIO (25% de probabilidad por ciclo de 30s)
+                                // 💩 PROBABILIDAD DE EVENTO ALEATORIO (Cada 30s)
                 if (!hasPoop && Math.random() < 0.25) {
-                    hasPoop = true;
-                    document.getElementById("pet-status-bubble").innerText = "⚠️ WARNING: CIRCUIT OBSTRUCTION DETECTED [💩]";
-                    
-                    // Restamos de golpe -15% a la barra rosa para reflejar el impacto al instante
-                    petState.clean = Math.max(0, petState.clean - 15);
-                    
-                    // Inyección flotante inmediata en tu nueva coordenada perfecta (left: 95px)
-                    const overlay = document.getElementById("matrix-emoji-overlay");
-                    if (overlay) {
-                        overlay.innerHTML = `<span id="pixel-poop-sprite" class="matrix-item-emoji" style="left: 235px; top: 100px; filter: drop-shadow(0 0 2px rgba(135,255,255,0.4)); animation: none;">💩</span>`;
+                    // 🟢 EL FILTRO DE RETENCIÓN DE HARDWARE:
+                    // Si la pantalla de la PC está congelada por la científica (true), 
+                    // la popó se guarda en background ('poopWaitingInQueue = true') y se queda en pausa,
+                    // impidiendo que rompa el clímax visual. Si la pantalla está libre, cae de golpe normal.
+                    if (isEmojiDisplayLocked) {
+                        poopWaitingInQueue = true; // Se va a la cola de espera de la RAM
+                    } else {
+                        // Comportamiento normal estándar diurno si Margo está paseando relajado
+                        hasPoop = true;
+                        document.getElementById("pet-status-bubble").innerText = "⚠️ WARNING: CIRCUIT OBSTRUCTION DETECTED [💩]";
+                        petState.clean = Math.max(0, petState.clean - 15);
+                        
+                        const overlay = document.getElementById("matrix-emoji-overlay");
+                        if (overlay) {
+                            overlay.innerHTML = `<span id="pixel-poop-sprite" class="matrix-item-emoji" style="left: 235px; top: 100px; filter: drop-shadow(0 0 2px rgba(135, 255, 255, 0.4)); animation: none;">💩</span>`;
+                        }
+                        updatePetInterface();
+                        savePetState();
                     }
-                    
-                    // 🟢 COMPRESIÓN SÍNCRONA: Forzamos el redibujado visual en este mismo instante
-                    updatePetInterface();
-                    savePetState();
                 }
+
             }
             
             // 🟢 ZONA 2: DETECTOR DE ENFERMEDAD (SICK STATE ACTIVE)
@@ -186,6 +276,88 @@ function initVirtualPet() {
         }
     }, 30000);
 
+      // PERSISTENCIA CORES DISCO REFORZADA FUERA DE RENDER
+    if (petState.discoUnlocked) {
+        const discoBall = document.getElementById("gotchi-disco-ball");
+        const discoStrobe = document.getElementById("gotchi-disco-strobe");
+        if (discoBall) discoBall.className = "disco-active";
+        if (discoStrobe) discoStrobe.className = "disco-active";
+    }
+
+
+        const saved = localStorage.getItem('jukebox_pet_v65_data');
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            
+            // 🟢 EL CINCEL DE LIBERACIÓN DE ARRANQUE:
+            // Si el archivo guardado en el disco de tu PC dice que el juego ya fue ganado,
+            // forzamos un reseteo instantáneo de variables para que el usuario pueda volver 
+            // a jugar desde cero al refrescar, en lugar de quedarse atrapado en la victoria.
+            if (parsed.isGameFinished === true) {
+                localStorage.removeItem('jukebox_pet_v65_data'); // Borra el caché de campeón viejo
+                petState.isGameFinished = false; // Apaga el interruptor
+                petState.age = 0;
+                petState.weight = 1;
+                petState.isHatched = false;
+            } else {
+                petState = parsed;
+                aplicarDesgastePorTiempo();
+            }
+        } catch(e) { console.error("Error leyendo caché local"); }
+    }
+
+        // ==============================================================================
+    // 🚦 OSCILADOR DEDICADO DEL LED CON DIAGNÓSTICO DE CRISIS EN VIVO V37.0
+    // ==============================================================================
+    var ledStateFrame = 0;
+    var ledTimerId = null;
+
+    function ejecutarPulsoElectromagneticoLed() {
+        var hardwareLedEl = document.querySelector(".cyber-hardware-led");
+        if (!hardwareLedEl) return;
+
+        // 🧠 SENSOR DE CONDICIONES CRÍTICAS (AUDITORÍA DE HARDWARE EN CALIENTE):
+        // Evaluamos al milisegundo si el sistema sufre: Infección de virus (isSick), 
+        // obstrucción de basura (hasPoop) o si las barras bajan del 20% crítico.
+        var estaEnCrisis = (
+            petState.isSick === true || 
+            hasPoop === true || 
+            petState.energy < 20 || 
+            petState.happy < 20 ||
+            petState.clean < 25 ||  
+            petState.sleep < 20
+        );
+
+        // Limpiamos los estilos viejos para que no se queden colores encimados en la lona
+        hardwareLedEl.classList.remove("led-on", "led-danger-on");
+
+        if (ledStateFrame === 0) {
+            // 🛑 FASE ENCENDIDO: Evaluamos qué color inyectar según el estatus médico
+            if (estaEnCrisis) {
+                hardwareLedEl.classList.add("led-danger-on"); // Estalla el neón rojo de alarma
+            } else {
+                hardwareLedEl.classList.add("led-on"); // Destella el verde pasto estable del chat
+            }
+        } else {
+            // FASE APAGADO: Ambos regresan síncronos al verde esmerilado pasivo del molde
+        }
+
+        // Alternamos el interruptor binario y calculamos el ritmo del siguiente cuadro
+        ledStateFrame = (ledStateFrame + 1) % 2;
+        
+        // 📐 EL DINAMISMO SOBRE LA MARCHA: Si está en crisis, la ráfaga se acelera de forma visible 
+        // a 350ms (militar rápido); si está estable, regresa a su latido calmo de 1200ms (1.2 segundos).
+        var siguienteIntervaloMs = estaEnCrisis ? 555 : 2950;
+        
+        // El bucle se re-invoca a sí mismo de forma elástica heredando el ritmo en tiempo real
+        ledTimerId = setTimeout(ejecutarPulsoElectromagneticoLed, siguienteIntervaloMs);
+    }
+
+    // Disparo inicial del primer latido al cargar la nebulosa del huevo
+    ledTimerId = setTimeout(ejecutarPulsoElectromagneticoLed, 2950);
+
+
     const displayEl = document.getElementById("t-matrix-display");
     if (displayEl) displayEl.onclick = crackMargoEgg;
     updatePetInterface();
@@ -201,11 +373,11 @@ function checkEvolutionRules() {
     if (petState.evolutionStage === undefined) petState.evolutionStage = 0;
 
     // 🟢 REGLA ETAPA 2 (ADOLESCENTE): Al cruzar 250 GB o 1 Año de edad por tiempo
-    if ((petState.weight >= 250 || petState.age >= 1) && petState.evolutionStage < 1) {
+    if ((petState.weight >= 5000 || petState.age >= 7) && petState.evolutionStage < 1) {
         petState.evolutionStage = 1; // Bloquea la alerta para que no se repita en bucle
         
         // Sincroniza la telemetría visual de forma forzada al milisegundo
-        if (petState.age < 1) petState.age = 1; 
+        if (petState.age < 7) petState.age = 7; 
         
         // 💥 DISPARADOR DE ALERTA INSTANTÁNEO POR TIEMPO/PESO
         document.getElementById("pet-status-bubble").innerText = "⚡ VOLTAGE OVERLOAD! TEEN MUTATION ACTIVE.";
@@ -213,11 +385,11 @@ function checkEvolutionRules() {
     }
     
     // 🟢 REGLA ETAPA 3 (CYBER-ROOSTER): Al cruzar 500 GB o 3 Años de edad por tiempo
-    if ((petState.weight >= 500 || petState.age >= 3) && petState.evolutionStage < 2) {
+    if ((petState.weight >= 10000 || petState.age >= 18) && petState.evolutionStage < 2) {
         petState.evolutionStage = 2; // Bloquea la alerta
         
         // Sincroniza la telemetría visual de forma forzada al milisegundo
-        if (petState.age < 3) petState.age = 3; 
+        if (petState.age < 18) petState.age = 18; 
         
         // 💥 DISPARADOR DE ALERTA INSTANTÁNEO POR TIEMPO/PESO
         document.getElementById("pet-status-bubble").innerText = "⚡ HYPER VOLTAGE! CYBER-ROOSTER UNLOCKED.";
@@ -265,6 +437,13 @@ function crackMargoEgg() {
 // 📺 ZONA 1: PROYECTOR DE FONDOS Y AVATARES DINÁMICOS COMPILADOS V10.8
 // ==============================================================================
 function renderMargoDisplay() {
+    
+    // 🛑 ESCUDO GRÁFICO MAESTRO: Si la cúpula arcade está encendida en la RAM,
+    // el proyector de la granja diurna tiene prohibido por software tocar el cristal.
+    if (isArcadeZoneActive === true) {
+        return; 
+    }
+
     const margoEl = document.getElementById("margo-core");
     const sceneryEl = document.getElementById("matrix-scenery-back");
     const containerEl = document.getElementById("t-matrix-display");
@@ -313,21 +492,43 @@ function renderMargoDisplay() {
 
         margoEl.style.left = margoX + "px";
         margoEl.style.top = "auto";
-    } else {
+     } else {
+        // ☀️ MODO INTERACTIVO DIURNO / DISCO CYBERPUNK COMPILADO
+        // Si el Easter Egg está activo (petState.discoUnlocked es true), forzamos el cielo nocturno profundo 
+        // para que las luces neón destaquen con un contraste espectacular. Si no, corre tu día brillante normal.
+        if (petState.discoUnlocked) {
+            // Cielo Medianoche Profundo (#0c1220) y Pasto Verde Esmerilado Oscuro (#1b5e20)
+            containerEl.style.background = "linear-gradient(to bottom, #0c1220 0%, #0c1220 55%, #1b5e20 55%, #1b5e20 100%)";
+            
+            // Proyectamos tu hermosa noche original con las estrellas titilando y el granero estable
+            sceneryEl.style.boxShadow = (frameTick === 0) ? SCENE_NIGHT_A : SCENE_NIGHT_B;
+        } else {
+            // Fondo brillante normal diurno de fábrica si Margo está sano y relajado
+            containerEl.style.background = "linear-gradient(to bottom, #87ffff 0%, #87ffff 55%, #39ff14 55%, #39ff14 100%)";
+            sceneryEl.style.boxShadow = SCENE_DAYTIME;
+        }
 
-        // ☀️ MODO DÍA COMPLETO: Restaura el fondo brillante de fábrica
-        containerEl.style.background = "linear-gradient(to bottom, #87ffff 0%, #87ffff 55%, #39ff14 55%, #39ff14 100%)";
         margoEl.style.left = margoX + "px";
 
-        // 🟢 REGISTRO LIMPIO: Dejamos el escenario diurno puro que tanto te gusta
-        sceneryEl.style.boxShadow = SCENE_DAYTIME;
+        // 🟢 EL CANDADO GRÁFICO INDESTRUCTIBLE:
+        // Si el usuario intentó alimentar a Margo en el micro-segundo de caída y el render
+        // diurno se activa, este escudo revisa la memoria RAM. Si hasPoop es true,
+        // re-inyectamos el sprite de la popó de forma forzada en tu coordenada (left: 235px)
+        // impidiendo que la comida o el voltaje lo borren de la lona.
+        const overlay = document.getElementById("matrix-emoji-overlay");
+        if (overlay) {
+            if (hasPoop) {
+                overlay.innerHTML = `<span id="pixel-poop-sprite" class="matrix-item-emoji" style="left: 235px; top: 100px; filter: drop-shadow(0 0 2px rgba(135,255,255,0.4)); animation: none;">💩</span>`;
+            }
+        }
+
 
         // Árbol evolutivo diurno de 3 niveles intacto
-        if (petState.age < 1) {
+        if (petState.age < 7) {
             margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_MARGO_FRAME_A : SHADOW_MARGO_FRAME_B;
-        } else if (petState.age >= 1 && petState.age < 3) {
+        } else if (petState.age >= 7 && petState.age < 18) {
             margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_TEEN_A : SHADOW_TEEN_B;
-        } else if (petState.age >= 3) {
+        } else if (petState.age >= 18) {
             margoEl.style.boxShadow = (frameTick === 0) ? SHADOW_ROOSTER_A : SHADOW_ROOSTER_B;
         }
     }
@@ -348,7 +549,12 @@ function renderMargoDisplay() {
 // 🔋 ZONA 1: MOTOR DE CYBER-DIET CORREGIDO (ENERGÍA Y PESO ALINEADOS)
 // ==============================================================================
 function executeFeeding() {
+    // 🛑 REGLA UNIVERSAL: Si la zona recreativa está abierta, se anula la cyber-dieta al fotograma cero
+    if (isArcadeZoneActive === true) return; 
+
     if (!petState.isHatched || petState.isSleeping) return;
+      // Candado estricto de campeonato: Bloquea comidas y voltajes al ganar
+    if (petState.isGameFinished === true) return; 
 
 
 
@@ -359,45 +565,114 @@ function executeFeeding() {
         return; // Candado rígido de parada absoluta
     }
 
+      if (!petState.isHatched || petState.isSleeping) return;
 
-    const selector = document.getElementById("pet-food-selector");
+        const selector = document.getElementById("pet-food-selector");
     const food = selector.value;
 
     if (food === "data") {
-        // 💾 EL DISQUETE: Sube 20% de Energía y suma 1 GB de peso real
-        petState.energy = Math.min(100, petState.energy + 5);
+        // 💾 EL DISQUETE: Sube 5% de Energía y suma 1 GB de peso real
+        petState.energy = Math.min(100, petState.energy + 1);
         petState.weight += 1;
+        
+        // 🟢 REGISTRO DE SABIDURÍA: Sumamos 1 ración consecutiva
+        petState.consecutiveDataCount += 1;
         triggerVisualEmoji("💾");
-    } else if (food === "icecream") {
-        // 🍦 EL HELADO: Sube 35% de Felicidad, ensucia -5% el circuito y suma 2 GB
-        petState.happy = Math.min(100, petState.happy + 10);
-        petState.clean = Math.max(0, petState.clean - 5);
-        petState.weight += 2;
-        triggerVisualEmoji("🍦");
-    } else if (food === "voltage") {
-        // ⚡ JOLT VOLTAGE: Ya no fuerza las etapas por código.
-        // Se convierte en una súper inyección que aporta +40% de energía y añade +8 GB directos de peso.
-        // El usuario descubrirá que al abusar del voltaje, el peso estalla y detona la mutación secreta.
-        petState.energy = Math.min(100, petState.energy + 7);
-        petState.sleep = Math.max(0, petState.sleep - 15);
-        petState.weight += 8; // 🟢 El acelerador definitivo de Gigabytes
 
-        triggerVisualEmoji("⚡");
+                        // 💥 DISPARADOR DEL EASTER EGG REFORZADO (15 Raciones Consecutivas completadas)
+        if (petState.consecutiveDataCount >= 23) {
+            petState.consecutiveDataCount = 0; // Reseteamos el contador de raciones
+            
+            isEmojiDisplayLocked = true;
+            
+            const overlay = document.getElementById("matrix-emoji-overlay");
+            if (overlay) {
+                // 🟢 LÍNEA DE TAMAÑO MODIFICADA: Cambiado de 26px a 32px para hacer el emoji mucho más grande
+                overlay.innerHTML = `<span id="pixel-poop-sprite" class="matrix-item-emoji" style="left:${margoX + 15}px; top:25px; font-size: 36px; animation: none; filter: drop-shadow(0 0 6px #87ffff);">👩‍🔬💾</span>`;
+            }
+            
+            document.getElementById("pet-status-bubble").innerText = "🏆 WISDOM ACHIEVEMENT UNLOCKED! CORES RESTORED 100%";
+            
+            // Restauración total de hardware al 100% de fábrica al instante
+            petState.energy = 100;
+            petState.clean = 100;
+            petState.happy = 100;
+            petState.sleep = 100;
+            petState.weight += 500;
+            petState.isSick = false;
 
-        // Refresco síncrono del monitor
-        checkEvolutionRules(); 
-        updatePetInterface();
-        renderMargoDisplay();
-        savePetState();
-        return;
-    } else if (food === "burger") {
-        // 🍔 LA CYBER-BURGER: Sube 50% de Energía sólida y suma 4 GB de peso imponente
-        petState.energy = Math.min(100, petState.energy + 10);
-        petState.weight += 4;
-        triggerVisualEmoji("🍔");
+            // ⏰ EL DETONADOR DEL RELOJ: Modificado a 10000ms (10 segundos reales)
+            setTimeout(() => {
+                isEmojiDisplayLocked = false;
+                
+                // 🟢 LA LLAVE MAESTRA DE COLA DE EVENTOS:
+                // Al terminar los 10 segundos, el script revisa si cayó una popó en background.
+                // Si la variable de espera es verdadera, inyecta la popó y desata la alerta en el acto.
+                if (poopWaitingInQueue) {
+                    poopWaitingInQueue = false;
+                    hasPoop = true; // Se enciende formalmente el estado en background
+                    
+                    document.getElementById("pet-status-bubble").innerText = "⚠️ WARNING: CIRCUIT OBSTRUCTION DETECTED [💩]";
+                    petState.clean = Math.max(0, petState.clean - 15); // Castigo síncrono
+                    
+                    if (overlay) {
+                        overlay.innerHTML = `<span id="pixel-poop-sprite" class="matrix-item-emoji" style="left: 235px; top: 100px; filter: drop-shadow(0 0 2px rgba(135, 255, 255, 0.4)); animation: none;">💩</span>`;
+                    }
+                    updatePetInterface();
+                    savePetState();
+                } else {
+                    // Si no hubo popó en la fila, la pantalla se limpia normal y líquida
+                    if (overlay) overlay.innerHTML = "";
+                    document.getElementById("pet-status-bubble").innerText = "🟢 CIRCUITS RE-CALIBRATED BY WISDOM ANCHOR.";
+                }
+            }, 9000); // 🚨 Cambiado de 5000 a 10000ms (10 segundos a tu gusto exacto)
+        }
+
+
+
+    } else {
+        // ❌ ESCUDO DE INTERRUPCIÓN: Si Margo consume helado, burger o voltaje, 
+        // la cadena consecutiva se rompe y el contador vuelve a cero en background
+        petState.consecutiveDataCount = 0;
+
+        if (food === "icecream") {
+            petState.happy = Math.min(100, petState.happy + 10);
+            petState.clean = Math.max(0, petState.clean - 5);
+            petState.weight += 2;
+            triggerVisualEmoji("🍦");
+        } else if (food === "voltage") {
+            petState.energy = Math.min(100, petState.energy + 7);
+            petState.sleep = Math.max(0, petState.sleep - 15);
+            petState.weight += 8;
+            triggerVisualEmoji("⚡");
+            checkEvolutionRules(); 
+            updatePetInterface();
+            renderMargoDisplay();
+            savePetState();
+            return;
+        } else if (food === "burger") {
+            petState.energy = Math.min(100, petState.energy + 10);
+            petState.weight += 4;
+            triggerVisualEmoji("🍔");
+        } else if (food === "song") {
+            // Tu lógica de la canción/Manna cíclica de 333 se queda idéntica aquí...
+            petState.energy = Math.min(100, petState.energy + 3);
+            petState.happy = Math.min(100, petState.happy + 3);
+            petState.manna += 9; 
+            triggerVisualEmoji("🎶");
+
+            if (petState.manna % 333 < 9 && petState.manna >= 333 && !petState.discoUnlocked && !petState.isSleeping) {
+                petState.discoUnlocked = true;
+                document.getElementById("pet-status-bubble").innerText = "💃 DANCEFLOOR ACTIVATED! DISCO MODE UNLOCKED.";
+                const discoBall = document.getElementById("gotchi-disco-ball");
+                const discoStrobe = document.getElementById("gotchi-disco-strobe");
+                if (discoBall) discoBall.className = "disco-active";
+                if (discoStrobe) discoStrobe.className = "disco-active";
+            }
+        }
     }
 
-    // 🟢 REFRESH SÍNCRONO SEGURO: Actualiza la pantalla antes de guardar en el disco de tu PC
+    // Refresco síncrono del monitor y guardado en tu disco de fábrica
     checkEvolutionRules();
     updatePetInterface();
     renderMargoDisplay();
@@ -405,32 +680,47 @@ function executeFeeding() {
 }
 
 // ==============================================================================
-// 📟 ZONA 1: AUTO-DESVANECIMIENTO DE NUTRICIÓN DIGITAL (EVITA CONGELAMIENTO)
+// 📟 PROYECTOR DE NUTRICIÓN DIGITAL CON ESCUDO DE PERSISTENCIA ANTI-LAG V24.0
 // ==============================================================================
 function triggerVisualEmoji(emoji) {
+    // 🟢 EL ESCUDO QUIRÚRGICO: Si el candado de la científica está activo (true),
+    // el script ignora cualquier disquete o helado extra, dejando el logro fijo.
+    if (isEmojiDisplayLocked) return;
+
     const overlay = document.getElementById("matrix-emoji-overlay");
     if (!overlay) return;
 
     // Proyectamos el alimento flotando arriba a la derecha del personaje
     overlay.innerHTML = `<span class="matrix-item-emoji" style="left:${margoX + 28}px; top:40px;">${emoji}</span>`;
 
-    // 🟢 EL CINCEL DE CORTE: Después de exactamente 1500 milisegundos (1.5 segundos),
-    // el script limpia el contenedor a vacío para que el emoji desaparezca por completo.
+    // Limpieza estándar a los 1.5 segundos para la comida normal
     setTimeout(() => {
-        overlay.innerHTML = "";
+        if (!isEmojiDisplayLocked) { // Solo limpia si no se ha activado un logro en ese inter
+            overlay.innerHTML = "";
+        }
     }, 1500);
 }
 
 function interactWithPet(action) {
+     // 🛑 REGLA UNIVERSAL: Si la zona arcade está abierta y el usuario intenta limpiar o dormir, se congela el clic
+    if (isArcadeZoneActive === true && action !== 'play') return;
+
     if (!petState.isHatched) return;
     if (petState.isSleeping && action !== 'sleep') return;
+    // Candado estricto de campeonato: Bloquea juegos, sueño y duchas al ganar
+    if (petState.isGameFinished === true) return; 
 
-     // 🟢 CANDADO DE JUEGO MIENTRAS HAY SUCIEADAD:
-    // Si hay popó, bloqueamos la acción de jugar ('play'), pero dejamos libre la ducha ('clean') para poder salvarlo
-    if (hasPoop && action === 'play') {
+
+        // 🟢 ESCUDO DE INTERACCIÓN INTEGRADO: CANDADO DE JUEGO Y COMIDA ANTICIPADO
+    // Si la PC ya decidió que hay obstrucción (hasPoop es true) y el usuario intenta 
+    // jugar ('play') o ejecutar el acto de comer ('eat'), congelamos la acción al milisegundo.
+    // Dejamos el camino 100% libre si la acción es la ducha ('clean') para poder purificarlo.
+    if (hasPoop && (action === 'play' || action === 'eat')) {
         document.getElementById("pet-status-bubble").innerText = "❌ ACTION DENIED: REACTION INHIBITED BY CONTAMINATION!";
-        return;
+        return; // Parada rígida absoluta
     }
+
+
 
     if (action === 'clean') {
         if (petState.isSick) {
@@ -443,32 +733,166 @@ function interactWithPet(action) {
         
         
 
+         // 💩 EVAPORACIÓN SANITARIA DE LA POPÓ
         if (hasPoop) {
             hasPoop = false;
-            document.getElementById("pet-status-bubble").innerText = "🚿 ECO-FLUSH COMPLETED. CIRCUITS PURIFIED.";
+            
+            // 🟢 EL CINCEL DE PRIORIDAD NUCLEAR CRÍTICA:
+            // Validamos si el virus está activo en la memoria RAM. Si Margo sigue enfermo,
+            // bloqueamos por completo el mensaje de "circuits purified" y forzamos a que se 
+            // mantenga el letrero nuclear intacto. Si está sano, corre tu mensaje normal.
+            if (petState.isSick) {
+                document.getElementById("pet-status-bubble").innerText = "☢️ RADIOACTIVITY DETECTED! PURIFY CIRCUITS IMMEDIATELY";
+            } else {
+                document.getElementById("pet-status-bubble").innerText = "🚿 ECO-FLUSH COMPLETED. CIRCUITS PURIFIED.";
+            }
 
-            // 🟢 EVAPORACIÓN DE SUCIEDAD: Borramos físicamente el emoji de la popó de la pantalla
+            // Borramos físicamente el sprite de la popó del pasto en tu coordenada 235px
             const poopSprite = document.getElementById("pixel-poop-sprite");
             if (poopSprite) poopSprite.remove();
         }
 
+        // Si la barra se recupera por encima de 40 pasivamente, apaga el estado enfermo (Regla nativa)
         if (petState.clean > 40) petState.isSick = false;
+        
         triggerVisualEmoji("🚿");
     
     
-    } else if (action === 'play') {
+                            } else if (action === 'play') {
         const gamePanel = document.getElementById("pet-minigame-controls");
-        if (gamePanel) gamePanel.style.display = (gamePanel.style.display === "block") ? "none" : "block";
-        return;
+        if (!gamePanel) return;
+
+        // 🔄 SWITCH DE ENERGÍA MAESTRO UNIVERSAL CON RESET ÓPTICO REAL V35.0
+        if (isArcadeZoneActive === false) {
+            // 🟢 MODO ENCENDIDO: Energiza la Cúpula Arcade de golpe
+            isArcadeZoneActive = true; 
+            isArcadeMenuDisplayActive = true; 
+            
+            // Fijamos rígidamente tu letrero premium en la burbuja y nadie más lo altera
+            document.getElementById("pet-status-bubble").innerText = "🕹️ ARCADE ZONE ACTIVATED...";
+            
+            // RESET DE CAPAS DE TRACCIÓN EN CALIENTE:
+            // Cada vez que se presione el botón, obligamos al script a esconder el cartucho de Hockey
+            const hockeyLayer = document.getElementById("gotchi-hockey-cartridge");
+            if (hockeyLayer) {
+                hockeyLayer.style.setProperty("display", "none", "important");
+                hockeyLayer.style.setProperty("opacity", "0", "important");
+                hockeyLayer.className = "hockey-layer-hidden";
+            }
+
+            // Encendemos y traemos al frente absoluto la lona negra del menú general
+            const arcadeLayer = document.getElementById("gotchi-arcade-menu-layer");
+            if (arcadeLayer) {
+                arcadeLayer.style.setProperty("display", "flex", "important");
+                arcadeLayer.style.setProperty("opacity", "1", "important");
+                arcadeLayer.style.setProperty("visibility", "visible", "important");
+                arcadeLayer.classList.add("arcade-layer-active");
+            }
+            
+            gamePanel.classList.add("active-pad"); // El cajón de 80px se desliza hacia abajo
+            renderArcadeMenuOnScreen(); // Invoca al proyector gráfico del catálogo SELECT GAME
+        } else {
+            // 🔴 MODO APAGADO UNIVERSAL CON RE-DIRECCIÓN DE RETORNO AL MENÚ PRINCIPAL (REPARADO V35.0)
+            // No importa si cierras el panel por error de dedo desde el catálogo limpio, en la tabla 
+            // de récords o en pleno partido; este bloque apaga la energía general de la RAM.
+            isArcadeZoneActive = false; 
+            isArcadeMenuDisplayActive = false;
+            
+            // Detenemos los dos bucles de tiempo de los minijuegos de forma nominal y segura
+            if (hockeyInterval) { clearInterval(hockeyInterval); hockeyInterval = null; }
+            if (keyboardPhysicsInterval) { clearInterval(keyboardPhysicsInterval); keyboardPhysicsInterval = null; }
+            
+            // Reseteamos de forma rígida las variables del cartucho al estado de fábrica
+            if (typeof hockeyState !== "undefined" && hockeyState) {
+                hockeyState.currentStage = "welcome";
+                hockeyState.activeCharIndex = 0;
+                hockeyState.nameChars = ["A", "A", "A", "A", "A"];
+            }
+            
+            isButtonDebounceActive = false;
+            keysPressed = {};
+            userPaddleVelocity = 0;
+
+            gamePanel.classList.remove("active-pad"); // El chasis se guarda hacia arriba de inmediato
+            
+            // 🧱 LA LLAVE MAESTRA ÓPTICA (EL FIN DE LA CAPA FANTASMA):
+            // Apagamos y removemos la clase activa de la lona del menú de forma obligatoria.
+            // Esto le ordena al CSS desvanecer el fondo negro hacia la transparencia,
+            // eliminando por completo el color atorado y mostrando tu granja con total nitidez.
+            const arcadeLayer = document.getElementById("gotchi-arcade-menu-layer");
+            if (arcadeLayer) {
+                arcadeLayer.classList.remove("arcade-layer-active");
+                arcadeLayer.style.setProperty("display", "none", "important");
+                arcadeLayer.style.setProperty("opacity", "0", "important");
+            }
+
+            const hockeyLayer = document.getElementById("gotchi-hockey-cartridge");
+            if (hockeyLayer) {
+                hockeyLayer.style.setProperty("display", "none", "important");
+                hockeyLayer.style.setProperty("opacity", "0", "important");
+                hockeyLayer.className = "hockey-layer-hidden";
+            }
+            
+            // Limpiamos los emojis flotantes normales y devolvemos la cadena base de la granja
+            document.getElementById("matrix-emoji-overlay").innerHTML = "";
+            document.getElementById("pet-status-bubble").innerText = "READY FOR BITSTREAM...";
+            
+            // El procesador re-pinta la granja diurna y reanuda el caminar de Margo al milisegundo
+            updatePetInterface();
+            renderMargoDisplay();
+        }
+        return; 
     } else if (action === 'sleep') {
+
+
+
         petState.isSleeping = !petState.isSleeping;
+
+         if (petState.isSleeping) {
+            // 🟢 EL SENSOR DETECTOR DE FIESTA ACTIVA:
+            // Revisamos si el modo disco estaba encendido en la memoria RAM antes de apagar la luz.
+            // Guardamos el veredicto en una variable temporal antes de resetear el candado.
+            const estabaDeFiesta = petState.discoUnlocked;
+            
+            petState.discoUnlocked = false; // Reseteamos el candado para el próximo ciclo de 333
+            
+            const discoBall = document.getElementById("gotchi-disco-ball");
+            const discoStrobe = document.getElementById("gotchi-disco-strobe");
+            if (discoBall) discoBall.className = "disco-hidden";
+            if (discoStrobe) discoStrobe.className = "disco-hidden";
+            
+            // 📊 TRIPLE INTERRUPTOR TEXTUAL DE PRECISIÓN:
+            if (estabaDeFiesta) {
+                // Estado 1: Feedback premium de inhibición de antro cyberpunk
+                document.getElementById("pet-status-bubble").innerText = "💤 LIGHTS OUT. DISCO MODE INHIBITED.";
+            } else {
+                // Estado 2: Noche normal estándar de recarga de batería
+                document.getElementById("pet-status-bubble").innerText = "💤 TIME TO SLEEP... ENERGIZING CIRCUITS.";
+            }
+        } else {
+            // Estado 3: Amanecer unificado simétrico para ambos casos al despertar a Margo
+            document.getElementById("pet-status-bubble").innerText = "☀️ LIGHTS ON. CIRCUITS AWAKE.";
+        }
+
     }
     checkEvolutionRules();
 updatePetInterface();
 renderMargoDisplay();
 savePetState();
 }
+// ==============================================================================
+// 🕹️ PAD CONTROL BLINDADO: ESCUDO SANITARIO ANTI-PULSACIONES DE JUEGO V27.9
+// ==============================================================================
 function playMinigameTurn(userChoice) {
+    // 🟢 EL CANDADO ABSOLUTO: Si la variable hasPoop está activa en la RAM,
+    // este escudo congela de golpe las pulsaciones de [LEFT] y [RIGHT].
+    // El sistema aborta el hilo en background, protegiendo los letreros de radioactividad.
+    if (hasPoop) {
+        document.getElementById("pet-status-bubble").innerText = "❌ ACTION DENIED: REACTION INHIBITED BY CONTAMINATION!";
+        // Escondemos el panel para que el usuario no intente seguir cliqueando de forma elástica
+        document.getElementById("pet-minigame-controls").style.display = "none";
+        return; // Parada rígida inmediata
+    }
     const sides = ['left', 'right']; const botChoice = sides[Math.floor(Math.random() * 2)];
     if (userChoice === botChoice) {
         petState.happy = Math.min(100, petState.happy + 15);
@@ -482,6 +906,11 @@ function playMinigameTurn(userChoice) {
     updatePetInterface();
 }
 function updatePetInterface() {
+     // 🟢 EL CANDADO ANTI-ERRORES DE FONDO: 
+    // Si el menú arcade está activo en el cristal, congelamos la actualización de textos
+    // en background. Esto evita que los errores de variables rotas tiren el hilo gráfico,
+    // eliminando por completo las caídas a negro y el parpadeo en tu monitor.
+    if (isArcadeMenuDisplayActive === true) return;
     if (document.getElementById("bar-energy")) document.getElementById("bar-energy").style.width = petState.energy + "%";
     if (document.getElementById("bar-clean")) document.getElementById("bar-clean").style.width = petState.clean + "%";
     if (document.getElementById("bar-happy")) document.getElementById("bar-happy").style.width = petState.happy + "%";
@@ -492,11 +921,12 @@ function updatePetInterface() {
     document.getElementById("txt-sleep").innerText = petState.sleep + "%";
     document.getElementById("txt-age").innerText = petState.age;
     document.getElementById("txt-weight").innerText = petState.weight;
+    document.getElementById("txt-manna").innerText = petState.manna;
     const stageEl = document.getElementById("txt-evolution-stage");
     if (stageEl) {
         if (!petState.isHatched) stageEl.innerText = "EGG CORE";
-        else if (petState.age < 2) stageEl.innerText = "3D-CHICK (BABY)";
-        else if (petState.age >= 2 && petState.age < 3) stageEl.innerText = "TEEN-CHICK (ADOLESCENTE)";
+        else if (petState.age < 7) stageEl.innerText = "3D-CHICK (BABY)";
+        else if (petState.age >= 7 && petState.age < 18) stageEl.innerText = "TEEN-CHICK (ADOLESCENTE)";
         else stageEl.innerText = "CYBER-ROOSTER (ADULTO MAX)"; // 🟢 Agregado
     }
 }
@@ -642,3 +1072,701 @@ function closeSpaceArcade() {
     updatePetInterface();
     renderMargoDisplay(); 
 }
+
+
+// ==============================================================================
+// 🟢 CLEAN ARCHITECTURE: PUENTE SANITARIO DE CIERRE UNIFICADO V34.0
+// ==============================================================================
+function closeArcadeMenuAndRestoreFarm() {
+    // 🟢 LA REGLA REDONDA AUTOMÁTICA: Si el usuario termina un juego y da flecha abajo o botón B,
+    // invocamos al interruptor maestro 'play'. Al estar la cúpula activa, el switch ejecutará 
+    // el borrado de capas ciego de la Zona 1, cerrando el Pad y restaurando la granja de inmediato.
+    interactWithPet('play'); 
+}
+
+
+
+// ==============================================================================
+// 🖥️ MOTOR DE MOVIMIENTO Y SCALED REAL AUTOMATIZADO V20.0 (SISTEMA DE ANCLAJE)
+// Reactiva el arrastre fluido por la pantalla y el encogimiento simétrico real.
+// ==============================================================================
+function makeGotchiWindowDraggableAndResizable() {
+    const container = document.getElementById("virtual-pet-popup");
+    if (!container) return;
+
+   // 🟢 EL DIBUJO VECTORIAL: Creamos el nodo real para el tirador de 3 líneas nítidas.
+    // Usamos coordenadas exactas y un degradado estilizado que calca el look de tu captura.
+    const resizeHandle = document.createElement("div");
+    resizeHandle.style.cssText = `
+        position: absolute; 
+        bottom: 3px; 
+        right: 4px; 
+        width: 14px; 
+        height: 14px; 
+        
+        cursor: se-resize; 
+        z-index: 99999999;
+        background: linear-gradient(135deg, 
+            transparent 0%, transparent 40%, 
+            rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 45%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0.7) 50%,
+            transparent 50%, transparent 60%,
+            rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.4) 65%, rgba(255,255,255,0.7) 65%, rgba(255,255,255,0.7) 70%,
+            transparent 70%, transparent 80%,
+            rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.4) 85%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0.7) 90%,
+            transparent 90%
+        );
+        background-size: 100% 100%;
+        opacity: 0.85;
+    `;
+    container.appendChild(resizeHandle);
+
+    let isDragging = false, isResizing = false;
+    let startX, startY, startScale = 1;
+    
+    // Forzamos a que el sistema inicie estrictamente al 100% de escala real (1.0)
+    if (window.gotchiCurrentZoom === undefined) window.gotchiCurrentZoom = 1;
+
+    // 🟢 ESCUCHADOR 1: DETECTOR DE RESIZE (ESQUINA INFERIOR)
+    resizeHandle.addEventListener("mousedown", (e) => {
+        isResizing = true;
+        startX = e.clientX; startY = e.clientY;
+        startScale = window.gotchiCurrentZoom;
+        e.stopPropagation(); // Evita que el clic active el arrastre por error
+        e.preventDefault();
+    });
+
+    // 🟢 ESCUCHADOR 2: DETECTOR DE ARRASTRE DE CARCASA MAGENTA
+    container.addEventListener("mousedown", (e) => {
+        if (isResizing) return;
+        
+        // El arrastre se activa al cliquear el plástico magenta, el panel o el logo PNG
+        if (e.target === container || e.target.classList.contains("pet-logo-container") || e.target.tagName === "IMG" || e.target.classList.contains("pet-terminal-body") || e.target.classList.contains("pet-stats-panel")) {
+            isDragging = true;
+            startX = e.clientX - container.offsetLeft;
+            startY = e.clientY - container.offsetTop;
+            container.style.cursor = "move";
+            e.preventDefault();
+        }
+    });
+
+    // 🟢 ESCUCHADOR 3: SISTEMA DE MOVIMIENTO FLUIDO POR TU MONITOR LOCAL
+    window.addEventListener("mousemove", (e) => {
+        if (isResizing) {
+            const deltaX = e.clientX - startX;
+            // Sensibilidad líquida calibrada al milisegundo al arrastrar
+            let newZoom = startScale + (deltaX / 300);
+            
+            // 📐 LÍMITES BIEN REFORZADOS: Mínimo 0.45 (Diminuto) | Máximo 1.40 (Gigante)
+            newZoom = Math.max(0.45, Math.min(1.40, newZoom));
+            window.gotchiCurrentZoom = newZoom;
+            
+            // Zoom proporcional que encoge todo el aparato sin desarmar los botones
+            container.style.transform = `scale(${newZoom})`;
+        }
+        
+        if (isDragging) {
+            container.style.position = "fixed";
+            container.style.margin = "0"; 
+            
+            // Desplazamos la máquina de cuerpo completo por las coordenadas de tu PC
+            container.style.left = (e.clientX - startX) + "px";
+            container.style.top = (e.clientY - startY) + "px";
+        }
+    });
+
+    // 🟢 ESCUCHADOR 4: CIERRE DE CANAL DE RATÓN
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        isResizing = false;
+        container.style.cursor = "default";
+    });
+}
+
+// 🟢 DISPARADOR AUTOMÁTICO SEGURO: Modificado para asegurar que despierte al cargar la web
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", makeGotchiWindowDraggableAndResizable);
+} else {
+    makeGotchiWindowDraggableAndResizable();
+}
+
+
+// ==============================================================================
+// 🏆 MASTER PROTOCOL: LOGO BADGE, DESPLIEGUE FLEX Y FANFARRÍA 8-BITS V27.7
+// ==============================================================================
+function triggerEndgameProtocol() {
+    petState.isGameFinished = true;
+    hasPoop = false; // Evapora cualquier popó del suelo al ganar el campeonato
+    
+    // Forzamos el relleno de los núcleos vitales al 100% de rendimiento
+    petState.energy = 100; petState.clean = 100; petState.happy = 100; petState.sleep = 100;
+    
+    // Forzamos el display flex directo por software destruyendo el candado del CSS
+    const victoryScreen = document.getElementById("gotchi-victory-screen");
+    if (victoryScreen) {
+        victoryScreen.style.setProperty("display", "flex", "important");
+        victoryScreen.className = "victory-active";
+    }
+    
+    // Cambiamos el estatus de la burbuja superior
+    document.getElementById("pet-status-bubble").innerText = "🏆 SYSTEM SECURED. JUKEBOX MASTER PROTOCOL ACTIVE.";
+    
+    // 🔥 EL DETONADOR DE AUDIO INTEGRADO: Ejecuta la melodía con el permiso de los clics táctiles
+    if (typeof playVictoryMelody === "function") {
+        playVictoryMelody();
+    }
+    
+    updatePetInterface();
+}
+
+
+// ==============================================================================
+// 🎶 SINTETIZADOR DE AUDIO 8-BITS FORZADO: DESPERTA RESUME CONTEXT V27.8
+// Derriba el candado de silencio del navegador y enciende las bocinas al ganar.
+// ==============================================================================
+function playVictoryMelody() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    
+    const ctx = new AudioContext();
+    
+    // 🟢 EL GOLPE DE REACTIVACIÓN SÍNCRO:
+    // Obligamos al navegador a despertar el canal de las bocinas pasándolo de
+    // "suspended" a "running" de forma inmediata utilizando el permiso de tus clics.
+    ctx.resume().then(() => {
+        // Arpegio ascendente triunfal clásico de maquinitas arcade (Notas: C4, E4, G4, C5)
+        const notes = [261.63, 329.63, 392.00, 523.25]; 
+        
+        notes.forEach((freq, index) => {
+            setTimeout(() => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = "square"; // Onda cuadrada pura estilo Nintendo GameBoy original
+                osc.frequency.value = freq;
+                
+                // Calibramos el volumen al 15% para que se escuche con total nitidez en tu PC
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + 0.4);
+            }, index * 150); // Ráfaga veloz de notas espaciadas a 150ms
+        });
+    }).catch(err => console.error("Error forzando el despertar del audio:", err));
+}
+
+
+
+
+// ==============================================================================
+// 📺 PROYECTOR DE MENÚ RECREATIVO VECTORIAL LÍQUIDO (ANTI-FLASH V29.6)
+// ==============================================================================
+function renderArcadeMenuOnScreen() {
+    const arcadeLayer = document.getElementById("gotchi-arcade-menu-layer");
+    if (!arcadeLayer) return;
+
+    if (!arcadeLayer.classList.contains("arcade-layer-active")) {
+        arcadeLayer.classList.add("arcade-layer-active");
+    }
+
+    let menuHtml = '<p class="menu-arcade-header">SELECT GAME</p>';
+    
+    arcadeGamesList.forEach(function(game, index) {
+        if (index === currentSelectedGameIndex) {
+            menuHtml += '<p class="menu-game-row selected-row">► ' + game.name + '</p>';
+        } else {
+            menuHtml += '<p class="menu-game-row">  ' + game.name + '</p>';
+        }
+    });
+    
+    arcadeLayer.innerHTML = menuHtml;
+    // 🟢 FIJO DE ACERO: Eliminamos cualquier alteración a pet-status-bubble de aquí.
+    // ¡La burbuja se mantendrá inmutable gritando tu letrero universal de fábrica!
+}
+
+
+// ==============================================================================
+// 🟢 CLEAN ARCHITECTURE: PUENTE SANITARIO DE CIERRE UNIFICADO V34.5
+// ==============================================================================
+function closeArcadeMenuAndRestoreFarm() {
+    // 🟢 LA REGLA REDONDA AUTOMÁTICA: Si el usuario termina cualquier juego y da flecha abajo,
+    // invocamos al interruptor maestro 'play'. Al estar la cúpula activa, el switch ejecutará 
+    // el borrado de capas ciego de la Zona 1, cerrando el Pad y restaurando la granja de inmediato.
+    interactWithPet('play'); 
+}
+
+
+// ==============================================================================
+// 🏑 ENGINE ARCADE MAESTRO: INERCIA LÍQUIDA, IA MATEMÁTICA Y TOP 7 LEADERS V32.6
+// ==============================================================================
+let hockeyState = {
+    currentStage: "welcome", // welcome -> hero_select -> register -> gameplay -> leaderboard
+    selectedHero: "H",       
+    nameChars: ["A", "A", "A"],
+    activeCharIndex: 0,
+    userScore: 0,
+    userLives: 7
+};
+
+let isButtonDebounceActive = false;
+let keysPressed = {};
+let keyboardPhysicsInterval = null;
+let userPaddleVelocity = 0;
+
+function launchHockeyCartridgeEngine() {
+    isArcadeMenuDisplayActive = false; 
+        isArcadeZoneActive = true; // 🟢 Se mantiene encendida la cúpula, congelando la granja
+            // 🟢 FIJO DE CAJÓN: El reloj de la lona se calibra en 45ms únicamente al meter el cartucho desde el menú
+    currentHockeyRefreshMs = 45;
+
+
+    const menuLayer = document.getElementById("gotchi-arcade-menu-layer");
+    if (menuLayer) menuLayer.style.setProperty("display", "none", "important");
+
+    const hockeyLayer = document.getElementById("gotchi-hockey-cartridge");
+    if (hockeyLayer) {
+        hockeyLayer.style.setProperty("display", "flex", "important");
+        hockeyLayer.style.setProperty("opacity", "1", "important");
+        hockeyLayer.style.setProperty("visibility", "visible", "important");
+        hockeyLayer.style.setProperty("z-index", "99999", "important");
+        hockeyLayer.className = "hockey-layer-active";
+    }
+
+    hockeyState.currentStage = "welcome";
+    hockeyState.userScore = 0;
+    hockeyState.userLives = 7;
+    hockeyState.activeCharIndex = 0;
+    hockeyState.nameChars = ["A", "A", "A", "A", "A"];
+
+    // Reseteamos las clases de visibilidad impresas nativas
+    document.getElementById("hockey-stage-welcome").className = "hockey-sub-stage hockey-sub-visible";
+    document.getElementById("hockey-stage-hero-select").className = "hockey-sub-stage hockey-sub-hidden";
+    document.getElementById("hockey-stage-register").className = "hockey-sub-stage hockey-sub-hidden";
+    document.getElementById("hockey-stage-gameplay").className = "hockey-sub-stage hockey-sub-hidden";
+    document.getElementById("hockey-stage-leaderboard").className = "hockey-sub-stage hockey-sub-hidden";
+
+    document.getElementById("pet-status-bubble").innerText = "🕹️ ARCADE ZONE ACTIVATED...";
+}
+
+function executeArcadeAction(buttonLetter) {
+    if (hasPoop || petState.isGameFinished) return;
+
+    // 🛑 FILTRO DE ANTIRREBOTE CENTRAL INTERACTIVO
+    if (isButtonDebounceActive) return;
+    isButtonDebounceActive = true;
+    setTimeout(() => { isButtonDebounceActive = false; }, 250); 
+
+    // ==========================================
+    // ❌ ACCIONES DEL BOTÓN SECUNDARIO [ B ] (RETROCESO DE CASILLAS)
+    // ==========================================
+    if (buttonLetter === 'B') {
+        if (hockeyState.currentStage === "register") {
+            if (hockeyState.activeCharIndex > 0) {
+                // Quitamos el parpadeo de la letra actual
+                document.getElementById("name-char-" + hockeyState.activeCharIndex).classList.remove("char-active-giant");
+                // Retrocedemos el índice en la RAM
+                hockeyState.activeCharIndex--;
+                // Encendemos con neón rosa la casilla anterior
+                document.getElementById("name-char-" + hockeyState.activeCharIndex).classList.add("char-active-giant");
+                triggerVisualEmoji("↩️");
+            }
+        }
+        return; // Fin de la cadena del botón B
+    }
+
+    if (buttonLetter !== 'A') return;
+
+    // ==========================================
+    // 💮 ACCIONES DEL BOTÓN MAESTRO [ A ] (AVANCE)
+    // ==========================================
+    if (isArcadeMenuDisplayActive === true) {
+        if (currentSelectedGameIndex === 0) {
+            launchHockeyCartridgeEngine();
+            return;
+        }
+        return;
+    }
+
+    if (hockeyState.currentStage === "welcome") {
+        hockeyState.currentStage = "hero_select";
+        document.getElementById("hockey-stage-welcome").className = "hockey-sub-stage hockey-sub-hidden";
+        document.getElementById("hockey-stage-hero-select").className = "hockey-sub-stage hockey-sub-visible";
+        return;
+    }
+
+    if (hockeyState.currentStage === "hero_select") {
+        hockeyState.currentStage = "register";
+        
+        const frameEl = document.getElementById("hud-user-frame-type");
+        if (frameEl) frameEl.innerText = (hockeyState.selectedHero === "H") ? "🦸‍♀️" : "🦸‍♂️";
+        
+        document.getElementById("hockey-stage-hero-select").className = "hockey-sub-stage hockey-sub-hidden";
+        document.getElementById("hockey-stage-register").className = "hockey-sub-stage hockey-sub-visible";
+        
+        // 🟢 FIJO DE ILUMINACIÓN DE ORIGEN: Forzamos a que la primera letra (Casilla 0)
+        // nazca brillando neón rosa desde el primer instante en que se abre la pantalla.
+        document.getElementById("name-char-0").className = "char-active-giant";
+        document.getElementById("name-char-1").className = "";
+        document.getElementById("name-char-2").className = "";
+        document.getElementById("name-char-3").className = "";
+        document.getElementById("name-char-4").className = "";
+        return;
+    }
+
+        if (hockeyState.currentStage === "register") {
+        document.getElementById("name-char-" + hockeyState.activeCharIndex).classList.remove("char-active-giant");
+        hockeyState.activeCharIndex++;
+        
+        if (hockeyState.activeCharIndex < 5) {
+            document.getElementById("name-char-" + hockeyState.activeCharIndex).classList.add("char-active-giant");
+            return;
+        } else {
+            // 🟢 TRANSICIÓN: Al confirmar la 3ra letra, saltamos primero a Instrucciones (Pantalla B3)
+            hockeyState.currentStage = "instructions";
+            document.getElementById("hockey-stage-register").className = "hockey-sub-stage hockey-sub-hidden";
+            document.getElementById("hockey-stage-instructions").className = "hockey-sub-stage hockey-sub-visible";
+            return;
+        }
+    }
+
+    // 🟢 NUEVA CONDICIÓN DE ARRANQUE: De Instrucciones a Gameplay Real
+    if (hockeyState.currentStage === "instructions") {
+        hockeyState.currentStage = "gameplay";
+        document.getElementById("hockey-stage-instructions").className = "hockey-sub-stage hockey-sub-hidden";
+        document.getElementById("hockey-stage-gameplay").className = "hockey-sub-stage hockey-sub-visible";
+        
+        document.getElementById("hud-txt-name").innerText = hockeyState.nameChars.join("");
+        
+        updateHockeyHeartDisplay();
+        startHockeyPhysicsLoop(); // ⚡ ¡SILBATAZO INICIAL! Arrancan los discos
+        return;
+    }
+
+    }
+
+let hockeyInterval = null; 
+let puckX = 130, puckY = 51; 
+let puckSpeedX = -4, puckSpeedY = 3; 
+let userPaddleY = 44, margoPaddleY = 44; 
+
+// 🟢 NUEVA VARIABLE UNIVERSAL DE TIEMPO (ZONA 1 BLINDADA):
+// Almacena los milisegundos de refresco en la RAM. Nace en tus 45ms estables de pruebas.
+
+
+function selectArcadeOption(direction) {
+    if (hasPoop || petState.isGameFinished) return;
+    
+    if (isArcadeMenuDisplayActive) {
+        if (direction === 'up') currentSelectedGameIndex = (currentSelectedGameIndex - 1 + arcadeGamesList.length) % arcadeGamesList.length;
+        if (direction === 'down') currentSelectedGameIndex = (currentSelectedGameIndex + 1) % arcadeGamesList.length;
+        renderArcadeMenuOnScreen();
+        return;
+    }
+
+    if (hockeyState.currentStage === "hero_select") {
+        if (direction === 'up') {
+            hockeyState.selectedHero = "H";
+            document.getElementById("hero-opt-H").className = "hero-avatar-pick-giant hero-selected";
+            document.getElementById("hero-opt-M").className = "hero-avatar-pick-giant";
+        } else if (direction === 'down') {
+            hockeyState.selectedHero = "M";
+            document.getElementById("hero-opt-M").className = "hero-avatar-pick-giant hero-selected";
+            document.getElementById("hero-opt-H").className = "hero-avatar-pick-giant";
+        }
+        return;
+    }
+
+    if (hockeyState.currentStage === "register") {
+        if (hockeyState.activeCharIndex < 5) {
+            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
+            let charPos = chars.indexOf(hockeyState.nameChars[hockeyState.activeCharIndex]);
+            if (direction === 'up') charPos = (charPos - 1 + chars.length) % chars.length;
+            if (direction === 'down') charPos = (charPos + 1) % chars.length;
+            
+            hockeyState.nameChars[hockeyState.activeCharIndex] = chars[charPos];
+            document.getElementById(`name-char-${hockeyState.activeCharIndex}`).innerText = chars[charPos];
+        }
+        return;
+    }
+
+      // 🕹️ INTERRUPTORES DE LA TABLA DE RECORDS DEL FINAL DEL JUEGO (REPARADO V35.5)
+    if (hockeyState.currentStage === "leaderboard") {
+        if (direction === 'up') {
+            // 🟢 EL BYPASS DEL CAMPEÓN: Si el usuario presiona PLAY AGAIN,
+            // NO limpiamos sus variables ni lo mandamos a registrarse de nuevo.
+            // Recargamos sus 7 vidas, limpiamos el score de la sesión anterior
+            // y lo metemos directo a la mesa de aire con su nombre F23 intacto en el HUD.
+            currentHockeyRefreshMs = 45; 
+            hockeyState.currentStage = "gameplay";
+            hockeyState.userLives = 7;
+            hockeyState.userScore = 0;
+            
+            // Apagamos la lona de records y encendemos el tablero de hockey en vivo
+            document.getElementById("hockey-stage-leaderboard").className = "hockey-sub-stage hockey-sub-hidden";
+            document.getElementById("hockey-stage-gameplay").className = "hockey-sub-stage hockey-sub-visible";
+            
+            // Actualizamos los corazones visuales y encendemos la física amortiguada
+            updateHockeyHeartDisplay();
+            document.getElementById("hud-score").innerText = "0000";
+            
+            startHockeyPhysicsLoop(); 
+            
+        } else if (direction === 'down') {
+            // GO BACK TO FARM: Regresa de forma suave y líquida a la granja
+            closeArcadeMenuAndRestoreFarm();
+        }
+        return;
+    }
+
+
+    if (hockeyState.currentStage === "gameplay") {
+        if (direction === 'up') moveUserPaddle(-12);
+        if (direction === 'down') moveUserPaddle(12);
+    }
+}
+
+
+// ==============================================================================
+// 🏑 ENGINE ARCADE MAESTRO: CONTROL EN BLOQUES Y DETECTOR FRONTAL REDONDO V34.0
+// ==============================================================================
+
+// ⌨️ EL ÚNICO Y ABSOLUTO ESCUCHADOR DE TECLADO PREMIUM DE TU PC
+window.addEventListener("keydown", function(e) {
+    if (!petState.isHatched || isArcadeZoneActive === false) return;
+    
+    // Bloqueamos el desplazamiento nativo del navegador de la oficina
+    if (["ArrowUp", "ArrowDown", "Tab", " "].includes(e.key)) e.preventDefault();
+    
+    // 🟢 MOVIMIENTO EN BLOQUES DE ALTA FIDELIDAD:
+    // Al presionar la flecha en tu teclado PC, avanzamos en muescas rígidas de 14px 
+    // pasando de forma obligatoria por los puntos medios de la mesa, calcando el chasis.
+    if (hockeyState.currentStage === "gameplay") {
+        if (e.key === "ArrowUp" || e.key === "w" || e.key === "W") {
+            userPaddleY = Math.max(2, Math.min(86, userPaddleY - 14));
+            var el = document.getElementById("hockey-paddle-user");
+            if (el) el.style.top = userPaddleY + "px";
+        }
+        if (e.key === "ArrowDown" || e.key === "s" || e.key === "S") {
+            userPaddleY = Math.max(2, Math.min(86, userPaddleY + 14));
+            var el = document.getElementById("hockey-paddle-user");
+            if (el) el.style.top = userPaddleY + "px";
+        }
+    }
+});
+
+// Variable global de control de tiempo (Colócala justo arriba de la función si no la tienes)
+
+let hockeyDifficultyTimer = null;
+
+function startHockeyPhysicsLoop() {
+    // 🧹 LIMPIEZA DE RELOJES DE CONTROL PREVIA AUTOMÁTICA
+    if (hockeyInterval) clearInterval(hockeyInterval);
+    if (hockeyDifficultyTimer) clearInterval(hockeyDifficultyTimer);
+    
+    puckX = 130; puckY = 51;
+    window.margoWillMissNextBall = false; 
+
+    // Tu velocidad de cajón original fija de fábrica
+    var velocidadHorizontalBase = 4; 
+    var velocidadVerticalBase = 3; 
+    
+    puckSpeedX = -velocidadHorizontalBase; 
+    puckSpeedY = (Math.random() < 0.5 ? -velocidadVerticalBase : velocidadVerticalBase);
+
+    // ⏱️ EL CRONÓMETRO ACELERADOR UNIVERSAL (CADA 15 SEGUNDOS CONSISTENTE)
+    // Al haber removido el reseteo de aquí, este reloj le permite al disco heredar 
+    // la velocidad acumulada entre goles de forma continua, manteniendo el ritmo.
+    hockeyDifficultyTimer = setInterval(function() {
+        if (hockeyState.currentStage === "gameplay") {
+            // Resta 3ms cada 15 segundos clavándose en tu piso máximo de 20ms
+            currentHockeyRefreshMs = Math.max(23, currentHockeyRefreshMs - 3);
+            
+            clearInterval(hockeyInterval);
+            reencenderBucleFisico();
+            
+            console.log("🏎️ TIME OVERLOAD: El refresco de la lona bajó a " + currentHockeyRefreshMs + "ms");
+        }
+    }, 15000);
+
+    // Función espejo síncrona encargada de mover el disco en el cristal
+    function reencenderBucleFisico() {
+        hockeyInterval = setInterval(function() {
+            if (hockeyState.currentStage !== "gameplay") { 
+                clearInterval(hockeyInterval); 
+                clearInterval(hockeyDifficultyTimer); 
+                return; 
+            }
+
+            // Detector de ancho dinámico de tu monitor local
+            const canvasEl = document.getElementById("hockey-table-canvas");
+            const anchoMesaReal = canvasEl ? canvasEl.clientWidth : 265;
+            const paredDerechaGol = anchoMesaReal - 6; 
+            const coordenadaMargoX = anchoMesaReal - 18; 
+
+            puckX += puckSpeedX;
+            puckY += puckSpeedY;
+
+            // Rebotes obligatorios contra techo y suelo de la mesa
+            if (puckY <= 2 || puckY >= 102) puckSpeedY = -puckSpeedY;
+
+            // IA totalmente simétrica conectada al eje del disco
+            margoPaddleY = puckY - 10; 
+            margoPaddleY = Math.max(2, Math.min(86, margoPaddleY));
+            const paddleMargoEl = document.getElementById("hockey-paddle-margo");
+            if (paddleMargoEl) {
+                paddleMargoEl.style.top = margoPaddleY + "px";
+            }
+
+            // 💥 DETECTOR DE IMPACTO IZQUIERDO (TU RAQUETA ROJA)
+            if (puckX <= 15 && puckX >= 8) {
+                if (puckY >= userPaddleY - 4 && puckY <= userPaddleY + 24) {
+                    puckSpeedX = Math.abs(puckSpeedX); 
+                    puckX = 16;
+                    hockeyState.userScore += 15;
+                    document.getElementById("hud-score").innerText = String(hockeyState.userScore).padStart(4, '0');
+                }
+            }
+
+            // 💥 DETECTOR DE IMPACTO DERECHO (LA RAQUETA CIAN DE MARGO 100% INDESTRUCTIBLE)
+            if (puckX >= coordenadaMargoX - 4 && puckX <= coordenadaMargoX + 2) {
+                if (puckY >= margoPaddleY - 4 && puckY <= margoPaddleY + 24) {
+                    puckSpeedX = -Math.abs(puckSpeedX); 
+                    puckX = coordenadaMargoX - 5; 
+                    triggerVisualEmoji("🎵"); 
+                }
+            }
+
+            // 🥅 PORTERÍA IZQUIERDA DE DESCARTE TOTAL: GOL DE MARGO
+            if (puckX <= 0) {
+                hockeyState.userLives--;
+                updateHockeyHeartDisplay();
+                triggerVisualEmoji("🚿"); 
+                
+                if (hockeyState.userLives <= 0) {
+                    // Cierre de la sesión de juego en Game Over real
+                    hockeyState.currentStage = "leaderboard";
+                    clearInterval(hockeyInterval);
+                    clearInterval(hockeyDifficultyTimer);
+                    if (keyboardPhysicsInterval) clearInterval(keyboardPhysicsInterval);
+                    
+                    petState.happy = Math.min(100, petState.happy + 15);
+                    
+                    // INYECCIÓN GRÁFICA INMEDIATA DE 250 GB
+                    petState.weight += 250; 
+                    var txtWeightEl = document.getElementById("txt-weight");
+                    if (txtWeightEl) txtWeightEl.innerText = petState.weight;
+                    
+                    openHockeyLeaderboardScreen(); 
+                } else {
+                    startHockeyPhysicsLoop(); // Siguiente saque heredando la velocidad de la RAM
+                }
+            }
+
+            // 🥅 PORTERÍA DERECHA DE DESCARTE TOTAL: GOLAZO EN LA RED DE MARGO
+            if (puckX >= paredDerechaGol) {
+                hockeyState.userScore += 15; 
+                document.getElementById("hud-score").innerText = String(hockeyState.userScore).padStart(4, '0');
+                
+                triggerVisualEmoji("⭐");
+                startHockeyPhysicsLoop(); // Siguiente saque heredando la velocidad de la RAM
+            }
+
+            // Renderizado del disco de bronce en la lona
+            var puckEl = document.getElementById("hockey-puck");
+            if (puckEl) {
+                puckEl.style.left = puckX + "px";
+                puckEl.style.top = puckY + "px";
+            }
+        }, currentHockeyRefreshMs); // Conserva y hereda los milisegundos variables de la RAM
+    }
+
+    // Encendido inicial del primer cuadro al arrancar la lona
+    reencenderBucleFisico();
+}
+
+
+// ==============================================================================
+// 🏆 REALTIME FIREBASE ENGINE: CONEXIÓN CLOUD DEL TOP 7 LEADERS GLOBAL V35.0
+// ==============================================================================
+function openHockeyLeaderboardScreen() {
+    hockeyState.currentStage = "leaderboard";
+    
+    document.getElementById("hockey-stage-gameplay").className = "hockey-sub-stage hockey-sub-hidden";
+    document.getElementById("hockey-stage-leaderboard").className = "hockey-sub-stage hockey-sub-visible";
+
+    var playerTag = hockeyState.nameChars.join("");
+    var currentScore = hockeyState.userScore;
+    var timestamp = Date.now();
+
+    // 🟢 LA ESCUDERÍA EN LA NUBE CLOUD: Si hay score, lo inyectamos usando window.db real
+    if (currentScore > 0 && window.db) {
+        window.db.ref("hockey_leaderboard/" + timestamp).set({
+            name: playerTag,
+            score: currentScore
+        }).catch(function(err) { console.error("Error en base de datos local:", err); });
+    }
+    // 🟢 ACCIÓN 1: SUBIR EL RÉCORD ACTUAL A TU FIREBASE REAL
+    // Si el score del usuario es mayor a cero, inyectamos el Tag (ej. F23) y los puntos 
+    // directamente en una nueva llave única dentro de tu base de datos en la nube.
+    if (currentScore > 0) {
+        db.ref("hockey_leaderboard/" + timestamp).set({
+            name: playerTag,
+            score: currentScore
+        }).catch(function(err) { console.error("Error subiendo record a Firebase:", err); });
+    }
+
+    // 🟢 ACCIÓN 2: DESCARGAR Y ORDENAR EL TOP 7 MUNDIAL EN TIEMPO REAL
+    // Invocamos al nodo de Firebase, ordenamos los registros por la puntuación 'score' 
+    // y limitamos la descarga a los últimos 20 renglones para optimizar la cuota.
+    db.ref("hockey_leaderboard/").orderByChild("score").limitToLast(20).once("value", function(snapshot) {
+        var cloudRecords = [];
+        
+        snapshot.forEach(function(childSnapshot) {
+            var data = childSnapshot.val();
+            cloudRecords.push({
+                name: data.name || "AAAAA",
+                score: parseInt(data.score) || 0
+            });
+        });
+
+        // Como Firebase ordena de menor a mayor de forma nativa, invertimos el arreglo 
+        // para colocar al campeón absoluto en la primera hilera de la lona
+        cloudRecords.sort(function(a, b) { return b.score - a.score; });
+        
+        // Cortamos rígidamente a los 7 mejores del planeta para cuidar la simetría
+        var top7Leaders = cloudRecords.slice(0, 7);
+
+        // Renderizamos los renglones impresos de forma fotorrealista en el cristal
+        var container = document.getElementById("hockey-records-list-container");
+        if (container) {
+            var htmlContent = "";
+            for (var i = 0; i < top7Leaders.length; i++) {
+                var rec = top7Leaders[i];
+                // Marcamos con una flecha neón si este renglón de la nube te pertenece
+                var isUser = (rec.name === playerTag && rec.score === currentScore);
+                var rowClass = (i === 0) ? "hockey-record-row rank-first" : "hockey-record-row";
+                var userIndicator = isUser ? " ◀" : "";
+                var paddedScore = String(rec.score).padStart(4, '0');
+                
+                htmlContent += '<div class="' + rowClass + '">' +
+                    '<span>0' + (i + 1) + '. ' + rec.name + userIndicator + '</span>' +
+                    '<span>' + paddedScore + ' PTS</span>' +
+                '</div>';
+            }
+            container.innerHTML = htmlContent;
+        }
+    });
+}
+
+function updateHockeyHeartDisplay() {
+let hearts = "";
+for (let i = 0; i < 7; i++) {
+hearts += (i < hockeyState.userLives) ? "♥" : "♡";
+}
+document.getElementById("hud-lives").innerText = hearts;
+}
+window.selectArcadeOption = selectArcadeOption;
+window.executeArcadeAction = executeArcadeAction;
