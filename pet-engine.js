@@ -1085,6 +1085,109 @@ function closeArcadeMenuAndRestoreFarm() {
 }
 
 
+// ==============================================================================
+// 🖥️ MOTOR DE MOVIMIENTO Y SCALED REAL AUTOMATIZADO V20.0 (SISTEMA DE ANCLAJE)
+// Reactiva el arrastre fluido por la pantalla y el encogimiento simétrico real.
+// ==============================================================================
+function makeGotchiWindowDraggableAndResizable() {
+    const container = document.getElementById("virtual-pet-popup");
+    if (!container) return;
+
+   // 🟢 EL DIBUJO VECTORIAL: Creamos el nodo real para el tirador de 3 líneas nítidas.
+    // Usamos coordenadas exactas y un degradado estilizado que calca el look de tu captura.
+    const resizeHandle = document.createElement("div");
+    resizeHandle.style.cssText = `
+        position: absolute; 
+        bottom: 3px; 
+        right: 4px; 
+        width: 14px; 
+        height: 14px; 
+        
+        cursor: se-resize; 
+        z-index: 99999999;
+        background: linear-gradient(135deg, 
+            transparent 0%, transparent 40%, 
+            rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 45%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0.7) 50%,
+            transparent 50%, transparent 60%,
+            rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.4) 65%, rgba(255,255,255,0.7) 65%, rgba(255,255,255,0.7) 70%,
+            transparent 70%, transparent 80%,
+            rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.4) 85%, rgba(255,255,255,0.7) 85%, rgba(255,255,255,0.7) 90%,
+            transparent 90%
+        );
+        background-size: 100% 100%;
+        opacity: 0.85;
+    `;
+    container.appendChild(resizeHandle);
+
+    let isDragging = false, isResizing = false;
+    let startX, startY, startScale = 1;
+
+    // Forzamos a que el sistema inicie estrictamente al 100% de escala real (1.0)
+    if (window.gotchiCurrentZoom === undefined) window.gotchiCurrentZoom = 1;
+
+    // 🟢 ESCUCHADOR 1: DETECTOR DE RESIZE (ESQUINA INFERIOR)
+    resizeHandle.addEventListener("mousedown", (e) => {
+        isResizing = true;
+        startX = e.clientX; startY = e.clientY;
+        startScale = window.gotchiCurrentZoom;
+        e.stopPropagation(); // Evita que el clic active el arrastre por error
+        e.preventDefault();
+    });
+
+    // 🟢 ESCUCHADOR 2: DETECTOR DE ARRASTRE DE CARCASA MAGENTA
+    container.addEventListener("mousedown", (e) => {
+        if (isResizing) return;
+
+        // El arrastre se activa al cliquear el plástico magenta, el panel o el logo PNG
+        if (e.target === container || e.target.classList.contains("pet-logo-container") || e.target.tagName === "IMG" || e.target.classList.contains("pet-terminal-body") || e.target.classList.contains("pet-stats-panel")) {
+            isDragging = true;
+            startX = e.clientX - container.offsetLeft;
+            startY = e.clientY - container.offsetTop;
+            container.style.cursor = "move";
+            e.preventDefault();
+        }
+    });
+
+    // 🟢 ESCUCHADOR 3: SISTEMA DE MOVIMIENTO FLUIDO POR TU MONITOR LOCAL
+    window.addEventListener("mousemove", (e) => {
+        if (isResizing) {
+            const deltaX = e.clientX - startX;
+            // Sensibilidad líquida calibrada al milisegundo al arrastrar
+            let newZoom = startScale + (deltaX / 300);
+
+            // 📐 LÍMITES BIEN REFORZADOS: Mínimo 0.45 (Diminuto) | Máximo 1.40 (Gigante)
+            newZoom = Math.max(0.45, Math.min(1.40, newZoom));
+            window.gotchiCurrentZoom = newZoom;
+
+            // Zoom proporcional que encoge todo el aparato sin desarmar los botones
+            container.style.transform = `scale(${newZoom})`;
+        }
+
+        if (isDragging) {
+            container.style.position = "fixed";
+            container.style.margin = "0"; 
+
+            // Desplazamos la máquina de cuerpo completo por las coordenadas de tu PC
+            container.style.left = (e.clientX - startX) + "px";
+            container.style.top = (e.clientY - startY) + "px";
+        }
+    });
+
+    // 🟢 ESCUCHADOR 4: CIERRE DE CANAL DE RATÓN
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        isResizing = false;
+        container.style.cursor = "default";
+    });
+}
+
+// 🟢 DISPARADOR AUTOMÁTICO SEGURO: Modificado para asegurar que despierte al cargar la web
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", makeGotchiWindowDraggableAndResizable);
+} else {
+    makeGotchiWindowDraggableAndResizable();
+}
+
 
 // ==============================================================================
 // 🏆 MASTER PROTOCOL: LOGO BADGE, DESPLIEGUE FLEX Y FANFARRÍA 8-BITS V27.7
