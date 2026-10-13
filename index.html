@@ -13,7 +13,6 @@
 <title>The Amazing Jukebox</title>
 <link rel="icon" type="image/png" href=".svg">
 <link rel="stylesheet" type="text/css" href="./ajlivechat.css">
-<link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
@@ -3913,6 +3912,75 @@ function closeZoomHint() {
 
     
 
+// ==============================================================================
+// 🔋 INTERRUPTOR UNIVERSAL Y TRACCIÓN DE CRISTAL FLOTANTE (PRUEBAS V37.0)
+// ==============================================================================
+window.gotchiCurrentZoom = 1; // Fuerza la escala inicial al 100%
+
+function toggleVirtualPet() {
+    var iframe = document.getElementById("virtual-pet-floating-window");
+    if (!iframe) return;
+
+    // INTERRUPTOR BINARIO: Prende y apaga la visualización del Iframe de un solo golpe
+    if (iframe.style.display === "none" || iframe.style.display === "") {
+        iframe.style.display = "block";
+        console.log("🕹️ CYBERPET ONLINE: Cristal esmerilado acoplado a la Jukebox.");
+    } else {
+        iframe.style.display = "none";
+    }
+}
+window.toggleVirtualPet = toggleVirtualPet;
+
+// 🖥️ MOTOR DE ARRASTRE Y ESCALADO PROPORCIONAL EXTERNO (EL FIN DEL CONFICLO)
+function hacerIframeInteractivoYDraggable() {
+    var iframe = document.getElementById("virtual-pet-floating-window");
+    if (!iframe) return;
+
+    var isDragging = false, isResizing = false;
+    let startX, startY, startScale = 1;
+
+    // Escuchamos los clics que ocurren en el plástico exterior de la máquina de Margo
+    window.addEventListener("message", function(e) {
+        // Recibimos los pulsos del mouse desde adentro del cristal aislado
+        if (e.data.type === "UFO_DRAG_START") {
+            isDragging = true;
+            startX = e.data.clientX - iframe.offsetLeft;
+            startY = e.data.clientY - iframe.offsetTop;
+        }
+        if (e.data.type === "UFO_RESIZE_START") {
+            isResizing = true;
+            startX = e.data.clientX;
+            startY = e.data.clientY;
+            startScale = window.gotchiCurrentZoom;
+        }
+    });
+
+    window.addEventListener("mousemove", function(e) {
+        if (isDragging) {
+            iframe.style.left = (e.clientX - startX) + "px";
+            iframe.style.top = (e.clientY - startY) + "px";
+            iframe.style.bottom = "auto"; // Libera el anclaje inferior
+        }
+        if (isResizing) {
+            var deltaX = e.clientX - startX;
+            var newZoom = startScale + (deltaX / 300);
+            newZoom = Math.max(0.45, Math.min(1.40, newZoom)); // Límites reforzados
+            window.gotchiCurrentZoom = newZoom;
+            
+            // 🔥 ESCALADO REAL: Encoge el Iframe completo de forma simétrica
+            iframe.style.transform = "scale(" + newZoom + ")";
+        }
+    });
+
+    window.addEventListener("mouseup", function() {
+        isDragging = false;
+        isResizing = false;
+    });
+}
+document.addEventListener("DOMContentLoaded", hacerIframeInteractivoYDraggable);
+
+    
+
 </script>
 </head>    
 <body>
@@ -4101,7 +4169,7 @@ function closeZoomHint() {
 
   <span class="action-copy">
    
-    <small>THE JUKEBOX VIRTUAL PET</small>
+    <small>JUKEBOX-PET</small>
   </span>
 
  
@@ -4180,8 +4248,6 @@ function closeZoomHint() {
   </div>
 </div>
 
-
-<div id="cyberpet-hardware-anchor"></div>
 
             
         <div id="loading-screen">
@@ -4385,7 +4451,6 @@ function closeZoomHint() {
     
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-<script src="pet-engine.js"></script>
 <script src="ajlivechat2.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
@@ -4395,20 +4460,22 @@ if ('serviceWorker' in navigator) {
 
 
   <!-- ============================================================================== -->
-  <!-- 🕹️ FUSIÓN PURA: VENTANA FLOTANTE JUKEBOX CYBERPET (STUDIO LYE V36.9) -->
+  <!-- 🕹️ VINCULACIÓN EN RED: VENTANA FLOTANTE CYBERPET PREMIUM (V37.0) -->
   <!-- ============================================================================== -->
-  <!-- Colocamos el Iframe como una capa flotante fija en la esquina inferior izquierda.
-       Al apuntar directamente a tu 'petlab.html', el Gotchi nacerá hermoso con su tamaño real 
-       del 100% de fábrica, libre de desfases y sin congelar jamás los hilos del chat. -->
+  <!-- Nace apagado al 100% y con transform-origin en el centro superior para que 
+       cuando el usuario lo encoja, se reduzca de forma simétrica sin desarmar los botones. -->
   <iframe src="petlab.html" id="virtual-pet-floating-window" style="
       position: fixed !important;
       bottom: 25px !important;
       left: 25px !important;
-      width: 340px !important;   /* Ampliado un poco para dar aire a los perfiles 3D */
-      height: 550px !important;  /* Altura perfecta para que quepa el Pad de 80px */
+      width: 320px !important;   
+      height: 540px !important;  
       border: none !important;
       background: transparent !important;
-      z-index: 9996 !important;  /* Flota por encima de los logos traseros */
+      z-index: 9996 !important;  
+      display: none; /* Inicia apagado hasta que el usuario dé el botonazo */
+      transform-origin: top center !important;
+      transform: scale(1);
       overflow: visible !important;
   "></iframe>
 
