@@ -1143,7 +1143,6 @@ function makeGotchiWindowDraggableAndResizable() {
             isDragging = true;
             startX = e.clientX - container.offsetLeft;
             startY = e.clientY - container.offsetTop;
-            container.style.cursor = "move";
             e.preventDefault();
         }
     });
@@ -1156,7 +1155,7 @@ function makeGotchiWindowDraggableAndResizable() {
             let newZoom = startScale + (deltaX / 300);
 
             // 📐 LÍMITES BIEN REFORZADOS: Mínimo 0.45 (Diminuto) | Máximo 1.40 (Gigante)
-            newZoom = Math.max(0.45, Math.min(1.40, newZoom));
+            newZoom = Math.max(0.45, Math.min(1, newZoom));
             window.gotchiCurrentZoom = newZoom;
 
             // Zoom proporcional que encoge todo el aparato sin desarmar los botones
@@ -1167,10 +1166,7 @@ function makeGotchiWindowDraggableAndResizable() {
             container.style.position = "fixed";
             container.style.margin = "0"; 
 
-            // Desplazamos la máquina de cuerpo completo por las coordenadas de tu PC
-            container.style.left = (e.clientX - startX) + "px";
-            container.style.top = (e.clientY - startY) + "px";
-        }
+            
     });
 
     // 🟢 ESCUCHADOR 4: CIERRE DE CANAL DE RATÓN
