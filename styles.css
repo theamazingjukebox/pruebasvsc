@@ -3,8 +3,8 @@
    ======================================================== */
 #virtual-pet-popup {
   position: fixed;
-  bottom: 25px;
-  left: 25px;
+  bottom: 35px;
+  left: 20px;
    width: 320px !important;
   height: max-content;
 
