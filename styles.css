@@ -2,17 +2,17 @@
    POP-UP FLOTANTE DE CRISTAL INTERACTIVO DE MARGO V9.0
    ======================================================== */
 #virtual-pet-popup {
-  position: fixed;
-  bottom: 25px;
-  left: 25px;
-   width: 320px !important;
-  height: max-content;
-
-  /* 🟢 CORRECCIÓN VISUAL DE ORIGEN: Seteamos el anclaje en el centro superior.
-     Esto obliga al Jukebox-Gotchi a nacer en su TAMAÑO REAL DEL 100% DE FÁBRICA,
-     permitiendo que se encoja o se agrante de forma simétrica hacia los lados y abajo */
-  transform-origin: top center !important;
-  transform: scale(1); /* Fuerza el inicio a escala real */
+ position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  
+  /* 🟢 CLAVE DE MIMETISMO: Seteamos el chasis al 100% del contenedor.
+     Ahora, si el iframe exterior cambia de tamaño en la Jukebox,
+     la carcasa magenta se adaptará milimétricamente al nuevo espacio. */
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  overflow: visible !important;
  
    /* 🪡 LA SOLUCIÓN MAESTRA: Capa 1: Tu color magenta base de fábrica. 
      Capa 2: Un degradado lineal sutil que simula iluminación cenital.
