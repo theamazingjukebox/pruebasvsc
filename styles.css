@@ -1680,3 +1680,24 @@ text-decoration: double;
     0 0 35px rgba(255, 0, 85, 0.95) !important;
 }
 
+/* ========================================================
+   🏎️ HARDWARE ACCELERATION EN VIVO: COMPUERTAS GPU V41.0
+   ======================================================== */
+#hockey-table-canvas,
+.hockey-paddle,
+.hockey-puck-disc {
+  /* ⚡ EL TRUCO QUANTICO 3D: Fuerza al navegador a renderizar los elementos usando 
+     el motor tridimensional de la tarjeta de video (GPU), independizándolos del CPU general.
+     Esto elimina los micro-tirones y le da una fluidez líquida de bits al partido. */
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  
+  /* Centinela de rendimiento: Le avisa al microprocesador de la PC con anticipación 
+     que estos elementos van a cambiar de coordenadas constantemente en la pantalla */
+  will-change: transform, left, top !important;
+  
+  /* Desactiva filtros visuales pesados que ralentizan la tasa de refresco del monitor */
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+}
+
