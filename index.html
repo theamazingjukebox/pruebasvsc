@@ -4443,10 +4443,11 @@ if ('serviceWorker' in navigator) {
   <div id="gotchi-hardware-portal" style="
       position: fixed !important;
       bottom: 25px !important;
-      left: 25px !important;
+      left: 65px !important;
       width: 375px !important;  /* Ancho ampliado para dar espacio a la pestaña */
       height: 600px !important; 
       z-index: 9996 !important;
+      border: 1px solid white;
       display: block; /* O 'none' si usas tu botón switch del menú */
       overflow: visible !important;
   ">
@@ -4455,7 +4456,8 @@ if ('serviceWorker' in navigator) {
       <iframe src="petlab.html" id="virtual-pet-floating-window" allowtransparency="true" style="
           width: 340px !important;   
           height: 100% !important;  
-          border: none !important;
+          left: 40px;
+          border: 1px solid green;
           background: transparent !important; /* Mimetismo cuántico transparente */
           float: left !important;
           overflow: visible !important;
@@ -4464,9 +4466,9 @@ if ('serviceWorker' in navigator) {
       <!-- 🎛️ LA PESTAÑA DE AGARRE ISOMÉTRICA (EXTREMO DERECHO CROMADO): -->
       <div id="gotchi-hardware-drag-handle" style="
           width: 30px !important;
-          height: 110px !important;
+          height: 60px !important;
           float: left !important;
-          margin-top: 240px !important; /* Centrada simétricamente al nivel del chasis rosa */
+          margin-top: 100px !important; /* Centrada simétricamente al nivel del chasis rosa */
           margin-left: 2px !important;
           background: linear-gradient(135deg, #101923, #1c2d3d) padding-box, linear-gradient(135deg, #87ffff, #d83ca4) border-box;
           border: 1px solid transparent;
@@ -4478,7 +4480,7 @@ if ('serviceWorker' in navigator) {
           justify-content: center !important;
       " title="Hold and Drag to move CyberPet">
           <!-- Estrías de hule táctiles grabadas en el bisel neón -->
-          <span style="color: #87ffff; font-family: 'Orbitron', monospace; font-size: 11px; font-weight: bold; letter-spacing: 1px; transform: rotate(90deg); user-select: none; pointer-events: none;">DRAG</span>
+          <span style="color: #87ffff; font-family: 'Orbitron', monospace; font-size: 17px; font-weight: bold; letter-spacing: 1px; transform: rotate(90deg); user-select: none; pointer-events: none;">+</span>
       </div>
   </div>
 
