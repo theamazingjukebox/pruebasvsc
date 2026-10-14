@@ -39,7 +39,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
- 
+ pointer-events: auto !important;
   font-family: 'Orbitron', monospace;
   z-index: 9995;
 transition: height 2.3s ease;
