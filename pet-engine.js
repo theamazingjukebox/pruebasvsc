@@ -1162,6 +1162,15 @@ function makeGotchiWindowDraggableAndResizable() {
             container.style.transform = `scale(${newZoom})`;
         }
 
+         if (isDragging) {
+            container.style.position = "fixed";
+            container.style.margin = "0"; 
+            
+            // Desplazamos la máquina de cuerpo completo por las coordenadas de tu PC
+            container.style.left = (e.clientX - startX) + "px";
+            container.style.top = (e.clientY - startY) + "px";
+        }
+
      
             
     });
