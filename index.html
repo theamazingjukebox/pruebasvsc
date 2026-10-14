@@ -3954,6 +3954,25 @@ function closeZoomHint() {
 })();
 
 
+// ==============================================================================
+// 🔋 INTERRUPTOR UNIVERSAL: COMPUERTA DE ENTRADA DEL PORTAL COMPANION
+// ==============================================================================
+function toggleGotchiPortal() {
+    // Apuntamos directamente al ID de la cápsula contenedora elástica exterior
+    var portal = document.getElementById("gotchi-hardware-portal");
+    if (!portal) return;
+
+    // Si está escondido lo enciende de golpe; si ya está activo lo apaga en un pestañeo
+    if (portal.style.display === "none" || portal.style.display === "") {
+        portal.style.setProperty("display", "block", "important");
+        console.log("🛸 PORTAL SYSTEM: Chasis CyberPet acoplado con total potencia en la Jukebox.");
+    } else {
+        portal.style.setProperty("display", "none", "important");
+    }
+}
+// Dejamos la ventana global amarrada por seguridad para navegadores convencionales
+window.toggleGotchiPortal = toggleGotchiPortal;
+
     
 
 </script>
@@ -4135,7 +4154,7 @@ function closeZoomHint() {
         
             
                <!-- COLOCAR ESTE BOTÓN DENTRO DE TU MENÚ EXISTENTE (ABAJO DE ENABLE ALERTS) -->
-<button id="menu-pet-btn" class="sidebar-action pet-action" onclick="toggleVirtualPet()">
+<button id="menu-pet-btn" class="sidebar-action pet-action" onclick="toggleGotchiPortal()">
 
 
      <span class="action-icon">
@@ -4447,9 +4466,9 @@ if ('serviceWorker' in navigator) {
       width: 475px !important;  /* Ancho ampliado para dar espacio a la pestaña */
       height: 680px !important; 
       z-index: 9996 !important;
-      border: 1px solid white;
+      border: none;
       pointer-events: none !important;
-      display: block; /* O 'none' si usas tu botón switch del menú */
+      display: none; /* O 'none' si usas tu botón switch del menú */
       overflow: visible !important;
   ">
       
@@ -4459,7 +4478,7 @@ if ('serviceWorker' in navigator) {
           height: 100% !important;  
           margin-left: 20% !important;
           pointer-events: auto !important;
-          border: 1px solid green;
+          border: none;
           background: transparent !important; /* Mimetismo cuántico transparente */
           float: left !important;
           overflow: visible !important;
@@ -4470,7 +4489,7 @@ if ('serviceWorker' in navigator) {
           width: 30px !important;
           height: 60px !important;
           float: left !important;
-          margin-top: 100px !important; /* Centrada simétricamente al nivel del chasis rosa */
+          margin-top: 110px !important; /* Centrada simétricamente al nivel del chasis rosa */
           margin-left: 0px !important;
           background: linear-gradient(135deg, #101923, #1c2d3d) padding-box, linear-gradient(135deg, #87ffff, #d83ca4) border-box;
           border: 1px solid transparent;
