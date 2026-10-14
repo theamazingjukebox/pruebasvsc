@@ -8,6 +8,7 @@
    width: 320px !important;
   height: max-content;
 
+
   /* 🟢 CORRECCIÓN VISUAL DE ORIGEN: Seteamos el anclaje en el centro superior.
      Esto obliga al Jukebox-Gotchi a nacer en su TAMAÑO REAL DEL 100% DE FÁBRICA,
      permitiendo que se encoja o se agrante de forma simétrica hacia los lados y abajo */
@@ -17,7 +18,7 @@
    /* 🪡 LA SOLUCIÓN MAESTRA: Capa 1: Tu color magenta base de fábrica. 
      Capa 2: Un degradado lineal sutil que simula iluminación cenital.
      Capa 3: Un patrón digital de micro-grano que rompe el color plano por completo. */
-  background-color: #6b1f47 !important; /* Mantiene tu tono de base */
+  background-color: #1f161b !important; /* Mantiene tu tono de base */
   background-image: 
     linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.15) 100%),
     radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
@@ -39,13 +40,23 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 16px;
- pointer-events: auto !important;
+ 
   font-family: 'Orbitron', monospace;
   z-index: 9995;
 transition: height 2.3s ease;
     overflow: visible !important; 
 }
 
+/* ========================================================
+   🪐 FONDO GLOBAL CÓSMICO DE LA PÁGINA (ESTILO COMPLETO)
+   ======================================================== */
+body {
+  background-image: url('fondo2.webp'); /* Cambia el nombre de la imagen */
+        background-color:#000;
+        background-size: cover;
+        position: relative;
+  
+}
 
 
 
@@ -81,6 +92,8 @@ transition: height 2.3s ease;
   border-radius: 35px;
   border-color: #d83ca4;
   overflow: visible !important; 
+    filter: brightness(0.80) !important;
+  -webkit-filter: brightness(0.80) !important; /* Soporte nativo para Safari e iOS */
   
   /* 🟢 TRANSICIÓN OPTICA: Suaviza el cambio de color del cielo y pasto 
      durante 0.8 segundos con una curva de desaceleración de gama alta */
@@ -506,7 +519,7 @@ box-shadow:
   transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
   
   /* Plástico magenta en penumbra texturizado */
-  background-color: #3d0f26;
+  background-color: rgba(33, 78, 56, 0.6);
   background-image: 
     linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
     radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
@@ -552,23 +565,23 @@ box-shadow:
   top: 475px !important;
   
   bottom: 0 !important;
-  height: 315px !important;
-  width: 7px; /* El grosor físico del canto de la máquina */
+  height: 316px !important;
+  width: 9px; /* El grosor físico del canto de la máquina */
   
   /* 🟢 COORDENADA DE ESCAPE IZQUIERDO: Lo desANCLAMOS de la derecha 
      y obligamos a que se cuelgue exactamente del borde exterior izquierdo */
-  left: 107.7% !important;
+  left: 106.7% !important;
   right: auto !important; 
   
   /* 🟢 INVERSIÓN DE FUGA ISOMÉTRICA COMPLETA: 
      Al estar a la izquierda, sesgamos el bloque a 15 grados positivos.
      Esto genera la caída de perspectiva perfecta hacia el centro de la máquina,
      soldándose milimétricamente con el chasis magenta principal */
-  transform: skewY(-45deg) translateY(0px) !important;
+  transform: skewY(-25deg) translateY(0px) !important;
   transform-origin: right top !important; /* El pivote cambia al lado derecho del perfil */
   
   /* Plástico magenta en penumbra texturizado */
-  background-color: #3d0f26 !important;
+  background-color: rgba(41, 97, 69, 0.6);
   background-image: 
     linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%),
     radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
@@ -1700,4 +1713,3 @@ text-decoration: double;
   backface-visibility: hidden !important;
   -webkit-backface-visibility: hidden !important;
 }
-
