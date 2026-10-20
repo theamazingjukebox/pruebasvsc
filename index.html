@@ -4486,20 +4486,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
-    // Buscamos el contenedor del fondo en tu HTML
     const container = document.querySelector('.background-container');
     
     if (container) {
-        // Le asignamos al canvas el ancho y alto exacto del contenedor
-        canvas.width = container.clientWidth;
-        canvas.height = container.clientHeight;
-    } else {
-        // Fallback por seguridad si el contenedor no responde
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Medimos el espacio físico real que ocupa el contenedor en el navegador
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
     }
 }
-// Mantenemos el listener para que se recalcule correctamente si el usuario gira el móvil o estira la pantalla
+
+// Forzamos un recálculo extra 300ms después de que la ventana cargue por completo
+window.addEventListener('load', () => {
+    setTimeout(resizeCanvas, 300);
+});
+
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
