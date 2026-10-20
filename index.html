@@ -3995,142 +3995,7 @@ function toggleGotchiPortal() {
 window.toggleGotchiPortal = toggleGotchiPortal;
 
 
-
-const canvas = document.getElementById('circuit-canvas');
-const ctx = canvas.getContext('2d');
-
-// Ajustar el lienzo al tamaño completo de la pantalla del usuario
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-// Configuración de la estética del circuito
-const GRID_SIZE = 80;       // Distancia entre los nodos de la malla (en píxeles)
-const CYAN_COLOR = '#a4efe9'; // El color cian místico de tu diseño
-const MAX_PULSES = 15;       // Cuántos pulsos de luz viajan al mismo tiempo en pantalla
-
-let pulses = [];
-
-// Clase para controlar los pulsos de energía individuales
-class CircuitPulse {
-    constructor() {
-        this.reset();
-    }
-
-    reset() {
-        // Alinear el inicio del pulso a un punto exacto de la cuadrícula matemática
-        this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
-        this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
-        
-        this.length = 0;
-        this.maxLength = 3 + Math.floor(Math.random() * 5); // Cuántos giros dará antes de apagarse
-        this.speed = 1.5 + Math.random() * 2; // Velocidad suave y elegante para evitar que sea excéntrico
-        this.history = [{x: this.x, y: this.y}];
-        
-        // Direcciones posibles en ángulos rectos (0: Derecha, 1: Abajo, 2: Izquierda, 3: Arriba)
-        this.dir = Math.floor(Math.random() * 4);
-        this.targetX = this.x;
-        this.targetY = this.y;
-        this.setNextTarget();
-    }
-
-    setNextTarget() {
-        // Decidir si gira a la izquierda, derecha o sigue recto (Ángulos limpios de 90° de circuitos)
-        const changeDir = Math.random() > 0.4;
-        if (changeDir) {
-            this.dir = (this.dir + (Math.random() > 0.5 ? 1 : -1) + 4) % 4;
-        }
-
-        if (this.dir === 0) this.targetX += GRID_SIZE;
-        if (this.dir === 1) this.targetY += GRID_SIZE;
-        if (this.dir === 2) this.targetX -= GRID_SIZE;
-        if (this.dir === 3) this.targetY -= GRID_SIZE;
-
-        this.length++;
-    }
-
-    update() {
-        // Mover el pulso hacia su siguiente nodo objetivo
-        let dx = this.targetX - this.x;
-        let dy = this.targetY - this.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < this.speed) {
-            this.x = this.targetX;
-            this.y = this.targetY;
-            this.history.push({x: this.x, y: this.y});
-
-            // Si el camino es muy largo o se sale de la pantalla, se reinicia como un pulso nuevo
-            if (this.length >= this.maxLength || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                this.reset();
-            } else {
-                this.setNextTarget();
-            }
-        } else {
-            this.x += (dx / dist) * this.speed;
-            this.y += (dy / dist) * this.speed;
-        }
-    }
-
-    draw() {
-        if (this.history.length < 2) return;
-
-        // 1. Dibujar el camino/pista del circuito (Línea más tenue)
-        ctx.beginPath();
-        ctx.moveTo(this.history[0].x, this.history[0].y);
-        for (let i = 1; i < this.history.length; i++) {
-            ctx.lineTo(this.history[i].x, this.history[i].y);
-        }
-        ctx.lineTo(this.x, this.y);
-        ctx.strokeStyle = 'rgba(164, 239, 233, 0.15)'; // Estructura del circuito muy sutil
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // 2. Dibujar la "cabeza" o pulso de luz brillante viajando
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = CYAN_COLOR;
-        ctx.shadowBlur = 10; // Añade un efecto de brillo de neón digital nativo
-        ctx.shadowColor = CYAN_COLOR;
-        ctx.fill();
-        ctx.shadowBlur = 0; // Limpiar sombra para optimizar rendimiento de renderizado
-
-        // 3. Dibujar pequeños nodos/puntos en las uniones de los circuitos
-        this.history.forEach(point => {
-            ctx.beginPath();
-            ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
-            ctx.fill();
-        });
-    }
-}
-
-// Inicializar la lista de pulsos concurrentes
-for (let i = 0; i < MAX_PULSES; i++) {
-    pulses.push(new CircuitPulse());
-}
-
-// Bucle de animación infinito (60 FPS fluidos)
-function animateCircuits() {
-    // Un truco visual: limpiar con una capa semi-transparente crea un efecto de "estela" o rastro de luz
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'; 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    pulses.forEach(pulse => {
-        pulse.update();
-        pulse.draw();
-    });
-
-    requestAnimationFrame(animateCircuits);
-}
-
-animateCircuits();
-
     
-
 </script>
 </head>    
 <body>
@@ -4609,6 +4474,129 @@ animateCircuits();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+</script>
+
+<script>
+// Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
+document.addEventListener("DOMContentLoaded", function() {
+    const canvas = document.getElementById('circuit-canvas');
+    if (!canvas) return; // Salvaguarda en caso de fallo de renderizado
+    
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const GRID_SIZE = 80;       
+    const CYAN_COLOR = '#a4efe9'; 
+    const MAX_PULSES = 15;       
+
+    let pulses = [];
+
+    class CircuitPulse {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
+            this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
+            this.length = 0;
+            this.maxLength = 3 + Math.floor(Math.random() * 5); 
+            this.speed = 1.5 + Math.random() * 2; 
+            this.history = [{x: this.x, y: this.y}];
+            this.dir = Math.floor(Math.random() * 4);
+            this.targetX = this.x;
+            this.targetY = this.y;
+            this.setNextTarget();
+        }
+
+        setNextTarget() {
+            const changeDir = Math.random() > 0.4;
+            if (changeDir) {
+                this.dir = (this.dir + (Math.random() > 0.5 ? 1 : -1) + 4) % 4;
+            }
+
+            if (this.dir === 0) this.targetX += GRID_SIZE;
+            if (this.dir === 1) this.targetY += GRID_SIZE;
+            if (this.dir === 2) this.targetX -= GRID_SIZE;
+            if (this.dir === 3) this.targetY -= GRID_SIZE;
+
+            this.length++;
+        }
+
+        update() {
+            let dx = this.targetX - this.x;
+            let dy = this.targetY - this.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < this.speed) {
+                this.x = this.targetX;
+                this.y = this.targetY;
+                this.history.push({x: this.x, y: this.y});
+
+                if (this.length >= this.maxLength || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                } else {
+                    this.setNextTarget();
+                }
+            } else {
+                this.x += (dx / dist) * this.speed;
+                this.y += (dy / dist) * this.speed;
+            }
+        }
+
+        draw() {
+            if (this.history.length < 2) return;
+
+            ctx.beginPath();
+            ctx.moveTo(this.history[0].x, this.history[0].y);
+            for (let i = 1; i < this.history.length; i++) {
+                ctx.lineTo(this.history[i].x, this.history[i].y);
+            }
+            ctx.lineTo(this.x, this.y);
+            ctx.strokeStyle = 'rgba(164, 239, 233, 0.15)'; 
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = CYAN_COLOR;
+            ctx.shadowBlur = 10; 
+            ctx.shadowColor = CYAN_COLOR;
+            ctx.fill();
+            ctx.shadowBlur = 0; 
+
+            this.history.forEach(point => {
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
+                ctx.fill();
+            });
+        }
+    }
+
+    for (let i = 0; i < MAX_PULSES; i++) {
+        pulses.push(new CircuitPulse());
+    }
+
+    function animateCircuits() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pulses.forEach(pulse => {
+            pulse.update();
+            pulse.draw();
+        });
+
+        requestAnimationFrame(animateCircuits);
+    }
+
+    animateCircuits();
+});
 </script>
 
 
