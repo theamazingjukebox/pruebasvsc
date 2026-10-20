@@ -4471,10 +4471,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Medimos el tamaño físico real que el CSS le está dando al canvas en la pantalla
+        const rect = canvas.getBoundingClientRect();
+        
+        // Sincronizamos el lienzo de dibujo interno con sus dimensiones visuales reales
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        
+        // Forzamos a que el contexto limpie y actualice la escala de los circuitos
+        if (pulses && pulses.length > 0) {
+            pulses.forEach(pulse => pulse.reset());
+        }
     }
+    // Mantenemos tus listeners para que se adapte perfectamente si el usuario rota el móvil
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', resizeCanvas);
     resizeCanvas();
 
     const GRID_SIZE = 80;       
