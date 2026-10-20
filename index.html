@@ -4463,7 +4463,7 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
-// Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
+
 // Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.getElementById('circuit-canvas');
@@ -4476,19 +4476,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let pulses = [];
 
-    // 🎯 FUNCIÓN CORREGIDA: Mide los píxeles reales exactos y evita los ceros iniciales del CSS
+    // 🎯 RELACIÓN DE ASPECTO FIJA DE TU JUKEBOX (720 x 1280)
+    const ASPECT_RATIO = 720 / 1280;
+
     function resizeCanvas() {
-        const rect = canvas.getBoundingClientRect();
-        
-        // Si el CSS aún no estira el elemento (mide 0), usamos el tamaño de la ventana temporalmente
-        const realWidth = rect.width > 0 ? rect.width : window.innerWidth;
-        const realHeight = rect.height > 0 ? rect.height : window.innerHeight;
+        // Medimos el espacio físico asignado por tu CSS en la pantalla
+        let rectWidth = canvas.clientWidth;
+        let rectHeight = canvas.clientHeight;
 
-        // Canvas requiere números enteros exactos sin decimales (Math.floor es la clave aquí)
-        canvas.width = Math.floor(realWidth);
-        canvas.height = Math.floor(realHeight);
+        // Si por carga inicial mide 0, forzamos un valor mínimo temporal basado en el contenedor
+        if (rectWidth === 0) rectWidth = 320;
+        if (rectHeight === 0) rectHeight = 568;
 
-        // Cada vez que se redimensiona, reiniciamos los pulsos para que no se queden fuera de rango
+        // 🧠 ALGORITMO OBJECT-FIT INTERNO: Calcula el tamaño real de la rocola en pantalla
+        let renderWidth = rectWidth;
+        let renderHeight = rectWidth / ASPECT_RATIO;
+
+        if (renderHeight > rectHeight) {
+            renderHeight = rectHeight;
+            renderWidth = rectHeight * ASPECT_RATIO;
+        }
+
+        // Asignamos las medidas matemáticas exactas de la Jukebox al lienzo interno
+        canvas.width = Math.floor(renderWidth);
+        canvas.height = Math.floor(renderHeight);
+
+        // Reiniciamos los pulsos para ajustarlos a la nueva escala real
         if (pulses.length > 0) {
             pulses.forEach(pulse => pulse.reset());
         }
@@ -4500,12 +4513,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         reset() {
-            // Aseguramos que no intente dividir por cero si el canvas es muy pequeño al inicio
             const maxCols = Math.max(1, Math.floor(canvas.width / GRID_SIZE));
             const maxRows = Math.max(1, Math.floor(canvas.height / GRID_SIZE));
 
+            // Los circuitos ahora nacen limitados estrictamente al ancho y alto real del renderizado
             this.x = Math.floor(Math.random() * maxCols) * GRID_SIZE;
             this.y = Math.floor(Math.random() * maxRows) * GRID_SIZE;
+            
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
             this.speed = 1.5 + Math.random() * 2; 
@@ -4540,6 +4554,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.y = this.targetY;
                 this.history.push({x: this.x, y: this.y});
 
+                // Si el pulso intenta salirse del lienzo proporcional calculated, se destruye
                 if (this.length >= this.maxLength || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
                     this.reset();
                 } else {
@@ -4560,8 +4575,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 ctx.lineTo(this.history[i].x, this.history[i].y);
             }
             ctx.lineTo(this.x, this.y);
-            // Subimos la opacidad a 0.35 para asegurarnos de que los veas sobre el póster
-            ctx.strokeStyle = 'rgba(164, 239, 233, 0.35)'; 
+            ctx.strokeStyle = 'rgba(164, 239, 233, 0.25)'; 
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
@@ -4576,13 +4590,12 @@ document.addEventListener("DOMContentLoaded", function() {
             this.history.forEach(point => {
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(164, 239, 233, 0.6)';
+                ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
                 ctx.fill();
             });
         }
     }
 
-    // Inicializamos los circuitos
     for (let i = 0; i < MAX_PULSES; i++) {
         pulses.push(new CircuitPulse());
     }
@@ -4598,20 +4611,19 @@ document.addEventListener("DOMContentLoaded", function() {
         requestAnimationFrame(animateCircuits);
     }
 
-    // 🟢 EL TRUCO SOBERANO: Observador nativo que dispara el tamaño exacto del CSS
+    // El ResizeObserver ahora vigila los cambios físicos del contenedor para aplicar la proporción
     const resizeObserver = new ResizeObserver(() => {
         resizeCanvas();
     });
     resizeObserver.observe(canvas);
 
-    // Mantenemos los eventos tradicionales como disparadores de respaldo secundario
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('load', resizeCanvas);
     
-    // Ejecución inicial y arranque del bucle de renderizado
     resizeCanvas();
     animateCircuits();
 });
+
 
 </script>
 
