@@ -2392,18 +2392,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 #circuit-canvas {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    z-index: 2; /* Asegúrate de que esté por encima del fondo, pero por debajo de la interfaz de la Jukebox */
-    pointer-events: none; /* Permite que el usuario pueda hacer clic a través del lienzo sin bloquear nada */
-    mix-blend-mode: screen; /* Hace que el brillo cian se fusione mágicamente con los colores oscuros del fondo */
-    opacity: 0.6; /* Controla la intensidad general de la malla para que sea sutil */
+    z-index: 1; /* Un nivel bajo para que quede detrás de todos tus botones y la interfaz */
+    pointer-events: none; /* Permite clics libres a través de las líneas */
+    mix-blend-mode: screen;
+    opacity: 0.65;
 }
-
 
     
     
@@ -4000,7 +3996,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
 </script>
 </head>    
 <body>
-
+<canvas id="circuit-canvas"></canvas>
     
 <div id="wrapper">
     
@@ -4009,7 +4005,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     <div class="background-container">
         <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
         <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
-        <canvas id="circuit-canvas"></canvas>
+        
         
         
 
@@ -4479,36 +4475,37 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
-// Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.getElementById('circuit-canvas');
-    if (!canvas) return; // Salvaguarda en caso de fallo de renderizado
+    if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-    const container = document.querySelector('.background-container');
-    
-    if (container) {
-        // Medimos el espacio físico real que ocupa el contenedor en el navegador
-        canvas.width = container.offsetWidth;
-        canvas.height = container.offsetHeight;
-    }
-}
-
-// Forzamos un recálculo extra 300ms después de que la ventana cargue por completo
-window.addEventListener('load', () => {
-    setTimeout(resizeCanvas, 300);
-});
-
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
     const GRID_SIZE = 80;       
     const CYAN_COLOR = '#a4efe9'; 
     const MAX_PULSES = 15;       
-
     let pulses = [];
+
+    // 🎯 FUNCIÓN MAESTRA: Sincroniza el lienzo con la posición real de la imagen en pantalla
+    function resizeCanvas() {
+        // Buscamos la imagen física de tu fondo
+        const backgroundImg = document.querySelector('.background-img');
+        
+        if (backgroundImg) {
+            // Obtenemos sus coordenadas exactas en la pantalla (top, left, width, height)
+            const rect = backgroundImg.getBoundingClientRect();
+            
+            // Ajustamos el lienzo fixed al tamaño total de la ventana para que no parpadee
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Guardamos las dimensiones de la imagen en el contexto del canvas para usarlo en el bucle
+            canvas.bgRect = rect;
+        } else {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.bgRect = null;
+        }
+    }
 
     class CircuitPulse {
         constructor() {
@@ -4516,8 +4513,16 @@ resizeCanvas();
         }
 
         reset() {
-            this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
-            this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
+            const rect = canvas.bgRect;
+            if (rect) {
+                // Genera el punto inicial restringido estrictamente al espacio ocupado por la imagen
+                this.x = rect.left + Math.floor(Math.random() * (rect.width / GRID_SIZE)) * GRID_SIZE;
+                this.y = rect.top + Math.floor(Math.random() * (rect.height / GRID_SIZE)) * GRID_SIZE;
+            } else {
+                this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
+                this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
+            }
+            
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
             this.speed = 1.5 + Math.random() * 2; 
@@ -4551,6 +4556,13 @@ resizeCanvas();
                 this.x = this.targetX;
                 this.y = this.targetY;
                 this.history.push({x: this.x, y: this.y});
+
+                const rect = canvas.bgRect;
+                // Si el pulso se sale de las coordenadas de la imagen, se destruye y renace adentro
+                if (rect && (this.x < rect.left || this.x > rect.right || this.y < rect.top || this.y > rect.bottom)) {
+                    this.reset();
+                    return;
+                }
 
                 if (this.length >= this.maxLength || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
                     this.reset();
@@ -4598,18 +4610,40 @@ resizeCanvas();
     }
 
     function animateCircuits() {
+        // Máscara matemática: Limpia el canvas aplicando un recorte estricto al área de la imagen
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const rect = canvas.bgRect;
+        if (rect) {
+            ctx.save();
+            ctx.beginPath();
+            // Creamos un rectángulo invisible de recorte con esquinas cuadradas o redondeadas
+            ctx.rect(rect.left, rect.top, rect.width, rect.height);
+            ctx.clip(); // Corta cualquier renderizado que intente dibujarse fuera
+        }
 
         pulses.forEach(pulse => {
             pulse.update();
             pulse.draw();
         });
 
+        if (rect) {
+            ctx.restore(); // Restaura el lienzo para el siguiente frame
+        }
+
         requestAnimationFrame(animateCircuits);
     }
 
+    // Forzar ejecuciones tras la carga de imágenes pesadas
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', () => {
+        setTimeout(resizeCanvas, 300);
+    });
+    resizeCanvas();
     animateCircuits();
 });
+
 </script>
 
 
