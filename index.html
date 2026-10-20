@@ -2397,7 +2397,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 9999999; /* Asegúrate de que esté por encima del fondo, pero por debajo de la interfaz de la Jukebox */
+    z-index: 2; /* Asegúrate de que esté por encima del fondo, pero por debajo de la interfaz de la Jukebox */
     pointer-events: none; /* Permite que el usuario pueda hacer clic a través del lienzo sin bloquear nada */
     mix-blend-mode: screen; /* Hace que el brillo cian se fusione mágicamente con los colores oscuros del fondo */
     opacity: 0.6; /* Controla la intensidad general de la malla para que sea sutil */
@@ -4008,6 +4008,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     <div class="background-container">
         <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
         <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
+        <canvas id="circuit-canvas"></canvas>
         
         
 
@@ -4237,7 +4238,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
 </div>
 
 
-<canvas id="circuit-canvas"></canvas>
+
         
 <!-- MÓDULO INTERACTIVO ESPEJO: BLOC DE NOTAS PERMANENTE (LADO IZQUIERDO) -->
 <div id="permanent-folder-wrapper" class="folder-left">
