@@ -2392,7 +2392,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 #circuit-canvas {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -4486,7 +4486,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
-    const container = document.querySelector('.background-img');
+    const container = document.querySelector('.background-container');
     
     if (container) {
         // Medimos el espacio físico real que ocupa el contenedor en el navegador
