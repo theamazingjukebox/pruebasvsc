@@ -2392,11 +2392,11 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 #circuit-canvas {
-    position: absolute; /* Se acopla al 100% de las dimensiones de su padre directo */
+    position: fixed; /* Se acopla al 100% de las dimensiones de su padre directo */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 80vw;
+    height: 80vh;
     z-index: 2; /* Lo posicionamos por encima de la imagen base pero abajo de la interfaz interactiva */
     pointer-events: none;
     mix-blend-mode: screen;
@@ -4475,21 +4475,25 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
+// Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.getElementById('circuit-canvas');
-    if (!canvas) return;
+    if (!canvas) return; // Salvaguarda en caso de fallo de renderizado
     
     const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
     const GRID_SIZE = 80;       
     const CYAN_COLOR = '#a4efe9'; 
     const MAX_PULSES = 15;       
-    let pulses = [];
 
-    // Redimensiona el lienzo al tamaño exacto que el CSS le asigne al contenedor
-    function resizeCanvas() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-    }
+    let pulses = [];
 
     class CircuitPulse {
         constructor() {
@@ -4497,10 +4501,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         reset() {
-            // Los pulsos nacen directamente dentro de los límites del lienzo asignado
             this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
             this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
-            
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
             this.speed = 1.5 + Math.random() * 2; 
@@ -4549,31 +4551,28 @@ document.addEventListener("DOMContentLoaded", function() {
         draw() {
             if (this.history.length < 2) return;
 
-            // Dibujamos las pistas con un color cian suave y visible sobre cualquier tono
             ctx.beginPath();
             ctx.moveTo(this.history[0].x, this.history[0].y);
             for (let i = 1; i < this.history.length; i++) {
                 ctx.lineTo(this.history[i].x, this.history[i].y);
             }
             ctx.lineTo(this.x, this.y);
-            ctx.strokeStyle = 'rgba(164, 239, 233, 0.3)'; 
+            ctx.strokeStyle = 'rgba(164, 239, 233, 0.15)'; 
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
-            // Pulso brillante de neón
             ctx.beginPath();
             ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
             ctx.fillStyle = CYAN_COLOR;
-            ctx.shadowBlur = 8; 
+            ctx.shadowBlur = 10; 
             ctx.shadowColor = CYAN_COLOR;
             ctx.fill();
             ctx.shadowBlur = 0; 
 
-            // Nodos en las uniones
             this.history.forEach(point => {
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(164, 239, 233, 0.6)';
+                ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
                 ctx.fill();
             });
         }
@@ -4584,7 +4583,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function animateCircuits() {
-        // Al limpiar, dejamos el fondo transparente para que se vea el background-image del CSS
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         pulses.forEach(pulse => {
@@ -4595,13 +4593,8 @@ document.addEventListener("DOMContentLoaded", function() {
         requestAnimationFrame(animateCircuits);
     }
 
-    window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('load', resizeCanvas);
-    resizeCanvas();
     animateCircuits();
 });
-
-
 </script>
 
 
