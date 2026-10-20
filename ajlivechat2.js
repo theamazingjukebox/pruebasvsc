@@ -684,7 +684,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bgVideos = [
         {
             el: document.getElementById("bg-video-1"),
-            src: "Copia de 0212 (17Belvnuevo).mp4"
+            src: "bgimg.png"
         },
         {
             el: document.getElementById("bg-video-2"),
