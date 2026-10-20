@@ -2391,18 +2391,6 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 
-#circuit-canvas {
-    background-image: url('bgimage.png'); /* Carga la imagen base directamente como el fondo interno del lienzo */
-    background-size: cover;
-    background-position: center;
-        background-size: cover;
-    position: relative;
-    object-fit: contain;
-    z-index: 1; /* Se mantiene en la base del contenedor, abajo del overlay y los videos */
-    pointer-events: none;
-    mix-blend-mode: screen; /* Eliminamos el modo screen para evitar que las zonas claras lo vuelvan invisible */
-    opacity: 1;
-}
 
     
     
@@ -4007,10 +3995,10 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     
     <div class="background-container">
             <!-- 1. Ocultamos la imagen estática original -->
-    <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: none !important;" />
+    <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block"/>
     
     <!-- 2. Colocamos el canvas EXACTAMENTE en su lugar heredando la clase original -->
-    <canvas id="circuit-canvas" class="background-img" style="border-radius: 25px; display: block;"></canvas>
+    <canvas id="circuit-canvas" class="background-img" </canvas>
     
     <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
         
