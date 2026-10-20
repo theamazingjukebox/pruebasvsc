@@ -2392,13 +2392,13 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 #circuit-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1; /* Un nivel bajo para que quede detrás de todos tus botones y la interfaz */
-    pointer-events: none; /* Permite clics libres a través de las líneas */
-    mix-blend-mode: screen;
-    opacity: 0.65;
+    background-image: url('bgimage.png'); /* Carga la imagen base directamente como el fondo interno del lienzo */
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* Se mantiene en la base del contenedor, abajo del overlay y los videos */
+    pointer-events: none;
+    mix-blend-mode: normal; /* Eliminamos el modo screen para evitar que las zonas claras lo vuelvan invisible */
+    opacity: 1;
 }
 
     
@@ -4003,10 +4003,13 @@ window.toggleGotchiPortal = toggleGotchiPortal;
 <div id="info-container">
     
     <div class="background-container">
-        <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
-        <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
-        
-        
+            <!-- 1. Ocultamos la imagen estática original -->
+    <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: none !important;" />
+    
+    <!-- 2. Colocamos el canvas EXACTAMENTE en su lugar heredando la clase original -->
+    <canvas id="circuit-canvas" class="background-img" style="border-radius: 25px; display: block;"></canvas>
+    
+    <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
         
 
 <video id="bg-video-1" autoplay muted loop playsinline poster=".jpg" class="background-video">
@@ -4485,26 +4488,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const MAX_PULSES = 15;       
     let pulses = [];
 
-    // 🎯 FUNCIÓN MAESTRA: Sincroniza el lienzo con la posición real de la imagen en pantalla
+    // Redimensiona el lienzo al tamaño exacto que el CSS le asigne al contenedor
     function resizeCanvas() {
-        // Buscamos la imagen física de tu fondo
-        const backgroundImg = document.querySelector('#info-container');
-        
-        if (backgroundImg) {
-            // Obtenemos sus coordenadas exactas en la pantalla (top, left, width, height)
-            const rect = backgroundImg.getBoundingClientRect();
-            
-            // Ajustamos el lienzo fixed al tamaño total de la ventana para que no parpadee
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            // Guardamos las dimensiones de la imagen en el contexto del canvas para usarlo en el bucle
-            canvas.bgRect = rect;
-        } else {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            canvas.bgRect = null;
-        }
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
     }
 
     class CircuitPulse {
@@ -4513,15 +4500,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         reset() {
-            const rect = canvas.bgRect;
-            if (rect) {
-                // Genera el punto inicial restringido estrictamente al espacio ocupado por la imagen
-                this.x = rect.left + Math.floor(Math.random() * (rect.width / GRID_SIZE)) * GRID_SIZE;
-                this.y = rect.top + Math.floor(Math.random() * (rect.height / GRID_SIZE)) * GRID_SIZE;
-            } else {
-                this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
-                this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
-            }
+            // Los pulsos nacen directamente dentro de los límites del lienzo asignado
+            this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
+            this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
             
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
@@ -4557,13 +4538,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.y = this.targetY;
                 this.history.push({x: this.x, y: this.y});
 
-                const rect = canvas.bgRect;
-                // Si el pulso se sale de las coordenadas de la imagen, se destruye y renace adentro
-                if (rect && (this.x < rect.left || this.x > rect.right || this.y < rect.top || this.y > rect.bottom)) {
-                    this.reset();
-                    return;
-                }
-
                 if (this.length >= this.maxLength || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
                     this.reset();
                 } else {
@@ -4578,28 +4552,31 @@ document.addEventListener("DOMContentLoaded", function() {
         draw() {
             if (this.history.length < 2) return;
 
+            // Dibujamos las pistas con un color cian suave y visible sobre cualquier tono
             ctx.beginPath();
             ctx.moveTo(this.history[0].x, this.history[0].y);
             for (let i = 1; i < this.history.length; i++) {
                 ctx.lineTo(this.history[i].x, this.history[i].y);
             }
             ctx.lineTo(this.x, this.y);
-            ctx.strokeStyle = 'rgba(164, 239, 233, 0.15)'; 
+            ctx.strokeStyle = 'rgba(164, 239, 233, 0.3)'; 
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
+            // Pulso brillante de neón
             ctx.beginPath();
             ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
             ctx.fillStyle = CYAN_COLOR;
-            ctx.shadowBlur = 10; 
+            ctx.shadowBlur = 8; 
             ctx.shadowColor = CYAN_COLOR;
             ctx.fill();
             ctx.shadowBlur = 0; 
 
+            // Nodos en las uniones
             this.history.forEach(point => {
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
+                ctx.fillStyle = 'rgba(164, 239, 233, 0.6)';
                 ctx.fill();
             });
         }
@@ -4610,39 +4587,23 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function animateCircuits() {
-        // Máscara matemática: Limpia el canvas aplicando un recorte estricto al área de la imagen
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+        // Al limpiar, dejamos el fondo transparente para que se vea el background-image del CSS
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        const rect = canvas.bgRect;
-        if (rect) {
-            ctx.save();
-            ctx.beginPath();
-            // Creamos un rectángulo invisible de recorte con esquinas cuadradas o redondeadas
-            ctx.rect(rect.left, rect.top, rect.width, rect.height);
-            ctx.clip(); // Corta cualquier renderizado que intente dibujarse fuera
-        }
 
         pulses.forEach(pulse => {
             pulse.update();
             pulse.draw();
         });
 
-        if (rect) {
-            ctx.restore(); // Restaura el lienzo para el siguiente frame
-        }
-
         requestAnimationFrame(animateCircuits);
     }
 
-    // Forzar ejecuciones tras la carga de imágenes pesadas
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('load', () => {
-        setTimeout(resizeCanvas, 300);
-    });
+    window.addEventListener('load', resizeCanvas);
     resizeCanvas();
     animateCircuits();
 });
+
 
 </script>
 
