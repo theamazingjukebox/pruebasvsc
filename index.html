@@ -4464,35 +4464,35 @@ if ('serviceWorker' in navigator) {
 
 <script>
 // Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
+// Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
 document.addEventListener("DOMContentLoaded", function() {
     const canvas = document.getElementById('circuit-canvas');
-    if (!canvas) return; // Salvaguarda en caso de fallo de renderizado
+    if (!canvas) return; 
     
     const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-        // Medimos el tamaño físico real que el CSS le está dando al canvas en la pantalla
-        const rect = canvas.getBoundingClientRect();
-        
-        // Sincronizamos el lienzo de dibujo interno con sus dimensiones visuales reales
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-        
-        // Forzamos a que el contexto limpie y actualice la escala de los circuitos
-        if (pulses && pulses.length > 0) {
-            pulses.forEach(pulse => pulse.reset());
-        }
-    }
-    // Mantenemos tus listeners para que se adapte perfectamente si el usuario rota el móvil
-    window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('load', resizeCanvas);
-    resizeCanvas();
-
     const GRID_SIZE = 80;       
     const CYAN_COLOR = '#a4efe9'; 
     const MAX_PULSES = 15;       
 
     let pulses = [];
+
+    // 🎯 FUNCIÓN CORREGIDA: Mide los píxeles reales exactos y evita los ceros iniciales del CSS
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        
+        // Si el CSS aún no estira el elemento (mide 0), usamos el tamaño de la ventana temporalmente
+        const realWidth = rect.width > 0 ? rect.width : window.innerWidth;
+        const realHeight = rect.height > 0 ? rect.height : window.innerHeight;
+
+        // Canvas requiere números enteros exactos sin decimales (Math.floor es la clave aquí)
+        canvas.width = Math.floor(realWidth);
+        canvas.height = Math.floor(realHeight);
+
+        // Cada vez que se redimensiona, reiniciamos los pulsos para que no se queden fuera de rango
+        if (pulses.length > 0) {
+            pulses.forEach(pulse => pulse.reset());
+        }
+    }
 
     class CircuitPulse {
         constructor() {
@@ -4500,8 +4500,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         reset() {
-            this.x = Math.floor(Math.random() * (canvas.width / GRID_SIZE)) * GRID_SIZE;
-            this.y = Math.floor(Math.random() * (canvas.height / GRID_SIZE)) * GRID_SIZE;
+            // Aseguramos que no intente dividir por cero si el canvas es muy pequeño al inicio
+            const maxCols = Math.max(1, Math.floor(canvas.width / GRID_SIZE));
+            const maxRows = Math.max(1, Math.floor(canvas.height / GRID_SIZE));
+
+            this.x = Math.floor(Math.random() * maxCols) * GRID_SIZE;
+            this.y = Math.floor(Math.random() * maxRows) * GRID_SIZE;
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
             this.speed = 1.5 + Math.random() * 2; 
@@ -4556,7 +4560,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 ctx.lineTo(this.history[i].x, this.history[i].y);
             }
             ctx.lineTo(this.x, this.y);
-            ctx.strokeStyle = 'rgba(164, 239, 233, 0.15)'; 
+            // Subimos la opacidad a 0.35 para asegurarnos de que los veas sobre el póster
+            ctx.strokeStyle = 'rgba(164, 239, 233, 0.35)'; 
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
@@ -4571,12 +4576,13 @@ document.addEventListener("DOMContentLoaded", function() {
             this.history.forEach(point => {
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(164, 239, 233, 0.4)';
+                ctx.fillStyle = 'rgba(164, 239, 233, 0.6)';
                 ctx.fill();
             });
         }
     }
 
+    // Inicializamos los circuitos
     for (let i = 0; i < MAX_PULSES; i++) {
         pulses.push(new CircuitPulse());
     }
@@ -4592,8 +4598,21 @@ document.addEventListener("DOMContentLoaded", function() {
         requestAnimationFrame(animateCircuits);
     }
 
+    // 🟢 EL TRUCO SOBERANO: Observador nativo que dispara el tamaño exacto del CSS
+    const resizeObserver = new ResizeObserver(() => {
+        resizeCanvas();
+    });
+    resizeObserver.observe(canvas);
+
+    // Mantenemos los eventos tradicionales como disparadores de respaldo secundario
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', resizeCanvas);
+    
+    // Ejecución inicial y arranque del bucle de renderizado
+    resizeCanvas();
     animateCircuits();
 });
+
 </script>
 
 
