@@ -2391,7 +2391,17 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 
-
+#circuit-canvas {
+    position: absolute; /* Se acopla al 100% de las dimensiones de su padre directo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Lo posicionamos por encima de la imagen base pero abajo de la interfaz interactiva */
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.65;
+}
     
     
 </style>
@@ -3987,22 +3997,18 @@ window.toggleGotchiPortal = toggleGotchiPortal;
 </script>
 </head>    
 <body>
-<canvas id="circuit-canvas"></canvas>
     
 <div id="wrapper">
     
 <div id="info-container">
     
     <div class="background-container">
-            <!-- 1. Ocultamos la imagen estática original -->
-    <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block"/>
-    
-    <!-- 2. Colocamos el canvas EXACTAMENTE en su lugar heredando la clase original -->
-    <canvas id="circuit-canvas" class="background-img" </canvas>
-    
+    <img src="bgimage.png" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
     <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
+    
+   
+    <canvas id="circuit-canvas"></canvas>
         
-
 <video id="bg-video-1" autoplay muted loop playsinline poster=".jpg" class="background-video">
 </video>
 
