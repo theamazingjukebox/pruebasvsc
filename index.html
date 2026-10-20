@@ -4152,7 +4152,7 @@ animateCircuits();
 <video id="bg-video-2" muted loop playsinline class="background-video">
 </video>
 
-<canvas id="circuit-canvas"></canvas>
+
         
         
 
@@ -4372,7 +4372,8 @@ animateCircuits();
 </div>
 
 
-
+<canvas id="circuit-canvas"></canvas>
+        
 <!-- MÓDULO INTERACTIVO ESPEJO: BLOC DE NOTAS PERMANENTE (LADO IZQUIERDO) -->
 <div id="permanent-folder-wrapper" class="folder-left">
   
@@ -4610,59 +4611,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-
-
-  <!-- ============================================================================== -->
-  <!-- 🕹️ PORTAL INDEPENDIENTE: ENTORNO MAESTRO CON PESTAÑA DE AGARRE V40.0 -->
-  <!-- ============================================================================== -->
-  <!-- Envolvemos el cristal en una cápsula elástica. La barra lateral de la derecha 
-       actúa como el chasis de tracción física para arrastrar la máquina por tu monitor. -->
-  <div id="gotchi-hardware-portal" style="
-      position: fixed !important;
-      bottom: 25px !important;
-      left: 25px !important;
-      width: 475px !important;  /* Ancho ampliado para dar espacio a la pestaña */
-      height: 680px !important; 
-      z-index: 99999 !important;
-      border: none;
-      pointer-events: none !important;
-      display: none; /* O 'none' si usas tu botón switch del menú */
-      overflow: visible !important;
-  ">
-      
-      <!-- 🛸 EL VIDRIO FLOTANTE (100% TRANSPARENTE CON PARPADEO DE MEMORIA): -->
-      <iframe src="petlab.html" id="virtual-pet-floating-window" allowtransparency="true" style="
-          width: 330px !important;   
-          height: 100% !important;  
-          margin-left: 20% !important;
-          pointer-events: auto !important;
-          border: none;
-          background: transparent !important; /* Mimetismo cuántico transparente */
-          float: left !important;
-          overflow: visible !important;
-      "></iframe>
-
-      <!-- 🎛️ LA PESTAÑA DE AGARRE ISOMÉTRICA (EXTREMO DERECHO CROMADO): -->
-      <div id="gotchi-hardware-drag-handle" style="
-          width: 30px !important;
-          height: 60px !important;
-          float: left !important;
-          margin-top: 110px !important; /* Centrada simétricamente al nivel del chasis rosa */
-          margin-left: 0px !important;
-          background: linear-gradient(135deg, #101923, #1c2d3d) padding-box, linear-gradient(135deg, #87ffff, #d83ca4) border-box;
-          border: 1px solid transparent;
-          border-radius: 0 10px 10px 0; /* Curva de fundición hacia la derecha */
-          box-shadow: 5px 0 15px rgba(216, 60, 164, 0.25), inset -1px 0 2px rgba(255,255,255,0.2) !important;
-          cursor: move !important; /* Fuerza tu espectacular cursor de cruz de arrastre */
-          pointer-events: auto !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-      " title="Hold and Drag to move CyberPet">
-          <!-- Estrías de hule táctiles grabadas en el bisel neón -->
-          <span style="color: #87ffff; font-family: 'Orbitron', monospace; font-size: 17px; font-weight: bold; letter-spacing: 1px; transform: rotate(90deg); user-select: none; pointer-events: none;">+</span>
-      </div>
-  </div>
 
 
 </body>
