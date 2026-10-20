@@ -3993,7 +3993,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
 <div id="info-container">
     
     <div class="background-container">
-    <canvas class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" /> </canvas>
+    <canvas id="circuit-canvas" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" /> </canvas>
     <img src="juke1.png" class="background-img overlay" alt="Overlay Image" />
     
         
@@ -4465,7 +4465,7 @@ if ('serviceWorker' in navigator) {
 <script>
 // Encapsulamos el motor de los circuitos para que arranque de forma segura tras cargar el HTML
 document.addEventListener("DOMContentLoaded", function() {
-    const canvas = document.getElementById('background-img');
+    const canvas = document.getElementById('circuit-canvas');
     if (!canvas) return; // Salvaguarda en caso de fallo de renderizado
     
     const ctx = canvas.getContext('2d');
