@@ -2395,9 +2395,12 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
     background-image: url('bgimage.png'); /* Carga la imagen base directamente como el fondo interno del lienzo */
     background-size: cover;
     background-position: center;
+        background-size: cover;
+    position: relative;
+    object-fit: contain;
     z-index: 1; /* Se mantiene en la base del contenedor, abajo del overlay y los videos */
     pointer-events: none;
-    mix-blend-mode: normal; /* Eliminamos el modo screen para evitar que las zonas claras lo vuelvan invisible */
+    mix-blend-mode: screen; /* Eliminamos el modo screen para evitar que las zonas claras lo vuelvan invisible */
     opacity: 1;
 }
 
