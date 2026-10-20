@@ -2392,7 +2392,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 #circuit-canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -4486,11 +4486,22 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
+    // Buscamos el contenedor del fondo en tu HTML
+    const container = document.querySelector('.background-container');
+    
+    if (container) {
+        // Le asignamos al canvas el ancho y alto exacto del contenedor
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+    } else {
+        // Fallback por seguridad si el contenedor no responde
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+}
+// Mantenemos el listener para que se recalcule correctamente si el usuario gira el móvil o estira la pantalla
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
     const GRID_SIZE = 80;       
     const CYAN_COLOR = '#a4efe9'; 
