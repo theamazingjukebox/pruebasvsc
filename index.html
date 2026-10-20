@@ -125,7 +125,8 @@ body {
         background-image: url('fnuevo4.png'); /* Cambia el nombre de la imagen */
         background-color:#000;
         background-size: cover;
-        position: absolute;
+        background-repeat: no-repeat;
+        position: relative;
     }
 }
    
@@ -4003,6 +4004,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     <div class="background-container">
         <img src="8nov.webp" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;" />
         <img src="nov2.3.webp" class="background-img overlay" alt="Overlay Image" />
+        <canvas id="circuit-canvas"></canvas>
         
 
 <video id="bg-video-1" autoplay muted loop playsinline poster="poster1.webp" class="background-video">
