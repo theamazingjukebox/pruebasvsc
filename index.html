@@ -2390,7 +2390,15 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   border-radius: 2px;
 }
 
-
+#circuit-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Obliga al canvas a encajar exactamente igual que tu video */
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.65;
+}
 
     
     
