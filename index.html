@@ -2261,7 +2261,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    ======================================================== */
 #permanent-folder-wrapper {
   position: fixed;
-  top: -6%;
+  top: -9%;
   left: -330px; /* Espejo: Oculto a la izquierda (Ancho de 330px) */
   width: 330px;
   height: 100vh;
@@ -2427,14 +2427,23 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   align-items: center;
   position: absolute;
   top: 38.5%; /* Sincronizado simétricamente con tu barra derecha */
-  left: 61.3%; /* Se ancla al extremo derecho de la pantalla */
+  left: 63.3%; /* Se ancla al extremo derecho de la pantalla */
   height: 240px;
   z-index: 19; /* Flota de forma segura por encima del canvas y overlays */
 }
 
+@media (min-width:768px) and (hover:hover) and (pointer:fine){
+
+.juke-commands-container {
+        top: 38.5%; /* Sincronizado simétricamente con tu barra derecha */
+  left: 61.3%; /* Se ancla al extremo derecho de la pantalla */
+        
+    }
+}
+
 /* PESTAÑA DISPARADORA (IM_MÍMETICA AL TECLADO CAFÉ) */
 #juke-commands-tab {
-  width: 34px;
+  width: 35px;
   height: 70px;
   /* Degradado que imita el biselado y la textura de la piedra del chasis inferior */
   background: linear-gradient(135deg, #4d443f, #312a26) padding-box, 
