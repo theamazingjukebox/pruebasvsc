@@ -2398,9 +2398,9 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 .juke-commands-container {
   display: flex;
   align-items: center;
-  position: fixed;
+  position: absolute;
   top: 35%; /* Sincronizado simétricamente con tu barra derecha */
-  right: 0; /* Se ancla al extremo derecho de la pantalla */
+  left: 0; /* Se ancla al extremo derecho de la pantalla */
   height: 240px;
   z-index: 9996; /* Flota de forma segura por encima del canvas y overlays */
 }
@@ -4178,6 +4178,48 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     <div class="background-container">
         <canvas id="circuit-canvas" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;"></canvas>
         <img src="v1.png" class="background-img overlay" alt="Overlay Image" />
+        <!-- ========================================================
+   NUEVO MÓDULO: PESTAÑA DE COMANDOS RÚNICOS (UX OPTIMIZADA)
+   ======================================================== -->
+<div id="juke-commands-wrapper" class="juke-commands-container">
+  
+  <!-- La Pestaña Disparadora (Estilo Piedra Café Teclado) -->
+  <div id="juke-commands-tab">
+    <span id="juke-commands-arrow">‹</span>
+  </div>
+
+  <!-- El Panel de la Terminal Interna con los 4 Botones -->
+  <div class="juke-commands-board">
+    <div class="juke-board-header">JUKEBOX_COMMANDS // CORE_v4</div>
+    
+    <div class="juke-buttons-matrix">
+      <!-- Fila Superior: Botones Cortos Gemelos -->
+      <div class="matrix-row row-top">
+        <button id="cmd-like-btn" class="cmd-pixel-btn btn-short" onclick="likeSong()">
+          <svg class="cmd-icon-svg icon-heart" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </button>
+        <button id="cmd-next-btn" class="cmd-pixel-btn btn-short" onclick="playNextVideo()">
+          <svg class="cmd-icon-svg icon-next" viewBox="0 0 24 24">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Fila Inferior: Botones Largos de Texto -->
+      <div class="matrix-row">
+        <button id="cmd-disco-btn" class="cmd-pixel-btn btn-long" onclick="toggleDiscoMode()">DISCO MODE</button>
+      </div>
+      <div class="matrix-row">
+        <button id="cmd-liked-list-btn" class="cmd-pixel-btn btn-long" onclick="showLikedSongs()">LIKED SONGS</button>
+      </div>
+    </div>
+
+    <div class="juke-board-footer">OS_SUB_SYSTEM_04</div>
+  </div>
+</div>
+
         
         
 
@@ -4887,47 +4929,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
-<!-- ========================================================
-   NUEVO MÓDULO: PESTAÑA DE COMANDOS RÚNICOS (UX OPTIMIZADA)
-   ======================================================== -->
-<div id="juke-commands-wrapper" class="juke-commands-container">
-  
-  <!-- La Pestaña Disparadora (Estilo Piedra Café Teclado) -->
-  <div id="juke-commands-tab">
-    <span id="juke-commands-arrow">‹</span>
-  </div>
-
-  <!-- El Panel de la Terminal Interna con los 4 Botones -->
-  <div class="juke-commands-board">
-    <div class="juke-board-header">JUKEBOX_COMMANDS // CORE_v4</div>
-    
-    <div class="juke-buttons-matrix">
-      <!-- Fila Superior: Botones Cortos Gemelos -->
-      <div class="matrix-row row-top">
-        <button id="cmd-like-btn" class="cmd-pixel-btn btn-short" onclick="likeSong()">
-          <svg class="cmd-icon-svg icon-heart" viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-        </button>
-        <button id="cmd-next-btn" class="cmd-pixel-btn btn-short" onclick="playNextVideo()">
-          <svg class="cmd-icon-svg icon-next" viewBox="0 0 24 24">
-            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Fila Inferior: Botones Largos de Texto -->
-      <div class="matrix-row">
-        <button id="cmd-disco-btn" class="cmd-pixel-btn btn-long" onclick="toggleDiscoMode()">DISCO MODE</button>
-      </div>
-      <div class="matrix-row">
-        <button id="cmd-liked-list-btn" class="cmd-pixel-btn btn-long" onclick="showLikedSongs()">LIKED SONGS</button>
-      </div>
-    </div>
-
-    <div class="juke-board-footer">OS_SUB_SYSTEM_04</div>
-  </div>
-</div>
 
 
 </body>
