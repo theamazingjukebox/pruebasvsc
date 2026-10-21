@@ -1706,7 +1706,7 @@ animation: parpadeo 1s infinite; /* Nombre de la animación, duración y repetic
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 23;
+    z-index: -1;
     overflow: hidden;
         pointer-events: none;
     
