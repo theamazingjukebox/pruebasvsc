@@ -2400,7 +2400,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   align-items: center;
   position: absolute;
   top: 35%; /* Sincronizado simétricamente con tu barra derecha */
-  left: 0; /* Se ancla al extremo derecho de la pantalla */
+  left: 55; /* Se ancla al extremo derecho de la pantalla */
   height: 240px;
   z-index: 9996; /* Flota de forma segura por encima del canvas y overlays */
 }
@@ -4906,7 +4906,7 @@ document.addEventListener("DOMContentLoaded", function() {
           
           setTimeout(() => {
             // Cambiamos el glifo de dirección en la oscuridad del frame
-            arrow.innerText = isCommandsFolderOpen ? '›' : '‹';
+            arrow.innerText = isCommandsFolderOpen ? '‹' : '›';
             // Cambio de color sutil para indicar estado activo
             arrow.style.color = isCommandsFolderOpen ? '#87ffff' : '#c5b4aa';
             // ⏳ Fase 2: Re-iluminamos la flecha con su nueva dirección
