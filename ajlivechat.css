@@ -1706,7 +1706,7 @@ animation: parpadeo 1s infinite; /* Nombre de la animación, duración y repetic
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 5;
     overflow: hidden;
     
     /* Mantenedora de tus 16s para que el viaje de 22 pasos sea una seda flotante */
