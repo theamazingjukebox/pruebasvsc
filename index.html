@@ -4206,20 +4206,17 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Título base de tu rocola
-    const baseTitle = "The Amazing Jukebox :: //Portal_Access_Granted 🟢";
+    let toggle = false;
     
-    // Secuencia de fotogramas para simular el latido del LED (Verde brillante y verde oscuro/apagado)
-    const pulseFrames = ["🟢", "🟩", "🟢", "🟩", "🟩", "🟩", "🟩"];
-    let currentFrame = 0;
-
     setInterval(() => {
-        // Actualiza la pestaña con el fotograma correspondiente
-        document.title = baseTitle + pulseFrames[currentFrame];
-        
-        // Avanza al siguiente fotograma en bucle continuo
-        currentFrame = (currentFrame + 1) % pulseFrames.length;
-    }, 400); // Velocidad de 400ms para que el parpadeo se sienta eléctrico y ágil
+        // Intercambia el título cada 1.5 segundos simulando un cursor de consola latiendo
+        if (toggle) {
+            document.title = "The Amazing Jukebox :: //Portal_Access_Granted 🟢";
+        } else {
+            document.title = "The Amazing Jukebox :: //Portal_Access_Granted _"; // Cambia el tono del LED o pon un guion bajo "_"
+        }
+        toggle = !toggle;
+    }, 1500);
 });
 
     
