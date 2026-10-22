@@ -679,7 +679,7 @@ font-size: 1.4em;
 
 #menu.show {
     max-height: 500px; /* Altura máxima suficiente para el contenido */
-    font-size: larger;
+    font-size: large;
     font-family: "Press Start 2P", system-ui;
     margin-top: 4%;
     opacity: 1;
