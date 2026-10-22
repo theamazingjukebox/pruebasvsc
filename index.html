@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>The Amazing Jukebox :: //Portal_Access_Granted 🟢</title>
 <meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=0.31, maximum-scale=5, user-scalable=yes">
 <meta property="og:image" content="https://theamazingjukebox.github.io/pruebasvsc/Screenshot_20260507_033602_Photo Editor.jpg">
@@ -4204,6 +4205,22 @@ function toggleGotchiPortal() {
 window.toggleGotchiPortal = toggleGotchiPortal;
     
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Título base de tu rocola
+    const baseTitle = "The Amazing Jukebox :: //Portal_Access_Granted 🟢";
+    
+    // Secuencia de fotogramas para simular el latido del LED (Verde brillante y verde oscuro/apagado)
+    const pulseFrames = ["🟢", "🟩", "🟢", "🟩", "🟩", "🟩", "🟩"];
+    let currentFrame = 0;
+
+    setInterval(() => {
+        // Actualiza la pestaña con el fotograma correspondiente
+        document.title = baseTitle + pulseFrames[currentFrame];
+        
+        // Avanza al siguiente fotograma en bucle continuo
+        currentFrame = (currentFrame + 1) % pulseFrames.length;
+    }, 400); // Velocidad de 400ms para que el parpadeo se sienta eléctrico y ágil
+});
 
     
 </script>
@@ -4217,7 +4234,7 @@ window.toggleGotchiPortal = toggleGotchiPortal;
     <div class="background-container">
         <canvas id="circuit-canvas" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;"></canvas>
         <img src="v1nuevo.png" class="background-img overlay" alt="Overlay Image" />
-        <img src="v1nuevo.svg" class="background-img overlay2" alt="Overlay Image2" />
+        <img src="v1nuevo.2.png" class="background-img overlay2" alt="Overlay Image2" />
         <!-- ========================================================
    NUEVO MÓDULO: PESTAÑA DE COMANDOS RÚNICOS (UX OPTIMIZADA)
    ======================================================== -->
