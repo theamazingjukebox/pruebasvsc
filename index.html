@@ -2750,8 +2750,8 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 .juke-central-hud-chasis {
   position: relative;
   width: 100%;
-    height: 50%;
-    right: 50%;
+    height: 20%;
+    right: 40%;
   max-width: 460px; /* Ancho ideal equilibrado para que no tape las estrellas laterales */
   margin: 40px auto 20px auto; /* Lo centra horizontalmente en el eje de tu página */
   
@@ -2767,6 +2767,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
               inset 0 0 20px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
   overflow: hidden;
+    z-index: 99999;
 }
 
 /* Moldura de energía superior estilo micro-circuito */
