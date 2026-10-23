@@ -4573,46 +4573,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
         
 
-        <!-- ========================================================
-   NUEVO NODO SUPERIOR: HUD CONTENEDOR CON CÁPSULA DE DATOS
-   ======================================================== -->
-<header id="top-banner" class="juke-hud-header">
-  <div class="hud-top-border-stone"></div>
-  
-  <div class="hud-node-wrapper">
-    <!-- Sub-Nodo 1: El Logotipo Oficial de tu sitio -->
-    <div class="hud-brand-zone">
-      <img src="https://github.io Editor.jpg" alt="The Amazing Jukebox" class="hud-logo-img">
-    </div>
-
-    <!-- Sub-Nodo 2: La Cápsula de Información en Vivo -->
-    <div class="hud-data-capsule">
-      <div class="capsule-led-pulse"></div>
-      <div class="capsule-text-stream">
-        <span class="capsule-tag">SIGNAL_DECODER</span>
-        <p id="hud-live-telemetry">STREAMING_STEREO // 320kbps</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tu botón original del menú hamburguesa se queda intacto dentro del contenedor -->
-  <div class="banner-content-legacy-fix">
-    <button class="menu-toggle" id="menu-toggle">
-        <span class="burger-symbol">&#9776;</span>
-        <span class="x-symbol">X</span>
-    </button>
-    <nav id="menu">
-        <ul>
-            <li><a href="#" class="menu-item" id="about-us-link">About Us</a></li>
-            <li><a href="#" class="menu-item" id="contact-us-link">Contact</a></li>
-            <li><a href="#" class="menu-item" id="get-the-app-link">Get the App</a></li>
-            <li><a href="#" class="menu-item" id="key-features-link">Key Features</a></li>
-            <li><a href="#" class="menu-item" id="enable-alerts-link">Enable Alerts</a></li>
-            <li><a href="#" class="menu-item" id="menu-pet-link">Virtual Pet</a></li>
-        </ul>
-    </nav>
-  </div>
-</header>
+<header id="top-banner">
+        
+        <div class="banner-content">
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            <button class="menu-toggle" id="menu-toggle">
+                <span class="burger-symbol">&#9776;</span>
+                <span class="x-symbol">X</span>
+            </button>
+            
+            <nav id="menu">
+                <ul>
+                    <li><a href="#" class="menu-item" id="about-us-link">About Us</a></li>
+                    <li><a href="#" class="menu-item" id="contact-us-link">Contact</a></li>
+                    <li><a href="#" class="menu-item" id="get-the-app-link">Get the App</a></li>
+                    <li><a href="#" class="menu-item" id="key-features-link">Key Feats</a></li>
+                    <li><a href="#" class="menu-item" id="enable-alerts-link">Enable Alerts</a></li>
+                    <li><a href="#" class="menu-item" id="menu-pet-link">Virtual Pet</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
    <!-- Cuadro de información de cada sección -->
 <div id="about-us-content" class="info-box2">
@@ -4765,6 +4746,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script src="script.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
+
+
+<!-- ========================================================
+   NUEVO NODO SUPERIOR: HUD CONTENEDOR CON CÁPSULA DE DATOS
+   ======================================================== -->
+<div id="juke-hud-header">
+  <div class="hud-top-border-stone"></div>
+  
+  <div class="hud-node-wrapper">
+    <!-- Sub-Nodo 1: El Logotipo Oficial de tu sitio -->
+    <div class="hud-brand-zone">
+      <img src="https://github.io Editor.jpg" alt="The Amazing Jukebox" class="hud-logo-img">
+    </div>
+
+    <!-- Sub-Nodo 2: La Cápsula de Información en Vivo -->
+    <div class="hud-data-capsule">
+      <div class="capsule-led-pulse"></div>
+      <div class="capsule-text-stream">
+        <span class="capsule-tag">SIGNAL_DECODER</span>
+        <p id="hud-live-telemetry">STREAMING_STEREO // 320kbps</p>
+      </div>
+    </div>
+  </div>
 
 
         
