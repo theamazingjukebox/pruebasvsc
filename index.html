@@ -1607,7 +1607,7 @@ button, a, img {
           /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
           background-image: url(".svg"), 
                             linear-gradient(rgba(18, 22, 30, 0.90), rgba(18, 22, 30, 0.90)), 
-                            linear-gradient(135deg, #00241f, #b4916a);
+                            linear-gradient(180deg, #00241f, #b4916a);
           
           /* Indicamos cómo se debe recortar cada capa de fondo */
           background-clip: padding-box, padding-box, border-box;
@@ -2075,7 +2075,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    ======================================================== */
 #zoom-smart-hint {
   position: fixed;
-  bottom: 145px;
+  bottom: 25px;
   left: 25px;
   z-index: 9995; /* Justo abajo del botón switch pero arriba de la interfaz */
   
@@ -2104,7 +2104,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 @media (min-width:768px) and (hover:hover) and (pointer:fine){
   
   #zoom-smart-hint {
-   bottom: 145px;
+   bottom: 25px;
   left: 25px;
       
   }
