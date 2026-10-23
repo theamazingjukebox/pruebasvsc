@@ -1347,10 +1347,18 @@ document.addEventListener("DOMContentLoaded", () => {
     style.id = 'pip-banner-styles';
     style.textContent = `
       #pip-smart-banner {
-        position: fixed; bottom: 25px; right: 25px; z-index: 10000;
-        background-color: rgba(18, 22, 30, 0.9); backdrop-filter: blur(10px);
-        border: 2px solid #d83ca4; border-radius: 16px; padding: 12px 18px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(135,255,255,0.15);
+        position: fixed; bottom: 25px; left: 25px; z-index: 10000;
+          /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo */
+  background: rgba(10, 16, 26, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Borde transparente sutil y esquinas redondeadas tipo PWA */
+  border: 1px solid rgba(135, 255, 255, 0.18);
+  border-radius: 16px;
+  
+  /* Sombra suave para despegarlo de los circuitos */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(135, 255, 255, 0.03);
         font-family: 'Orbitron', monospace; width: 320px;
         animation: slideInBanner 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       }
