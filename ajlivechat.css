@@ -135,7 +135,7 @@
     -webkit-backdrop-filter: blur(18px);
     
     /* Regresamos a tu borde dashed original que se ve muy bien en estático */
-    border: 1px dashed rgba(255, 251, 24, 0.329); 
+    border: 1px dashed #b4916a;
     border-radius: 8px;
     margin: 7px auto;
     width: 90%;
@@ -200,7 +200,7 @@
     display: block;
     font-family: 'Orbitron', monospace;
     font-weight: bold;
-    color: green;
+    color: palegreen;
     text-shadow: 
         0 0 5px rgba(255, 255, 255, 0.8), /* Brillo suave */
         0 0 10px rgb(162, 0, 255),   /* Brillo rosa */
