@@ -2672,12 +2672,12 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   CHASIS HUD CON FLUJO VERTICAL APILADO
+   CHASIS HUD DE LOGO Y TEMPORARIZADOR MILITAR
    ======================================================== */
 .juke-hud-brand-standalone {
   position: fixed;
-  top: 25px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
-  left: 25px;      
+  top: 10px;       /* 📍 CALIBRACIÓN MANUAL: Ajusta en píxeles para ubicar el bloque */
+  left: 20px;      
   background: rgba(10, 16, 26, 0.85); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2696,7 +2696,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   top: 0;
   left: 0;
   width: 100%;
-  height: 0px;
+  height: 2px;
   background: linear-gradient(90deg, #362e2a, #4d443f, #362e2a);
   border-radius: 12px 12px 0 0;
 }
@@ -2708,54 +2708,31 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 .hud-brand-img {
-  height: 34px; /* Aumentamos un pelín el logo para balancear la altura de la nueva caja doble */
+  height: 28px;
   width: auto;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 0 4px rgba(135, 255, 255, 0.15));
 }
 
-/* 🧬 LA CÁPSULA EN MODO APILADO (CAMBIO DE DIRECCIÓN A COLUMNA) */
-.status-stack-mode {
+.hud-brand-capsule {
   display: flex;
-  flex-direction: column; /* 🔥 LA CLAVE: Apila los elementos verticalmente */
-  align-items: flex-start;
-  gap: 4px;
-  padding: 6px 12px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
   background: rgba(5, 8, 15, 0.6);
   border: 1px solid rgba(108, 94, 87, 0.3);
   border-radius: 6px;
 }
 
-/* Estructura para cada fila interna de datos */
-.capsule-row-node {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Ajuste de alineación para la fila inferior que no lleva LED */
-.padding-left-fix {
-  padding-left: 14px; /* Sincroniza el inicio del texto saltándose el espacio del LED superior */
-}
-
-/* El único LED indicador del chasis superior */
+/* LED de estado de la transmisión */
 .juke-hud-brand-standalone .capsule-led-pulse {
   width: 6px;
   height: 6px;
-  background-color: #39ff14;
+  background-color: #39ff14; /* Verde neón activo */
   border-radius: 50%;
   box-shadow: 0 0 8px #39ff14;
   animation: ledPulse 2s infinite ease-in-out;
-  flex-shrink: 0;
-}
-
-/* Nueva línea divisoria horizontal interna */
-.capsule-internal-horizontal-divider {
-  width: 100%;
-  height: 1px;
-  background-color: rgba(108, 94, 87, 0.18);
-  margin: 2px 0;
 }
 
 .juke-hud-brand-standalone .capsule-text-stream {
@@ -2765,64 +2742,45 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 .juke-hud-brand-standalone .capsule-tag {
-  font-size: 6.5px; /* Letra un pelín más compacta para el formato vertical */
-  color: #6c5e57;
+  font-size: 6.5px;
+  color: #6c5e57; /* Café rúnico */
   font-weight: bold;
   letter-spacing: 0.8px;
   line-height: 1;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
-.juke-hud-brand-standalone #hud-live-telemetry {
-  font-size: 8.5px;
+/* El reloj digital con formato militar */
+.juke-hud-brand-standalone #hud-uptime-clock {
+  font-family: 'Orbitron', monospace; /* Forzamos fuente monoespaciada */
+  font-size: 10px;
   color: #87ffff; /* Tu cian Orbitron oficial */
-  text-shadow: 0 0 4px rgba(135, 255, 255, 0.2);
+  text-shadow: 0 0 5px rgba(135, 255, 255, 0.4);
   margin: 0;
   font-weight: bold;
-  letter-spacing: 0.5px;
-  line-height: 1.1;
+  letter-spacing: 1px;
 }
 
-.juke-hud-brand-standalone #hud-listeners-count {
-  font-size: 9px;
-  color: #d83ca4;
-  font-weight: bold;
-  margin: 0;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 4px rgba(135, 255, 255, 0.3);
-  line-height: 1.1;
+/* Detalle de micro-segundos atenuados */
+.juke-hud-brand-standalone #hud-uptime-clock .millis {
+  color: #d83ca4; /* Rosa neón */
+  font-size: 8px;
+  opacity: 0.8;
 }
 
-/* 📱 RESPONSIVE MÓVIL AUTOMÁTICO */
+/* 📱 RESPONSIVE MÓVIL */
 @media (max-width: 768px) {
   .juke-hud-brand-standalone {
     top: 8px;
     left: 10px;
-    padding: 6px;
+    padding: 6px 10px;
   }
-  .hud-brand-img {
-    height: 28px;
-  }
-  .status-stack-mode {
-    padding: 4px 8px;
-    gap: 2px;
-  }
-  .juke-hud-brand-standalone .capsule-tag {
-    display: none; /* Esconde las etiquetas en móvil para mantener la limpieza extrema */
-  }
-  .juke-hud-brand-standalone #hud-live-telemetry,
-  .juke-hud-brand-standalone #hud-listeners-count {
-    font-size: 7.5px;
-  }
+  .hud-brand-img { height: 22px; }
+  .hud-brand-flex { gap: 10px; }
+  .juke-hud-brand-standalone .capsule-tag { display: none; }
+  .juke-hud-brand-standalone #hud-uptime-clock { font-size: 9px; }
 }
 
-/* Color independiente y sutil únicamente para la palabra USERS */
-.users-text-word {
-    color: #87ffff !important; /* Tono café rúnico/arena texturizado */
-    font-size: 7.5px;          /* Un poco más compacto para que el número destaque */
-    margin-left: 3px;          /* Separa sutilmente la palabra del número */
-    text-shadow: none;         /* Le quita el resplandor de neón para mejorar la lectura */
-}
     
 </style>
     
@@ -4430,65 +4388,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ==============================================================================
-// MOTOR HUD CENTRALIZADO: SEÑAL RECTIVA & TELEMETRÍA DE OYENTES EN VIVO
+// MOTOR DE TELEMETRÍA DEL NODO SUPERIOR (CRONÓMETRO DE TRANSMISIÓN EN VIVO)
 // ==============================================================================
 document.addEventListener("DOMContentLoaded", function() {
-    const telemetryText = document.getElementById("hud-live-telemetry");
-    const listenersElement = document.getElementById("hud-listeners-count");
-    const ledIndicator = document.querySelector(".juke-hud-brand-standalone .capsule-led-pulse");
-    
-    if (!telemetryText || !listenersElement || !ledIndicator) return;
+    const clockElement = document.getElementById("hud-uptime-clock");
+    if (!clockElement) return;
 
-    // 1. SENSOR REACTIVO DEL REPRODUCTOR (Cada 500ms)
-    setInterval(() => {
-        const activePlayer = window.ytPlayer || ytPlayer;
-        
-        if (activePlayer && typeof activePlayer.getPlayerState === 'function') {
-            const state = activePlayer.getPlayerState();
-            
-            if (state === 1 || state === 3) {
-                telemetryText.innerText = "SIGNAL_DECODED // 320kbps";
-                telemetryText.style.color = "#87ffff";
-                // En PLAY el LED parpadea en verde rítmico
-                ledIndicator.style.backgroundColor = "#39ff14";
-                ledIndicator.style.boxShadow = "0 0 8px #39ff14";
-            } else {
-                telemetryText.innerText = "SIGNAL_PAUSED // STANDBY";
-                telemetryText.style.color = "#6c5e57";
-                // En PAUSA el LED cambia al púrpura de tu paleta
-                ledIndicator.style.backgroundColor = "#d83ca4";
-                ledIndicator.style.boxShadow = "0 0 6px #d83ca4";
-            }
-        }
-    }, 500);
+    // Establecemos de forma matemática que el servidor se encendió al inicio del día de hoy
+    const serverStartTime = new Date();
+    serverStartTime.setHours(serverStartTime.getHours() - 4); // Simulamos que lleva 4 horas encendido por defecto
+    serverStartTime.setMinutes(12);
+    serverStartTime.setSeconds(34);
 
-    // 2. ALGORITMO DE OYENTES HORARIOS INTEGRADO
-    function updateLiveListeners() {
-        const currentHour = new Date().getHours();
-        let baseCount = 28;
+    function updateUptime() {
+        const now = new Date();
+        const diff = now - serverStartTime; // Diferencia en milisegundos
 
-        // Mapeo lógico según el reloj del usuario
-        if (currentHour >= 0 && currentHour < 6) {
-            baseCount = 14;
-        } else if (currentHour >= 6 && currentHour < 12) {
-            baseCount = 22;
-        } else if (currentHour >= 12 && currentHour < 18) {
-            baseCount = 31;
-        } else if (currentHour >= 18 && currentHour <= 23) {
-            baseCount = 44;
-        }
+        // Cálculos de tiempo militar
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        const millis = Math.floor((diff % 1000) / 100); // Tomamos solo el primer dígito decimal
 
-        // Pequeña variación de sintonía (-2 a +2)
-        const variance = Math.floor(Math.random() * 5) - 2;
-        let finalCount = baseCount + variance;
-        if (finalCount < 8) finalCount = 8;
+        // Forzamos el formato de doble dígito (01, 02, etc.)
+        const formatHours = hours.toString().padStart(2, '0');
+        const formatMinutes = minutes.toString().padStart(2, '0');
+        const formatSeconds = seconds.toString().padStart(2, '0');
 
-        listenersElement.innerHTML = `${finalCount} <span class="users-text-word">Explorers</span>`;
+        // Inyectamos el texto de la terminal de forma nítida en el chasis
+        clockElement.innerHTML = `${formatHours}:${formatMinutes}:${formatSeconds}<span class="millis">.${millis}</span>`;
     }
 
-    // Arranque inmediato del contador y refresco cada 6 segundos
-    updateLiveListeners();
-    setInterval(updateLiveListeners, 6000);
+    // Actualización hiper-rápida cada 100ms para mantener corriendo el dígito de los micro-segundos
+    setInterval(updateUptime, 100);
 });
 
 
@@ -4779,40 +4711,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <!-- ========================================================
-   INSIGNIA HUD MAESTRA: DISPOSICIÓN APILADA (VERTICAL)
+   INSIGNIA HUD COMPLETA: LOGO + RELOJ MILITAR (OPCIÓN C)
    ======================================================== -->
 <div class="juke-hud-brand-standalone">
   <div class="hud-brand-top-border"></div>
   
   <div class="hud-brand-flex">
- 
+    <!-- Componente A: El Logotipo Oficial del Sitio -->
+    <div class="hud-brand-logo">
+      <img src="https://github.io Editor.jpg" alt="The Amazing Jukebox" class="hud-brand-img">
+    </div>
 
-    <!-- Componente B: La Cápsula de Datos Apilada Verticalmente -->
-    <div class="hud-brand-capsule status-stack-mode">
-      
-      <!-- Fila 1: Estado del Decodificador de Señal -->
-      <div class="capsule-row-node">
-        <div class="capsule-led-pulse"></div>
-        <div class="capsule-text-stream">
-          <span class="capsule-tag">SIGNAL_DECODER</span>
-          <p id="hud-live-telemetry">STREAMING_STEREO // 320kbps</p>
-        </div>
+    <!-- Componente B: La Cápsula del Temporizador Cyberpunk -->
+    <div class="hud-brand-capsule">
+      <div class="capsule-led-pulse status-active"></div>
+      <div class="capsule-text-stream">
+        <span class="capsule-tag">NODE_UPTIME // SYSTEM_LIVE</span>
+        <p id="hud-uptime-clock">00:00:00<span class="millis">.0</span></p>
       </div>
-
-      <!-- Divisor horizontal técnico en lugar del vertical -->
-      <div class="capsule-internal-horizontal-divider"></div>
-
-      <!-- Fila 2: Usuarios en Línea -->
-      <div class="capsule-row-node padding-left-fix">
-        <div class="capsule-text-stream">
-          <span class="capsule-tag">LISTENERS_ONLINE</span>
-          <p id="hud-listeners-count">--</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
+
 
         
 <!-- MÓDULO INTERACTIVO ESPEJO: BLOC DE NOTAS PERMANENTE (LADO IZQUIERDO) -->
@@ -4968,7 +4888,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <form id="message-form">
                         <textarea id="message-input" placeholder="Type your message..."></textarea>
                         <emoji-picker id="emoji-picker" style="display: none;"></emoji-picker>
-                        <div id="emoji-button" onclick="toggleEmojiPicker()">🧝‍♀️</div>
+                        <div id="emoji-button" onclick="toggleEmojiPicker()">🛸</div>
                       <button id="message-btn" type="submit">Send</button>
                     </form>
                     <button class="sidebar-action share-track-action" id="listen-button" onclick="shareCurrentSong()">
