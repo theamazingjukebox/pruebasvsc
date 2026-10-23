@@ -2301,7 +2301,9 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   transform: translateY(-50%);
   width: 35px;
   height: 90px;
-  background: rgba(18, 22, 30, 0.9);
+   background-color: rgba(18, 22, 30, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(135, 255, 255, 0.15);
   border-left: none; /* Elimina la costura con el contenedor */
   border-radius: 0 12px 12px 0;
@@ -2309,8 +2311,12 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+   box-shadow: -5px 0 20px rgba(216, 60, 164, 0.3);
+  transition: background-color 0.2s;    
+    -webkit-tap-highlight-color: transparent;
 }
+
+
 
 #permanent-tab-arrow {
   font-family: 'Orbitron', monospace;
