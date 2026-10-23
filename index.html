@@ -2676,8 +2676,8 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
    ======================================================== */
 .juke-hud-brand-standalone {
   position: fixed;
-  top: 10px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
-  left: 20px;      
+  top: 25px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
+  left: 25px;      
   background: rgba(10, 16, 26, 0.85); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2704,7 +2704,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 .hud-brand-flex {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .hud-brand-img {
@@ -2765,16 +2765,16 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 .juke-hud-brand-standalone .capsule-tag {
-  font-size: 6px; /* Letra un pelín más compacta para el formato vertical */
+  font-size: 6.5px; /* Letra un pelín más compacta para el formato vertical */
   color: #6c5e57;
   font-weight: bold;
   letter-spacing: 0.8px;
   line-height: 1;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 
 .juke-hud-brand-standalone #hud-live-telemetry {
-  font-size: 8px;
+  font-size: 8.5px;
   color: #87ffff; /* Tu cian Orbitron oficial */
   text-shadow: 0 0 4px rgba(135, 255, 255, 0.2);
   margin: 0;
@@ -2784,7 +2784,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 .juke-hud-brand-standalone #hud-listeners-count {
-  font-size: 8.5px;
+  font-size: 9px;
   color: #d83ca4;
   font-weight: bold;
   margin: 0;
@@ -2816,6 +2816,13 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   }
 }
 
+/* Color independiente y sutil únicamente para la palabra USERS */
+.users-text-word {
+    color: #87ffff !important; /* Tono café rúnico/arena texturizado */
+    font-size: 7.5px;          /* Un poco más compacto para que el número destaque */
+    margin-left: 3px;          /* Separa sutilmente la palabra del número */
+    text-shadow: none;         /* Le quita el resplandor de neón para mejorar la lectura */
+}
     
 </style>
     
@@ -4476,7 +4483,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let finalCount = baseCount + variance;
         if (finalCount < 8) finalCount = 8;
 
-        listenersElement.innerText = `${finalCount} Explorers`;
+        listenersElement.innerHTML = `${finalCount} <span class="users-text-word">Explorers</span>`;
     }
 
     // Arranque inmediato del contador y refresco cada 6 segundos
