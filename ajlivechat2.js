@@ -1347,7 +1347,6 @@ document.addEventListener("DOMContentLoaded", () => {
     style.id = 'pip-banner-styles';
     style.textContent = `
       #pip-smart-banner {
-        position: fixed; bottom: 25px; right: 25px; z-index: 10000;
           /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo */
   position: fixed; bottom: 25px; right: 25px; z-index: 10000;
         background-color: rgba(18, 22, 30, 0.9); backdrop-filter: blur(10px);
