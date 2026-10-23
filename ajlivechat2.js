@@ -1351,7 +1351,7 @@ document.addEventListener("DOMContentLoaded", () => {
           /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo */
   position: fixed; bottom: 25px; right: 25px; z-index: 10000;
         background-color: rgba(18, 22, 30, 0.9); backdrop-filter: blur(10px);
-        border: 2px solid #c5b4aa; border-radius: 16px; padding: 12px 18px;
+        border: 2px solid #6c5e57; border-radius: 16px; padding: 12px 18px;
         box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(135,255,255,0.15);
         font-family: 'Orbitron', monospace; width: 320px;
         animation: slideInBanner 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -1382,8 +1382,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-title { color: #87ffff; font-size: 11px; font-weight: bold; margin: 0 0 2px 0; letter-spacing: 0.5px; }
       .banner-desc { color: #dffcff; font-size: 9px; margin: 0; line-height: 1.2; font-family: sans-serif; }
       .b-btn { border: none; background: none; cursor: pointer; font-family: 'Orbitron', monospace; }
-      .b-accept { background-color: #d83ca4; color: #fff; font-size: 10px; font-weight: bold; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 8px rgba(216,60,164,0.4); transition: all 0.2s; }
-      .b-accept:hover { background-color: #ff52c5; box-shadow: 0 0 12px #ff52c5; }
+      .b-accept { background-color: #00241f; color: #fff; font-size: 10px; font-weight: bold; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 8px rgba(216,60,164,0.4); transition: all 0.2s; }
+      .b-accept:hover { background-color: #00312b; box-shadow: 0 0 12px #00312b; }
       .b-close { color: #4a4370; font-size: 14px; padding: 0 4px; }
       .b-close:hover { color: #d83ca4; }
     `;
