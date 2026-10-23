@@ -2745,120 +2745,131 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   ESTILOS DEL NODO SUPERIOR HUD (PIEDRA Y CÁPSULA DE DATOS)
+   ESTILOS DE LA CONSOLA/CHASIS CENTRAL DE BIENVENIDA
    ======================================================== */
-.juke-hud-header {
-  position: fixed;
+.juke-central-hud-chasis {
+  position: relative;
+  width: 100%;
+  max-width: 460px; /* Ancho ideal equilibrado para que no tape las estrellas laterales */
+  margin: 40px auto 20px auto; /* Lo centra horizontalmente en el eje de tu página */
+  
+  /* Chasis de doble borde: Fondo oscuro con el marco de piedra café oficial */
+  background: rgba(12, 15, 22, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 3px solid #4d443f;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 
+              0 0 25px rgba(135, 255, 255, 0.05),
+              inset 0 0 20px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Moldura de energía superior estilo micro-circuito */
+.hud-chasis-top-bar {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 65px;
-  background: linear-gradient(to bottom, rgba(14, 16, 20, 0.96), rgba(14, 16, 20, 0.85));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 9997; /* Justo abajo de los menús desplegables pero arriba del fondo */
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #87ffff, #d83ca4, transparent);
+  opacity: 0.8;
+}
+
+/* Pantalla interna de contención */
+.hud-chasis-inner-screen {
+  width: 100%;
+  border: 1px dashed rgba(108, 94, 87, 0.4);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(5, 7, 11, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* El Logotipo Oficial adaptado al Chasis */
+.hud-chasis-logo {
+  width: 100%;
+  height: auto;
+  max-height: 95px;
+  object-fit: contain;
+  display: block;
+  /* Efecto holográfico sutil */
+  filter: drop-shadow(0 0 8px rgba(135, 255, 255, 0.25));
+  transition: transform 0.3s ease;
+}
+
+.juke-central-hud-chasis:hover .hud-chasis-logo {
+  transform: scale(1.02); /* Reacción interactiva muy suave al pasar el mouse */
+}
+
+/* 🧬 BARRA TÉCNICA INFERIOR DE LA CONSOLA (ESTILO HUD MILITAR) */
+.hud-chasis-tech-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
-}
-
-/* Moldura superior del chasis café */
-.hud-top-border-stone {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #362e2a, #4d443f, #362e2a);
-}
-
-.hud-node-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Ajuste del logotipo oficial para que no desborde */
-.hud-logo-img {
-  height: 32px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 0 4px rgba(135, 255, 255, 0.15));
-}
-
-/* 🧬 LA CÁPSULA DE INFORMACIÓN (ESTILO CÁPSULA DE ENERGÍA) */
-.hud-data-capsule {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 14px;
-  background: rgba(5, 8, 15, 0.6);
-  border: 1px solid #4d443f; /* Borde de piedra café */
-  border-radius: 10px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-}
-
-/* LED indicador de estado del flujo de audio */
-.capsule-led-pulse {
-  width: 6px;
-  height: 6px;
-  background-color: #39ff14; /* Verde neón en PLAY */
-  border-radius: 50%;
-  box-shadow: 0 0 8px #39ff14;
-  animation: ledPulse 2s infinite ease-in-out;
-}
-
-.capsule-text-stream {
-  display: flex;
-  flex-direction: column;
+  padding: 6px 10px;
+  background: rgba(16, 20, 28, 0.9);
+  border: 1px solid #362e2a;
+  border-radius: 6px;
   font-family: 'Orbitron', sans-serif;
 }
 
-.capsule-tag {
-  font-size: 7px;
+.tech-glow-led {
+  width: 5px;
+  height: 5px;
+  background-color: #87ffff; /* Tu cian oficial latiendo en el centro */
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ffff;
+  animation: telemetryBlink 1.5s infinite ease-in-out;
+}
+
+.tech-code {
+  font-size: 8px;
   color: #6c5e57; /* Café rúnico */
   font-weight: bold;
   letter-spacing: 1px;
-  line-height: 1;
-  margin-bottom: 2px;
 }
 
-#hud-live-telemetry {
-  font-size: 9px;
-  color: #87ffff; /* Tu cian Orbitron oficial */
-  text-shadow: 0 0 4px rgba(135, 255, 255, 0.2);
-  margin: 0;
-  font-weight: bold;
-  letter-spacing: 0.5px;
+.tech-decor {
+  font-size: 8px;
+  color: rgba(216, 60, 164, 0.4); /* Tus detalles rosa con opacidad */
 }
 
-/* Mantenemos tu botón de menú en su posición absoluta original de la esquina derecha */
-.banner-content-legacy-fix .menu-toggle {
+/* 🧱 ESQUINAS BISELADAS DE PIEDRA (MIMETISMO DE TEXTURA RETRO) */
+.hud-chasis-corner {
   position: absolute;
-  top: 15px;
-  right: 24px;
+  width: 8px;
+  height: 8px;
+  background-color: #4d443f;
+  border: 1px solid #5c5048;
 }
+.tl { top: 4px; left: 4px; border-radius: 4px 0 4px 0; }
+.tr { top: 4px; right: 4px; border-radius: 0 4px 0 4px; }
+.bl { bottom: 4px; left: 4px; border-radius: 0 4px 0 4px; }
+.br { bottom: 4px; right: 4px; border-radius: 4px 0 4px 0; }
 
-/* RESPONSIVE: En móviles encogemos la cápsula para proteger tu maquetación de la rocola */
+/* RESPONSIVE FLUIDO: Se adapta milimétricamente si abren el sitio en móviles */
 @media (max-width: 768px) {
-  .juke-hud-header {
-    height: 55px;
-    padding: 0 16px;
+  .juke-central-hud-chasis {
+    max-width: 90%;
+    margin: 20px auto 10px auto;
+    padding: 10px;
   }
-  .hud-logo-img {
-    height: 26px;
+  .hud-chasis-inner-screen {
+    padding: 8px;
+    gap: 10px;
   }
-  .hud-data-capsule {
-    padding: 4px 8px;
-    gap: 6px;
+  .hud-chasis-logo {
+    max-height: 70px;
   }
-  .capsule-tag {
-    display: none; /* Escondemos la micro-etiqueta en pantallas chicas */
-  }
-  #hud-live-telemetry {
-    font-size: 8px;
+  .tech-decor {
+    display: none; /* Escondemos los glifos decorativos en pantallas chicas para no saturar */
   }
 }
 
@@ -4748,28 +4759,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script src="https://www.youtube.com/iframe_api"></script>
 
 
-<!-- ========================================================
-   NUEVO NODO SUPERIOR: HUD CONTENEDOR CON CÁPSULA DE DATOS
-   ======================================================== -->
-<div id="juke-hud-header">
-  <div class="hud-top-border-stone"></div>
-  
-  <div class="hud-node-wrapper">
-    <!-- Sub-Nodo 1: El Logotipo Oficial de tu sitio -->
-    <div class="hud-brand-zone">
-      <img src="icon512.png" alt="The Amazing Jukebox" class="hud-logo-img">
-    </div>
 
-    <!-- Sub-Nodo 2: La Cápsula de Información en Vivo -->
-    <div class="hud-data-capsule">
-      <div class="capsule-led-pulse"></div>
-      <div class="capsule-text-stream">
-        <span class="capsule-tag">SIGNAL_DECODER</span>
-        <p id="hud-live-telemetry">STREAMING_STEREO // 320kbps</p>
-      </div>
-    </div>
-  </div>
-</div>
 
         
             <div id="video-container">
@@ -4804,6 +4794,35 @@ document.addEventListener("DOMContentLoaded", function() {
   <div id="main-folder-tab" class="main-folder-tab-trigger">
     <span id="main-tab-arrow">‹</span>
   </div>
+</div>
+
+
+
+<!-- ========================================================
+   CONSOLA HUD CENTRAL DE BIENVENIDA (CHASIS RÚNICO)
+   ======================================================== -->
+<div class="juke-central-hud-chasis">
+  <!-- Bordes y esquinas de piedra tallada simuladas por CSS -->
+  <div class="hud-chasis-top-bar"></div>
+  <div class="hud-chasis-corner tl"></div>
+  <div class="hud-chasis-corner tr"></div>
+  
+  <div class="hud-chasis-inner-screen">
+    <!-- Sub-Nodo A: Tu Logotipo Oficial Centrado y Destacado -->
+    <div class="hud-chasis-brand-zone">
+      <img src="https://github.io Editor.jpg" alt="The Amazing Jukebox" class="hud-chasis-logo">
+    </div>
+
+    <!-- Sub-Nodo B: Cápsula de Telemetría Inferior del Chasis -->
+    <div class="hud-chasis-tech-bar">
+      <span class="tech-glow-led"></span>
+      <span class="tech-code">NODE_04 // FREQUENCY_CONNECTED</span>
+      <span class="tech-decor">◆ ❖ ◆</span>
+    </div>
+  </div>
+
+  <div class="hud-chasis-corner bl"></div>
+  <div class="hud-chasis-corner br"></div>
 </div>
 
 
