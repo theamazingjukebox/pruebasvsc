@@ -2186,79 +2186,6 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 
-/* ========================================================
-   CONTADOR DE OYENTES EN VIVO (ANCLAJE FIJO SUPERIOR IZQUIERDO)
-   ======================================================== */
-#live-listeners-counter {
-  position: fixed;
-  top: 25px;   /* 🔥 Anclaje exacto solicitado */
-  left: 75px;  /* 🔥 Anclaje exacto solicitado */
-  z-index: 9999; /* Máxima jerarquía para flotar sobre circuitos */
-  
-  /* Formato Micro-Cápsula de Cristal */
-  padding: 8px 14px;
-  background: rgba(10, 16, 26, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  
-  /* Borde transparente cian sutil */
-  border: 1px solid rgba(135, 255, 255, 0.15);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.listeners-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* MICRO-LED NEÓN VERDE PARPADEANTE */
-.listeners-led-ping {
-  width: 9px;
-  height: 9px;
-  background-color: #39ff14; /* Verde neón */
-  border-radius: 50%;
-  box-shadow: 0 0 8px #39ff14, 0 0 2px #ffffff;
-  animation: ledPulse 2s infinite ease-in-out;
-}
-
-.listeners-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 12px;
-  color: #dffcff;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-shadow: 0 0 4px rgba(223, 252, 255, 0.2);
-}
-
-#active-listeners-count {
-  color: #87ffff; /* Tu cian oficial */
-  text-shadow: 0 0 5px #00ffff;
-}
-
-/* ANIMACIÓN DE PARPADEO DEL LED */
-@keyframes ledPulse {
-  0%, 100% { opacity: 0.3; filter: brightness(0.7); box-shadow: 0 0 2px #39ff14; }
-  50% { opacity: 1; filter: brightness(1.2); box-shadow: 0 0 10px #39ff14, 0 0 4px #ffffff; }
-}
-
-@media (min-width:768px) and (hover:hover) and (pointer:fine){
-  
-  #live-listeners-counter {
-   top: 25px;
-  left: 25px;
-  }
-    .listeners-led-ping {
-  width: 7px;
-  height: 7px;
-  }
-      .listeners-text {
-  font-size: 10px;
-      
-  }
-}
-
 
 
 /* ========================================================
@@ -2745,16 +2672,13 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 /* ========================================================
-   CHASIS HUD DE LOGO Y CÁPSULA 100% INDEPENDIENTE
+   CHASIS HUD UNIFICADO CON CONTADOR DE OYENTES
    ======================================================== */
 .juke-hud-brand-standalone {
   position: fixed;
-
-  /* 📍 CALIBRACIÓN MANUAL GENERAL: Ajusta estos valores para ubicar todo el bloque donde quieras */
-  top: 20px;       /* Distancia desde el borde superior de la pantalla */
-  right: 90px;      /* Distancia desde el borde izquierdo de la pantalla */
-  
-  background: rgba(10, 16, 26, 0.85); /* Vidrio traslúcido esmerilado */
+  top: 25px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
+  left: 25px;      
+  background: rgba(10, 16, 26, 0.85); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid #4d443f; /* Tu marco de piedra café oficial */
@@ -2763,29 +2687,26 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   display: flex;
   flex-direction: column;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.55), inset 0 0 10px rgba(0,0,0,0.5);
-  z-index: 9998; /* Flota sobre el chasis base, pero no obstruye menús desplegables */
-  pointer-events: auto; /* Permite interactuar con este bloque si fuese necesario */
+  z-index: 9998; 
+  pointer-events: auto;
 }
 
-/* Moldura superior decorativa de piedra */
 .hud-brand-top-border {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 0px;
+  height: 2px;
   background: linear-gradient(90deg, #362e2a, #4d443f, #362e2a);
   border-radius: 12px 12px 0 0;
 }
 
-/* Distribución horizontal alineada del logo y los datos */
 .hud-brand-flex {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* Ajuste proporcional del Logotipo Oficial */
 .hud-brand-img {
   height: 28px;
   width: auto;
@@ -2794,18 +2715,18 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   filter: drop-shadow(0 0 4px rgba(135, 255, 255, 0.15));
 }
 
-/* Contenedor interno estilo micro-celda de energía */
+/* 🧬 LA CÁPSULA EXPANDIDA DE DOBLE CANAL */
 .hud-brand-capsule {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 10px;
+  gap: 12px;
+  padding: 4px 12px;
   background: rgba(5, 8, 15, 0.6);
   border: 1px solid rgba(108, 94, 87, 0.3);
   border-radius: 6px;
 }
 
-/* LED indicador de estado del reproductor */
+/* El único LED indicador del chasis */
 .juke-hud-brand-standalone .capsule-led-pulse {
   width: 6px;
   height: 6px;
@@ -2813,6 +2734,15 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   border-radius: 50%;
   box-shadow: 0 0 8px #39ff14;
   animation: ledPulse 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+/* Divisor rúnico vertical interno */
+.capsule-internal-divider {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(108, 94, 87, 0.25);
+  align-self: center;
 }
 
 .juke-hud-brand-standalone .capsule-text-stream {
@@ -2827,7 +2757,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   font-weight: bold;
   letter-spacing: 0.8px;
   line-height: 1;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 }
 
 .juke-hud-brand-standalone #hud-live-telemetry {
@@ -2839,27 +2769,31 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   letter-spacing: 0.5px;
 }
 
-/* 📱 RESPONSIVE: Adaptación milimétrica para teléfonos inteligentes */
+/* Diseño específico para el número de los oyentes */
+.juke-hud-brand-standalone #hud-listeners-count {
+  font-size: 9px;
+  color: #87ffff;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px rgba(135, 255, 255, 0.3);
+}
+
+/* 📱 RESPONSIVE MÓVIL */
 @media (max-width: 768px) {
   .juke-hud-brand-standalone {
-    /* 📍 AJUSTE MÓVIL: Ubicación manual protectora para pantallas táctiles */
     top: 8px;
     left: 10px;
-    padding: 6px 10px;
+    padding: 6px 8px;
   }
-  .hud-brand-img {
-    height: 22px; /* Escalamos el logo para que no sature la cabecera */
-  }
-  .hud-brand-flex {
-    gap: 10px;
-  }
-  .juke-hud-brand-standalone .capsule-tag {
-    display: none; /* Oculta la etiqueta de texto pequeña para ahorrar espacio */
-  }
-  .juke-hud-brand-standalone #hud-live-telemetry {
-    font-size: 7.5px;
-  }
+  .hud-brand-img { height: 22px; }
+  .hud-brand-flex { gap: 8px; }
+  .hud-brand-capsule { gap: 8px; padding: 4px 8px; }
+  .juke-hud-brand-standalone .capsule-tag { display: none; } /* Oculta etiquetas en móvil para no saturar */
+  .juke-hud-brand-standalone #hud-live-telemetry,
+  .juke-hud-brand-standalone #hud-listeners-count { font-size: 7.5px; }
 }
+
 
     
 </style>
@@ -4468,14 +4402,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ==============================================================================
-// MOTOR DE TELEMETRÍA DEL NODO SUPERIOR (HUD AUTOMÁTICO)
+// MOTOR HUD CENTRALIZADO: SEÑAL RECTIVA & TELEMETRÍA DE OYENTES EN VIVO
 // ==============================================================================
 document.addEventListener("DOMContentLoaded", function() {
     const telemetryText = document.getElementById("hud-live-telemetry");
+    const listenersElement = document.getElementById("hud-listeners-count");
     const ledIndicator = document.querySelector(".juke-hud-brand-standalone .capsule-led-pulse");
     
-    if (!telemetryText || !ledIndicator) return;
+    if (!telemetryText || !listenersElement || !ledIndicator) return;
 
+    // 1. SENSOR REACTIVO DEL REPRODUCTOR (Cada 500ms)
     setInterval(() => {
         const activePlayer = window.ytPlayer || ytPlayer;
         
@@ -4485,16 +4421,46 @@ document.addEventListener("DOMContentLoaded", function() {
             if (state === 1 || state === 3) {
                 telemetryText.innerText = "SIGNAL_DECODED // 320kbps";
                 telemetryText.style.color = "#87ffff";
+                // En PLAY el LED parpadea en verde rítmico
                 ledIndicator.style.backgroundColor = "#39ff14";
                 ledIndicator.style.boxShadow = "0 0 8px #39ff14";
             } else {
                 telemetryText.innerText = "SIGNAL_PAUSED // STANDBY";
                 telemetryText.style.color = "#6c5e57";
+                // En PAUSA el LED cambia al púrpura de tu paleta
                 ledIndicator.style.backgroundColor = "#d83ca4";
                 ledIndicator.style.boxShadow = "0 0 6px #d83ca4";
             }
         }
     }, 500);
+
+    // 2. ALGORITMO DE OYENTES HORARIOS INTEGRADO
+    function updateLiveListeners() {
+        const currentHour = new Date().getHours();
+        let baseCount = 28;
+
+        // Mapeo lógico según el reloj del usuario
+        if (currentHour >= 0 && currentHour < 6) {
+            baseCount = 14;
+        } else if (currentHour >= 6 && currentHour < 12) {
+            baseCount = 22;
+        } else if (currentHour >= 12 && currentHour < 18) {
+            baseCount = 31;
+        } else if (currentHour >= 18 && currentHour <= 23) {
+            baseCount = 44;
+        }
+
+        // Pequeña variación de sintonía (-2 a +2)
+        const variance = Math.floor(Math.random() * 5) - 2;
+        let finalCount = baseCount + variance;
+        if (finalCount < 8) finalCount = 8;
+
+        listenersElement.innerText = `${finalCount} USERS`;
+    }
+
+    // Arranque inmediato del contador y refresco cada 6 segundos
+    updateLiveListeners();
+    setInterval(updateLiveListeners, 6000);
 });
 
 
@@ -4785,26 +4751,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <!-- ========================================================
-   INSIGNIA HUD COMPLETA: LOGO + CÁPSULA (UBICACIÓN MANUAL)
+   INSIGNIA HUD MAESTRA: LOGO + SEÑAL + OYENTES EN VIVO
    ======================================================== -->
 <div class="juke-hud-brand-standalone">
   <div class="hud-brand-top-border"></div>
   
   <div class="hud-brand-flex">
     <!-- Componente A: El Logotipo Oficial del Sitio -->
-   
+    <div class="hud-brand-logo">
+      <img src="https://github.io Editor.jpg" alt="The Amazing Jukebox" class="hud-brand-img">
+    </div>
 
-    <!-- Componente B: La Cápsula de Datos Reactiva -->
+    <!-- Componente B: La Nueva Cápsula de Datos Doble -->
     <div class="hud-brand-capsule">
+      <!-- Un solo LED maestro para todo el chasis -->
       <div class="capsule-led-pulse"></div>
+      
       <div class="capsule-text-stream">
         <span class="capsule-tag">SIGNAL_DECODER</span>
         <p id="hud-live-telemetry">STREAMING_STEREO // 320kbps</p>
       </div>
+
+      <!-- Divisor tecnológico interno de la cápsula -->
+      <div class="capsule-internal-divider"></div>
+
+      <div class="capsule-text-stream text-listeners">
+        <span class="capsule-tag">LISTENERS_ONLINE</span>
+        <p id="hud-listeners-count">--</p>
+      </div>
     </div>
   </div>
 </div>
-
 
 
         
@@ -4891,13 +4868,6 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
 
-<!-- CONTADOR DE TELEMETRÍA FIJO (ESTILO CRISTAL ESMERILADO DE ESQUINA) -->
-<div id="live-listeners-counter">
-  <div class="listeners-content">
-    <span class="listeners-led-ping"></span>
-    <span class="listeners-text"><span id="active-listeners-count">--</span> LISTENERS ONLINE</span>
-  </div>
-</div>
 
 
 
