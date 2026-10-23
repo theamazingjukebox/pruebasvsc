@@ -1382,8 +1382,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-title { color: #87ffff; font-size: 11px; font-weight: bold; margin: 0 0 2px 0; letter-spacing: 0.5px; }
       .banner-desc { color: #dffcff; font-size: 9px; margin: 0; line-height: 1.2; font-family: sans-serif; }
       .b-btn { border: none; background: none; cursor: pointer; font-family: 'Orbitron', monospace; }
-      .b-accept { background-color: #00241f; color: #fff; font-size: 10px; font-weight: bold; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 8px rgba(216,60,164,0.4); transition: all 0.2s; }
-      .b-accept:hover { background-color: #00312b; box-shadow: 0 0 12px #00312b; }
+     .b-accept { background-color: #d83ca4; color: #fff; font-size: 10px; font-weight: bold; padding: 6px 12px; border-radius: 8px; box-shadow: 0 0 8px rgba(216,60,164,0.4); transition: all 0.2s; }
+      .b-accept:hover { background-color: #ff52c5; box-shadow: 0 0 12px #ff52c5; }
       .b-close { color: #4a4370; font-size: 14px; padding: 0 4px; }
       .b-close:hover { color: #d83ca4; }
     `;
