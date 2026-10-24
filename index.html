@@ -2664,9 +2664,16 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn-footer-donate:hover .btn-glow-dot {
+  .btn-footer-donate:hover {
     background-color: #87ffff;
     box-shadow: 0 0 8px #00ffff;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-glow-dot:hover {
+    background-color: #ff3d91;
+    box-shadow: 0 0 6px #ff3d91;
   }
 }
 
@@ -5306,8 +5313,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const ctx = canvas.getContext('2d');
     
     // ⚙️ CALIBRACIÓN DEL EFECTO (Ajusta estos números a tu gusto)
-    const HEX_RADIUS = 18;       // Tamaño de los hexágonos en píxeles (más chico = más denso)
-    const REVEAL_RADIUS = 80;   // Radio de luz alrededor del mouse en píxeles
+    const HEX_RADIUS = 19;       // Tamaño de los hexágonos en píxeles (más chico = más denso)
+    const REVEAL_RADIUS = 85;   // Radio de luz alrededor del mouse en píxeles
     const CYAN_COLOR = '#a4efe9'; // El cian místico oficial de tu plataforma
 
     let mouse = { x: -1000, y: -1000 };
