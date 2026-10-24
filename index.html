@@ -2223,7 +2223,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* LA PESTAÑA DISPARADORA (ANCLADA A LA DERECHA DEL CONTENEDOR) */
 #permanent-folder-tab {
   position: absolute;
-  top: 47%;
+  top: 46%;
   right: -35px; /* Sobresale hacia la derecha */
   
   width: 35px;
@@ -5338,51 +5338,55 @@ document.addEventListener("DOMContentLoaded", function() {
       ctx.closePath();
     }
 
-    // 🔄 BUCLE DE RENDERIZADO INFINITO (60 FPS FLUIDOS)
+       // 🔄 BUCLE DE RENDERIZADO INFINITO (CON GEOMETRÍA DE PANAL PERFECTA)
     function renderHexGrid() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Si el mouse no está en la pantalla, saltamos el dibujo para ahorrar CPU
       if (mouse.x === -1000) {
         requestAnimationFrame(renderHexGrid);
         return;
       }
 
-      // Constantes matemáticas para el entrelazado perfecto de panal de abejas
-      const hexWidth = HEX_RADIUS * Math.sqrt(3);
-      const hexHeight = HEX_RADIUS * 2;
-      const rowSpacing = hexHeight * 0.75;
+      // 🧮 FÓRMULAS DE PANAL PERFECTO (Calculadas para evitar superposiciones)
+      // HEX_RADIUS determina el tamaño del hexágono. Modifica solo esta constante arriba si quieres cambiar la escala general.
+      const hexWidth = Math.sqrt(3) * HEX_RADIUS; 
+      const hSpacing = hexWidth;
+      const vSpacing = HEX_RADIUS * 1.5; // Distancia matemática exacta para encajar las filas entre sí
 
-      // Recorremos la pantalla en filas y columnas dibujando la red fija invisible
-      for (let y = 0; y < canvas.height + HEX_RADIUS; y += rowSpacing) {
-        // Desplazamos las filas impares horizontalmente para que los hexágonos encajen entre sí
-        let xOffset = (Math.floor(y / rowSpacing) % 2 === 0) ? 0 : hexWidth / 2;
+      // Recorremos la pantalla en filas y columnas aplicando el entrelazado geométrico
+      for (let y = 0; y < canvas.height + HEX_RADIUS * 2; y += vSpacing) {
+        // Desplazamos las columnas de forma intercalada según la fila para un acoplamiento perfecto
+        let xOffset = (Math.floor(y / vSpacing) % 2 === 0) ? 0 : hexWidth / 2;
 
-        for (let x = xOffset; x < canvas.width + hexWidth; x += hexWidth) {
+        for (let x = -xOffset; x < canvas.width + hexWidth; x += hSpacing) {
           
-          // Calcular la distancia lineal exacta entre el centro de este hexágono y el mouse
           let dx = mouse.x - x;
           let dy = mouse.y - y;
           let distance = Math.sqrt(dx * dx + dy * dy);
 
-          // 🔮 REVELACIÓN POR PROXIMIDAD: Si está dentro del radio del mouse, calculamos su luz
           if (distance < REVEAL_RADIUS) {
-            // Generamos un desvanecimiento suave (fade-out) matemático según la distancia
             let opacity = 1 - (distance / REVEAL_RADIUS);
             
             ctx.save();
-            drawHexagon(x, y, HEX_RADIUS);
+            
+            // 📐 ROTACIÓN CORREGIDA A 90 GRADOS (Hexágonos con punta hacia arriba)
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+              let angle = (Math.PI / 3) * i + Math.PI / 2; // El "+ Math.PI / 2" bloquea la orientación en punta
+              ctx.lineTo(x + HEX_RADIUS * Math.cos(angle), y + HEX_RADIUS * Math.sin(angle));
+            }
+            ctx.closePath();
             
             // Estilo del trazo del hexágono hueco
-            ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.4})`; // Línea cian translúcida
-            ctx.lineWidth = 1.2;
+            ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.45})`; 
+            ctx.lineWidth = 1.2; // ✏️ Modifica esta línea para hacer las líneas más delgadas o gruesas
             ctx.stroke();
 
-            // Destello de neón en los nodos centrales cercanos al cursor
+            // Resplandor y refuerzo de neón en los nodos más cercanos al cursor
             if (distance < REVEAL_RADIUS * 0.4) {
               ctx.shadowBlur = 8;
               ctx.shadowColor = CYAN_COLOR;
-              ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.75})`;
+              ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.8})`;
               ctx.lineWidth = 1.8;
               ctx.stroke();
             }
@@ -5394,6 +5398,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       requestAnimationFrame(renderHexGrid);
     }
+
 
     // Inicializar el bucle de renderizado
     renderHexGrid();
