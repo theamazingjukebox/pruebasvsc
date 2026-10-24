@@ -925,7 +925,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas */
           /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
-          background-image: url("footer5.svg"), 
+          background-image: url("footern.svg"), 
                             linear-gradient(rgba(18, 22, 30, 0.90), rgba(18, 22, 30, 0.90)), 
                             linear-gradient(135deg, #00241f, #b4916a);
           
