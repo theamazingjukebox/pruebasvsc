@@ -2223,9 +2223,9 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* LA PESTAÑA DISPARADORA (ANCLADA A LA DERECHA DEL CONTENEDOR) */
 #permanent-folder-tab {
   position: absolute;
-  top: 50%;
+  top: 47%;
   right: -35px; /* Sobresale hacia la derecha */
-  transform: translateY(-50%);
+  
   width: 35px;
   height: 90px;
    background-color: rgba(18, 22, 30, 0.9);
@@ -2819,7 +2819,24 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
     box-shadow: 0 0 10px currentColor, 0 0 4px #ffffff; 
   }
 }
-    
+
+
+
+/* ========================================================
+   ESTILOS PARA LA CAPA DE HEXÁGONOS INTERACTIVOS
+   ======================================================== */
+#hex-grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999; /* Se posiciona en la capa más alta para reaccionar sobre todo el sitio */
+  pointer-events: none; /* CRUCIAL: Los clics traspasan el lienzo hacia la Jukebox sin bloquear nada */
+  mix-blend-mode: screen; /* Mezcla el brillo cian de los hexágonos con las sombras del fondo */
+  opacity: 0.85; /* Controla la intensidad general del efecto */
+}
+
 </style>
     
 <script>
@@ -4893,6 +4910,10 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
 
+<!-- ========================================================
+   LIENZO SENSORIAL MAESTRO: MALLA HOLOGRÁFICA DE HEXÁGONOS
+   ======================================================== -->
+<canvas id="hex-grid-overlay"></canvas>
 
 
         <!-- SUGERENCIA DE ZOOM INTELIGENTE (ESTILO CRISTAL ESMERILADO) -->
@@ -5266,6 +5287,119 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 })();
+
+
+
+
+// ==============================================================================
+// MOTOR SENSORIAL: CUADRÍCULA DE HEXÁGONOS REVELADOS POR PROXIMIDAD DEL MOUSE
+// ==============================================================================
+(function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    const canvas = document.getElementById('hex-grid-overlay');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    
+    // ⚙️ CALIBRACIÓN DEL EFECTO (Ajusta estos números a tu gusto)
+    const HEX_RADIUS = 32;       // Tamaño de los hexágonos en píxeles (más chico = más denso)
+    const REVEAL_RADIUS = 160;   // Radio de luz alrededor del mouse en píxeles
+    const CYAN_COLOR = '#a4efe9'; // El cian místico oficial de tu plataforma
+
+    let mouse = { x: -1000, y: -1000 };
+
+    // Sincronizar el lienzo con el tamaño total de la pantalla del usuario
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Rastreamos la posición física real del mouse en toda la ventana
+    window.addEventListener('mousemove', function(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    // Si el mouse sale de la ventana del navegador, apagamos la red
+    window.addEventListener('mouseleave', function() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+
+    // 📐 ALGORITMO GEOMÉTRICO: Dibuja un hexágono perfecto mediante ángulos de 60 grados
+    function drawHexagon(x, y, radius) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        let angle = (Math.PI / 3) * i;
+        ctx.lineTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+      }
+      ctx.closePath();
+    }
+
+    // 🔄 BUCLE DE RENDERIZADO INFINITO (60 FPS FLUIDOS)
+    function renderHexGrid() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Si el mouse no está en la pantalla, saltamos el dibujo para ahorrar CPU
+      if (mouse.x === -1000) {
+        requestAnimationFrame(renderHexGrid);
+        return;
+      }
+
+      // Constantes matemáticas para el entrelazado perfecto de panal de abejas
+      const hexWidth = HEX_RADIUS * Math.sqrt(3);
+      const hexHeight = HEX_RADIUS * 2;
+      const rowSpacing = hexHeight * 0.75;
+
+      // Recorremos la pantalla en filas y columnas dibujando la red fija invisible
+      for (let y = 0; y < canvas.height + HEX_RADIUS; y += rowSpacing) {
+        // Desplazamos las filas impares horizontalmente para que los hexágonos encajen entre sí
+        let xOffset = (Math.floor(y / rowSpacing) % 2 === 0) ? 0 : hexWidth / 2;
+
+        for (let x = xOffset; x < canvas.width + hexWidth; x += hexWidth) {
+          
+          // Calcular la distancia lineal exacta entre el centro de este hexágono y el mouse
+          let dx = mouse.x - x;
+          let dy = mouse.y - y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          // 🔮 REVELACIÓN POR PROXIMIDAD: Si está dentro del radio del mouse, calculamos su luz
+          if (distance < REVEAL_RADIUS) {
+            // Generamos un desvanecimiento suave (fade-out) matemático según la distancia
+            let opacity = 1 - (distance / REVEAL_RADIUS);
+            
+            ctx.save();
+            drawHexagon(x, y, HEX_RADIUS);
+            
+            // Estilo del trazo del hexágono hueco
+            ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.4})`; // Línea cian translúcida
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+
+            // Destello de neón en los nodos centrales cercanos al cursor
+            if (distance < REVEAL_RADIUS * 0.4) {
+              ctx.shadowBlur = 8;
+              ctx.shadowColor = CYAN_COLOR;
+              ctx.strokeStyle = `rgba(164, 239, 233, ${opacity * 0.75})`;
+              ctx.lineWidth = 1.8;
+              ctx.stroke();
+            }
+            
+            ctx.restore();
+          }
+        }
+      }
+
+      requestAnimationFrame(renderHexGrid);
+    }
+
+    // Inicializar el bucle de renderizado
+    renderHexGrid();
+  });
+})();
+
 
 
 
