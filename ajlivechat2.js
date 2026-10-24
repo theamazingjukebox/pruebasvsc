@@ -845,7 +845,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="widget-content">
             <!-- Animación exclusiva de la rocola -->
             <div class="album-art-container"> 
-        <img id="mini-jukebox-animation" src="CopiadeSinttulo4-ezgif.com-optimize.gif" alt="Jukebox"> 
+        <img id="mini-jukebox-animation" src="widget.gif" alt="Jukebox"> 
         </div>
             
             <div class="track-info">
@@ -927,7 +927,7 @@ document.addEventListener("DOMContentLoaded", () => {
           /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
           background-image: url("footer5.svg"), 
                             linear-gradient(rgba(18, 22, 30, 0.90), rgba(18, 22, 30, 0.90)), 
-                            linear-gradient(135deg, #87ffff, #d83ca4);
+                            linear-gradient(135deg, #00241f, #b4916a);
           
           /* Indicamos cómo se debe recortar cada capa de fondo */
           background-clip: padding-box, padding-box, border-box;
