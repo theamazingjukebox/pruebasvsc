@@ -3879,7 +3879,7 @@ function initYouTubePlayer(videoId) {
     function showLikedSongs() {
         const likedSongsPopup = document.getElementById("liked-songs-popup");
         const likedSongsContent = document.getElementById("liked-songs-content");
-        likedSongsContent.innerHTML = "<strong>Liked Songs:</strong><br>";
+        likedSongsContent.innerHTML = "<strong style='color: #6c5e57;'>Liked Songs:</strong><br>";
         for (const song of likedSongs) {
             likedSongsContent.innerHTML += `${song.name} by ${song.artist}. Links: <a href="${song.links}" target="_blank">${song.links}</a><br>`;
         }
