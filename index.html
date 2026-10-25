@@ -632,8 +632,8 @@ body {
 
     @media (min-width: 768px) {
     #youtube-player {
-        width: 366px; /* Ancho mayor en dispositivos grandes */
-        height: 250px; /* Altura mayor en dispositivos grandes */
+        width: 386px; /* Ancho mayor en dispositivos grandes */
+        height: 240px; /* Altura mayor en dispositivos grandes */
         
     }
 }
@@ -643,6 +643,15 @@ body {
         z-index: 10;
         width: 270px;
         height: 190px;
+    }
+}
+
+@media (display-mode: standalone) and (min-width: 768px) and (hover: hover) and (pointer: fine) {
+
+  #youtube-player {
+        z-index: 10;
+        width: 300px;
+        height: 200px;
     }
 }
     
