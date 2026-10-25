@@ -2234,7 +2234,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* LA PESTAÑA DISPARADORA (ANCLADA A LA DERECHA DEL CONTENEDOR) */
 #permanent-folder-tab {
   position: absolute;
-  top: 44%;
+  top: 50%;
   right: -35px; /* Sobresale hacia la derecha */
   
   width: 35px;
@@ -2262,6 +2262,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
         background-color: rgba(216, 60, 164, 0.15);
     }
 
+}
+
+@media (min-width:768px) and (hover:hover) and (pointer:fine){
+
+#permanent-folder-tab {
+        top: 44.7%;
+        
+    }
 }
 
 #permanent-folder-tab:active {
