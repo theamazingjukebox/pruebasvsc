@@ -2423,6 +2423,16 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
     }
 }
 
+@media (display-mode: standalone) and (min-width: 768px) and (hover: hover) and (pointer: fine) {
+
+   .juke-commands-container {
+        top: 38.5%; /* Sincronizado simétricamente con tu barra derecha */
+  left: 63.3%; /* Se ancla al extremo derecho de la pantalla */
+    }
+}
+
+
+
 /* PESTAÑA DISPARADORA (IM_MÍMETICA AL TECLADO CAFÉ) */
 #juke-commands-tab {
   width: 35px;
