@@ -2234,7 +2234,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* LA PESTAÑA DISPARADORA (ANCLADA A LA DERECHA DEL CONTENEDOR) */
 #permanent-folder-tab {
   position: absolute;
-  top: 49%;
+  top: 47.5%;
   right: -35px; /* Sobresale hacia la derecha */
   
   width: 35px;
@@ -2733,6 +2733,22 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.55), inset 0 0 10px rgba(0,0,0,0.5);
   z-index: 9999; 
   pointer-events: auto;
+}
+
+@media (display-mode: standalone) and (min-width: 768px) and (hover: hover) and (pointer: fine) {
+
+   .juke-hud-brand-standalone {
+        top: 25px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
+  left: 25px;  
+    }
+}
+
+@media (display-mode: standalone) and (min-width: 768px) {
+
+   .juke-hud-brand-standalone {
+        top: 95px;       /* 📍 CALIBRACIÓN MANUAL GENERAL */
+  left: 25px;  
+    }
 }
 
 .hud-brand-top-border {
