@@ -196,19 +196,18 @@ const messagesContainer = document.getElementById("messages");
 // NO se guarda en Firebase.
 const welcomeMessage = `
     <li class="chat-welcome">
-    <span class="system-title">[ INTERACTION_PORT :: READY ]</span>
-    <p class="system-body">
-       >> SONIC SIGNALS IN ORBIT...   <span class="neon-led"></span> // You are now tuned into the digital sanctuary of timeless classics and hidden gems. Say hello, share a track, and let the jukebox do the rest. Discovery is an adventure.
-    </p>
-    
-    <!-- Entrada de usuario integrada en la bienvenida -->
-    <div id="username-container" class="welcome-username-box">
-        <div class="username-fields">
-          <input type="text" id="username-input" placeholder="Enter Username..." />
-          <button id="set-username-button" onclick="setUsername()">▶️</button>
-        </div>
-    </div>
-</li>
+        <span class="system-title">[ INTERACTION_PORT :: READY ]</span>
+        <p class="system-body">
+           >> SONIC SIGNALS IN ORBIT...   <span class="neon-led"></span> // You are now tuned into the digital sanctuary of timeless classics and hidden gems. Say hello, share a track, and let the jukebox do the rest. Discovery is an adventure.
+      
+                  <div id="username-modal" class="modal">
+                    <div class="modal-content">
+                      <input type="text" id="username-input" placeholder="Username" />
+                      <button id="set-username-button" onclick="setUsername()">▶️</button>
+                    </div>
+                  </div>
+        </p>
+    </li>
 `;
 
 messagesContainer.innerHTML += welcomeMessage;
