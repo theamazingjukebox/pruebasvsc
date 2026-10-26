@@ -206,7 +206,7 @@
         0 0 10px rgb(162, 0, 255),   /* Brillo rosa */
         0 0 20px rgba(162, 0, 255),   /* Brillo rosa más intenso */
         0 0 30px rgba(162, 0, 255);   /* Brillo rosa aún más intenso */
-    font-size: 11px; 
+    font-size: 10px; 
     letter-spacing: 0.5px;
     margin-bottom: 6px;
    
@@ -216,7 +216,7 @@
 #messages .chat-welcome .system-body {
     font-family: monospace; 
     font-weight: normal;
-    font-size: 12px;
+    font-size: 11px;
     color: #dffcff; /* Tu color claro secundario */
     line-height: 1.5;
     margin: 0;
