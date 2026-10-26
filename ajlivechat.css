@@ -379,7 +379,7 @@
         padding: 10px;
         color: white;
         display: none; /* Inicialmente oculto */
-        z-index: 5;
+        z-index: 25;
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
