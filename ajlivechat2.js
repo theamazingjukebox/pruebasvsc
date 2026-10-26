@@ -63,7 +63,7 @@ var firebaseConfig = {
     // window.location.href = "tu_pagina.html";
 }
 
-document.getElementById('username-container').style.display = 'none';
+
 
 
 
@@ -206,7 +206,7 @@ const welcomeMessage = `
     
     <!-- Entrada de usuario integrada en la bienvenida -->
     <div id="username-container" class="welcome-username-box">
-        <div class="username-fields">
+        <div class="modal-content">
           <input type="text" id="username-input" placeholder="Username" />
           <button id="set-username-button" onclick="setUsername()">▶️</button>
         </div>
