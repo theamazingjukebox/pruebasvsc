@@ -297,41 +297,6 @@
 
 
 
-.welcome-username-box {
-    margin-top: 15px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05); /* Un fondo sutil */
-    border: 1px dashed #3f3f3f; /* Estilo terminal */
-    border-radius: 4px;
-    display: inline-block;
-}
-
-.username-fields {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-#username-input {
-    background: #121212;
-    border: 1px solid #neon-led-color; /* Usa aquí el color de tu led neón */
-    color: #fff;
-    padding: 6px 10px;
-    font-family: monospace;
-    outline: none;
-}
-
-#set-username-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: transform 0.2s;
-}
-
-#set-username-button:hover {
-    transform: scale(1.1);
-}
 
 
         /* Agrega este estilo para el contenedor de emojis */
@@ -437,7 +402,7 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     font-family: Orbitron;
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     width: 95px;
     
 }
