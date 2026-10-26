@@ -63,6 +63,9 @@ var firebaseConfig = {
     // window.location.href = "tu_pagina.html";
 }
 
+document.getElementById('username-container').style.display = 'none';
+
+
 
   
   // Agrega esta función para seleccionar un emoji
