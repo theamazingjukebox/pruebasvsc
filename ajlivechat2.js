@@ -205,7 +205,7 @@ const welcomeMessage = `
     </p>
     
     <!-- Entrada de usuario integrada en la bienvenida -->
-    <div id="username-container" class="welcome-username-box">
+    <div id="username-modal" class="modal">
         <div class="modal-content">
           <input type="text" id="username-input" placeholder="Username" />
           <button id="set-username-button" onclick="setUsername()">▶️</button>
