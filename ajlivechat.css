@@ -216,7 +216,7 @@
 #messages .chat-welcome .system-body {
     font-family: monospace; 
     font-weight: normal;
-    font-size: 11px;
+    font-size: 10px;
     color: #dffcff; /* Tu color claro secundario */
     line-height: 1.5;
     margin: 0;
