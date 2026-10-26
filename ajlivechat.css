@@ -402,7 +402,9 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     font-family: Orbitron;
     font-size: 12px;
+        margin-top: 5px;
     margin-bottom: 0px;
+        padding-bottom: -5px;
     width: 95px;
     
 }
