@@ -17,7 +17,7 @@ var firebaseConfig = {
 
  function showUsernameModal() {
     const usernameModal = document.getElementById("username-modal");
-    usernameModal.style.display = "block";
+    usernameModal.style.display = "none";
   }
   
   function closeUsernameModal() {
