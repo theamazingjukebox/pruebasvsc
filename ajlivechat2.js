@@ -14,6 +14,16 @@ var firebaseConfig = {
   const db = firebase.database();
   
   let username = "";
+
+ function showUsernameModal() {
+    const usernameModal = document.getElementById("username-modal");
+    usernameModal.style.display = "block";
+  }
+  
+  function closeUsernameModal() {
+    const usernameModal = document.getElementById("username-modal");
+    usernameModal.style.display = "none";
+  }
   
   
   function setUsername() {
