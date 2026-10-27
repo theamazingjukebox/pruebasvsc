@@ -15,15 +15,6 @@ var firebaseConfig = {
   
   let username = "";
   
-  function showUsernameModal() {
-    const usernameModal = document.getElementById("username-modal");
-    usernameModal.style.display = "block";
-  }
-  
-  function closeUsernameModal() {
-    const usernameModal = document.getElementById("username-modal");
-    usernameModal.style.display = "none";
-  }
   
   function setUsername() {
     const usernameInput = document.getElementById("username-input");
@@ -34,7 +25,7 @@ var firebaseConfig = {
         return;
     }
 
-    const usernameModal = document.getElementById("username-modal");
+    const usernameModal = document.getElementById("username-container");
     usernameModal.style.display = "none"; // Oculta la ventana emergente
 
     const welcomeMessage = "Welcome, " + username + "!";
