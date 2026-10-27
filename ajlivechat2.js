@@ -204,12 +204,7 @@ const welcomeMessage = `
        >> SONIC SIGNALS IN ORBIT...   <span class="neon-led"></span> // You are now tuned into the digital sanctuary of timeless classics and hidden gems. Say hello, share a track, and let the jukebox do the rest. Discovery is an adventure.
     </p>
 
-     <div id="username-container" class="welcome-username-box">
-        <div class="username-fields">
-          <input type="text" id="username-input" placeholder="Enter Username..." />
-          <button id="set-username-button" onclick="setUsername()">▶️</button>
-        </div>
-    </div>
+  
     
 </li>
 `;
