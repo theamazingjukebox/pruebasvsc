@@ -829,7 +829,9 @@ color:#dffcff;
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
-    font-family:Orbitron,monospace;
+    font-family: "Press Start 2P", system-ui;
+
+ font-size: 14px;
 
     
 
@@ -1111,7 +1113,9 @@ transparent 65%
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
-    font-family: 'Orbitron';
+    font-family: "Press Start 2P", system-ui;
+
+ font-size: 14px;
 
     color:#dffcff;
 
