@@ -1287,9 +1287,9 @@ color:#dffcff;
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
-    font-family:Orbitron,monospace;
+    font-family: "Press Start 2P", system-ui;
 
-    
+ font-size: 14px;
 
     text-shadow:
         0 0 8px rgba(73,255,246,.18);
@@ -1390,9 +1390,9 @@ color:#dffcff;
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
-    font-family:Orbitron,monospace;
+    font-family: "Press Start 2P", system-ui;
 
-    
+ font-size: 14px;
 
     text-shadow:
         0 0 8px rgba(73,255,246,.18);
@@ -1494,9 +1494,9 @@ color:#dffcff;
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
-    font-family:Orbitron,monospace;
+   font-family: "Press Start 2P", system-ui;
 
-    
+ font-size: 14px;
 
     text-shadow:
         0 0 8px rgba(73,255,246,.18);
