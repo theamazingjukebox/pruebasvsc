@@ -3934,7 +3934,7 @@ function setChatState(expanded) {
     if (!expanded && messagesContainer) {
         requestAnimationFrame(() => {
             // Ajusta este número (ej. 15, 20, 25) hasta que la barra rosa baje exactamente lo que necesitas
-            messagesContainer.scrollTop = 11; 
+            messagesContainer.scrollTop = 12; 
         });
     }
 }
@@ -3978,7 +3978,7 @@ window.addEventListener("load", () => {
     
     if (messagesContainer) {
         // 🎯 Forzamos el scroll de la barra rosa al cargar la página
-        messagesContainer.scrollTop = 11; 
+        messagesContainer.scrollTop = 12; 
     }
 
     setTimeout(() => {
