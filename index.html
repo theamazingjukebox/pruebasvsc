@@ -3953,7 +3953,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔥 estado inicial limpio
     setChatState(false);
-    chatContainer.scrollTop = 5;
+    chatContainer.scrollTop = 10;
 
 });
 
@@ -3971,14 +3971,14 @@ window.addEventListener("load", () => {
 
         // 2. Lo cerramos limpiamente para que las variables se queden en orden
         setTimeout(() => {
-            if (chatContainer) chatContainer.scrollTop = 5;
-            setChatState(false);
+            if (chatContainer) chatContainer.scrollTop = 10;
+            setChatState(true);
         }, 500);
 
         // 3. Lo abrimos a su altura final oficial (310px como lo tienes abajo) de forma correcta
         setTimeout(() => {
-            if (chatContainer) chatContainer.scrollTop = 5;
-            setChatState(true); // 🔥 Corrección: Usamos la función nativa en lugar de inyectar .style.height
+            if (chatContainer) chatContainer.scrollTop = 10;
+            setChatState(false); // 🔥 Corrección: Usamos la función nativa en lugar de inyectar .style.height
         }, 1000);
 
         // 4. Ocultamos el loader en paz
