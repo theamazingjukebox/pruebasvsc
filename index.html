@@ -3932,7 +3932,7 @@ function setChatState(expanded) {
     // 🔥 Forzamos el scroll al colapsar o expandir para asegurar la posición gráfica
     if (!expanded) {
         requestAnimationFrame(() => {
-            chatContainer.scrollTop = 16; // 🎯 Ajusta este número (6, 8 o 10) hasta que clave tu captura
+            chatContainer.scrollTop = -16; // 🎯 Ajusta este número (6, 8 o 10) hasta que clave tu captura
         });
     }
 }
@@ -3974,7 +3974,7 @@ window.addEventListener("load", () => {
 
     // Aseguramos el estado contraído final y aplicamos el ajuste de scroll exacto
     setChatState(false);
-    if (chatContainer) chatContainer.scrollTop = 16; 
+    if (chatContainer) chatContainer.scrollTop = -16; 
 
     // Ocultamos el loader limpiamente
     setTimeout(() => {
