@@ -3922,6 +3922,7 @@ let isChatExpanded = false;
 function setChatState(expanded) {
     const chatContainer = document.getElementById("chat");
     const toggleIcon = document.getElementById("toggle-icon");
+ const messagesContainer = document.getElementById("messages"); // 🎯 Buscamos el contenedor real del scroll
 
     if (!chatContainer || !toggleIcon) return; 
 
@@ -3929,10 +3930,11 @@ function setChatState(expanded) {
     chatContainer.style.height = expanded ? "310px" : "40px";
     toggleIcon.src = expanded ? "down17-2.png" : "down17.png";
 
-    // 🔥 Forzamos el scroll al colapsar o expandir para asegurar la posición gráfica
-    if (!expanded) {
+    // Si está colapsado, movemos la barrita rosa de los mensajes
+    if (!expanded && messagesContainer) {
         requestAnimationFrame(() => {
-            chatContainer.scrollBottom = 16; // 🎯 Ajusta este número (6, 8 o 10) hasta que clave tu captura
+            // Ajusta este número (ej. 15, 20, 25) hasta que la barra rosa baje exactamente lo que necesitas
+            messagesContainer.scrollTop = 20; 
         });
     }
 }
@@ -3970,13 +3972,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // ========================================================
 window.addEventListener("load", () => {
     const loader = document.getElementById("loading-screen");
-    const chatContainer = document.getElementById("chat");
+    const messagesContainer = document.getElementById("messages");
 
-    // Aseguramos el estado contraído final y aplicamos el ajuste de scroll exacto
     setChatState(false);
-    if (chatContainer) chatContainer.scrollBottom = 16; 
+    
+    if (messagesContainer) {
+        // 🎯 Forzamos el scroll de la barra rosa al cargar la página
+        messagesContainer.scrollTop = 20; 
+    }
 
-    // Ocultamos el loader limpiamente
     setTimeout(() => {
         if (loader) {
             loader.style.opacity = "0";
@@ -3984,7 +3988,7 @@ window.addEventListener("load", () => {
         }
     }, 300);
 });
-
+    
 
 function waitForYTAndPlay() {
     let attempts = 0;
