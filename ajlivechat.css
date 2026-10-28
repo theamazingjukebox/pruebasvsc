@@ -71,7 +71,7 @@
             width: 500px;
             height: 320px;
 
-        box-sizing: border-box;    /* 📐 Hace que el padding no altere la altura de 40px */
+         /* 📐 Hace que el padding no altere la altura de 40px */
 
            
             display: flex;
