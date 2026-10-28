@@ -3953,48 +3953,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🔥 estado inicial limpio
     setChatState(false);
-    chatContainer.scrollTop = 0;
+    chatContainer.scrollTop = 5;
 
 });
 
 
 // ========================================================
-// 🎬 WINDOW LOAD (VISUAL + LOADER + CHAT ANIMACIÓN)
+// 🎬 WINDOW LOAD CORREGIDO (EVITA DESFASES EN EL DOM)
 // ========================================================
 window.addEventListener("load", () => {
-
     const loader = document.getElementById("loading-screen");
     const chatContainer = document.getElementById("chat");
 
     requestAnimationFrame(() => {
-
-        // 1. Comportamiento original (abrir → cerrar)
+        // 1. Abrimos el chat de forma oficial a través de tu función controladora
         setChatState(true);
 
+        // 2. Lo cerramos limpiamente para que las variables se queden en orden
         setTimeout(() => {
-            if (chatContainer) chatContainer.scrollTop = 0;
+            if (chatContainer) chatContainer.scrollTop = 5;
             setChatState(false);
         }, 500);
 
-        // 2. Reabrir con height mayor
+        // 3. Lo abrimos a su altura final oficial (310px como lo tienes abajo) de forma correcta
         setTimeout(() => {
-            if (chatContainer) {
-                chatContainer.scrollTop = 0;
-                chatContainer.style.height = "310px";
-            }
-            isChatExpanded = true; 
+            if (chatContainer) chatContainer.scrollTop = 5;
+            setChatState(true); // 🔥 Corrección: Usamos la función nativa en lugar de inyectar .style.height
         }, 1000);
 
-        // 🟢 INYECCIÓN MAESTRA: Encendemos los latidos del Tamagotchi 
-        // justo cuando el loader se va, evitando cualquier cortocircuito lógico.
-        setTimeout(() => {
-            if (typeof initVirtualPet === 'function') {
-                initVirtualPet();
-                console.log("📟 Jukebox OS: Sub-módulo holográfico de Margo encendido en la sombra.");
-            }
-        }, 1200);
-
-        // 3. Ocultar loader final
+        // 4. Ocultamos el loader en paz
         setTimeout(() => {
             if (loader) {
                 loader.style.opacity = "0";
