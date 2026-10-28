@@ -72,7 +72,7 @@
             height: 320px;
 
         box-sizing: border-box;    /* 📐 Hace que el padding no altere la altura de 40px */
-    overflow-y: scroll; 
+
            
             display: flex;
             flex-direction: column;
