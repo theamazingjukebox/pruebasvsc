@@ -5414,42 +5414,41 @@ document.addEventListener("DOMContentLoaded", function() {
       mouse.y = -1000;
     });
 
-    // ========================================================
-    // 📱 NUEVA INYECCIÓN: RASTREO TÁCTIL SUAVE (MÓVILES / TOUCH)
+      // ========================================================
+    // 📱 NUEVA INYECCIÓN CORREGIDA: RASTREO TÁCTIL (TOUCHMOVE)
     // ========================================================
     
-    // Función auxiliar para extraer las coordenadas del dedo de forma precisa
+    // Función auxiliar: Extrae las coordenadas exactas de la sub-lista del primer dedo [0]
     function handleTouch(e) {
       if (e.touches && e.touches.length > 0) {
-        // Tomamos el primer punto de contacto (dedo) en la pantalla
+        // 🎯 CLAVE DE LA CORRECCIÓN: Acceder de forma estricta al primer punto de contacto [0]
         mouse.x = e.touches[0].clientX;
         mouse.y = e.touches[0].clientY;
       }
     }
 
-    // Al apoyar el dedo en la pantalla, encendemos la red al instante
-    canvas.addEventListener('touchstart', function(e) {
+    // Al apoyar el dedo, capturamos las coordenadas iniciales
+    window.addEventListener('touchstart', function(e) {
       handleTouch(e);
     }, { passive: true });
 
-    // 🔥 LA CLAVE: Captura el arrastre continuo del dedo por todo el cristal
-    canvas.addEventListener('touchmove', function(e) {
+    // 🔥 MOTOR DINÁMICO: Sigue el dedo de forma continua en tiempo real por toda la pantalla
+    window.addEventListener('touchmove', function(e) {
       handleTouch(e);
       
-      // Si el usuario desliza el dedo cerca de la rocola, evitamos que la pantalla
-      // salte o haga scroll de forma brusca para que la experiencia visual sea perfecta
+      // Detiene el scroll caprichoso del navegador para que la malla responda sin trabas
       if (e.cancelable) {
-        e.preventDefault(); 
+        e.preventDefault();
       }
-    }, { passive: false }); // Usamos passive: false para permitir el preventDefault controlado
+    }, { passive: false }); // Obligatorio para permitir el preventDefault
 
-    // Al levantar el dedo del cristal, desvanecemos la red suavemente
-    canvas.addEventListener('touchend', function() {
+    // Al levantar el dedo o salir del cristal, la malla se desvanece suavemente
+    window.addEventListener('touchend', function() {
       mouse.x = -1000;
       mouse.y = -1000;
     });
-    
-    canvas.addEventListener('touchcancel', function() {
+
+    window.addEventListener('touchcancel', function() {
       mouse.x = -1000;
       mouse.y = -1000;
     });
