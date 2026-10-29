@@ -5400,6 +5400,61 @@ document.addEventListener("DOMContentLoaded", function() {
       mouse.y = -1000;
     });
 
+
+        // ==========================================
+    // ESCUCHADORES DE MOUSE EXISTENTES (PC)
+    // ==========================================
+    window.addEventListener('mousemove', function(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', function() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+
+    // ========================================================
+    // 📱 NUEVA INYECCIÓN: RASTREO TÁCTIL SUAVE (MÓVILES / TOUCH)
+    // ========================================================
+    
+    // Función auxiliar para extraer las coordenadas del dedo de forma precisa
+    function handleTouch(e) {
+      if (e.touches && e.touches.length > 0) {
+        // Tomamos el primer punto de contacto (dedo) en la pantalla
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    }
+
+    // Al apoyar el dedo en la pantalla, encendemos la red al instante
+    canvas.addEventListener('touchstart', function(e) {
+      handleTouch(e);
+    }, { passive: true });
+
+    // 🔥 LA CLAVE: Captura el arrastre continuo del dedo por todo el cristal
+    canvas.addEventListener('touchmove', function(e) {
+      handleTouch(e);
+      
+      // Si el usuario desliza el dedo cerca de la rocola, evitamos que la pantalla
+      // salte o haga scroll de forma brusca para que la experiencia visual sea perfecta
+      if (e.cancelable) {
+        e.preventDefault(); 
+      }
+    }, { passive: false }); // Usamos passive: false para permitir el preventDefault controlado
+
+    // Al levantar el dedo del cristal, desvanecemos la red suavemente
+    canvas.addEventListener('touchend', function() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+    
+    canvas.addEventListener('touchcancel', function() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    });
+
+
     // 📐 ALGORITMO GEOMÉTRICO: Dibuja un hexágono perfecto mediante ángulos de 60 grados
     function drawHexagon(x, y, radius) {
       ctx.beginPath();
