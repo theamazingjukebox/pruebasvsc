@@ -5414,35 +5414,59 @@ document.addEventListener("DOMContentLoaded", function() {
       mouse.y = -1000;
     });
 
-      // ========================================================
-    // 📱 NUEVA INYECCIÓN CORREGIDA: RASTREO TÁCTIL (TOUCHMOVE)
-    // ========================================================
+    // ==============================================================================
+    // 📱 MOTOR TÁCTIL INTELIGENTE CON CONVIVENCIA DE UX (SCROLL, ZOOM Y REFRESCO LIBRES)
+    // ==============================================================================
     
-    // Función auxiliar: Extrae las coordenadas exactas de la sub-lista del primer dedo [0]
     function handleTouch(e) {
       if (e.touches && e.touches.length > 0) {
-        // 🎯 CLAVE DE LA CORRECCIÓN: Acceder de forma estricta al primer punto de contacto [0]
+        // Extraemos las coordenadas del primer dedo de forma precisa
         mouse.x = e.touches[0].clientX;
         mouse.y = e.touches[0].clientY;
       }
     }
 
-    // Al apoyar el dedo, capturamos las coordenadas iniciales
+    // Al apoyar el dedo, encendemos la red
     window.addEventListener('touchstart', function(e) {
+      // 🔓 REGLA 1: Si hay más de un dedo en la pantalla, es un gesto de ZOOM. 
+      // Apagamos el motor de inmediato para no romper la experiencia nativa.
+      if (e.touches.length > 1) {
+        mouse.x = -1000;
+        mouse.y = -1000;
+        return;
+      }
       handleTouch(e);
     }, { passive: true });
 
-    // 🔥 MOTOR DINÁMICO: Sigue el dedo de forma continua en tiempo real por toda la pantalla
+    // 🔥 EL FILTRADO INTELIGENTE: Pinta la red pero no secuestra el teléfono
     window.addEventListener('touchmove', function(e) {
-      handleTouch(e);
-      
-      // Detiene el scroll caprichoso del navegador para que la malla responda sin trabas
-      if (e.cancelable) {
-        e.preventDefault();
+      // 🔓 REGLA 2: Si el usuario usa dos dedos o más, permitimos el zoom libremente
+      if (e.touches.length > 1) {
+        mouse.x = -1000;
+        mouse.y = -1000;
+        return;
       }
-    }, { passive: false }); // Obligatorio para permitir el preventDefault
 
-    // Al levantar el dedo o salir del cristal, la malla se desvanece suavemente
+      // Extraemos la posición del toque actual
+      let touchY = e.touches[0].clientY;
+
+      // 🔓 REGLA 3: Si el usuario está tocando muy arriba (borde superior) y desliza hacia abajo,
+      // es un intento de PULL-TO-REFRESH. No bloqueamos la acción.
+      if (touchY < 80) {
+        handleTouch(e);
+        return; // Dejamos pasar el evento sin hacer preventDefault()
+      }
+
+      // Ejecutamos el rastreo del hexágono a 60 FPS
+      handleTouch(e);
+
+      // 🔓 REGLA DE ORO DE CONVIVENCIA: 
+      // Eliminamos el e.preventDefault() agresivo que bloqueaba el scroll de la página.
+      // Ahora el dedo pintará el hexágono cian transparente MIENTRAS la página desliza
+      // de manera natural hacia abajo o hacia arriba con total suavidad.
+    }, { passive: true }); // Al cambiar a passive: true, le garantizamos al navegador un scroll ultra fluido
+
+    // Al levantar el dedo, apagamos la linterna
     window.addEventListener('touchend', function() {
       mouse.x = -1000;
       mouse.y = -1000;
