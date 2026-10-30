@@ -3592,14 +3592,15 @@ const songInfo = {
 
 
 // ======================
-// YOUTUBE SETUP (SANO Y SIN FUGAS)
+// YOUTUBE SETUP (PERSISTENTE)
 // ======================
 let ytPlayer = null;
 let isPlayerReady = false;
+let qualityInterval = null;
 let endCheckInterval = null;
 let soundEnabled = true;
 
-// Eliminamos por completo la variable qualityInterval porque ya no la usaremos de forma repetitiva
+
 
 function startEndWatcher() {
     if (endCheckInterval) clearInterval(endCheckInterval);
@@ -3607,27 +3608,27 @@ function startEndWatcher() {
     endCheckInterval = setInterval(() => {
         if (!ytPlayer || !isPlayerReady) return;
 
-        // Validamos que el reproductor esté reproduciendo antes de medir tiempos
-        if (ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) return;
-
         const duration = ytPlayer.getDuration();
         const current = ytPlayer.getCurrentTime();
 
-        // 🧯 Red de seguridad: si por alguna razón el evento ENDED nativo falla,
-        // este watcher cambia de canción, pero deteniendo el intervalo de inmediato.
-        if (duration && (duration - current < 0.4)) {
+        if (duration && (duration - current < 0.3)) {
             clearInterval(endCheckInterval);
             playNextVideo();
         }
-    }, 250); // 250ms es más que suficiente y consume menos CPU
+
+    }, 200);
 }
 
-function initYouTubePlayer(videoId) {
+    
+// 🔥 Modificamos la firma para recibir el estado de autoplay dinámico
+function initYouTubePlayer(videoId, autoPlayState = 0) {
+    isPlayerReady = false; // Forzamos reinicio de bandera
+
     ytPlayer = new YT.Player("youtube-player", {
         videoId: videoId,
         host: "https://www.youtube-nocookie.com",
         playerVars: {
-            autoplay: 0,
+            autoplay: autoPlayState, // 🎯 0 para la primera canción, 1 para las siguientes automáticas
             controls: 1,
             modestbranding: 1,
             rel: 0,
@@ -3639,18 +3640,25 @@ function initYouTubePlayer(videoId) {
             onReady: (event) => {
                 isPlayerReady = true;
 
-                // 🔥 Se establece la calidad una única vez al estar listo
+                // 🔥 Tu calidad baja inicial nativa
                 event.target.setPlaybackQuality('small');
-                
+
                 if (soundEnabled) {
                     event.target.unMute();
                     event.target.setVolume(100);
                 } else {
                     event.target.mute();
                 }
-                console.log("🟢 Terminal lista y sincronizada.");
+                
+                // 🔥 Si es una canción automática (de la segunda en adelante), forzamos el Play inmediato
+                if (autoPlayState === 1) {
+                    event.target.playVideo();
+                } else {
+                    console.log("🟢 Terminal lista y sincronizada. Esperando interacción del usuario.");
+                }
             },
-
+            
+            // 🔄 TU EVENTO ONSTATECHANGE EXACTAMENTE IGUAL A TU DISEÑO ORIGINAL:
             onStateChange: (event) => {
                 if (event.data === YT.PlayerState.PLAYING) {
                     const poster = document.getElementById("video-poster");
@@ -3659,32 +3667,35 @@ function initYouTubePlayer(videoId) {
                         setTimeout(() => { poster.style.display = "none"; }, 300);
                     }
 
-                    // 🔥 EL CAMBIO CLAVE: Seteamos la calidad una sola vez al dar PLAY.
-                    // Al no usar un setInterval de 500ms, los móviles y PC no se saturan 
-                    // y los controles se ocultarán de forma nativa a los 2 segundos de juego.
-                    if (ytPlayer && isPlayerReady) {
-                        ytPlayer.setPlaybackQuality('small');
-                    }
+                    if (qualityInterval) clearInterval(qualityInterval);
                     
-                    // Arrancamos el vigilante de final de canción de forma limpia
+                    // Tu fuerza bruta de 4 segundos a small intacta y respetada:
+                    qualityInterval = setInterval(() => {
+                        if (ytPlayer && isPlayerReady) {
+                            ytPlayer.setPlaybackQuality('small');
+                        }
+                    }, 500);
+                    
                     startEndWatcher();
+
+                    setTimeout(() => {
+                        clearInterval(qualityInterval);
+                    }, 4000);
                 }
 
                 if (event.data === YT.PlayerState.ENDED) {
-                    // Detenemos el watcher para que no compita con este evento nativo
-                    if (endCheckInterval) clearInterval(endCheckInterval);
-                    setTimeout(() => { playNextVideo(); }, 150);
+                    setTimeout(() => { playNextVideo(); }, 200);
                 }
             },
             
             onError: () => {
-                if (endCheckInterval) clearInterval(endCheckInterval);
                 console.log("YT error → siguiente video");
                 playNextVideo();
             }
         }
     });
 }
+
 
 
     
@@ -3755,70 +3766,42 @@ function initYouTubePlayer(videoId) {
     const videoContainer = document.getElementById("video-container");
 
     // ======================
-    // 🎯 YOUTUBE
+    // 🎯 YOUTUBE (ENFOQUE DESTRUCTIVO RE-ADAPTADO)
     // ======================
     if (currentSrc.startsWith("yt:")) {
-
         const videoId = currentSrc.replace("yt:", "");
 
-        // ocultar MP4 (NO destruir YT)
+        // Ocultar MP4
         videoPlayer.pause();
         videoPlayer.style.display = "none";
-        
 
-       if (!ytPlayer) {
-            initYouTubePlayer(videoId);
-        } else {
-            ytPlayer.loadVideoById(videoId);
+        // Determinamos si es el primerísimo video de la sesión
+        const esPrimerVideo = (currentVideoIndex === 0 || !ytPlayer);
 
-            if (soundEnabled) {
-                ytPlayer.unMute();
-                ytPlayer.setVolume(100);
+        // 🧹 Si ya hay un iFrame viejo y no es la carga inicial, lo destruimos con su basura en caché
+        if (ytPlayer) {
+            try { ytPlayer.destroy(); } catch(e) {}
+            ytPlayer = null;
+            isPlayerReady = false;
+        }
+
+        // 🧱 Reconstruimos el nodo HTML limpio
+        const container = document.getElementById("video-container");
+        if (container) {
+            container.innerHTML = '<div id="video-poster"></div><div id="youtube-player"></div>';
+            
+            // Si es reproducción automática (no es el primero), ocultamos el poster rápido
+            if (!esPrimerVideo) {
+                const poster = document.getElementById("video-poster");
+                if (poster) poster.style.display = "none";
             }
         }
 
-    } 
-    // ======================
-    // 🧯 MP4 FALLBACK
-    // ======================
-    else {
-
-        // ocultar YT visualmente (NO destruir)
-        if (ytPlayer && isPlayerReady) {
-            ytPlayer.pauseVideo();
-
-        }
-
-        videoPlayer.style.display = "block";
-
-        if (!videoContainer.contains(videoPlayer)) {
-            videoContainer.appendChild(videoPlayer);
-        }
-
-        videoPlayer.src = currentSrc;
-        videoPlayer.load();
-
-        // SIEMPRE iniciar muted (clave autoplay)
-
-        videoPlayer.muted = true;
-
-        const playPromise = videoPlayer.play();
-
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-
-                if (soundEnabled) {
-                    setTimeout(() => {
-                        videoPlayer.muted = false;
-                        videoPlayer.volume = 1;
-                    }, 50);
-                }
-
-            }).catch(() => {
-                console.log("Autoplay bloqueado");
-            });
-        }
+        // Inicializamos el reproductor pasándole si debe arrancar solo o esperar
+        // Si es el primero, ira con autoplay: 0 (espera clic). Si es automático/Next, irá con autoplay: 1
+        initYouTubePlayer(videoId, esPrimerVideo ? 0 : 1);
     }
+
 
     const likeButton = document.getElementById("like-button");
     likeButton.disabled = false;
