@@ -823,7 +823,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+/* 
 // ========================================================
 // MINI-WIDGET CON ESTÉTICA "LIKED SONGS" (ORBITRON + NEÓN)
 // ========================================================
@@ -914,7 +914,7 @@ document.addEventListener("DOMContentLoaded", () => {
       style.textContent = `
         body {
           margin: 0; padding: 0; 
-          background-color: #0b0d14; /* Tono oscuro a juego con tu paleta */
+          background-color: #0b0d14; /* Tono oscuro a juego con tu paleta 
           font-family: 'Orbitron', monospace; 
           display: flex; justify-content: center; align-items: center; 
           cursor: url('neoncursor2.png'), auto;
@@ -930,26 +930,26 @@ document.addEventListener("DOMContentLoaded", () => {
           justify-content: space-between; 
           align-items: center; 
           
-          /* 1. Definimos un borde transparente del grosor que quieras (ej. 2px o 3px) */
+          /* 1. Definimos un borde transparente del grosor que quieras (ej. 2px o 3px) 
           border: 2px solid transparent;
-          border-radius: 24px; /* ¡Ahora el navegador SÍ respetará las esquinas! */
+          border-radius: 24px; /* ¡Ahora el navegador SÍ respetará las esquinas! 
 
-          /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas */
-          /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde */
+          /* 2. EL TRUCO MAESTRO: Doble fondo separado por comas 
+          /* El primer fondo es tu color oscuro (recortado al contenido). El segundo es el degradado que actuará como borde 
           background-image: url("footern1.svg"), 
                             linear-gradient(rgba(18, 22, 30, 0.90), rgba(18, 22, 30, 0.90)), 
                             linear-gradient(135deg, #00241f, #b4916a);
           
-          /* Indicamos cómo se debe recortar cada capa de fondo */
+          /* Indicamos cómo se debe recortar cada capa de fondo 
           background-clip: padding-box, padding-box, border-box;
           background-origin: padding-box, padding-box, border-box;
 
-          /* Configuración específica para tu SVG */
+          /* Configuración específica para tu SVG 
           background-repeat: no-repeat, no-repeat, no-repeat; 
           background-position: center, center, center; 
           background-size: contain, cover, cover; 
 
-          /* Tus sombras de neón del pop-up Liked Songs */
+          /* Tus sombras de neón del pop-up Liked Songs 
           box-shadow: 0 12px 45px rgba(0,0,0,.45), 0 0 35px rgba(0,255,255,.18);
         }
 
@@ -958,7 +958,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .album-art-container img {
           width: 135px; height: 135px; border-radius: 39px;
-          border: 0px solid #87ffff; /* Borde Cian Orbitron */
+          border: 0px solid #87ffff; /* Borde Cian Orbitron 
           box-shadow: 0 0 0px rgba(73, 255, 246, 0.2);
           object-fit: cover; background-color: transparent;
           
@@ -967,14 +967,14 @@ document.addEventListener("DOMContentLoaded", () => {
           display: flex; flex-direction: column; flex: 1; overflow: hidden; margin-left: 60px; margin-top: 65px;
         }
         #mini-track-title {
-          color: #87ffff; /* Color de tu texto principal */
+          color: #87ffff; /* Color de tu texto principal 
           font-size: 13px; font-weight: bold; margin: 0 0 4px 0;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
           text-shadow: 0 0 8px rgba(73, 255, 246, 0.4);
-          text-transform: uppercase; /* Vibe arcade retro */
+          text-transform: uppercase; /* Vibe arcade retro 
         }
         .artist-name {
-          color: #dffcff; /* Color secundario de tu pop-up */
+          color: #dffcff; /* Color secundario de tu pop-up 
           font-size: 10px; margin: 0;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
           text-shadow: 0 0 6px rgba(73, 255, 246, 0.18);
@@ -985,10 +985,10 @@ document.addEventListener("DOMContentLoaded", () => {
           width: 100%; margin-top: 0px; margin-left: 125px; margin-bottom: 40px;
         }
         
-        /* ESTILO BURBUJA PARA TODOS LOS BOTONES */
+        /* ESTILO BURBUJA PARA TODOS LOS BOTONES 
        .w-btn {
           background: none; border: none; 
-          color: #dffcff; /* Texto claro */
+          color: #dffcff; /* Texto claro 
           font-size: 20px; cursor: pointer; transition: all 0.2s;
         }
         .w-btn:hover { 
@@ -997,7 +997,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         .btn-main { 
           font-size: 20px; 
-          color: #87ffff; /* Destaca el Play/Pause en cian */
+          color: #87ffff; /* Destaca el Play/Pause en cian 
           width: 30px; 
         }
         .mini-footer { 
@@ -1009,50 +1009,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         .mini-footer .tagline {
-          color: rgba(135, 255, 255, 0.3); /* Cian con opacidad */
+          color: rgba(135, 255, 255, 0.3); /* Cian con opacidad 
           font-size: 9px; letter-spacing: 1.5px;
           margin: 0px 0 0 0;
           pointer-events: none;
           z-index: 2;
         }
 
-                 /* Ajuste en el contenedor de la rocola animada */
+                 /* Ajuste en el contenedor de la rocola animada 
         .album-art-container {
           width: 75px; 
   height: 75px; 
           position: relative; 
           
           
-          /* TRUCO DEL CURSOR PERSONALIZADO */
+          /* TRUCO DEL CURSOR PERSONALIZADO 
           
           cursor: url('neoncursor4.png'), pointer; 
         }
 
-        /* ESTILO PARA LA NOTA FLOTANTE */
+        /* ESTILO PARA LA NOTA FLOTANTE 
         .floating-note {
           position: absolute;
           font-size: 30px;
-          pointer-events: none; /* Evita que la nota interfiera con futuros clics */
+          pointer-events: none; /* Evita que la nota interfiera con futuros clics 
           color: #87ffff;
           text-shadow: 0 0 8px rgba(73, 255, 246, 0.6);
           user-select: none;
           animation: floatUpAndFade 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        /* ANIMACIÓN DE FLOTADO Y DESVANECIMIENTO */
+        /* ANIMACIÓN DE FLOTADO Y DESVANECIMIENTO 
         @keyframes floatUpAndFade {
           0% {
             transform: translate(-50%, -50%) scale(0.5) translateY(0) rotate(0deg);
             opacity: 1;
           }
           100% {
-            /* Flota hacia arriba 40 píxeles, se agranda un poco y gira a su ángulo aleatorio */
+            /* Flota hacia arriba 40 píxeles, se agranda un poco y gira a su ángulo aleatorio 
             transform: translate(-50%, -50%) scale(1.2) translateY(-40px) rotate(var(--rotation, 20deg));
             opacity: 0;
           }
         }
 
-                /* CONTENEDOR DEL ESPECTRO SONORO */
+                /* CONTENEDOR DEL ESPECTRO SONORO 
         .mini-audio-spectrum {
           display: flex;
           align-items: flex-end;
@@ -1071,20 +1071,20 @@ document.addEventListener("DOMContentLoaded", () => {
           background-repeat: no-repeat;
           background-position: bottom;
           
-          /* Opcional: Un resplandor combinado de fondo */
+          /* Opcional: Un resplandor combinado de fondo 
           filter: drop-shadow(0 0 4px rgba(73, 255, 246, 0.3));
           
         }
 
-        /* DISEÑO DE LAS BARRITAS INDIVIDUALES */
+        /* DISEÑO DE LAS BARRITAS INDIVIDUALES 
         .mini-audio-spectrum span {
           display: block;
           width: 4px;
-          height: 3px; /* Altura en estado quieto (mínima) */
+          height: 3px; /* Altura en estado quieto (mínima) 
            background: inherit;
           background-attachment: fixed;
           
-          /* Agrega un brillo general sutil */
+          /* Agrega un brillo general sutil 
           box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
           border-radius: 1px;
           margin-top: -85px;
@@ -1094,24 +1094,24 @@ document.addEventListener("DOMContentLoaded", () => {
           
         }
 
-        /* CUANDO LA MÚSICA ESTÁ SONANDO (PLAY) */
+        /* CUANDO LA MÚSICA ESTÁ SONANDO (PLAY) 
         .mini-audio-spectrum.animation-active {
           transform: scaleY(1);
           opacity: 1;
           height: 18px;
         }
         .mini-audio-spectrum.animation-active span {
-          animation-play-state: running; /* Encendemos el motor de la animación */
+          animation-play-state: running; /* Encendemos el motor de la animación 
         }
 
-        /* ESTADO DE PAUSA SUAVE (Cuando NO tiene la clase .animation-active) */
-        /* Al quitar la clase, el contenedor se encoge suavemente aplastando las barras hacia el suelo */
+        /* ESTADO DE PAUSA SUAVE (Cuando NO tiene la clase .animation-active) 
+        /* Al quitar la clase, el contenedor se encoge suavemente aplastando las barras hacia el suelo 
         .mini-audio-spectrum:not(.animation-active) {
-          transform: scaleY(0.15); /* Encoge las barras verticalmente hasta el mínimo */
-          opacity: 0.5; /* Atenuamos el neón un poco más (50%) para dar sensación de 'apagado' */
+          transform: scaleY(0.15); /* Encoge las barras verticalmente hasta el mínimo 
+          opacity: 0.5; /* Atenuamos el neón un poco más (50%) para dar sensación de 'apagado' 
         }
 
-                /* DISPOSICIÓN ASIMÉTRICA EN PIRÁMIDE (48 BARRITAS) */
+                /* DISPOSICIÓN ASIMÉTRICA EN PIRÁMIDE (48 BARRITAS) 
     
         .mini-audio-spectrum span:nth-child(1) { animation-delay: 0.2s; animation-duration: 1.8s; --max-h: 4px; }
         
@@ -1165,10 +1165,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .mini-audio-spectrum span:nth-child(24) { animation-delay: 0.4s; animation-duration: 2.4s; --max-h: 4px; }
 
 
-        /* ANIMACIÓN DE SUBIDA Y BAJADA */
+        /* ANIMACIÓN DE SUBIDA Y BAJADA 
         @keyframes bounceSpectrum {
           0% { height: 3px; }
-          100% { height: var(--max-h, 18px); } /* Lee el valor '--max-h' de arriba */
+          100% { height: var(--max-h, 18px); } /* Lee el valor '--max-h' de arriba 
         }
       `;
       pipWindow.document.head.appendChild(style);
@@ -1358,7 +1358,7 @@ document.addEventListener("DOMContentLoaded", () => {
     style.id = 'pip-banner-styles';
     style.textContent = `
       #pip-smart-banner {
-          /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo */
+          /* 🔥 EFECTO CRISTAL: Fondo oscuro translúcido con desenfoque de fondo 
   position: fixed; bottom: 25px; right: 25px; z-index: 10000;
         background-color: rgba(18, 22, 30, 0.9); backdrop-filter: blur(10px);
         border: 1px solid rgba(135, 255, 255, 0.18); border-radius: 16px; padding: 12px 18px;
@@ -1373,18 +1373,18 @@ document.addEventListener("DOMContentLoaded", () => {
       .banner-body { display: flex; align-items: center; gap: 12px; position: relative; }
       .banner-icon { 
   font-size: 22px; 
-  /* La animación corre de forma infinita y continua */
+  /* La animación corre de forma infinita y continua 
   animation: pulsoSombraMax 3.5s infinite ease-in-out; 
 }
 
-/* El brillo actual se convierte en el límite máximo */
+/* El brillo actual se convierte en el límite máximo 
 @keyframes pulsoSombraMax {
   0%, 100% {
-    /* Estado mínimo: el brillo se reduce a casi nada */
+    /* Estado mínimo: el brillo se reduce a casi nada 
     text-shadow: 0 0 4px rgba(0, 255, 255, 0.05);
   }
   50% {
-    /* Estado máximo: TU GLOW ORIGINAL EXACTO */
+    /* Estado máximo: TU GLOW ORIGINAL EXACTO 
     text-shadow: 0 0 10px rgba(0, 255, 255, 0.30);
   }
 }
@@ -1431,3 +1431,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
 })();
+*/
