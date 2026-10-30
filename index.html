@@ -3797,6 +3797,26 @@ function initYouTubePlayer(videoId) {
 }
     function playNextVideo() {
 
+        // 🧹 PURGA GENERAL PERIMETRAL DE TIMERS (Mantén tus limpiezas anteriores)
+    if (typeof qualityInterval !== 'undefined' && qualityInterval) { clearInterval(qualityInterval); qualityInterval = null; }
+    if (typeof trackCheckInterval !== 'undefined' && trackCheckInterval) { clearInterval(trackCheckInterval); trackCheckInterval = null; }
+    if (typeof endCheckInterval !== 'undefined' && endCheckInterval) { clearInterval(endCheckInterval); endCheckInterval = null; }
+    
+    // ==============================================================================
+    // 🥊 COMANDO DE EXIGENCIA AGRESIVA (POSTMESSAGE PURGE)
+    // ==============================================================================
+    // Le inyectamos directamente al iFrame de YouTube la orden de que el usuario "removió" 
+    // el puntero, forzándolo a procesar la desaparición de los controles de manera mandatoria.
+    const iframe = document.querySelector("#video-container iframe");
+    if (iframe && iframe.contentWindow) {
+        try {
+            // Simulamos el comando nativo de la API de YouTube para limpiar estados de UI
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'hideVideoControls' }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'blur' }), '*');
+        } catch(e) { console.log("PostMessage bloqueado temporalmente por transicion"); }
+    }
+
+
     currentVideoIndex++;
 
     if (currentVideoIndex >= videos.length) {
@@ -4588,7 +4608,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="background-container">
         <canvas id="circuit-canvas" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;"></canvas>
         <img src="Copia de v1.svg" class="background-img overlay" alt="Overlay Image" />
-        <img src="v1 (9).svg" class="background-img overlay2" alt="Overlay Image2" />
+        <img src="v1 (10).svg" class="background-img overlay2" alt="Overlay Image2" />
         <!-- ========================================================
    NUEVO MÓDULO: PESTAÑA DE COMANDOS RÚNICOS (UX OPTIMIZADA)
    ======================================================== -->
