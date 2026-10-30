@@ -1360,7 +1360,7 @@ overflow: hidden;
     
     padding: 10px; 
     margin: 0%;
-    width: 100%
+    width: 100%;
 overflow: hidden;
         
 }
@@ -2856,6 +2856,121 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   opacity: 0.85; /* Controla la intensidad general del efecto */
 }
 
+
+
+/* Importamos una fuente pixel art limpia y futurista */
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Ink:wght@100..900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet');
+
+.jukebox-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* Se adapta a tu recuadro negro */
+  padding: 10px;
+  font-family: 'VT323', monospace;
+  user-select: none;
+}
+
+.logo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #00f3ff;
+  border-radius: 4px;
+  padding: 8px 24px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 
+    0 0 10px rgba(0, 243, 255, 0.5),
+    inset 0 0 10px rgba(0, 243, 255, 0.3);
+  /* Animación de pulso suave para la caja contenedora */
+  animation: boxPulse 4s infinite ease-in-out;
+}
+
+/* Texto Superior: "THE AMAZING" */
+.sub-title {
+  color: #00f3ff;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+  margin-bottom: -5px;
+}
+
+/* Texto Principal: "JUKEBOX" */
+.main-title {
+  color: #ff0055;
+  font-size: 3.5rem;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 4px;
+  line-height: 1;
+  position: relative;
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8);
+  /* Animación combinada de parpadeo neón y efecto glitch */
+  animation: 
+    neonFlicker 6s infinite alternate,
+    glitchShift 4s infinite linear;
+}
+
+/* EFECTO GLITCH (Pseudo-elemento para el clon de desfase) */
+.main-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: 2px 0 #00f3ff;
+  top: 0;
+  color: #ff0055;
+  background: black;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0); 
+  animation: glitchLines 3s infinite linear alternate-reverse;
+}
+
+/* --- ANIMACIONES --- */
+
+/* 1. Respiración del brillo de la caja (Cian) */
+@keyframes boxPulse {
+  0%, 100% {
+    border-color: #00f3ff;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5), inset 0 0 10px rgba(0, 243, 255, 0.3);
+  }
+  50% {
+    border-color: #00a2ff;
+    box-shadow: 0 0 16px rgba(0, 162, 255, 0.8), inset 0 0 14px rgba(0, 162, 255, 0.5);
+  }
+}
+
+/* 2. Parpadeo orgánico estilo Tubo de Neón (Magenta) */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 25px rgba(255, 0, 85, 0.4);
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.7;
+  }
+}
+
+/* 3. Micro-saltos de posición (Glitch de hardware viejo) */
+@keyframes glitchShift {
+  0%, 92%, 100% { transform: skew(0deg); }
+  93% { transform: skew(3deg); }
+  94% { transform: skew(-2deg); }
+  95% { transform: skew(0deg); }
+}
+
+/* 4. Líneas de escaneo que cortan el texto rápidamente */
+@keyframes glitchLines {
+  0% { clip: rect(12px, 9999px, 66px, 0); }
+  10% { clip: rect(34px, 9999px, 55px, 0); }
+  20% { clip: rect(1px, 9999px, 4px, 0); }
+  30% { clip: rect(0, 0, 0, 0); } /* Desactivado la mayor parte del tiempo */
+  100% { clip: rect(0, 0, 0, 0); }
+}
+
+    
+
 </style>
     
 <script>
@@ -3731,20 +3846,6 @@ function initYouTubePlayer(videoId, autoPlayState = 0) {
     if (typeof trackCheckInterval !== 'undefined' && trackCheckInterval) { clearInterval(trackCheckInterval); trackCheckInterval = null; }
     if (typeof endCheckInterval !== 'undefined' && endCheckInterval) { clearInterval(endCheckInterval); endCheckInterval = null; }
     
-    // ==============================================================================
-    // 🥊 COMANDO DE EXIGENCIA AGRESIVA (POSTMESSAGE PURGE)
-    // ==============================================================================
-    // Le inyectamos directamente al iFrame de YouTube la orden de que el usuario "removió" 
-    // el puntero, forzándolo a procesar la desaparición de los controles de manera mandatoria.
-    const iframe = document.querySelector("#video-container iframe");
-    if (iframe && iframe.contentWindow) {
-        try {
-            // Simulamos el comando nativo de la API de YouTube para limpiar estados de UI
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'hideVideoControls' }), '*');
-            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'blur' }), '*');
-        } catch(e) { console.log("PostMessage bloqueado temporalmente por transicion"); }
-    }
-
 
     currentVideoIndex++;
 
@@ -4901,10 +5002,20 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
 
+    <div class="jukebox-logo-container">
+  <div class="logo-box">
+    <span class="sub-title">[THE AMAZING]</span>
+    <h1 class="main-title" data-text="JUKEBOX">JUKEBOX</h1>
+  </div>
+</div>
+
+
 <!-- ========================================================
    LIENZO SENSORIAL MAESTRO: MALLA HOLOGRÁFICA DE HEXÁGONOS
    ======================================================== -->
 <canvas id="hex-grid-overlay"></canvas>
+
+
 
 
         <!-- SUGERENCIA DE ZOOM INTELIGENTE (ESTILO CRISTAL ESMERILADO) -->
