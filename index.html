@@ -72,7 +72,7 @@ body {
 }
     
     .custom-button {
-        background-color:#000000000;
+        background-color:#00000000;
         color: white;
         border: none;
         padding: 10px 20px;
@@ -84,7 +84,7 @@ body {
     }
 
     .custom-button.active {
-    background-color: #0000000;
+    background-color: #00000000;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.4s ease, background-color 0.4s ease;
 }
@@ -1491,17 +1491,7 @@ button, a, img {
     transition: opacity 0.3s ease;
 }
 
-@media (display-mode: standalone) {
-  body {
-    padding-top: 145px;
-    background:
-      linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.25),
-        rgba(0, 0, 0, 0) 80px),
-        rgba(0, 0, 0, 0) 125px);
-      
-  }
-}
+
 
 @supports (-webkit-touch-callout: none) {
   @media (display-mode: standalone) {
@@ -3658,15 +3648,16 @@ const songInfo = {
 };
 
 
- // ======================
+// ======================
 // YOUTUBE SETUP (PERSISTENTE)
 // ======================
 let ytPlayer = null;
 let isPlayerReady = false;
 let qualityInterval = null;
 let endCheckInterval = null;
+let soundEnabled = true;
 
-    
+
 
 function startEndWatcher() {
     if (endCheckInterval) clearInterval(endCheckInterval);
@@ -3684,9 +3675,9 @@ function startEndWatcher() {
 
     }, 200);
 }
+
     
 function initYouTubePlayer(videoId) {
-
     ytPlayer = new YT.Player("youtube-player", {
         videoId: videoId,
         host: "https://www.youtube-nocookie.com",
@@ -3696,7 +3687,8 @@ function initYouTubePlayer(videoId) {
             modestbranding: 1,
             rel: 0,
             playsinline: 1,
-            iv_load_policy: 3
+            iv_load_policy: 3,
+            disablekb: 1 
             
         },
         events: {
@@ -3705,7 +3697,7 @@ function initYouTubePlayer(videoId) {
 
                 // 🔥 calidad baja inicial (clave)
     event.target.setPlaybackQuality('small');
-                
+
                 
     if (soundEnabled) {
                     event.target.unMute();
@@ -3713,54 +3705,42 @@ function initYouTubePlayer(videoId) {
                 } else {
                     event.target.mute();
                 }
-
-                event.target.playVideo();
-
-},
-
+                
+           // 🛑 CORRECCIÓN MANUAL: Removemos el playVideo(); para que la rockola
+                // espere pacientemente a que el usuario presione el botón físico de PLAY.
+                console.log("🟢 Terminal lista y sincronizada. Esperando interacción del usuario.");
+            },
+            
 
             onStateChange: (event) => {
-
     if (event.data === YT.PlayerState.PLAYING) {
-
         const poster = document.getElementById("video-poster");
-
     if (poster) {
         poster.style.opacity = "0";
-
-        setTimeout(() => {
-            poster.style.display = "none";
-        }, 300);
+        setTimeout(() => { poster.style.display = "none"; }, 300);
     }
 
-        // 🔥 limpiar previo
-        if (qualityInterval) clearInterval(qualityInterval);
+         if (qualityInterval) clearInterval(qualityInterval);
+                    
+                    qualityInterval = setInterval(() => {
+                        if (ytPlayer && isPlayerReady) {
+                            ytPlayer.setPlaybackQuality('small');
+                        }
+                    }, 500);
+                    
+                    startEndWatcher();
 
-        // 🔥 insistir durante los primeros segundos
-        qualityInterval = setInterval(() => {
-            if (ytPlayer && isPlayerReady) {
-                ytPlayer.setPlaybackQuality('small');
-            }
-        }, 500);
-
-        if (event.data === YT.PlayerState.PLAYING) {
-    startEndWatcher();
-}
+                    setTimeout(() => {
+                        clearInterval(qualityInterval);
+                    }, 4000);
         
+            }
+    
 
-        // 🔥 detener después de estabilizar
-        setTimeout(() => {
-            clearInterval(qualityInterval);
-        }, 4000);
-    }
-
-    if (event.data === YT.PlayerState.ENDED) {
-        setTimeout(() => {
-            playNextVideo();
-        }, 200);
-    }
-},
-            
+                if (event.data === YT.PlayerState.ENDED) {
+                    setTimeout(() => { playNextVideo(); }, 200);
+                }
+            },
             
             onError: () => {
                 console.log("YT error → siguiente video");
@@ -3769,6 +3749,7 @@ function initYouTubePlayer(videoId) {
         }
     });
 }
+
     
       let currentVideoIndex = -1;
     const videoPlayer = document.createElement("video");
