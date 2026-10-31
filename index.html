@@ -2859,141 +2859,116 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 
 
-/* Importamos una fuente pixel art limpia y futurista */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
-.jukebox-logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent; /* Se adapta a tu recuadro negro */
-  padding: 10px;
-  font-family: 'VT323', monospace;
-  user-select: none;
-      position: absolute;  /* Se sale del flujo del diseño para flotar libremente */
-          /* Distancia exacta desde el borde superior de la pantalla/cabecera */
-left: 50%;                 /* 1. Mueve el borde izquierdo justo al centro de la pantalla */
-  transform: translateX(-50%); /* 2. Empuja el contenedor un 50% de su propio ancho hacia la izquierda, logrando el centro perfecto */
-
-  /* --- CONTROL DE ALTURA --- */
-  top: 20px;      
-}
-
-.logo-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #00f3ff;
-  border-radius: 24px;
-    width: 399px;              /* Ajusta el ancho según el tamaño de tu caja superior */
-  height: 150px;    
-  padding: 8px 24px;
-  background-color: rgba(0, 0, 0, 0.3);
-  box-shadow: 
-    0 0 10px rgba(0, 243, 255, 0.5),
-    inset 0 0 10px rgba(0, 243, 255, 0.3);
-  /* Animación de pulso suave para la caja contenedora */
-  animation: boxPulse 4s infinite ease-in-out;
-}
-
-/* --- CONTROL ESPECÍFICO DEL LOGO .PNG --- */
-.official-icon {
-  height: 55px;              /* Ajusta la altura del icono para que juegue bien con las dos líneas de texto */
-  width: auto;               /* Mantiene la proporción original de tu imagen */
-  
-  /* REGLA DE ORO PARA AJUSTAR LA POSICIÓN DEL ICONO:
-     Si necesitas mover SÓLO la imagen un poco hacia arriba, abajo o lados sin romper el recuadro,
-     descomenta y calibra estas propiedades: */
-  /* position: relative; */
-  /* top: -4px;   -> Sube el icono 4 píxeles */
-  /* left: 2px;   -> Mueve el icono 2 píxeles a la derecha */
-
-  filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6)); /* Opcional: le da un brillo cian al PNG */
-}
-
-/* Texto Superior: "THE AMAZING" */
-.sub-title {
-  color: #00f3ff;
-  font-size: 1.8rem;
-  letter-spacing: 3px;
-  text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
-  margin-bottom: -5px;
-}
-
-/* Texto Principal: "JUKEBOX" */
-.main-title {
-  color: #ff52c5;
-  font-size: 3.5rem;
-  margin: 0;
-  padding: 0;
-  letter-spacing: 4px;
-  line-height: 1;
-  position: relative;
-  text-shadow: 0 0 12px rgba(255, 0, 85, 0.8);
-  /* Animación combinada de parpadeo neón y efecto glitch */
-  animation: 
-    neonFlicker 6s infinite alternate,
-    glitchShift 4s infinite linear;
-}
-
-/* EFECTO GLITCH (Pseudo-elemento para el clon de desfase) */
-.main-title::before {
-  content: attr(data-text);
+/* ========================================================
+   ESTILOS DE LA COMPUERTA CENTRAL SUPERIOR (HUD GATE)
+   ======================================================== */
+.juke-top-chasis-gate {
   position: absolute;
-  left: -2px;
-  text-shadow: 2px 0 #00f3ff;
-  top: 0;
-  color: #ff52c5;
-  background: black;
+  
+  /* 📍 POSICIONAMIENTO EN EL RECUADRO NEGRO MARCADO */
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%); /* Centrado matemático perfecto en el eje horizontal */
+  
+  width: 90%;
+  max-width: 320px; /* Ancho compacto ideal para no asfixiar el cielo superior */
+  height: 52px;
+  
+  /* Estética de Cristal de Obsidiana con el marco café rúnico oficial de la página */
+  background: rgba(12, 16, 24, 0.78); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #4d443f; /* Tu línea de piedra café texturizada */
+  border-radius: 12px;
+  
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 
+              inset 0 0 12px rgba(135, 255, 255, 0.03);
+  z-index: 9990; /* Flota sobre el fondo, pero abajo de los popups o menús abiertos */
   overflow: hidden;
-  clip: rect(0, 900px, 0, 0); 
-  animation: glitchLines 3s infinite linear alternate-reverse;
+  box-sizing: border-box;
 }
 
-/* --- ANIMACIONES --- */
+/* Pantalla reflectiva interna */
+.gate-inner-display {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed rgba(108, 94, 87, 0.3);
+  border-radius: 8px;
+  background: rgba(6, 8, 14, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
 
-/* 1. Respiración del brillo de la caja (Cian) */
-@keyframes boxPulse {
-  0%, 100% {
-    border-color: #00f3ff;
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5), inset 0 0 10px rgba(0, 243, 255, 0.3);
+/* El logo oficial escalado armónicamente para el HUD superior */
+.gate-brand-logo {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(135, 255, 255, 0.2));
+  transition: transform 0.25s ease;
+}
+
+.juke-top-chasis-gate:hover .gate-brand-logo {
+  transform: scale(1.03); /* Suave reacción interactiva al pasar el puntero */
+}
+
+/* Micro-cápsula del sistema */
+.gate-system-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.gate-pulse-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #87ffff; /* Tu cian Orbitron oficial */
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00ffff;
+  animation: telemetryBlink 1.5s infinite ease-in-out;
+}
+
+.gate-system-tag p {
+  font-size: 7.5px;
+  color: #6c5e57; /* Tu café rúnico/arena pasivo para textos de soporte */
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  margin: 0;
+}
+
+/* 🧱 DETALLES BISELADOS DE ESQUINAS (CONEXIÓN RETRO DE 16-BITS) */
+.gate-corner {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #4d443f;
+}
+.gate-tl { top: 2px; left: 2px; border-radius: 3px 0 3px 0; }
+.gate-tr { top: 2px; right: 2px; border-radius: 0 3px 0 3px; }
+
+/* 📱 RESPONSIVE: En pantallas pequeñas lo compactamos un poco más para cuidar el layout */
+@media (max-width: 768px) {
+  .juke-top-chasis-gate {
+    top: 10px;
+    max-width: 260px;
+    height: 44px;
+    padding: 4px 8px;
   }
-  50% {
-    border-color: #00a2ff;
-    box-shadow: 0 0 16px rgba(0, 162, 255, 0.8), inset 0 0 14px rgba(0, 162, 255, 0.5);
+  .gate-brand-logo {
+    height: 16px;
+  }
+  .gate-system-tag p {
+    font-size: 6.5px;
   }
 }
 
-/* 2. Parpadeo orgánico estilo Tubo de Neón (Magenta) */
-@keyframes neonFlicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    text-shadow: 0 0 12px rgba(255, 0, 85, 0.8), 0 0 25px rgba(255, 0, 85, 0.4);
-    opacity: 1;
-  }
-  20%, 24%, 55% {
-    text-shadow: none;
-    opacity: 0.7;
-  }
-}
-
-/* 3. Micro-saltos de posición (Glitch de hardware viejo) */
-@keyframes glitchShift {
-  0%, 92%, 100% { transform: skew(0deg); }
-  93% { transform: skew(3deg); }
-  94% { transform: skew(-2deg); }
-  95% { transform: skew(0deg); }
-}
-
-/* 4. Líneas de escaneo que cortan el texto rápidamente */
-@keyframes glitchLines {
-  0% { clip: rect(12px, 9999px, 66px, 0); }
-  10% { clip: rect(34px, 9999px, 55px, 0); }
-  20% { clip: rect(1px, 9999px, 4px, 0); }
-  30% { clip: rect(0, 0, 0, 0); } /* Desactivado la mayor parte del tiempo */
-  100% { clip: rect(0, 0, 0, 0); }
-}
-    
 
 </style>
     
@@ -5026,22 +5001,26 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
 
 
-<div class="jukebox-logo-container">
-  <div class="logo-box">
+<!-- ========================================================
+   HUD MASTER HEADER: EMBLOCADO CENTRAL SUPERIOR CON LOGO
+   ======================================================== -->
+<div class="juke-top-chasis-gate">
+  <!-- Sutiles muescas angulares en las esquinas simuladas por CSS -->
+  <div class="gate-corner gate-tl"></div>
+  <div class="gate-corner gate-tr"></div>
+  
+  <div class="gate-inner-display">
+    <!-- El logo oficial compacto e integrado -->
+    <img src="icon512.png" alt="The Amazing Jukebox Logo" class="gate-brand-logo">
     
-    <!-- Opción A: Si quieres el logo oficial a la IZQUIERDA del texto, déjalo aquí -->
-   
-    
-    <div class="text-group">
-      <span class="sub-title">[THE AMAZING]</span>
-      <h1 class="main-title" data-text="JUKEBOX">JUKEBOX</h1>
+    <!-- Micro-cápsula técnica integrada de bienvenida -->
+    <div class="gate-system-tag">
+      <span class="gate-pulse-dot"></span>
+      <p>MAIN_PORTAL // v4.2_LIVE</p>
     </div>
-
-    <!-- Opción B: Si prefieres el logo oficial a la DERECHA del texto, mueve la etiqueta <img> aquí abajo -->
- <img src="icon512.png" alt="Icono Oficial" class="official-icon" draggable="false">
-      
   </div>
 </div>
+
 
 
 <!-- ========================================================
