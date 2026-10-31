@@ -2872,7 +2872,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   
   width: 100%;
   max-width: 320px; /* Ancho compacto ideal para no asfixiar el cielo superior */
-  height: 252px;
+  height: 192px;
   
   /* Estética de Cristal de Obsidiana con el marco café rúnico oficial de la página */
   background: rgba(12, 16, 24, 0.78); 
@@ -2912,6 +2912,19 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(135, 255, 255, 0.2));
   transition: transform 0.25s ease;
+  animation: neonFlicker 6s infinite alternate; 
+}
+
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.8)) brightness(1); /* Aplica el brillo neón directo a las siluetas del PNG */
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    filter: drop-shadow(0 0 2px rgba(255, 0, 85, 0.2)) brightness(0.8);
+    opacity: 0.85;
+  }
 }
 
 .juke-top-chasis-gate:hover .gate-brand-logo {
