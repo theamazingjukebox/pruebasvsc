@@ -2872,9 +2872,11 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   user-select: none;
       position: absolute;  /* Se sale del flujo del diseño para flotar libremente */
           /* Distancia exacta desde el borde superior de la pantalla/cabecera */
-   margin-left: auto;
-  margin-right: auto; 
-     margin-top: 15px;
+left: 50%;                 /* 1. Mueve el borde izquierdo justo al centro de la pantalla */
+  transform: translateX(-50%); /* 2. Empuja el contenedor un 50% de su propio ancho hacia la izquierda, logrando el centro perfecto */
+
+  /* --- CONTROL DE ALTURA --- */
+  top: 20px;      
 }
 
 .logo-box {
