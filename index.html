@@ -2912,21 +2912,9 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(135, 255, 255, 0.2));
   transition: transform 0.25s ease;
-  animation: neonFlicker 6s infinite alternate; 
 filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
 }
 
-
-@keyframes neonFlicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    filter: drop-shadow(0 0 8px rgba(206, 23, 151, 0.8)) brightness(1); /* Aplica el brillo neón directo a las siluetas del PNG */
-    opacity: 1;
-  }
-  20%, 24%, 55% {
-    filter: drop-shadow(0 0 2px rgba(150, 22, 101, 0.473)) brightness(0.8);
-    opacity: 0.85;
-  }
-}
 
 
 .juke-top-chasis-gate:hover .gate-brand-logo {
@@ -2937,7 +2925,7 @@ filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
 .gate-system-tag {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   font-family: 'Orbitron', sans-serif;
 }
 
@@ -5025,7 +5013,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="gate-inner-display">
     <!-- El logo oficial compacto e integrado -->
-    <img src="icon512.png" alt="The Amazing Jukebox Logo" class="gate-brand-logo">
+    <img src="icon512.1.png" alt="The Amazing Jukebox Logo" class="gate-brand-logo">
     
     <!-- Micro-cápsula técnica integrada de bienvenida -->
     <div class="gate-system-tag">
