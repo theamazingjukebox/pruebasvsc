@@ -5246,6 +5246,11 @@ document.addEventListener("DOMContentLoaded", function() {
             
             this.length = 0;
             this.maxLength = 3 + Math.floor(Math.random() * 5); 
+              // 🧠 DETECTOR Y POTENCIADOR MÓVIL EN VIVO
+            // Si detecta una pantalla táctil, multiplica la velocidad por 1.8 para igualar el ritmo de la PC
+            const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            const speedBoost = isMobile ? 1.8 : 1.0;
+            
             this.speed = 1.5 + Math.random() * 2; 
             this.history = [{x: this.x, y: this.y}];
             this.dir = Math.floor(Math.random() * 4);
