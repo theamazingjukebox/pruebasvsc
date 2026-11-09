@@ -2928,15 +2928,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   height: 250px;
   width: auto;
   object-fit: contain;
-  left: 50%;
-  transform: translateX(-50%); /* Centrado matemático perfecto en el eje horizontal */
+  margin-left: 0;
   transition: transform 0.25s ease;
   
   /* Filtro base combinado: Sombra de neón cian/azul típica de interfaz VHS */
   filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
   
   /* Aplicamos las animaciones de vibración y parpadeo */
-  animation: vhs-shake 0.3s infinite, vhs-glitch 2s infinite;
+  animation: vhs-glitch 2s infinite;
   position: relative;
 }
 
