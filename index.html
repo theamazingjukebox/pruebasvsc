@@ -2934,7 +2934,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
               linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-  background-size: 100% 8px, 8px 70%; /* Tamaño retro del pixelado magnético */
+  background-size: 70% 8px, 8px 70%; /* Tamaño retro del pixelado magnético */
   
   /* Filtro base de neón cian */
   filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
@@ -2947,35 +2947,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   overflow: hidden; 
 }
 
-/* Capa secundaria para las líneas de estática y barrido VHS */
-.gate-brand-logo::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Permite hacer click a través de las líneas si es un enlace */
-  
-  /* 1. Creamos el patrón de micro-líneas horizontales transparentes/negras */
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), 
-  linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.06), 
-    rgba(0, 255, 0, 0.02), 
-    rgba(0, 0, 255, 0.06)
-  );
-  
-  /* Ajustamos el tamaño de las líneas (2px de alto cada una) */
-  background-size: 100% 4px, 6px 100%;
-  
-  /* 2. Añadimos el efecto de la barra de interferencia que baja */
-  animation: vhs-lines 6s linear infinite;
-  opacity: 0.8;
-}
+
 
 .juke-top-chasis-gate:hover .gate-brand-logo {
   transform: scale(1.03); /* Suave reacción interactiva al pasar el puntero */
@@ -3004,16 +2976,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   }
 }
 
-/* Animación que hace bajar la línea de interferencia estática pesada */
-@keyframes vhs-lines {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    /* Mueve el patrón verticalmente simulando el salto de fotogramas dañados */
-    background-position: 0 100%;
-  }
-}
+
 
 @keyframes vcrFuzzStaticLive {
   0% { transform: translate(0, 0); }
