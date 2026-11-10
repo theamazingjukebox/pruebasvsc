@@ -2886,16 +2886,16 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   /* 📍 POSICIONAMIENTO EN EL RECUADRO NEGRO MARCADO */
   top: 35px;
   left: 50%;
-  transform: translateX(-50%); /* Centrado matemático perfecto en el eje horizontal */
+ transform: translateX(-50%);  /* Centrado matemático perfecto en el eje horizontal */
   
-  width: 322px;/* Ancho compacto ideal para no asfixiar el cielo superior */
-  height: 212px;
+  width: 342px;/* Ancho compacto ideal para no asfixiar el cielo superior */
+  height: 182px;
   
   /* Estética de Cristal de Obsidiana con el marco café rúnico oficial de la página */
   background: rgba(12, 16, 24, 0); 
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
-  border: 2px solid #4d443f; /* Tu línea de piedra café texturizada */
+  border: 3px solid #4d443f; /* Tu línea de piedra café texturizada */
   border-radius: 12px;
   
   padding: 6px 12px;
@@ -2911,10 +2911,10 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 
 /* Pantalla reflectiva interna */
 .gate-inner-display {
-  width: 100%;
-  height: 100%;
-  border: 1px dashed rgba(108, 94, 87, 0.3);
-  border-radius: 8px;
+  width: 79%;
+  height: 79%;
+  border: 3px solid #ac124db4;
+  border-radius: 12px;
   background: rgba(6, 8, 14, 0.4);
   display: flex;
   align-items: center;
@@ -2925,33 +2925,24 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
 /* El logo oficial escalado armónicamente para el HUD superior */
 /* Código base actualizado con los efectos VHS y líneas de estática */
 .gate-brand-logo {
-  height: 250px;
+  height: 180px;
   width: auto;
   object-fit: contain;
-  align-items: center;
+  left: 50%;
+   transform: translateX(-50%); 
   transition: transform 0.25s ease;
-        background-color: rgba(12, 216, 172, 0.089) !important;
-  /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-  background-size: 70% 8px, 8px 70%; /* Tamaño retro del pixelado magnético */
-  
+
   /* Filtro base de neón cian */
   filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
   
   /* Animaciones de vibración y glitch */
-  animation: vhs-glitch 5s infinite, vcrFuzzStaticLive 0.1s infinite;
+  animation: vhs-glitch 5s infinite;
   
   /* Requisito indispensable para que las líneas se posicionen correctamente encima del logo */
   position: relative;
   overflow: hidden; 
 }
 
-
-
-.juke-top-chasis-gate:hover .gate-brand-logo {
-  transform: scale(1.03); /* Suave reacción interactiva al pasar el puntero */
-}
 
 
 
@@ -2986,6 +2977,44 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   100% { transform: translate(-1px, 0px); }
 }
 
+
+
+
+
+
+#vcr-fuzz-layer {
+  position: absolute;
+  bottom: 6;
+  left: 13%;
+  width: 74%;
+  border-radius: 12px;
+  border: 2px solid rgba(58, 133, 163, 0.411);
+  height: 75%;
+  z-index: 999999999999; /* Forzamos a que flote por encima de Margo, la popó y el escenario */
+  pointer-events: none; /* Candado crucial: Hace la lona invisible al ratón para que no bloquee tus clics */
+  
+    background-color: rgba(45, 42, 48, 0.35) !important;
+  /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
+  background: linear-gradient(rgba(212, 201, 201, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 6px, 6px 100%; /* Tamaño retro del pixelado magnético */
+  
+  /* Opacidad al 5%: El punto fino exacto para que se note el grano sin quemar la vista */
+  opacity: 0.95; 
+  
+  /* Activamos el bucle eterno de estática analógica rápida */
+  animation: vcrFuzzStaticLive 0.1s infinite;
+}
+
+/* 🟢 LA MATRIZ DE MOVIMIENTO: Desplaza la lona texturizada de forma aleatoria 
+   en cada microsegundo, emulando el parpadeo magnético real de una cinta VHS */
+@keyframes vcrFuzzStaticLive {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, 0.5px); }
+  50% { transform: translate(-0.5px, 1px); }
+  75% { transform: translate(1px, -0.5px); }
+  100% { transform: translate(-1px, 0px); }
+}
 
 
 /* Micro-cápsula del sistema */
@@ -4688,7 +4717,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <div class="background-container">
         <canvas id="circuit-canvas" class="background-img" alt="Background Image" style="border-radius: 25px; display: block;"></canvas>
         <img src="Copia de v1.svg" class="background-img overlay" alt="Overlay Image" />
-        <img src="" class="background-img overlay2" alt="Overlay Image2" />
+      
         <!-- ========================================================
    NUEVO MÓDULO: PESTAÑA DE COMANDOS RÚNICOS (UX OPTIMIZADA)
    ======================================================== -->
@@ -5081,6 +5110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <!-- ========================================================
+<!-- ========================================================
    HUD MASTER HEADER: EMBLOCADO CENTRAL SUPERIOR CON LOGO
    ======================================================== -->
 <div class="juke-top-chasis-gate">
@@ -5090,6 +5120,8 @@ document.addEventListener("DOMContentLoaded", function() {
   <div class="gate-inner-display">
     <!-- El logo oficial compacto e integrado -->
     <img src="icon512.png" alt="The Amazing Jukebox Logo" class="gate-brand-logo">
+
+    <div id="vcr-fuzz-layer"></div>
     
     <!-- Micro-cápsula técnica integrada de bienvenida -->
    
