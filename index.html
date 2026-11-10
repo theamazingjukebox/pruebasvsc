@@ -2888,7 +2888,7 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   left: 50%;
   transform: translateX(-50%); /* Centrado matemático perfecto en el eje horizontal */
   
-  width: 342px;/* Ancho compacto ideal para no asfixiar el cielo superior */
+  width: 322px;/* Ancho compacto ideal para no asfixiar el cielo superior */
   height: 212px;
   
   /* Estética de Cristal de Obsidiana con el marco café rúnico oficial de la página */
@@ -2930,12 +2930,17 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
   object-fit: contain;
   align-items: center;
   transition: transform 0.25s ease;
+        background-color: rgba(12, 216, 172, 0.089) !important;
+  /* 🪡 LÍNEAS DE ESCANEO ANALÓGICAS: Generamos micro-rayas horizontales negras translúcidas */
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 8px, 8px 100%; /* Tamaño retro del pixelado magnético */
   
   /* Filtro base de neón cian */
   filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6));
   
   /* Animaciones de vibración y glitch */
-  animation: vhs-glitch 3s infinite;
+  animation: vhs-glitch 6s infinite, vcrFuzzStaticLive 0.1s infinite;
   
   /* Requisito indispensable para que las líneas se posicionen correctamente encima del logo */
   position: relative;
@@ -3023,6 +3028,14 @@ animation: parpadeo 2s infinite; /* Nombre de la animación, duración y repetic
     /* Mueve el patrón verticalmente simulando el salto de fotogramas dañados */
     background-position: 0 100%;
   }
+}
+
+@keyframes vcrFuzzStaticLive {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, 0.5px); }
+  50% { transform: translate(-0.5px, 1px); }
+  75% { transform: translate(1px, -0.5px); }
+  100% { transform: translate(-1px, 0px); }
 }
 
 
