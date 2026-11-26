@@ -850,23 +850,30 @@ font-size:35px;
 }
 
 
-.push-title{
+.push-icon{
 
-    color:#7efcf8;
-
-    font-size:34px;
+    font-size: 56px;
 
     margin-bottom:12px;
 
-    text-shadow:
+}
 
-        0 0 6px #2fb9be;
-
+.push-icon img {
+  width: 224px;
+  height: auto;
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-    .push-title{
-        font-size:17px; 
+    .push-icon{
+        font-size:28px; 
+            
+    }
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .push-icon img {
+        width: 112px;
+  height: auto;
             
     }
 }
@@ -5083,7 +5090,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
         <div id="loading-screen">
   <div class="loading-box">
-    <div class="push-title">
+    <div class="push-icon">
         
         <img src="alerts-logo.webp" alt="">
 
