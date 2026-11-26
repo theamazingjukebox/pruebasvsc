@@ -823,7 +823,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* 
+
 // ========================================================
 // MINI-WIDGET CON ESTÉTICA "LIKED SONGS" (ORBITRON + NEÓN)
 // ========================================================
@@ -1427,7 +1427,10 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadJukeboxCursor.src = 'neoncursor4.png';
 
     const preloadJukeboxBgSvg = new Image();
-  preloadJukeboxBgSvg.src = 'mini-footer9.svg';
+  preloadJukeboxBgSvg.src = 'mini-footer9.svg';    
+
+    const preloadJukeboxCursor = new Image();
+  preloadJukeboxCursor.src = 'alerts-logo.webp';
 
     
 })();
