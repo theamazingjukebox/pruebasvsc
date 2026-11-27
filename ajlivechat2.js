@@ -1429,9 +1429,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const preloadJukeboxBgSvg = new Image();
   preloadJukeboxBgSvg.src = 'mini-footer9.svg';    
 
-    const preloadJukeboxCursor = new Image();
-  preloadJukeboxCursor.src = 'alerts-logo.webp';
 
     
 })();
-*/
+
