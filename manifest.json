@@ -15,9 +15,16 @@
       "type": "image/png"
     },
     {
-      "src": "/pruebasvsc/512icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    "src": "/pruebasvsc/icon512.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "maskable"
+  },
+  {
+    "src": "/pruebasvsc/512icon.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "any"
+  }
   ]
 }
